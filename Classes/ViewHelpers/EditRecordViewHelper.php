@@ -56,10 +56,31 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
                 'tools_T3monitoringT3monitor');
 
         $vars = GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor');
-        foreach ($vars as $key => $value) {
-            $parameters['returnUrl'] .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s]=%s', $key, $value);
-        }
+        $parameters['returnUrl'] .= self::buildReturnUrl($vars);
 
         return BackendUtility::getModuleUrl('record_edit', $parameters);
+    }
+
+    /**
+     * @param array $parameters
+     *
+     * @return string The returnUrl
+     */
+    protected function buildReturnUrl($parameters)
+    {
+        $returnUrl = '';
+
+        foreach ($parameters as $key => $value) {
+            if (is_array($value)) {
+                foreach ($value as $name => $property) {
+                    $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s][%s]=%s', $key,
+                        $name, $property);
+                }
+            } else {
+                $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s]=%s', $key, $value);
+            }
+        }
+
+        return $returnUrl;
     }
 }
