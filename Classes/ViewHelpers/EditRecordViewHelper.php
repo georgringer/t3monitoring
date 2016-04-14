@@ -52,25 +52,21 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
     ) {
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
-        $parameters['returnUrl'] = 'index.php?M=tools_T3monitoringT3monitor&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall',
-                'tools_T3monitoringT3monitor');
-
-        $vars = GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor');
-        $parameters['returnUrl'] .= self::buildReturnUrl($vars);
+        $parameters['returnUrl'] = self::buildReturnUrl();
 
         return BackendUtility::getModuleUrl('record_edit', $parameters);
     }
 
     /**
-     * @param array $parameters
-     *
      * @return string The returnUrl
      */
-    protected function buildReturnUrl($parameters)
+    protected function buildReturnUrl()
     {
-        $returnUrl = '';
+        $returnUrl = 'index.php?M=tools_T3monitoringT3monitor&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall',
+                'tools_T3monitoringT3monitor');
 
-        foreach ($parameters as $key => $value) {
+        $vars = GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor');
+        foreach ($vars as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $name => $property) {
                     $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s][%s]=%s', $key,
