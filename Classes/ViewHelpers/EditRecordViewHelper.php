@@ -52,14 +52,31 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
     ) {
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
-        $parameters['returnUrl'] = 'index.php?M=tools_T3monitoringT3monitor&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall',
+        $parameters['returnUrl'] = self::buildReturnUrl();
+
+        return BackendUtility::getModuleUrl('record_edit', $parameters);
+    }
+
+    /**
+     * @return string The returnUrl
+     */
+    protected function buildReturnUrl()
+    {
+        $returnUrl = 'index.php?M=tools_T3monitoringT3monitor&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall',
                 'tools_T3monitoringT3monitor');
 
         $vars = GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor');
         foreach ($vars as $key => $value) {
-            $parameters['returnUrl'] .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s]=%s', $key, $value);
+            if (is_array($value)) {
+                foreach ($value as $name => $property) {
+                    $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s][%s]=%s', $key,
+                        $name, $property);
+                }
+            } else {
+                $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s]=%s', $key, $value);
+            }
         }
 
-        return BackendUtility::getModuleUrl('record_edit', $parameters);
+        return $returnUrl;
     }
 }
