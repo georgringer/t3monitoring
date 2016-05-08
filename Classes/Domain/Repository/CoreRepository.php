@@ -61,5 +61,4 @@ class CoreRepository extends BaseRepository
                 $query->equals('versionInteger', $version)
             ))->execute()->getFirst();
     }
-
 }

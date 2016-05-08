@@ -102,7 +102,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithErrorMessage()
     {
@@ -110,7 +110,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withErrorMessage
+     * @param bool $withErrorMessage
      * @return $this
      */
     public function setWithErrorMessage($withErrorMessage)
@@ -120,7 +120,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithInsecureExtensions()
     {
@@ -128,7 +128,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withInsecureExtensions
+     * @param bool $withInsecureExtensions
      * @return $this
      */
     public function setWithInsecureExtensions($withInsecureExtensions)
@@ -138,7 +138,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithInsecureCore()
     {
@@ -146,7 +146,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withInsecureCore
+     * @param bool $withInsecureCore
      * @return $this
      */
     public function setWithInsecureCore($withInsecureCore)
@@ -156,7 +156,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithOutdatedCore()
     {
@@ -164,7 +164,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withOutdatedCore
+     * @param bool $withOutdatedCore
      * @return $this
      */
     public function setWithOutdatedCore($withOutdatedCore)
@@ -174,7 +174,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithOutdatedExtensions()
     {
@@ -182,7 +182,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withOutdatedExtensions
+     * @param bool $withOutdatedExtensions
      * @return $this
      */
     public function setWithOutdatedExtensions($withOutdatedExtensions)
@@ -192,7 +192,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithExtraInfo()
     {
@@ -200,7 +200,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withExtraInfo
+     * @param bool $withExtraInfo
      * @return $this
      */
     public function setWithExtraInfo($withExtraInfo)
@@ -210,7 +210,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithExtraWarning()
     {
@@ -218,7 +218,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withExtraWarning
+     * @param bool $withExtraWarning
      * @return $this
      */
     public function setWithExtraWarning($withExtraWarning)
@@ -228,7 +228,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithExtraDanger()
     {
@@ -236,7 +236,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withExtraDanger
+     * @param bool $withExtraDanger
      * @return $this
      */
     public function setWithExtraDanger($withExtraDanger)
@@ -244,5 +244,4 @@ class ClientFilterDemand extends AbstractEntity
         $this->withExtraDanger = $withExtraDanger;
         return $this;
     }
-
 }

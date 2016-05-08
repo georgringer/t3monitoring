@@ -243,5 +243,4 @@ class ClientImport extends BaseImport
             '',
             'version');
     }
-
 }

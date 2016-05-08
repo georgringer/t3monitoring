@@ -27,5 +27,4 @@ class CoreFilterDemandTest extends UnitTestCase
         $this->instance->setUsage($subject);
         $this->assertEquals($subject, $this->instance->getUsage());
     }
-
 }

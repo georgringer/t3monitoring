@@ -241,5 +241,4 @@ class BaseController extends ActionController
     {
         return $GLOBALS['LANG'];
     }
-
 }

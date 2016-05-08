@@ -33,5 +33,4 @@ class CoreController extends BaseController
             'cores' => $this->coreRepository->findByDemand($filter)
         ]);
     }
-
 }

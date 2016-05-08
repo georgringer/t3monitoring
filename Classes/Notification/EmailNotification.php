@@ -13,6 +13,5 @@ class EmailNotification
 
     public function sendAdminEmail($email, $clients)
     {
-
     }
 }

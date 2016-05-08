@@ -3,7 +3,6 @@
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
-use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 class EmMonitoringConfigurationTest extends UnitTestCase
@@ -31,8 +30,8 @@ class EmMonitoringConfigurationTest extends UnitTestCase
         $this->assertEquals($subject, $instance->getLoadBulletins());
     }
 
-    protected function setGlobalData(array $data) {
+    protected function setGlobalData(array $data)
+    {
         $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3monitoring'] = serialize($data);
     }
-
 }

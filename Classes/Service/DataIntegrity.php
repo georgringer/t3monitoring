@@ -164,7 +164,6 @@ class DataIntegrity
 
     protected function usedExtensions()
     {
-
         $clients = $this->getDatabaseConnection()->exec_SELECTgetRows(
             'uid,core',
             'tx_t3monitoring_domain_model_client',

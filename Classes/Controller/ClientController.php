@@ -34,5 +34,4 @@ class ClientController extends BaseController
             'client' => $client,
         ]);
     }
-
 }

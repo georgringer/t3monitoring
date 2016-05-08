@@ -89,5 +89,4 @@ class ExtensionImport extends BaseImport
         $extensionRepository = GeneralUtility::makeInstance(Helper::class);
         return $extensionRepository->updateExtList();
     }
-
 }

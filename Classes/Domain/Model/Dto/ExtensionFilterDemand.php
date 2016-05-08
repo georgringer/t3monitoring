@@ -13,7 +13,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class ExtensionFilterDemand extends AbstractEntity
 {
-    
+
     /** @var string */
     protected $name;
 
@@ -37,7 +37,7 @@ class ExtensionFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isExactSearch()
     {
@@ -45,12 +45,10 @@ class ExtensionFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $exactSearch
+     * @param bool $exactSearch
      */
     public function setExactSearch($exactSearch)
     {
         $this->exactSearch = $exactSearch;
     }
-
-
 }

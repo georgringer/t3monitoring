@@ -54,5 +54,4 @@ class SlaController extends BaseController
             'clients' => $this->clientRepository->findByDemand($demand)
         ]);
     }
-
 }

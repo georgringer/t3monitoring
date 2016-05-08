@@ -79,6 +79,4 @@ class ExtensionRepository extends BaseRepository
             return '';
         }
     }
-
-
 }

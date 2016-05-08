@@ -52,7 +52,6 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
         return $output;
     }
 
-
     /**
      * @param string $name
      * @param string $version

@@ -43,5 +43,4 @@ class BaseImport
     {
         return $GLOBALS['TYPO3_DB'];
     }
-
 }

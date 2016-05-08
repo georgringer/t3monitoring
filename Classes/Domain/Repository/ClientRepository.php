@@ -133,7 +133,6 @@ class ClientRepository extends BaseRepository
             $constraints[] = $query->logicalNot($query->equals('extraDanger', ''));
         }
 
-
         if (!empty($constraints)) {
             if ($useOrInsteadOfAnd) {
                 $query->matching(
@@ -147,7 +146,6 @@ class ClientRepository extends BaseRepository
         }
     }
 
-
     /**
      * @return ClientFilterDemand
      */
@@ -155,6 +153,4 @@ class ClientRepository extends BaseRepository
     {
         return GeneralUtility::makeInstance(ClientFilterDemand::class);
     }
-
-
 }

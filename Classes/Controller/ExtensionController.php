@@ -56,5 +56,4 @@ class ExtensionController extends BaseController
      * @inject
      */
     protected $extensionRepository = null;
-
 }

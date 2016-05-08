@@ -20,5 +20,4 @@ class SlaRepository extends BaseRepository
     protected $defaultOrderings = array(
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     );
-
 }

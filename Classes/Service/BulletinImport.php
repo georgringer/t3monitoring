@@ -49,5 +49,4 @@ class BulletinImport
 
         return $feed;
     }
-
 }

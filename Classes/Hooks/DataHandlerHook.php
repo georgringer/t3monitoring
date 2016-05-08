@@ -92,5 +92,4 @@ class DataHandlerHook
     {
         return $GLOBALS['TYPO3_DB'];
     }
-
 }

@@ -48,7 +48,7 @@ class EmMonitoringConfiguration implements SingletonInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function getLoadBulletins()
     {
@@ -56,7 +56,7 @@ class EmMonitoringConfiguration implements SingletonInterface
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isPresentationMode()
     {
@@ -70,5 +70,4 @@ class EmMonitoringConfiguration implements SingletonInterface
     {
         return $this->ipHint;
     }
-
 }

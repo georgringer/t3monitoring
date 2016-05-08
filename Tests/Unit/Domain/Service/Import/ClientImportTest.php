@@ -40,5 +40,4 @@ class ClientImportTest extends UnitTestCase
             ],
         ];
     }
-
 }

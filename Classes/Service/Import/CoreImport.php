@@ -84,7 +84,6 @@ class CoreImport extends BaseImport
                 $active = $minor['active'];
 
                 foreach ($minor['releases'] as $release) {
-
                     $version = $release['version'];
                     $versionAsInt = VersionNumberUtility::convertVersionNumberToInteger($version);
 
@@ -113,7 +112,6 @@ class CoreImport extends BaseImport
 
         return $data;
     }
-
 
     /**
      * If version 7.6.1 has been a security release, also mark version 7.6.0 as insecure
@@ -185,5 +183,4 @@ class CoreImport extends BaseImport
 
         return json_decode($content, true);
     }
-
 }

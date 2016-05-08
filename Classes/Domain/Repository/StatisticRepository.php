@@ -10,7 +10,6 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 
-
 /**
  * The repository for Clients
  */
@@ -58,5 +57,4 @@ class StatisticRepository extends BaseRepository
             'tx_t3monitoring_domain_model_client.deleted=0', 'tx_t3monitoring_domain_model_core.version,version_integer,insecureCore,is_stable,is_latest,is_active',
             'tx_t3monitoring_domain_model_core.version_integer');
     }
-
 }

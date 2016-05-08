@@ -437,5 +437,4 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->isOfficial;
     }
-
 }

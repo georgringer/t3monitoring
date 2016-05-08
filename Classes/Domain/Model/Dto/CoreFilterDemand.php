@@ -32,5 +32,4 @@ class CoreFilterDemand extends AbstractEntity
     {
         $this->usage = $usage;
     }
-
 }

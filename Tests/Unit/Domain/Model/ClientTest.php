@@ -2,7 +2,6 @@
 
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
-use Sup7\Mailchimp\Domain\Model\Dto\FormDto;
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
