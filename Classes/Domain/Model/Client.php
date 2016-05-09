@@ -131,6 +131,14 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $extensions = null;
 
     /**
+     * backendUsers
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Backend\User>
+     * @lazy
+     */
+    protected $backendUsers = null;
+
+    /**
      * core
      *
      * @var \T3Monitor\T3monitoring\Domain\Model\Core
@@ -166,6 +174,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->extensions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->backendUsers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**
@@ -544,6 +553,49 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setExtensions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $extensions)
     {
         $this->extensions = $extensions;
+    }
+
+    /**
+     * Adds a backend user
+     *
+     * @param \T3Monitor\T3monitoring\Domain\Model\Backend\User $backendUser
+     * @return void
+     */
+    public function addBackendUser(\T3Monitor\T3monitoring\Domain\Model\Backend\User $backendUser)
+    {
+        $this->backendUsers->attach($backendUser);
+    }
+
+    /**
+     * Removes a backend user
+     *
+     * @param \T3Monitor\T3monitoring\Domain\Model\Backend\User $backendUserToRemove The backend user to be removed
+     * @return void
+     */
+    public function removeBackendUser(\T3Monitor\T3monitoring\Domain\Model\Backend\User $backendUserToRemove)
+    {
+        $this->backendUsers->detach($backendUserToRemove);
+    }
+
+    /**
+     * Returns the backend users
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Backend\User> $backendUsers
+     */
+    public function getBackendUsers()
+    {
+        return $this->backendUsers;
+    }
+
+    /**
+     * Sets the backend users
+     *
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Backend\User> $backendUsers
+     * @return void
+     */
+    public function setBackendUsers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $backendUsers)
+    {
+        $this->backendUsers = $backendUsers;
     }
 
     /**

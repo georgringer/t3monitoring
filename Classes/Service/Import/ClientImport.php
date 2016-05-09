@@ -80,6 +80,7 @@ class ClientImport extends BaseImport
                 'mysql_version' => $json['core']['mysqlClientVersion'],
                 'core' => $this->getUsedCore($json['core']['typo3Version']),
                 'extensions' => $this->handleExtensionRelations($row['uid'], $json['extensions']),
+                'backend_users' => $this->handleBackendUserRelations($row['uid'], $json['users']['backend']),
             );
 
             $this->addExtraData($json, $update, 'info');
@@ -209,6 +210,71 @@ class ClientImport extends BaseImport
         }
 
         return count($extensions);
+    }
+
+    /**
+     * @param int $client client uid
+     * @param array $users list of extensions
+     * @return int count of used extensions
+     */
+    protected function handleBackendUserRelations($client, array $users = array())
+    {
+        $table = 'tx_t3monitoring_domain_model_backend_user';
+        $mmTable = 'tx_t3monitoring_client_backend_user_mm';
+
+        $existingUsers = $this->getDatabaseConnection()->exec_SELECTgetRows('A.*', $table.' A LEFT OUTER JOIN '.$mmTable.' B ON A.uid=B.uid_foreign', 'B.uid_local='.(int)$client);
+
+        foreach($users as $user)
+        {
+            $userLastLoginDateTime = new \DateTime($user['lastLogin']['date'], new \DateTimeZone($user['lastLogin']['timezone']));
+            $found = null;
+
+            foreach($existingUsers as $existingUser)
+            {
+                if($existingUser['user_name'] == $user['userName'])
+                {
+                    $found = $existingUser;
+                    break;
+                }
+            }
+
+            if($found)
+            {
+                $relationId = $found['uid'];
+                $update = array(
+                    'real_name' => (string)$user['realName'],
+                    'email_address' => (string)$user['emailAddress'],
+                    'description' => (string)$user['description'],
+                    'last_login' => (string)$userLastLoginDateTime->format('U'),
+                    'avatar' => (string)$user['avatar'],
+                    'tstamp' => $GLOBALS['EXEC_TIME'],
+                );
+                $this->getDatabaseConnection()->exec_UPDATEquery($table, 'uid='.(int)$relationId, $update);
+            } else {
+                $insert = array(
+                    'pid' => $this->emConfiguration->getPid(),
+                    'user_name' => (string)$user['userName'],
+                    'real_name' => (string)$user['realName'],
+                    'email_address' => (string)$user['emailAddress'],
+                    'description' => (string)$user['description'],
+                    'last_login' => (string)$userLastLoginDateTime->format('U'),
+                    'avatar' => (string)$user['avatar'],
+                    'tstamp' => $GLOBALS['EXEC_TIME'],
+                );
+                $this->getDatabaseConnection()->exec_INSERTquery($table, $insert);
+                $relationId = $this->getDatabaseConnection()->sql_insert_id();
+            }
+            $fields = array('uid_local', 'uid_foreign');
+            $relationsToBeAdded[] = array(
+                $client,
+                $relationId
+            );
+
+            $this->getDatabaseConnection()->exec_DELETEquery($mmTable, 'uid_local=' . (int)$client);
+            $this->getDatabaseConnection()->exec_INSERTmultipleRows($mmTable, $fields, $relationsToBeAdded);
+        }
+
+        return count($users);
     }
 
     protected function getUsedCore($version)

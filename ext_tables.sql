@@ -1,4 +1,30 @@
 #
+# Table structure for table 'tx_t3monitoring_domain_model_backend_user'
+#
+CREATE TABLE tx_t3monitoring_domain_model_backend_user (
+
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	user_name varchar(255) DEFAULT '' NOT NULL,
+	real_name varchar(255) DEFAULT '' NOT NULL,
+	email_address varchar(255) DEFAULT '' NOT NULL,
+	avatar varchar(255) DEFAULT '' NOT NULL,
+	description text NOT NULL,
+	last_login int(11) DEFAULT '0' NOT NULL,
+
+	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
+	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+
+);
+
+#
 # Table structure for table 'tx_t3monitoring_domain_model_client'
 #
 CREATE TABLE tx_t3monitoring_domain_model_client (
@@ -22,6 +48,7 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	extra_danger text NOT NULL,
 	last_successful_import int(11) DEFAULT '0' NOT NULL,
 	extensions int(11) unsigned DEFAULT '0' NOT NULL,
+	backend_users int(11) unsigned DEFAULT '0' NOT NULL,
 	core int(11) unsigned DEFAULT '0',
 	sla int(11) unsigned DEFAULT '0',
 
@@ -127,6 +154,19 @@ CREATE TABLE tx_t3monitoring_domain_model_sla (
 	PRIMARY KEY (uid),
 	KEY parent (pid),
 
+);
+
+#
+# Table structure for table 'tx_t3monitoring_client_backend_user_mm'
+#
+CREATE TABLE tx_t3monitoring_client_backend_user_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
 );
 
 #

@@ -3,6 +3,27 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-03T20:21:29Z" product-name="t3monitoring">
 		<header/>
 		<body>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user">
+				<source>Backend User</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user.user_name">
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user.real_name">
+				<source>Real Name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user.last_login">
+				<source>Last login</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user.email_address">
+				<source>Email Address</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_backend_user.avatar">
+				<source>Avatar</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client">
 				<source>Client</source>
 			</trans-unit>
@@ -53,6 +74,9 @@
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.extensions">
 				<source>Extensions</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.backend_users">
+				<source>Backend Users</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.core">
 				<source>Core</source>
