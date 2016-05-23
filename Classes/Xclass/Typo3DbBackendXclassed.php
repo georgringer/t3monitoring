@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Xclass;
 
 /*
@@ -22,6 +21,7 @@ class Typo3DbBackendXclassed extends Typo3DbBackend
      *
      * @param array $statementParts
      * @return array the result
+     * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Storage\Exception\SqlErrorException
      */
     protected function getRowsFromDatabase(array $statementParts)
     {

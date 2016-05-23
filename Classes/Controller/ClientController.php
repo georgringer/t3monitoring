@@ -9,6 +9,8 @@ namespace T3Monitor\T3monitoring\Controller;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Client;
+use T3Monitor\T3monitoring\Service\Import\ClientImport;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * ClientController
@@ -17,7 +19,7 @@ class ClientController extends BaseController
 {
 
     /**
-     * action show
+     * Show client
      *
      * @param Client $client
      * @ignorevalidation $client
@@ -25,7 +27,7 @@ class ClientController extends BaseController
      */
     public function showAction(Client $client = null)
     {
-        if (is_null($client)) {
+        if ($client === null) {
             // @todo flash message
             $this->redirect('index', 'Statistic');
         }
@@ -35,4 +37,24 @@ class ClientController extends BaseController
         ]);
     }
 
+    /**
+     * Fetch client
+     *
+     * @param Client $client
+     * @ignorevalidation $client
+     * @return void
+     */
+    public function fetchAction(Client $client = null)
+    {
+        if ($client === null) {
+            // @todo flash message
+            $this->redirect('index', 'Statistic');
+        } else {
+            /** @var ClientImport $import */
+            $import = GeneralUtility::makeInstance(ClientImport::class);
+            $import->run($client->getUid());
+            $this->addFlashMessage($this->getLabel('fetchClient.success'));
+            $this->redirect('show', null, null, ['client' => $client]);
+        }
+    }
 }

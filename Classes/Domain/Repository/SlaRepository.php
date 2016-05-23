@@ -8,6 +8,8 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
 /**
  * The repository for Slas
  */
@@ -15,10 +17,9 @@ class SlaRepository extends BaseRepository
 {
 
     /**
-     * @var array
+     * Initialize object
      */
-    protected $defaultOrderings = array(
-        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-    );
-
+    public function initializeObject() {
+        $this->setDefaultOrderings(['sorting' => QueryInterface::ORDER_ASCENDING]);
+    }
 }

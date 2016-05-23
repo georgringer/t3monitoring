@@ -26,7 +26,16 @@
 						<td>
 							<f:link.action action="show" controller="Client" arguments="{client:client}">{client.title}</f:link.action>
 						</td>
-						<td>{client.domain}</td>
+						<td>
+							<f:if condition="{emConfiguration.presentationMode}">
+								<f:then>
+									<f:translate key="presentationMode.client.domain" />
+								</f:then>
+								<f:else>
+									<f:link.external uri="{client.domain}">{client.domain}</f:link.external>
+								</f:else>
+							</f:if>
+						</td>
 					</tr>
 				</f:for>
 				</tbody>

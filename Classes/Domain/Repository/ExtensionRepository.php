@@ -17,11 +17,17 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 class ExtensionRepository extends BaseRepository
 {
 
-    /** @var array */
-    protected $defaultOrderings = [
-        'name' => QueryInterface::ORDER_ASCENDING
-    ];
+    /**
+     * Initialize object
+     */
+    public function initializeObject() {
+        $this->setDefaultOrderings(['name' => QueryInterface::ORDER_ASCENDING]);
+    }
 
+    /**
+     * @param string $name
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
     public function findAllVersionsByName($name)
     {
         $query = $this->getQuery();
@@ -33,6 +39,10 @@ class ExtensionRepository extends BaseRepository
         return $query->execute();
     }
 
+    /**
+     * @param ExtensionFilterDemand $demand
+     * @return array
+     */
     public function findByDemand(ExtensionFilterDemand $demand)
     {
         $rows = $this->getDatabaseConnection()->exec_SELECTgetRows(
@@ -79,6 +89,4 @@ class ExtensionRepository extends BaseRepository
             return '';
         }
     }
-
-
 }

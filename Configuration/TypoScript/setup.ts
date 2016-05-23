@@ -13,39 +13,6 @@ plugin.tx_t3monitoring_t3monitor {
   }
 }
 
-plugin.tx_t3monitoring._CSS_DEFAULT_STYLE (
-    textarea.f3-form-error {
-        background-color:#FF9F9F;
-        border: 1px #FF0000 solid;
-    }
-
-    input.f3-form-error {
-        background-color:#FF9F9F;
-        border: 1px #FF0000 solid;
-    }
-
-    .tx-t3monitoring table {
-        border-collapse:separate;
-        border-spacing:10px;
-    }
-
-    .tx-t3monitoring table th {
-        font-weight:bold;
-    }
-
-    .tx-t3monitoring table td {
-        vertical-align:top;
-    }
-
-    .typo3-messages .message-error {
-        color:red;
-    }
-
-    .typo3-messages .message-ok {
-        color:green;
-    }
-)
-
 # Module configuration
 module.tx_t3monitoring_tools_t3monitoringt3monitor {
   persistence {

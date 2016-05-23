@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -9,10 +8,11 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use DateTime;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * Class ExtensionCategoryViewHelper
+ */
 class ExtensionCategoryViewHelper extends AbstractViewHelper
 {
 

@@ -13,7 +13,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
-
 /**
  * Base repository
  */
@@ -56,5 +55,4 @@ class BaseRepository extends Repository
 
         return $query;
     }
-
 }

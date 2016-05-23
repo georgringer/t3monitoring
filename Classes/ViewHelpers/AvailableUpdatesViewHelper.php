@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -10,10 +9,19 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
+use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * Class AvailableUpdatesViewHelper
+ */
 class AvailableUpdatesViewHelper extends AbstractViewHelper
 {
+    /**
+     * For CMS 8
+     *
+     * @var bool
+     */
     protected $escapeOutput = false;
 
     /**
@@ -32,14 +40,44 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
         $result = [];
         foreach ($versions as $name => $version) {
             if (!empty($version) && $extension->getVersion() !== $version && !isset($result[$version])) {
-                $result[$version] = $name;
+                $result[$version] = [
+                    'name' => $name,
+                    'version' => $version,
+                    'serializedDependencies' => $this->getDependenciesOfExtensionVersion($extension->getName(), $version),
+                ];
             }
         }
-
         $this->templateVariableContainer->add($as, $result);
         $output = $this->renderChildren();
         $this->templateVariableContainer->remove($as);
 
         return $output;
+    }
+
+    /**
+     * @param string $name
+     * @param string $version
+     * @return mixed
+     */
+    protected function getDependenciesOfExtensionVersion($name, $version)
+    {
+        $table = 'tx_t3monitoring_domain_model_extension';
+        $where = sprintf('name=%s AND version=%s',
+            $this->getDatabase()->fullQuoteStr($name, $table),
+            $this->getDatabase()->fullQuoteStr($version, $table)
+        );
+        $row = $this->getDatabase()->exec_SELECTgetSingleRow(
+            'serialized_dependencies',
+            $table,
+            $where);
+        return $row['serialized_dependencies'];
+    }
+
+    /**
+     * @return DatabaseConnection
+     */
+    protected function getDatabase()
+    {
+        return $GLOBALS['TYPO3_DB'];
     }
 }

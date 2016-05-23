@@ -5,16 +5,42 @@
   "license": [
     "GPL-2.0+"
   ],
-  "version": "0.0.1",
   "require": {
-    "typo3/cms-core": ">=7.6.0"
+    "typo3/cms-core": ">=7.6.0,<8.9.99"
+  },
+  "require-dev": {
+    "mikey179/vfsStream": "1.4.*@dev",
+    "phpunit/phpunit": "~4.8.0"
   },
   "autoload": {
     "psr-4": {
       "T3Monitor\\T3monitoring\\": "Classes"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "T3Monitor\\T3monitoring\\Tests\\": "Tests",
+      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
+      "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+    }
+  },
   "replace": {
     "t3monitoring": "*"
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor",
+    "bin-dir": ".Build/bin"
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "mkdir -p .Build/Web/typo3conf/ext/",
+      "[ -L .Build/Web/typo3conf/ext/t3monitoring ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3monitoring"
+    ]
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/Web"
+    }
   }
 }

@@ -14,13 +14,13 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, title, domain, secret, email, php_version, mysql_version, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla',
+        'showRecordFieldList' => 'hidden, title, domain, secret, php_version, mysql_version, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla',
     ],
     'types' => [
         '1' => [
             'showitem' => '
-        --div--;General,title, --palette--;;paletteDomain,email, sla,
-        --div--;Readonly information,last_successful_import,error_message,title, --palette--;;paletteDomain,extensions,
+        --div--;General,title, --palette--;;paletteDomain,email,sla,
+        --div--;Readonly information,last_successful_import,error_message,core, --palette--;;paletteVersions,extensions,
                 insecure_core, outdated_core, insecure_extensions, outdated_extensions,
         --div--;Extra,extra_info,extra_warning,extra_danger'
         ],
@@ -30,7 +30,6 @@ return [
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
     ],
     'columns' => [
-
         'hidden' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.hidden',
@@ -38,7 +37,6 @@ return [
                 'type' => 'check',
             ],
         ],
-
         'title' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.title',
@@ -48,7 +46,6 @@ return [
                 'eval' => 'trim,required',
                 'max' => 255
             ],
-
         ],
         'domain' => [
             'exclude' => 1,
@@ -56,9 +53,9 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
+                'placeholder' => 'http://yourdomain.com/'
             ],
-
         ],
         'secret' => [
             'exclude' => 1,
@@ -70,7 +67,6 @@ return [
                 'min' => 5,
                 'max' => 255
             ],
-
         ],
         'email' => [
             'exclude' => 1,
@@ -78,9 +74,9 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
+                'placeholder' => 'notification@client.com',
                 'eval' => 'trim'
             ],
-
         ],
         'sla' => [
             'exclude' => 1,
@@ -106,7 +102,6 @@ return [
                 'size' => 5,
                 'eval' => 'trim'
             ],
-
         ],
         'mysql_version' => [
             'exclude' => 1,
@@ -117,7 +112,6 @@ return [
                 'size' => 5,
                 'eval' => 'trim'
             ],
-
         ],
         'insecure_core' => [
             'exclude' => 1,
@@ -126,8 +120,7 @@ return [
                 'readOnly' => true,
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'outdated_core' => [
             'exclude' => 1,
@@ -136,8 +129,7 @@ return [
                 'readOnly' => true,
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'insecure_extensions' => [
             'exclude' => 1,
@@ -147,8 +139,7 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
-            ]
-
+            ],
         ],
         'outdated_extensions' => [
             'exclude' => 1,
@@ -158,7 +149,7 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
-            ]
+            ],
         ],
         'error_message' => [
             'exclude' => 1,
@@ -179,7 +170,7 @@ return [
                 'default' => '',
                 'cols' => 40,
                 'rows' => 5,
-            ]
+            ],
         ],
         'extra_warning' => [
             'exclude' => 1,
@@ -190,7 +181,7 @@ return [
                 'default' => '',
                 'cols' => 40,
                 'rows' => 5,
-            ]
+            ],
         ],
         'extra_danger' => [
             'exclude' => 1,
@@ -201,7 +192,7 @@ return [
                 'default' => '',
                 'cols' => 40,
                 'rows' => 5,
-            ]
+            ],
         ],
         'last_successful_import' => [
             'exclude' => 1,
@@ -214,7 +205,6 @@ return [
                 'checkbox' => 1,
                 'default' => 0
             ],
-
         ],
         'extensions' => [
             'exclude' => 1,
@@ -232,7 +222,6 @@ return [
                 'maxitems' => 9999,
                 'multiple' => 0,
             ],
-
         ],
         'core' => [
             'exclude' => 1,
@@ -245,7 +234,6 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1,
             ],
-
         ],
     ],
 ];

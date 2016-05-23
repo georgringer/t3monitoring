@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -13,6 +12,9 @@ use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
+/**
+ * Class CoreImport
+ */
 class CoreImport extends BaseImport
 {
 
@@ -24,6 +26,10 @@ class CoreImport extends BaseImport
     const URL = 'https://get.typo3.org/json';
     const MINIMAL_TYPO3_VERSION = '4.5.0';
 
+    /**
+     * Run
+     * @throws \InvalidArgumentException
+     */
     public function run()
     {
         $table = 'tx_t3monitoring_domain_model_core';
@@ -35,7 +41,8 @@ class CoreImport extends BaseImport
             '',
             '',
             '',
-            'version');
+            'version'
+        );
 
         $this->getDatabaseConnection()->sql_query('START TRANSACTION');
 
@@ -84,7 +91,6 @@ class CoreImport extends BaseImport
                 $active = $minor['active'];
 
                 foreach ($minor['releases'] as $release) {
-
                     $version = $release['version'];
                     $versionAsInt = VersionNumberUtility::convertVersionNumberToInteger($version);
 
@@ -114,9 +120,9 @@ class CoreImport extends BaseImport
         return $data;
     }
 
-
     /**
      * If version 7.6.1 has been a security release, also mark version 7.6.0 as insecure
+     *
      * @param array $releases
      */
     protected function addInsecureFlag(array &$releases)
@@ -149,12 +155,21 @@ class CoreImport extends BaseImport
         }
     }
 
+    /**
+     * @param string $date
+     * @return string
+     */
     protected function getReleaseDate($date)
     {
         $converted = new \DateTime($date);
         return $converted->format('Y-m-d H:i:s');
     }
 
+    /**
+     * @param string $type
+     * @return int
+     * @throws \UnexpectedValueException
+     */
     protected function getType($type)
     {
         switch ($type) {
@@ -176,6 +191,10 @@ class CoreImport extends BaseImport
         return $id;
     }
 
+    /**
+     * @return mixed
+     * @throws \UnexpectedValueException
+     */
     protected function getRawData()
     {
         $content = GeneralUtility::getUrl(self::URL);
@@ -185,5 +204,4 @@ class CoreImport extends BaseImport
 
         return json_decode($content, true);
     }
-
 }

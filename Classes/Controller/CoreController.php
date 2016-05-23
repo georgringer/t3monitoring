@@ -22,7 +22,7 @@ class CoreController extends BaseController
      */
     public function listAction(CoreFilterDemand $filter = null)
     {
-        if (is_null($filter)) {
+        if ($filter === null) {
             /** @var CoreFilterDemand $filter */
             $filter = $this->objectManager->get(CoreFilterDemand::class);
             $filter->setUsage(CoreRepository::USED_ONLY);
@@ -33,5 +33,4 @@ class CoreController extends BaseController
             'cores' => $this->coreRepository->findByDemand($filter)
         ]);
     }
-
 }

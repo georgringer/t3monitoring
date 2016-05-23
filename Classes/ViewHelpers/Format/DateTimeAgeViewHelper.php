@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -13,6 +12,9 @@ use DateTime;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * Class DateTimeAgeViewHelper
+ */
 class DateTimeAgeViewHelper extends AbstractViewHelper
 {
 
@@ -22,7 +24,7 @@ class DateTimeAgeViewHelper extends AbstractViewHelper
      */
     public function render(DateTime $date = null)
     {
-        if (is_null($date)) {
+        if ($date === null) {
             return '';
         }
         return BackendUtility::dateTimeAge($date->getTimestamp(), 1, 'date');

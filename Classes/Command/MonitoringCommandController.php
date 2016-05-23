@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Command;
 
 /*
@@ -15,13 +14,13 @@ use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
 
 /**
- * CLI Tasks
+ * Monitoring command controller
  */
 class MonitoringCommandController extends CommandController
 {
 
     /**
-     * Import all core versions
+     * Import core versions
      */
     public function importCoreCommand()
     {
@@ -31,7 +30,7 @@ class MonitoringCommandController extends CommandController
     }
 
     /**
-     * Import all extensions
+     * Import extensions
      */
     public function importExtensionsCommand()
     {
@@ -41,7 +40,7 @@ class MonitoringCommandController extends CommandController
     }
 
     /**
-     * Import all clients
+     * Import clients
      */
     public function importClientsCommand()
     {
@@ -56,7 +55,7 @@ class MonitoringCommandController extends CommandController
     }
 
     /**
-     * Import all
+     * Import all: core, extensions, clients
      */
     public function importAllCommand()
     {

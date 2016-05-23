@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -14,6 +13,9 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * Class BaseImport
+ */
 class BaseImport
 {
     /** @var EmMonitoringConfiguration */
@@ -22,6 +24,9 @@ class BaseImport
     /** @var Registry */
     protected $registry;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
@@ -30,6 +35,7 @@ class BaseImport
 
     /**
      * @param string $action
+     * @throws \InvalidArgumentException
      */
     protected function setImportTime($action)
     {
@@ -43,5 +49,4 @@ class BaseImport
     {
         return $GLOBALS['TYPO3_DB'];
     }
-
 }

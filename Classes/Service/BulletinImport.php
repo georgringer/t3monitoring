@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Service;
 
 /*
@@ -11,6 +10,9 @@ namespace T3Monitor\T3monitoring\Service;
 
 use DOMDocument;
 
+/**
+ * Class BulletinImport
+ */
 class BulletinImport
 {
     /** @var string */
@@ -29,6 +31,9 @@ class BulletinImport
         $this->limit = $limit;
     }
 
+    /**
+     * @return array
+     */
     public function start()
     {
         $feed = array();
@@ -49,5 +54,4 @@ class BulletinImport
 
         return $feed;
     }
-
 }

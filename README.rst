@@ -1,5 +1,8 @@
 TYPO3 CMS Extension "t3monitoring"
 ==================================
+.. image:: https://travis-ci.org/georgringer/t3monitoring.svg?branch=master
+    :target: https://travis-ci.org/georgringer/t3monitoring
+
 This extensions provides the possibility to monitor all of your TYPO3 installations and shows you
 
 - used TYPO3 version and if it is up to date
@@ -11,7 +14,17 @@ This extensions provides the possibility to monitor all of your TYPO3 installati
 - TYPO3 CMS 7 LTS (monitoring works also for 6.2 installations)
 - The host must have access to every client to be able to fetch the data
 
-Important: This extension is still alpha and things might change!
+Important: This extension is still beta and things might change!
+
+**Pricing**
+This extension is completly free to use! However maintaining an extension takes an enormous amount of time. Therefore I am using a concept which is based on your trust!
+If you use this extension to monitor your clients, please consider to pay (once) per supervised client:
+
+- less than 20 clients: €150
+- less than 100 clients: €350
+- more than 100 clients: €500
+
+Please contact me via email (mail@ringer.it) or slack for questions and to receive an invoice!
 
 Screenshots
 ^^^^^^^^^^^

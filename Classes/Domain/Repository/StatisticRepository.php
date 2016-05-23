@@ -10,13 +10,17 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 
-
 /**
- * The repository for Clients
+ * The repository for statistics
  */
 class StatisticRepository extends BaseRepository
 {
 
+    /**
+     * @param ClientFilterDemand $demand
+     * @param bool $returnFirst
+     * @return array|NULL
+     */
     public function getClientsByDemand(ClientFilterDemand $demand, $returnFirst = false)
     {
         $where = 'tx_t3monitoring_domain_model_client.deleted=0';
@@ -42,12 +46,22 @@ class StatisticRepository extends BaseRepository
         return $rows;
     }
 
+    /**
+     * @param string $version
+     * @return array|FALSE|NULL
+     */
     public function getCoreVersion($version)
     {
-        return $this->getDatabaseConnection()->exec_SELECTgetSingleRow('*', 'tx_t3monitoring_domain_model_core',
-            'version_integer=' . (int)$version);
+        return $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
+            '*',
+            'tx_t3monitoring_domain_model_core',
+            'version_integer=' . (int)$version
+        );
     }
 
+    /**
+     * @return array|NULL
+     */
     public function getUsedCoreVersionCount()
     {
         return $this->getDatabaseConnection()->exec_SELECTgetRows(
@@ -58,5 +72,4 @@ class StatisticRepository extends BaseRepository
             'tx_t3monitoring_domain_model_client.deleted=0', 'tx_t3monitoring_domain_model_core.version,version_integer,insecureCore,is_stable,is_latest,is_active',
             'tx_t3monitoring_domain_model_core.version_integer');
     }
-
 }

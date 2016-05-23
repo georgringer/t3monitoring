@@ -14,6 +14,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
+/**
+ * Class ClientFilterDemandConverter
+ */
 class ClientFilterDemandConverter extends AbstractTypeConverter
 {
     /**
@@ -47,7 +50,6 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
         array $convertedChildProperties = array(),
         PropertyMappingConfigurationInterface $configuration = null
     ) {
-
         if (!$this->isAllowed()) {
             return null;
         }
@@ -86,5 +88,4 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
 
         return true;
     }
-
 }

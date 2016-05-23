@@ -22,7 +22,7 @@
 		<f:then>
 			<div class="panel panel-default panel-space">
 				<div class="panel-heading">
-					Core versions ({cores-> f:count()} total)
+					{f:translate(key:'coreVersions.header')} ({cores-> f:count()} {f:translate(key:'total')})
 				</div>
 				<table class="table table-striped table-hover">
 					<thead>
@@ -42,7 +42,7 @@
 		</f:then>
 		<f:else>
 			<div class="alert alert-notice">
-				No cores yet imported
+				{f:translate(key:'no.cores.imported')}
 			</div>
 		</f:else>
 	</f:if>

@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -12,6 +11,9 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * Class ExtensionStateViewHelper
+ */
 class ExtensionStateViewHelper extends AbstractViewHelper
 {
 

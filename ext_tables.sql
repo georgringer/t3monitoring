@@ -142,8 +142,6 @@ CREATE TABLE tx_t3monitoring_client_extension_mm (
 	KEY uid_foreign (uid_foreign)
 );
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
-
 CREATE TABLE tx_t3monitoring_client_extension_mm (
   is_loaded tinyint(4) unsigned DEFAULT '0' NOT NULL,
   title varchar(255) DEFAULT '' NOT NULL,

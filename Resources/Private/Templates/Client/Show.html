@@ -4,8 +4,13 @@
 
 <f:section name="content">
 	<h1>
-		Client: {client.title}
-		<a href="{monitor:editRecord(parameters: 'edit[tx_t3monitoring_domain_model_client][{client.uid}]=edit')}">{core:icon(identifier:'actions-document-open')}</a>
+		Client:
+		<f:if condition="{emConfiguration.presentationMode}">
+			<f:then>
+				<f:translate key="presentationMode.client.title" arguments="{0:client.uid}" />
+			</f:then>
+			<f:else>{client.title}</f:else>
+		</f:if>
 	</h1>
 
 	<div class="row">
@@ -18,7 +23,14 @@
 					<tr>
 						<th>{core:icon(identifier:'mimetypes-x-content-domain')} Domain</th>
 						<td>
-							<f:link.external uri="{client.domain}">{client.domain}</f:link.external>
+							<f:if condition="{emConfiguration.presentationMode}">
+								<f:then>
+									http://*******.***
+								</f:then>
+								<f:else>
+									<f:link.external uri="{client.domain}">{client.domain}</f:link.external>
+								</f:else>
+							</f:if>
 						</td>
 					</tr>
 					<tr class="{f:if(condition:client.lastSuccessfulImport,then:'',else:'warning')}">
@@ -80,24 +92,25 @@
 	<f:if condition="{client.extensions}">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Available extensions ({client.extensions -> f:count()})
+				{f:translate(key:'available.extensions')} ({client.extensions -> f:count()})
 			</div>
 			<table class="table table-striped table-hover">
 				<thead>
 				<tr>
-					<th>Name</th>
-					<th>Version</th>
-					<th>State</th>
-					<th>Update available</th>
-					<th>Category</th>
-					<th>Secure</th>
-					<th>Loaded</th>
-					<th>Found in TER</th>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.name')}</th>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.version')}</th>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.state')}</th>
+					<th>{f:translate(key:'update.available')}</th>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.category')}</th>
+					<th>{f:translate(key:'secure')}</th>
+					<th>{f:translate(key:'loaded')}</th>
+					<th>{f:translate(key:'found.in.ter')}</th>
 				</tr>
 				</thead>
 				<f:for each="{client.extensions}" as="extension">
+
 					<monitor:additionalExtensionData as="extra" client="{client.uid}" extension="{extension.uid}">
-						<tr class="{f:if(condition:extra.is_loaded,then:'',else:'t3-page-ce-hidden')}{f:if(condition:extension.insecure,then:'danger',else:'')}">
+							<tr class="{f:if(condition:extra.is_loaded,then:'',else:'t3-page-ce-hidden')}{f:if(condition:extension.insecure,then:'danger',else:'')}">
 							<td>
 								<span data-toggle="tooltip" data-title="{extension.title}" data-placement="right">
 									<f:link.action action="show" controller="Extension" arguments="{extension:'{extension.name}'}">{extension.name}</f:link.action>
@@ -113,18 +126,18 @@
 										<br>
 										<f:if condition="{extension.nextSecureVersion}">
 											<f:then>
-												Next secure version: {extension.nextSecureVersion}
+												{f:translate(key:'next.secure.version')} {extension.nextSecureVersion}
 											</f:then>
 											<f:else>
-												No official update available
+												{f:translate(key:'no.official.update')}
 											</f:else>
 										</f:if>
 									</f:then>
 									<f:else>
 										<monitor:availableUpdates extension="{extension}" as="list">
 											<f:if condition="{list}">
-												<f:for each="{list}" key="version" as="name">
-													<span class="badge" data-toggle="tooltip" data-title='<div class="dep"><div class="panel panel-default"><div class="panel-heading">{name} release</div>{extension.serializedDependencies -> monitor:format.dependencies()}</div></div>' data-html="true">{version}</span>
+												<f:for each="{list}" as="version">
+													<span class="badge" data-toggle="tooltip" data-title='<div class="dep"><div class="panel panel-default"><div class="panel-heading">{version.name} release</div>{version.serializedDependencies -> monitor:format.dependencies()}</div></div>' data-html="true">{version.version}</span>
 												</f:for>
 											</f:if>
 										</monitor:availableUpdates>
@@ -140,10 +153,10 @@
 									<f:else>
 										<f:if condition="{extension.isOfficial}">
 											<f:then>
-												<span class="text-success">yes</span>
+												<span class="text-success">{f:translate(key:'yes')}</span>
 											</f:then>
 											<f:else>
-												<span class="text-info">unknown</span>
+												<span class="text-info">{f:translate(key:'unknown')}</span>
 											</f:else>
 										</f:if>
 									</f:else>
@@ -152,20 +165,20 @@
 							<td class="{f:if(condition:extra.is_loaded,then:'success',else:'danger')}">
 								<f:if condition="{extra.is_loaded}">
 									<f:then>
-										<span class="text-success">yes</span>
+										<span class="text-success">{f:translate(key:'yes')}</span>
 									</f:then>
 									<f:else>
-										<span class="text-danger">no</span>
+										<span class="text-danger">{f:translate(key:'no')}</span>
 									</f:else>
 								</f:if>
 							</td>
 							<td class="{f:if(condition:extension.isOfficial,then:'success',else:'warning')}">
 								<f:if condition="{extension.isOfficial}">
 									<f:then>
-										<span class="text-success">yes</span>
+										<span class="text-success">{f:translate(key:'yes')}</span>
 									</f:then>
 									<f:else>
-										<span class="text-warning">no</span>
+										<span class="text-warning">{f:translate(key:'no')}</span>
 									</f:else>
 								</f:if>
 							</td>

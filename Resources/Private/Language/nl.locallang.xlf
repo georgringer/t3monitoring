@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="nl" datatype="plaintext" original="messages" date="2016-05-20T20:48:29Z" product-name="t3monitoring">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3monitoring_domain_model_client">
+				<source>Client</source>
+				<target>Klant</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.domain">
+				<source>Domain</source>
+				<target>Domein</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.secret">
+				<source>Secret</source>
+				<target>Geheim</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.email">
+				<source>Email</source>
+				<target>E-mail</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.php_version">
+				<source>Php Version</source>
+				<target>PHP versie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
+				<source>Mysql Version</source>
+				<target>MySQL versie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
+				<source>Insecure Core</source>
+				<target>Onveilige core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_core">
+				<source>Outdated Core</source>
+				<target>Verouderde core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_extensions">
+				<source>Insecure Extensions</source>
+				<target>Onveilige extensies</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_extensions">
+				<source>Outdated Extensions</source>
+				<target>Verouderde extensies</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.error_message">
+				<source>Error Message</source>
+				<target>Foutmelding</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extra_info">
+				<source>Extra Info</source>
+				<target>Extra informatie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extra_warning">
+				<source>Extra Warning</source>
+				<target>Extra waarschuwing</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extra_danger">
+				<source>Extra Danger</source>
+				<target>Extra gevaar</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.last_successful_import">
+				<source>Last Successful Import</source>
+				<target>Laatste succesvolle import</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extensions">
+				<source>Extensions</source>
+				<target>Extensies</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.core">
+				<source>Core</source>
+				<target>Core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.sla">
+				<source>Sla</source>
+				<target>Sla</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension">
+				<source>Extension</source>
+				<target>Extensie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.name">
+				<source>Name</source>
+				<target>Naam</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.version">
+				<source>Version</source>
+				<target>Versie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.insecure">
+				<source>Insecure</source>
+				<target>Onveilig</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.next_secure_version">
+				<source>Next Secure Version</source>
+				<target>Eerst volgende veilige versie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.description">
+				<source>Description</source>
+				<target>Beschrijving</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_updated">
+				<source>Last Updated</source>
+				<target>Laatste update</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.author_name">
+				<source>Author Name</source>
+				<target>Auteur naam</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.update_comment">
+				<source>Update Comment</source>
+				<target>Update beschrijving</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.state">
+				<source>State</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.category">
+				<source>Category</source>
+				<target>Categorie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.version_integer">
+				<source>Version Integer</source>
+				<target>Versie Integer</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_used">
+				<source>Is Used</source>
+				<target>Is gebruikt</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_official">
+				<source>Is Official</source>
+				<target>Is officieel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_modified">
+				<source>Is Modified</source>
+				<target>Verändert</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_latest">
+				<source>Is Latest</source>
+				<target>Is laatste</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_bugfix_release">
+				<source>Last Bugfix Release</source>
+				<target>Laatste bugfix release</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_minor_release">
+				<source>Last Minor Release</source>
+				<target>Laatste Minor-Release</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_major_release">
+				<source>Last Major Release</source>
+				<target>Laatste Major-Release</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.serialized_dependencies">
+				<source>Serialized Dependencies</source>
+				<target>serialized afhankelijkheden</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core">
+				<source>Core</source>
+				<target>Core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.version">
+				<source>Version</source>
+				<target>Versie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.insecure">
+				<source>Insecure</source>
+				<target>Onvelig</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.next_secure_version">
+				<source>Next Secure Version</source>
+				<target>Volgende veilige versie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.type">
+				<source>Type</source>
+				<target>Type</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.release_date">
+				<source>Release Date</source>
+				<target>Datum van publicatie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.latest">
+				<source>Latest</source>
+				<target>Laatste</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.stable">
+				<source>Stable</source>
+				<target>Stabiel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_stable">
+				<source>Is Stable</source>
+				<target>Is stabiel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_active">
+				<source>Is Active</source>
+				<target>Actief</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_latest">
+				<source>Is Latest</source>
+				<target>Is de nieuwste</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.version_integer">
+				<source>Version Integer</source>
+				<target>Versie Integer</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_used">
+				<source>Is Used</source>
+				<target>Is gebruikt</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_official">
+				<source>Is Official</source>
+				<target>Is officieel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_sla">
+				<source>Sla</source>
+				<target>Sla</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_sla.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_sla.description">
+				<source>Description</source>
+				<target>Beschrijving</target>
+			</trans-unit>
+			<trans-unit id="update.available">
+				<source>Update available</source>
+				<target>Update beschikbaar</target>
+			</trans-unit>
+			<trans-unit id="secure">
+				<source>Secure</source>
+				<target>Veilig</target>
+			</trans-unit>
+			<trans-unit id="loaded">
+				<source>Loaded</source>
+				<target>Geladen</target>
+			</trans-unit>
+			<trans-unit id="found.in.ter">
+				<source>Found in TER</source>
+				<target>In TER gevonden</target>
+			</trans-unit>
+			<trans-unit id="next.secure.version">
+				<source>Next secure version:</source>
+				<target>Volgende veilige versie:</target>
+			</trans-unit>
+			<trans-unit id="no.official.update">
+				<source>No official update available</source>
+				<target>Geen officiele versie beschikbaar</target>
+			</trans-unit>
+			<trans-unit id="yes">
+				<source>yes</source>
+				<target>ja</target>
+			</trans-unit>
+			<trans-unit id="no">
+				<source>no</source>
+				<target>nee</target>
+			</trans-unit>
+			<trans-unit id="unknown">
+				<source>unknown</source>
+				<target>onbekend</target>
+			</trans-unit>
+			<trans-unit id="no.cores.imported">
+				<source>No cores yet imported</source>
+				<target>Nog geen core versies geïmporteerd</target>
+			</trans-unit>
+			<trans-unit id="no.versions.available">
+				<source>No versions available</source>
+				<target>Geen versies beschikbaar</target>
+			</trans-unit>
+			<trans-unit id="view.administration">
+				<source>Administration</source>
+				<target>Administratie</target>
+			</trans-unit>
+			<trans-unit id="view.usedExtensions">
+				<source>Used extensions</source>
+				<target>Gebruikte extensies</target>
+			</trans-unit>
+			<trans-unit id="view.core">
+				<source>Used core versions</source>
+				<target>Gebruikte Core versies</target>
+			</trans-unit>
+			<trans-unit id="administration.import.headline">
+				<source>Start an import</source>
+				<target>Import starten</target>
+			</trans-unit>
+			<trans-unit id="administration.import.success">
+				<source>The import was successful!</source>
+				<target>De import was succesvol!</target>
+			</trans-unit>
+			<trans-unit id="administration.import.description">
+				<source>Be aware that the imports can take a while. If a timeout occurs, use CLI!</source>
+				<target>Wees ervan bewust dat de import een tijdje kan duren. Als er een time-out optreedt de CLI gebruiken!</target>
+			</trans-unit>
+			<trans-unit id="createNew.client">
+				<source>Create new client</source>
+				<target>Nieuwe klant aanmaken</target>
+			</trans-unit>
+			<trans-unit id="edit.client">
+				<source>Edit client</source>
+				<target>Bewerk klant</target>
+			</trans-unit>
+			<trans-unit id="home">
+				<source>Home</source>
+				<target>Home</target>
+			</trans-unit>
+			<trans-unit id="extensionList">
+				<source>Extension List</source>
+				<target>Lijst van extensies</target>
+			</trans-unit>
+			<trans-unit id="coreVersions">
+				<source>Core Versions</source>
+				<target>Core-versies</target>
+			</trans-unit>
+			<trans-unit id="sla">
+				<source>SLA</source>
+				<target>SLA</target>
+			</trans-unit>
+			<trans-unit id="administration">
+				<source>Administration</source>
+				<target>Administratie</target>
+			</trans-unit>
+			<trans-unit id="available.extensions">
+				<source>Available extensions</source>
+				<target>Beschikbare extensies</target>
+			</trans-unit>
+			<trans-unit id="count">
+				<source>Count</source>
+				<target>Aantal</target>
+			</trans-unit>
+			<trans-unit id="search">
+				<source>Search</source>
+				<target>Zoeken</target>
+			</trans-unit>
+			<trans-unit id="search.introHelp">
+				<source>Use the search on the left to filter the clients for specific properties.</source>
+				<target>Gebruik de zoekfunctie aan de linkerkant om de klanten voor specifieke eigenschappen te filteren.</target>
+			</trans-unit>
+			<trans-unit id="bulletins.headline">
+				<source>Latest security bulletins</source>
+				<target>Laatste security bulletins</target>
+			</trans-unit>
+			<trans-unit id="bulletins.errorFetch">
+				<source>Sorry, the bulletins could not be fetched!</source>
+				<target>Sorry, de bulletins konden niet opgehaald worden!</target>
+			</trans-unit>
+			<trans-unit id="bulletins.disabled">
+				<source>Loading the bulletins is disabled.</source>
+				<target>Het ophalen van bulletins is uitgeschakeld.</target>
+			</trans-unit>
+			<trans-unit id="bulletins.all">
+				<source>All bulletins</source>
+				<target>Alle bulletins</target>
+			</trans-unit>
+			<trans-unit id="clients.total">
+				<source>Clients (%s)</source>
+				<target>Klanten (%s)</target>
+			</trans-unit>
+			<trans-unit id="clients.listAll">
+				<source>List all</source>
+				<target>Alles bekijken</target>
+			</trans-unit>
+			<trans-unit id="clients.notFound">
+				<source>No clients found</source>
+				<target>Geen klanten gevonden</target>
+			</trans-unit>
+			<trans-unit id="coreVersions.header">
+				<source>Core versions</source>
+				<target>Core-versies</target>
+			</trans-unit>
+			<trans-unit id="sla.header">
+				<source>Service level agreements</source>
+				<target>Service Level Agreements</target>
+			</trans-unit>
+			<trans-unit id="total">
+				<source>total</source>
+				<target>totaal</target>
+			</trans-unit>
+			<trans-unit id="core.totalUsed">
+				<source>Used core versions (%s)</source>
+				<target>Gebruikte Core-versies (%s)</target>
+			</trans-unit>
+			<trans-unit id="clients.notReachable">
+				<source>Not reachable</source>
+				<target>Niet bereikbaar</target>
+			</trans-unit>
+			<trans-unit id="clients.numberOfExtensions">
+				<source>Number of extensions</source>
+				<target>Aantal extensies</target>
+			</trans-unit>
+			<trans-unit id="client.facts">
+				<source>Facts</source>
+				<target>Feiten</target>
+			</trans-unit>
+			<trans-unit id="client.noSuccessfulImport">
+				<source>No successful import until now!</source>
+				<target>Geen succesvolle import tot nu toe!</target>
+			</trans-unit>
+			<trans-unit id="client.extra">
+				<source>Extra</source>
+				<target>Extras</target>
+			</trans-unit>
+			<trans-unit id="client.extra.warning">
+				<source>Additional warnings</source>
+				<target>Additionele waarschuwingen</target>
+			</trans-unit>
+			<trans-unit id="client.extra.danger">
+				<source>Additional error messages</source>
+				<target>Additionele foutmeldingen</target>
+			</trans-unit>
+			<trans-unit id="filter.connectionErrors">
+				<source>Connection errors</source>
+				<target>Verbindings foutmeldingen</target>
+			</trans-unit>
+			<trans-unit id="client.domainNotPingAble">
+				<source>The domain "%s" could not not be contacted (maybe invalid or not reachable)!</source>
+				<target>Het domein "%s" kon niet bereikt worden (misschien ongeldig of niet bereikbaar)!</target>
+			</trans-unit>
+			<trans-unit id="filter.withExtraWarning">
+				<source>Additional warnings</source>
+				<target>Additionele waarschuwingen</target>
+			</trans-unit>
+			<trans-unit id="filter.withExtraDanger">
+				<source>Additional errors</source>
+				<target>Additionele foutmeldingen</target>
+			</trans-unit>
+			<trans-unit id="filter.fieldset.core">
+				<source>Core</source>
+				<target>Core</target>
+			</trans-unit>
+			<trans-unit id="filter.fieldset.extensions">
+				<source>Extensions</source>
+				<target>Extensies</target>
+			</trans-unit>
+			<trans-unit id="filter.fieldset.misc">
+				<source>Misc</source>
+				<target>Diverse</target>
+			</trans-unit>
+			<trans-unit id="lastImport.header">
+				<source>Last imports</source>
+				<target>Laatste import</target>
+			</trans-unit>
+			<trans-unit id="lastImport.client">
+				<source>Import clients</source>
+				<target>Importeer klanten</target>
+			</trans-unit>
+			<trans-unit id="lastImport.core">
+				<source>Import core</source>
+				<target>Importeer klanten</target>
+			</trans-unit>
+			<trans-unit id="lastImport.extension">
+				<source>Import extensions</source>
+				<target>Importeer extensies</target>
+			</trans-unit>
+			<trans-unit id="lastImport.none">
+				<source>No import yet!</source>
+				<target>Nog geen import!</target>
+			</trans-unit>
+			<trans-unit id="sla.total">
+				<source>SLA (%s)</source>
+				<target>SLA (%s)</target>
+			</trans-unit>
+			<trans-unit id="sla.notFound">
+				<source>No SLA records found!</source>
+				<target>Geen SLA records gevonden!</target>
+			</trans-unit>
+			<trans-unit id="sla.clients">
+				<source>List all clients with this SLA</source>
+				<target>Toon alle klanten met deze SLA</target>
+			</trans-unit>
+			<trans-unit id="sla.noClients">
+				<source>This SLA is not used by any client!</source>
+				<target>Deze SLA wordt door geen enkele klant gebruikt!</target>
+			</trans-unit>
+			<trans-unit id="extension.total">
+				<source>Extensions (%s)</source>
+				<target>Extensies (%s)</target>
+			</trans-unit>
+			<trans-unit id="extension.notFound">
+				<source>No extensions found</source>
+				<target>Geen extensies gevonden</target>
+			</trans-unit>
+			<trans-unit id="extensionFilter.name">
+				<source>Name</source>
+				<target>Naam</target>
+			</trans-unit>
+			<trans-unit id="extensionFilter.exactSearch">
+				<source>Exact search</source>
+				<target>Exact zoeken</target>
+			</trans-unit>
+			<trans-unit id="extension.by">
+				<source>by %s</source>
+				<target>door %s</target>
+			</trans-unit>
+			<trans-unit id="coreFilter.usage">
+				<source>Usage</source>
+				<target>Gebruik</target>
+			</trans-unit>
+			<trans-unit id="coreFilter.usage.1">
+				<source>Used</source>
+				<target>Gebruikt</target>
+			</trans-unit>
+			<trans-unit id="coreFilter.usage.0">
+				<source>All</source>
+				<target>Alle</target>
+			</trans-unit>
+			<trans-unit id="administration.sponsors.headline">
+				<source>Sponsors</source>
+				<target>Sponsoren</target>
+			</trans-unit>
+			<trans-unit id="administration.sponsors.description">
+				<source>This extension has been sponsored by</source>
+				<target>Deze extensie is gesponsord door</target>
+			</trans-unit>
+			<trans-unit id="administration.ipHint">
+				<source><![CDATA[
+				Set the allowed IP(s) for the client to <code>%s</code>.
+				]]></source>
+				<target><![CDATA[
+				Zet de toegestane IP(s) voor de klant op <code>%s</code>.
+				]]></target>
+			</trans-unit>
+			<trans-unit id="noClients.title">
+				<source>No clients created!</source>
+				<target>Geen klanten aangemaakt!</target>
+			</trans-unit>
+			<trans-unit id="noClients.description">
+				<source>Great that you want to try t3monitoring! To start, create a new client by using the + icon above!</source>
+				<target>Schön, dass Sie t3monitoring ausprobieren wollen! Um zu beginnen, erstellen Sie einen Client mit dem + Icon oben!</target>
+			</trans-unit>
+			<trans-unit id="presentationMode.client.title">
+				<source>Client with uid %s</source>
+				<target>Client mit der uid %s</target>
+			</trans-unit>
+			<trans-unit id="presentationMode.client.domain">
+				<source>http://*********.***</source>
+				<target>http://*********.***</target>
+			</trans-unit>
+			<trans-unit id="emConfiguration.link">
+				<source>Configuration</source>
+				<target>Configuratie</target>
+			</trans-unit>
+			<trans-unit id="noInsecureClients">
+				<source>No insecure clients found!</source>
+				<target>Geen onveilige klanten gevonden!</target>
+			</trans-unit>
+			<trans-unit id="fetchClient.link">
+				<source>Fetch single client</source>
+				<target>Haal enkele klant op</target>
+			</trans-unit>
+			<trans-unit id="fetchClient.success">
+				<source>The data of the client has been successfully fetched!</source>
+				<target>De data voor de klant is succesvol opgehaald!</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

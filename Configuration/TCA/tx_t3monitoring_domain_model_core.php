@@ -30,7 +30,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'insecure' => [
             'exclude' => 1,
@@ -38,8 +37,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'next_secure_version' => [
             'exclude' => 1,
@@ -49,7 +47,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'type' => [
             'exclude' => 1,
@@ -64,7 +61,6 @@ return [
                 'maxitems' => 1,
                 'eval' => ''
             ],
-
         ],
         'release_date' => [
             'exclude' => 1,
@@ -102,7 +98,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
+            ],
         ],
         'is_active' => [
             'exclude' => 1,
@@ -110,8 +106,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'is_latest' => [
             'exclude' => 1,
@@ -119,8 +114,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'version_integer' => [
             'exclude' => 1,
@@ -129,8 +123,7 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
-            ]
-
+            ],
         ],
         'is_used' => [
             'exclude' => 1,
@@ -138,8 +131,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'is_official' => [
             'exclude' => 1,
@@ -147,9 +139,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
-
     ],
 ];

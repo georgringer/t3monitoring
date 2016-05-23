@@ -53,7 +53,16 @@
 										<f:for each="{v.clients}" as="client">
 											<tr class="{f:if(condition:client.insecure,then:'danger',else:'')}">
 												<td>
-													<f:link.action action="show" controller="Client" arguments="{client:client.clientUid}">{client.title}</f:link.action>
+													<f:link.action action="show" controller="Client" arguments="{client:client.clientUid}">
+														<f:if condition="{emConfiguration.presentationMode}">
+															<f:then>
+																<f:translate key="presentationMode.client.title" arguments="{0:client.clientUid}" />
+															</f:then>
+															<f:else>
+																{client.title}
+															</f:else>
+														</f:if>
+													</f:link.action>
 												</td>
 											</tr>
 										</f:for>

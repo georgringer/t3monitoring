@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -12,8 +11,16 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * Class AdditionalExtensionDataViewHelper
+ */
 class AdditionalExtensionDataViewHelper extends AbstractViewHelper
 {
+    /**
+     * For CMS 8
+     *
+     * @var bool
+     */
     protected $escapeOutput = false;
 
     /**

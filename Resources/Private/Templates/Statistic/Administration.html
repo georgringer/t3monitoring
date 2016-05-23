@@ -4,6 +4,11 @@
 
 <f:section name="content">
 	<h1>{f:translate(key:'view.administration')}</h1>
+	<f:if condition="{emConfiguration.ipHint}">
+		<div class="alert alert-info">
+			<f:translate key="administration.ipHint" arguments="{0:emConfiguration.ipHint}" />
+		</div>
+	</f:if>
 
 	<h3>{f:translate(key:'administration.import.headline')}</h3>
 	<p>{f:translate(key:'administration.import.description')}</p>

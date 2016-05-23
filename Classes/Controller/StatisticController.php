@@ -8,20 +8,32 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use T3Monitor\T3monitoring\Service\Import\ClientImport;
-use T3Monitor\T3monitoring\Service\Import\CoreImport;
-use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\SlaRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use T3Monitor\T3monitoring\Service\BulletinImport;
+use T3Monitor\T3monitoring\Service\Import\ClientImport;
+use T3Monitor\T3monitoring\Service\Import\CoreImport;
+use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
+/**
+ * Class StatisticController
+ */
 class StatisticController extends BaseController
 {
 
+    /**
+     * @var \T3Monitor\T3monitoring\Domain\Repository\SlaRepository
+     */
+    protected $slaRepository = null;
+
+    /**
+     * Initialize action
+     */
     public function initializeAction()
     {
         $this->statisticRepository = $this->objectManager->get(StatisticRepository::class);
@@ -33,6 +45,11 @@ class StatisticController extends BaseController
         parent::initializeAction();
     }
 
+    /**
+     * Index action
+     *
+     * @param ClientFilterDemand|null $filter
+     */
     public function indexAction(ClientFilterDemand $filter = null)
     {
         if (is_null($filter)) {
@@ -62,7 +79,7 @@ class StatisticController extends BaseController
         $this->view->assignMultiple([
             'filter' => $filter,
             'clients' => $this->clientRepository->findByDemand($filter),
-            'coreVersions' => $this->coreRepository->findAll(CoreRepository::USED_ONLY),
+            'coreVersions' => $this->getAllCoreVersions(),
             'coreVersionUsage' => $this->statisticRepository->getUsedCoreVersionCount(),
             'fullClientCount' => $this->clientRepository->countByDemand($emptyClientDemand),
             'clientsWithErrorMessages' => $this->clientRepository->countByDemand($errorMessageDemand),
@@ -84,6 +101,8 @@ class StatisticController extends BaseController
     }
 
     /**
+     * Administrator action
+     *
      * @param string $import
      */
     public function administrationAction($import = '')
@@ -117,5 +136,29 @@ class StatisticController extends BaseController
             'success' => $success,
             'error' => $error
         ]);
+    }
+
+    /**
+     * Get all core versions
+     *
+     * @return array
+     */
+    protected function getAllCoreVersions()
+    {
+        $result = $used = [];
+        $versions = $this->coreRepository->findAllCoreVersions(CoreRepository::USED_ONLY);
+        foreach ($versions as $version) {
+            /** @var \T3Monitor\T3monitoring\Domain\Model\Core $version */
+            $info = VersionNumberUtility::convertVersionStringToArray($version->getVersion());
+            $branchVersion = $info['version_main'] . '.' . $info['version_sub'];
+            if (!isset($used[$branchVersion])) {
+                $key = $info['version_main'] . '.' . $info['version_sub'];
+
+                $result[$key] = $branchVersion;
+                $used[$branchVersion] = true;
+            }
+            $result[$version->getVersion()] = '- ' . $version->getVersion();
+        }
+        return $result;
     }
 }

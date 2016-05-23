@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -13,12 +12,19 @@ use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extensionmanager\Utility\Repository\Helper;
 
+/**
+ * Class ExtensionImport
+ */
 class ExtensionImport extends BaseImport
 {
 
     // Release date of 4.5.0
     const MIN_DATE = '26.1.2011';
 
+    /**
+     * Run
+     * @throws \InvalidArgumentException
+     */
     public function run()
     {
         $updateRequired = $this->updateExtensionList();
@@ -31,6 +37,9 @@ class ExtensionImport extends BaseImport
         $this->setImportTime('extension');
     }
 
+    /**
+     * Inser Extension in custom table
+     */
     protected function insertExtensionsInCustomTable()
     {
         $table = 'tx_t3monitoring_domain_model_extension';
@@ -82,6 +91,7 @@ class ExtensionImport extends BaseImport
 
     /**
      * @return bool TRUE if the extension list was successfully update, FALSE if no update necessary
+     * @throws \TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException
      */
     protected function updateExtensionList()
     {
@@ -89,5 +99,4 @@ class ExtensionImport extends BaseImport
         $extensionRepository = GeneralUtility::makeInstance(Helper::class);
         return $extensionRepository->updateExtList();
     }
-
 }

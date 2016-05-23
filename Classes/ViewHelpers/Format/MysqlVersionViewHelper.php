@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -11,6 +10,9 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
+/**
+ * Class MysqlVersionViewHelper
+ */
 class MysqlVersionViewHelper extends AbstractViewHelper
 {
 
@@ -24,7 +26,7 @@ class MysqlVersionViewHelper extends AbstractViewHelper
 
         $versionString = str_pad($version, 5, '0', STR_PAD_LEFT);
         $parts = array(
-            substr($versionString, 0, 1),
+            $versionString[0],
             substr($versionString, 1, 2),
             substr($versionString, 3, 5)
         );

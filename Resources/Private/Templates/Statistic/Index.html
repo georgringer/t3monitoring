@@ -123,7 +123,7 @@
                                     <tr>
                                         <td class="{f:if(condition:line.insecureCore,then:'danger',else:'success')}">
                                             <f:link.action
-                                                    additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{version:line.version_integer}}}">
+                                                    additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{version:line.version}}}">
                                                 {line.version}
                                             </f:link.action>
                                         </td>
@@ -139,7 +139,7 @@
                             <div class="panel-heading">
                                 {f:translate(key:'bulletins.headline')}
                             </div>
-
+                            <div class="panel-body">
                             <f:if condition="{emConfiguration.loadBulletins}">
                                 <f:then>
                                     <f:if condition="{feedItems}">
@@ -170,12 +170,14 @@
                                     </div>
                                 </f:else>
                             </f:if>
+                            </div>
+                            <div class="panel-footer">
+                                <a href="https://typo3.org/teams/security/security-bulletins/" target="_blank"
+                                    class="t3-link">{f:translate(key:'bulletins.all')}</a>
+                            </div>
                         </div>
 
-                        <p>
-                            <a href="https://typo3.org/teams/security/security-bulletins/" target="_blank"
-                               class="t3-link">{f:translate(key:'bulletins.all')}</a>
-                        </p>
+
                     </div>
                 </div>
             </f:if>
@@ -193,7 +195,6 @@
                         <div class="form-group">
                             <label for="form-core">Core</label>
                             <f:form.select property="version" id="form-core" options="{coreVersions}"
-                                           optionValueField="versionInteger" optionLabelField="version"
                                            class="form-control" prependOptionLabel="" prependOptionValue=""/>
                         </div>
 
@@ -259,28 +260,36 @@
                                                 {f:translate(key:'clients.total', arguments:'{0:\'{clients ->
                                                 f:count()}\'}')}
                                             </div>
-                                            <table class="table table-striped table-hover">
+                                            <table class="table table-striped table-hover client-list">
                                                 <thead>
                                                 <tr>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_client')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_sla')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_core')}</th>
-                                                    <th class="text-center" colspan="3">
-                                                        {f:translate(key:'tx_t3monitoring_domain_model_extension')}
-                                                    </th>
-                                                    <th class="text-center" colspan="2">
+                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'clients.numberOfExtensions')}" class="badge badge-info">-</span></th>
+                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}" class="badge badge-danger">-</span></th>
+                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}" class="badge badge-default">-</span></th>
+                                                    <th class="no-sorting text-center" colspan="2">
                                                         {f:translate(key:'client.extra')}
                                                     </th>
-                                                    <th></th>
+                                                    <th class="no-sorting"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <f:for each="{clients}" as="client">
                                                     <tr>
-                                                        <td>
+                                                        <td data-order="{client.title -> f:format.htmlspecialchars()}">
                                                             <f:link.action action="show" controller="Client"
-                                                                           arguments="{client:client}">{client.title} -
-                                                                {client.domain}
+                                                                           arguments="{client:client}">
+
+                                                                <f:if condition="{emConfiguration.presentationMode}">
+                                                                    <f:then>
+                                                                        <f:translate key="presentationMode.client.title" arguments="{0:client.uid}" />
+                                                                    </f:then>
+                                                                    <f:else>
+                                                                         {client.title} - {client.domain}
+                                                                    </f:else>
+                                                                </f:if>
                                                             </f:link.action>
                                                             <f:if condition="{client.errorMessage}">
                                                                 <br><span
@@ -298,24 +307,24 @@
                                                                 <f:else>-</f:else>
                                                             </f:if>
                                                         </td>
-                                                        <td class="text-nowrap {f:if(condition:client.core.insecure,then:'danger',else:'success')}">
+                                                        <td data-order={client.core.versionInteger}" data-type="num" class="text-nowrap {f:if(condition:client.core.insecure,then:'danger',else:'success')}">
                                                             {client.core.version}
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" data-type="num">
                                                             <f:if condition="{client.extensions}">
                                                                 <span data-toggle="tooltip"
                                                                       data-title="{f:translate(key:'clients.numberOfExtensions')}"
                                                                       data-placement="left" class="badge badge-info">{client.extensions -> f:count()}</span>
                                                             </f:if>
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" data-type="num">
                                                             <f:if condition="{client.insecureExtensions}">
                                                                 <span data-toggle="tooltip"
                                                                       data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}"
                                                                       data-placement="left" class="badge badge-danger">{client.insecureExtensions}</span>
                                                             </f:if>
                                                         </td>
-                                                        <td class="text-center">
+                                                        <td class="text-center" data-type="num">
                                                             <f:if condition="{client.outdatedExtensions}">
                                                                 <span data-toggle="tooltip"
                                                                       data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}"
@@ -374,7 +383,7 @@
                                     </div>
                                 </div>
 
-                                <h3>Last imports</h3>
+                                <h3>{f:translate(key:'lastImport.header')}</h3>
                                 <table class="table table-striped table-hover">
                                     <f:for each="{importTimes}" as="time" key="key">
                                         <tr>

@@ -8,99 +8,75 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * Core
  */
-class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Core extends AbstractEntity
 {
 
     /**
-     * version
-     *
      * @var string
      */
     protected $version = '';
 
     /**
-     * insecure
-     *
      * @var bool
      */
     protected $insecure = false;
 
     /**
-     * nextSecureVersion
-     *
      * @var string
      */
     protected $nextSecureVersion = '';
 
     /**
-     * type
-     *
      * @var int
      */
     protected $type = 0;
 
     /**
-     * releaseDate
-     *
      * @var \DateTime
      */
     protected $releaseDate = null;
 
     /**
-     * latest
-     *
      * @var string
      */
     protected $latest = '';
 
     /**
-     * stable
-     *
      * @var string
      */
     protected $stable = '';
 
     /**
-     * isStable
-     *
      * @var bool
      */
     protected $isStable = false;
 
     /**
-     * isActive
-     *
      * @var bool
      */
     protected $isActive = false;
 
     /**
-     * isLatest
-     *
      * @var bool
      */
     protected $isLatest = false;
 
     /**
-     * versionInteger
-     *
      * @var int
      */
     protected $versionInteger = 0;
 
     /**
-     * isUsed
-     *
      * @var bool
      */
     protected $isUsed = false;
 
     /**
-     * isOfficial
-     *
      * @var bool
      */
     protected $isOfficial = false;
@@ -108,7 +84,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the version
      *
-     * @return string $version
+     * @return string
      */
     public function getVersion()
     {
@@ -129,7 +105,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the insecure
      *
-     * @return bool $insecure
+     * @return bool
      */
     public function getInsecure()
     {
@@ -160,7 +136,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the nextSecureVersion
      *
-     * @return string $nextSecureVersion
+     * @return string
      */
     public function getNextSecureVersion()
     {
@@ -181,7 +157,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the type
      *
-     * @return int $type
+     * @return int
      */
     public function getType()
     {
@@ -202,7 +178,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the releaseDate
      *
-     * @return \DateTime $releaseDate
+     * @return \DateTime
      */
     public function getReleaseDate()
     {
@@ -223,7 +199,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the latest
      *
-     * @return string $latest
+     * @return string
      */
     public function getLatest()
     {
@@ -244,7 +220,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the stable
      *
-     * @return string $stable
+     * @return string
      */
     public function getStable()
     {
@@ -265,7 +241,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isStable
      *
-     * @return bool $isStable
+     * @return bool
      */
     public function getIsStable()
     {
@@ -296,7 +272,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isActive
      *
-     * @return bool $isActive
+     * @return bool
      */
     public function getIsActive()
     {
@@ -327,7 +303,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isLatest
      *
-     * @return bool $isLatest
+     * @return bool
      */
     public function getIsLatest()
     {
@@ -358,7 +334,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the versionInteger
      *
-     * @return int $versionInteger
+     * @return int
      */
     public function getVersionInteger()
     {
@@ -379,7 +355,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isUsed
      *
-     * @return bool $isUsed
+     * @return bool
      */
     public function getIsUsed()
     {
@@ -410,7 +386,7 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isOfficial
      *
-     * @return bool $isOfficial
+     * @return bool
      */
     public function getIsOfficial()
     {
@@ -437,5 +413,4 @@ class Core extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->isOfficial;
     }
-
 }

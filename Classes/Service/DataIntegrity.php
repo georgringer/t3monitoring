@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Service;
 
 /*
@@ -11,27 +10,42 @@ namespace T3Monitor\T3monitoring\Service;
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 
+/**
+ * Class DataIntegrity
+ */
 class DataIntegrity
 {
 
+    /**
+     * Invoke after core import
+     */
     public function invokeAfterCoreImport()
     {
         $this->usedCore();
     }
 
+    /**
+     * Invoke after client import
+     */
     public function invokeAfterClientImport()
     {
         $this->usedCore();
         $this->usedExtensions();
     }
 
+    /**
+     * Invoke after extension import
+     */
     public function invokeAfterExtensionImport()
     {
-        $this->usedExtensions();
-        $this->getNextSecureExtensionVersion();
         $this->getLatestExtensionVersion();
+        $this->getNextSecureExtensionVersion();
+        $this->usedExtensions();
     }
 
+    /**
+     * Get latest extension version
+     */
     protected function getLatestExtensionVersion()
     {
         $table = 'tx_t3monitoring_domain_model_extension';
@@ -112,6 +126,9 @@ class DataIntegrity
         ');
     }
 
+    /**
+     * Get next secure extension version
+     */
     protected function getNextSecureExtensionVersion()
     {
         $table = 'tx_t3monitoring_domain_model_extension';
@@ -139,6 +156,9 @@ class DataIntegrity
         }
     }
 
+    /**
+     * Used core
+     */
     protected function usedCore()
     {
         $table = 'tx_t3monitoring_domain_model_core';
@@ -162,13 +182,16 @@ class DataIntegrity
         }
     }
 
+    /**
+     * Used extensions
+     */
     protected function usedExtensions()
     {
-
         $clients = $this->getDatabaseConnection()->exec_SELECTgetRows(
             'uid,core',
             'tx_t3monitoring_domain_model_client',
-            '1=1');
+            '1=1'
+        );
 
         foreach ($clients as $client) {
             // count insecure extensions
@@ -177,7 +200,7 @@ class DataIntegrity
                 'tx_t3monitoring_client_extension_mm
                     LEFT JOIN tx_t3monitoring_domain_model_extension
                         on tx_t3monitoring_client_extension_mm.uid_foreign=tx_t3monitoring_domain_model_extension.uid',
-                'insecure = 1 AND tx_t3monitoring_client_extension_mm.uid_local=' . $client['uid']
+                'is_official=1 AND insecure = 1 AND tx_t3monitoring_client_extension_mm.uid_local=' . $client['uid']
             );
             // count outdated extensions
             $countOutdated = $this->getDatabaseConnection()->exec_SELECTcountRows(
@@ -185,7 +208,7 @@ class DataIntegrity
                 'tx_t3monitoring_client_extension_mm
                     LEFT JOIN tx_t3monitoring_domain_model_extension
                         on tx_t3monitoring_client_extension_mm.uid_foreign=tx_t3monitoring_domain_model_extension.uid',
-                'insecure = 0 AND is_latest=0 AND tx_t3monitoring_client_extension_mm.uid_local=' . $client['uid']
+                'is_official=1 AND insecure = 0 AND is_latest=0 AND tx_t3monitoring_client_extension_mm.uid_local=' . $client['uid']
             );
             // update client
             $this->getDatabaseConnection()->exec_UPDATEquery(

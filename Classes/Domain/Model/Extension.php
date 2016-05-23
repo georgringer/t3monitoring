@@ -8,10 +8,12 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * Extension
  */
-class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Extension extends AbstractEntity
 {
 
     /**
@@ -31,142 +33,102 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     );
 
     /**
-     * name
-     *
      * @var string
      * @validate NotEmpty
      */
     protected $name = '';
 
     /**
-     * version
-     *
      * @var string
      */
     protected $version = '';
 
     /**
-     * insecure
-     *
      * @var bool
      */
     protected $insecure = false;
 
     /**
-     * nextSecureVersion
-     *
      * @var string
      */
     protected $nextSecureVersion = '';
 
     /**
-     * title
-     *
      * @var string
      */
     protected $title = '';
 
     /**
-     * description
-     *
      * @var string
      */
     protected $description = '';
 
     /**
-     * lastUpdated
-     *
      * @var \DateTime
      */
     protected $lastUpdated = null;
 
     /**
-     * authorName
-     *
      * @var string
      */
     protected $authorName = '';
 
     /**
-     * updateComment
-     *
      * @var string
      */
     protected $updateComment = '';
 
     /**
-     * state
-     *
      * @var int
      */
     protected $state = 0;
 
     /**
-     * category
-     *
      * @var int
      */
     protected $category = 0;
 
     /**
-     * versionInteger
-     *
      * @var int
      */
     protected $versionInteger = 0;
 
     /**
-     * isUsed
-     *
      * @var bool
      */
     protected $isUsed = false;
 
     /**
-     * isOfficial
-     *
      * @var bool
      */
     protected $isOfficial = false;
 
     /**
-     * isModified
-     *
      * @var bool
      */
     protected $isModified = false;
 
     /**
-     * isLatest
-     *
      * @var bool
      */
     protected $isLatest = false;
 
     /**
-     * lastBugfixRelease
-     *
      * @var string
      */
     protected $lastBugfixRelease = '';
 
     /**
-     * lastMinorRelease
-     *
      * @var string
      */
     protected $lastMinorRelease = '';
 
     /**
-     * lastMajorRelease
-     *
      * @var string
      */
     protected $lastMajorRelease = '';
 
     /**
-     * serializedDependencies
-     *
      * @var string
      */
     protected $serializedDependencies = '';
@@ -174,7 +136,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the name
      *
-     * @return string $name
+     * @return string
      */
     public function getName()
     {
@@ -195,7 +157,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the version
      *
-     * @return string $version
+     * @return string
      */
     public function getVersion()
     {
@@ -216,7 +178,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the insecure
      *
-     * @return bool $insecure
+     * @return bool
      */
     public function getInsecure()
     {
@@ -247,7 +209,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the nextSecureVersion
      *
-     * @return string $nextSecureVersion
+     * @return string
      */
     public function getNextSecureVersion()
     {
@@ -268,7 +230,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the title
      *
-     * @return string $title
+     * @return string
      */
     public function getTitle()
     {
@@ -289,7 +251,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the description
      *
-     * @return string $description
+     * @return string
      */
     public function getDescription()
     {
@@ -310,7 +272,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the lastUpdated
      *
-     * @return \DateTime $lastUpdated
+     * @return \DateTime
      */
     public function getLastUpdated()
     {
@@ -331,7 +293,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the authorName
      *
-     * @return string $authorName
+     * @return string
      */
     public function getAuthorName()
     {
@@ -352,7 +314,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the updateComment
      *
-     * @return string $updateComment
+     * @return string
      */
     public function getUpdateComment()
     {
@@ -373,7 +335,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the state
      *
-     * @return int $state
+     * @return int
      */
     public function getState()
     {
@@ -394,7 +356,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the category
      *
-     * @return int $category
+     * @return int
      */
     public function getCategory()
     {
@@ -415,7 +377,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the versionInteger
      *
-     * @return int $versionInteger
+     * @return int
      */
     public function getVersionInteger()
     {
@@ -436,7 +398,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isUsed
      *
-     * @return bool $isUsed
+     * @return bool
      */
     public function getIsUsed()
     {
@@ -467,7 +429,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isOfficial
      *
-     * @return bool $isOfficial
+     * @return bool
      */
     public function getIsOfficial()
     {
@@ -498,7 +460,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isModified
      *
-     * @return bool $isModified
+     * @return bool
      */
     public function getIsModified()
     {
@@ -529,7 +491,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the isLatest
      *
-     * @return bool $isLatest
+     * @return bool
      */
     public function getIsLatest()
     {
@@ -560,7 +522,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the lastBugfixRelease
      *
-     * @return string $lastBugfixRelease
+     * @return string
      */
     public function getLastBugfixRelease()
     {
@@ -581,7 +543,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the lastMinorRelease
      *
-     * @return string $lastMinorRelease
+     * @return string
      */
     public function getLastMinorRelease()
     {
@@ -602,7 +564,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the lastMajorRelease
      *
-     * @return string $lastMajorRelease
+     * @return string
      */
     public function getLastMajorRelease()
     {
@@ -623,7 +585,7 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the serializedDependencies
      *
-     * @return string $serializedDependencies
+     * @return string
      */
     public function getSerializedDependencies()
     {
@@ -640,5 +602,4 @@ class Extension extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->serializedDependencies = $serializedDependencies;
     }
-
 }

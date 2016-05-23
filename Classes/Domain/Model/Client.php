@@ -8,139 +8,106 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+
 /**
  * Client
  */
-class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Client extends AbstractEntity
 {
 
     /**
-     * title
-     *
      * @var string
      * @validate NotEmpty
      */
     protected $title = '';
 
     /**
-     * domain
-     *
      * @var string
      * @validate NotEmpty
      */
     protected $domain = '';
 
     /**
-     * secret
-     *
      * @var string
      * @validate NotEmpty
      */
     protected $secret = '';
 
     /**
-     * email
-     *
      * @var string
      */
     protected $email = '';
 
     /**
-     * phpVersion
-     *
      * @var string
      */
     protected $phpVersion = '';
 
     /**
-     * mysqlVersion
-     *
      * @var string
      */
     protected $mysqlVersion = '';
 
     /**
-     * insecureCore
-     *
      * @var bool
      */
     protected $insecureCore = false;
 
     /**
-     * outdatedCore
-     *
      * @var bool
      */
     protected $outdatedCore = false;
 
     /**
-     * insecureExtensions
-     *
      * @var int
      */
     protected $insecureExtensions = 0;
 
     /**
-     * outdatedExtensions
-     *
      * @var int
      */
     protected $outdatedExtensions = 0;
 
     /**
-     * errorMessage
-     *
      * @var string
      */
     protected $errorMessage = '';
 
     /**
-     * extraInfo
-     *
      * @var string
      */
     protected $extraInfo = '';
 
     /**
-     * extraWarning
-     *
      * @var string
      */
     protected $extraWarning = '';
 
     /**
-     * extraDanger
-     *
      * @var string
      */
     protected $extraDanger = '';
 
     /**
-     * lastSuccessfulImport
-     *
      * @var \DateTime
      */
     protected $lastSuccessfulImport = null;
 
     /**
-     * extensions
-     *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension>
      * @lazy
      */
     protected $extensions = null;
 
     /**
-     * core
-     *
      * @var \T3Monitor\T3monitoring\Domain\Model\Core
      * @lazy
      */
     protected $core = null;
 
     /**
-     * sla
-     *
      * @var \T3Monitor\T3monitoring\Domain\Model\Sla
      * @lazy
      */
@@ -151,7 +118,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function __construct()
     {
-        //Do not remove the next line: It would break the functionality
+        // Do not remove the next line: It would break the functionality
         $this->initStorageObjects();
     }
 
@@ -165,13 +132,13 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->extensions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->extensions = new ObjectStorage();
     }
 
     /**
      * Returns the title
      *
-     * @return string $title
+     * @return string
      */
     public function getTitle()
     {
@@ -192,7 +159,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the domain
      *
-     * @return string $domain
+     * @return string
      */
     public function getDomain()
     {
@@ -213,7 +180,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the secret
      *
-     * @return string $secret
+     * @return string
      */
     public function getSecret()
     {
@@ -234,7 +201,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the email
      *
-     * @return string $email
+     * @return string
      */
     public function getEmail()
     {
@@ -255,7 +222,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the phpVersion
      *
-     * @return string $phpVersion
+     * @return string
      */
     public function getPhpVersion()
     {
@@ -276,7 +243,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the mysqlVersion
      *
-     * @return string $mysqlVersion
+     * @return string
      */
     public function getMysqlVersion()
     {
@@ -297,7 +264,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the insecureCore
      *
-     * @return bool $insecureCore
+     * @return bool
      */
     public function getInsecureCore()
     {
@@ -328,7 +295,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the outdatedCore
      *
-     * @return bool $outdatedCore
+     * @return bool
      */
     public function getOutdatedCore()
     {
@@ -359,7 +326,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the insecureExtensions
      *
-     * @return int $insecureExtensions
+     * @return int
      */
     public function getInsecureExtensions()
     {
@@ -380,7 +347,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the outdatedExtensions
      *
-     * @return int $outdatedExtensions
+     * @return int
      */
     public function getOutdatedExtensions()
     {
@@ -401,7 +368,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the errorMessage
      *
-     * @return string $errorMessage
+     * @return string
      */
     public function getErrorMessage()
     {
@@ -422,7 +389,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the extraInfo
      *
-     * @return string $extraInfo
+     * @return string
      */
     public function getExtraInfo()
     {
@@ -443,7 +410,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the extraWarning
      *
-     * @return string $extraWarning
+     * @return string
      */
     public function getExtraWarning()
     {
@@ -464,7 +431,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the extraDanger
      *
-     * @return string $extraDanger
+     * @return string
      */
     public function getExtraDanger()
     {
@@ -485,7 +452,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the lastSuccessfulImport
      *
-     * @return \DateTime $lastSuccessfulImport
+     * @return \DateTime
      */
     public function getLastSuccessfulImport()
     {
@@ -509,7 +476,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \T3Monitor\T3monitoring\Domain\Model\Extension $extension
      * @return void
      */
-    public function addExtension(\T3Monitor\T3monitoring\Domain\Model\Extension $extension)
+    public function addExtension(Extension $extension)
     {
         $this->extensions->attach($extension);
     }
@@ -520,7 +487,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \T3Monitor\T3monitoring\Domain\Model\Extension $extensionToRemove The Extension to be removed
      * @return void
      */
-    public function removeExtension(\T3Monitor\T3monitoring\Domain\Model\Extension $extensionToRemove)
+    public function removeExtension(Extension $extensionToRemove)
     {
         $this->extensions->detach($extensionToRemove);
     }
@@ -528,7 +495,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the extensions
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension> $extensions
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension>
      */
     public function getExtensions()
     {
@@ -541,7 +508,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension> $extensions
      * @return void
      */
-    public function setExtensions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $extensions)
+    public function setExtensions(ObjectStorage $extensions)
     {
         $this->extensions = $extensions;
     }
@@ -549,7 +516,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the core
      *
-     * @return \T3Monitor\T3monitoring\Domain\Model\Core $core
+     * @return \T3Monitor\T3monitoring\Domain\Model\Core
      */
     public function getCore()
     {
@@ -562,7 +529,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \T3Monitor\T3monitoring\Domain\Model\Core $core
      * @return void
      */
-    public function setCore(\T3Monitor\T3monitoring\Domain\Model\Core $core)
+    public function setCore(Core $core)
     {
         $this->core = $core;
     }
@@ -570,7 +537,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the sla
      *
-     * @return \T3Monitor\T3monitoring\Domain\Model\Sla $sla
+     * @return \T3Monitor\T3monitoring\Domain\Model\Sla
      */
     public function getSla()
     {
@@ -583,7 +550,7 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \T3Monitor\T3monitoring\Domain\Model\Sla $sla
      * @return void
      */
-    public function setSla(\T3Monitor\T3monitoring\Domain\Model\Sla $sla)
+    public function setSla(Sla $sla)
     {
         $this->sla = $sla;
     }
@@ -620,5 +587,4 @@ class Client extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         }
         return [];
     }
-
 }

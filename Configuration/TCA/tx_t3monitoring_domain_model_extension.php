@@ -24,7 +24,6 @@ return [
         '1' => ['showitem' => ''],
     ],
     'columns' => [
-
         'name' => [
             'exclude' => 1,
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.name',
@@ -33,7 +32,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim,required'
             ],
-
         ],
         'version' => [
             'exclude' => 1,
@@ -43,7 +41,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'insecure' => [
             'exclude' => 1,
@@ -51,8 +48,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'next_secure_version' => [
             'exclude' => 1,
@@ -62,7 +58,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'title' => [
             'exclude' => 1,
@@ -72,7 +67,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'description' => [
             'exclude' => 1,
@@ -82,8 +76,7 @@ return [
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim'
-            ]
-
+            ],
         ],
         'last_updated' => [
             'exclude' => 1,
@@ -96,7 +89,6 @@ return [
                 'checkbox' => 0,
                 'default' => '0000-00-00 00:00:00'
             ],
-
         ],
         'author_name' => [
             'exclude' => 1,
@@ -106,7 +98,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'update_comment' => [
             'exclude' => 1,
@@ -116,7 +107,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'state' => [
             'exclude' => 1,
@@ -131,7 +121,6 @@ return [
                 'maxitems' => 1,
                 'eval' => ''
             ],
-
         ],
         'category' => [
             'exclude' => 1,
@@ -146,7 +135,6 @@ return [
                 'maxitems' => 1,
                 'eval' => ''
             ],
-
         ],
         'version_integer' => [
             'exclude' => 1,
@@ -155,8 +143,7 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
-            ]
-
+            ],
         ],
         'is_used' => [
             'exclude' => 1,
@@ -164,8 +151,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'is_official' => [
             'exclude' => 1,
@@ -173,8 +159,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'is_modified' => [
             'exclude' => 1,
@@ -182,8 +167,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'is_latest' => [
             'exclude' => 1,
@@ -191,8 +175,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'default' => 0
-            ]
-
+            ],
         ],
         'last_bugfix_release' => [
             'exclude' => 1,
@@ -202,7 +185,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'last_minor_release' => [
             'exclude' => 1,
@@ -212,7 +194,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'last_major_release' => [
             'exclude' => 1,
@@ -222,7 +203,6 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
-
         ],
         'serialized_dependencies' => [
             'exclude' => 1,
@@ -233,8 +213,6 @@ return [
                 'rows' => 15,
                 'eval' => 'trim'
             ]
-
         ],
-
     ],
 ];

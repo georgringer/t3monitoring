@@ -1,0 +1,7 @@
+Monitoring report of your installation
+======================================
+
+This is an automatically generated report for {client.domain}:
+Insecure core: {f:if(condition:client.core.insecure,then:client.core.version)}
+Insecure extensions: <f:for each="{client.extensions}" as="e"><f:if condition="{e.insecure}">
+ - {e.name} {e.version}</f:if></f:for>

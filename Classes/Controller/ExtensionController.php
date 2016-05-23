@@ -17,11 +17,24 @@ class ExtensionController extends BaseController
 {
 
     /**
+     * @var \T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository
+     */
+    protected $extensionRepository = null;
+
+    /**
+     * @param \T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository $extensionRepository
+     */
+    public function injectExtensionRepository(\T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository $extensionRepository)
+    {
+        $this->extensionRepository = $extensionRepository;
+    }
+
+    /**
      * @param ExtensionFilterDemand $filter
      */
     public function listAction(ExtensionFilterDemand $filter = null)
     {
-        if (is_null($filter)) {
+        if ($filter === null) {
             /** @var ExtensionFilterDemand $filter */
             $filter = $this->objectManager->get(ExtensionFilterDemand::class);
         }
@@ -48,13 +61,4 @@ class ExtensionController extends BaseController
             'latest' => $versions->getFirst(),
         ]);
     }
-
-    /**
-     * extensionRepository
-     *
-     * @var \T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository
-     * @inject
-     */
-    protected $extensionRepository = null;
-
 }

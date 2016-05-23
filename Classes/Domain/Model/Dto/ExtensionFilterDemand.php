@@ -1,5 +1,4 @@
 <?php
-
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -11,9 +10,11 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
+/**
+ * Class ExtensionFilterDemand
+ */
 class ExtensionFilterDemand extends AbstractEntity
 {
-
 
     /** @var string */
     protected $name;
@@ -38,7 +39,7 @@ class ExtensionFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isExactSearch()
     {
@@ -46,12 +47,10 @@ class ExtensionFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $exactSearch
+     * @param bool $exactSearch
      */
     public function setExactSearch($exactSearch)
     {
         $this->exactSearch = $exactSearch;
     }
-
-
 }

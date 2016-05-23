@@ -1,21 +1,17 @@
 <?php
-
 namespace T3Monitor\T3monitoring\ViewHelpers;
-
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
-
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
-
 /**
  * Edit Record ViewHelper, see FormEngine logic
  */
@@ -38,12 +34,12 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
             $this->renderingContext
         );
     }
-
     /**
      * @param array $arguments
      * @param callable|\Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
      * @return string
+     * @throws \InvalidArgumentException
      */
     public static function renderStatic(
         array $arguments,
@@ -51,32 +47,11 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
         RenderingContextInterface $renderingContext
     ) {
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
-
-        $parameters['returnUrl'] = self::buildReturnUrl();
-
+        $parameters['returnUrl'] = 'index.php?M=tools_T3monitoringT3monitor&moduleToken='
+            . FormProtectionFactory::get()->generateToken('moduleCall', 'tools_T3monitoringT3monitor')
+            . GeneralUtility::implodeArrayForUrl(
+                'tx_t3monitoring_tools_t3monitoringt3monitor',
+                GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor'));
         return BackendUtility::getModuleUrl('record_edit', $parameters);
-    }
-
-    /**
-     * @return string The returnUrl
-     */
-    protected function buildReturnUrl()
-    {
-        $returnUrl = 'index.php?M=tools_T3monitoringT3monitor&moduleToken=' . FormProtectionFactory::get()->generateToken('moduleCall',
-                'tools_T3monitoringT3monitor');
-
-        $vars = GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor');
-        foreach ($vars as $key => $value) {
-            if (is_array($value)) {
-                foreach ($value as $name => $property) {
-                    $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s][%s]=%s', $key,
-                        $name, $property);
-                }
-            } else {
-                $returnUrl .= sprintf('&tx_t3monitoring_tools_t3monitoringt3monitor[%s]=%s', $key, $value);
-            }
-        }
-
-        return $returnUrl;
     }
 }

@@ -17,12 +17,17 @@ class SlaController extends BaseController
 {
 
     /**
-     * slaRepository
-     *
      * @var \T3Monitor\T3monitoring\Domain\Repository\SlaRepository
-     * @inject
      */
     protected $slaRepository = null;
+
+    /**
+     * @param \T3Monitor\T3monitoring\Domain\Repository\SlaRepository $slaRepository
+     */
+    public function injectSlaRepository(\T3Monitor\T3monitoring\Domain\Repository\SlaRepository $slaRepository)
+    {
+        $this->slaRepository = $slaRepository;
+    }
 
     /**
      * action list
@@ -43,7 +48,7 @@ class SlaController extends BaseController
      */
     public function showAction(Sla $sla = null)
     {
-        if (is_null($sla)) {
+        if ($sla === null) {
             $this->redirect('index', 'Statistic');
         }
 
@@ -54,5 +59,4 @@ class SlaController extends BaseController
             'clients' => $this->clientRepository->findByDemand($demand)
         ]);
     }
-
 }

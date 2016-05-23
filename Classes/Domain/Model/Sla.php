@@ -8,23 +8,21 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /**
  * Sla
  */
-class Sla extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Sla extends AbstractEntity
 {
 
     /**
-     * title
-     *
      * @var string
      * @validate NotEmpty
      */
     protected $title = '';
 
     /**
-     * description
-     *
      * @var string
      */
     protected $description = '';
@@ -32,7 +30,7 @@ class Sla extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the title
      *
-     * @return string $title
+     * @return string
      */
     public function getTitle()
     {
@@ -53,7 +51,7 @@ class Sla extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the description
      *
-     * @return string $description
+     * @return string
      */
     public function getDescription()
     {
@@ -70,5 +68,4 @@ class Sla extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->description = $description;
     }
-
 }
