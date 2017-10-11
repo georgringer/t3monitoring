@@ -21,11 +21,13 @@
 }
 
 .client-list th,
-.extension-list th {
+.extension-list th,
+.user-list th {
     cursor: pointer;
 }
 .client-list th.no-sorting,
-.extension-list th.no-sorting {
+.extension-list th.no-sorting,
+.user-list th.no-sorting {
     cursor: default;
 }
 

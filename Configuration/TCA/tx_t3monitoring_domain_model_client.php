@@ -10,17 +10,17 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
-        'searchFields' => 'title,domain,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
+        'searchFields' => 'title,domain,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,backend_users,core,sla,tag',
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
+        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, backend_users, core, sla, tag',
     ],
     'types' => [
         '1' => [
             'showitem' => '
         --div--;General,title, --palette--;;paletteDomain,email,sla,tag,
-        --div--;Readonly information,last_successful_import,error_message,core, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,extensions,
+        --div--;Readonly information,last_successful_import,error_message,core, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,extensions,backend_users,
                 insecure_core, outdated_core, insecure_extensions, outdated_extensions,
         --div--;Extra,extra_info,extra_warning,extra_danger'
         ],
@@ -276,6 +276,24 @@ return [
                 'maxitems' => 9999,
                 'multiple' => 0,
             ],
+        ],
+        'backend_users' => [
+            'exclude' => 1,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.backend_users',
+            'config' => [
+                'readOnly' => true,
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_t3monitoring_domain_model_backend_user',
+                'foreign_table' => 'tx_t3monitoring_domain_model_backend_user',
+                'foreign_table_where' => 'ORDER BY tx_t3monitoring_domain_model_backend_user.user_name',
+                'MM' => 'tx_t3monitoring_client_backend_user_mm',
+                'size' => 10,
+                'autoSizeMax' => 30,
+                'maxitems' => 9999,
+                'multiple' => 0,
+            ],
+
         ],
         'core' => [
             'exclude' => 1,

@@ -38,6 +38,18 @@ define([
 				ordering: true
 			});
 		}
+		var userList = $('.user-list');
+		if (userList.length > 0) {
+			userList.DataTable({
+				"order": [0, "desc"],
+				paging: false,
+				lengthChange: false,
+				stateSave: false,
+				searching: false,
+				dom: 'tir',
+				ordering: true
+			});
+		}
 	});
 
 });
