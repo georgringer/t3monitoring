@@ -10,12 +10,15 @@ namespace T3Monitor\T3monitoring\Service\Import;
 
 use Exception;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
-use T3Monitor\T3monitoring\Notification\EmailNotification;
+use T3Monitor\T3monitoring\Notification\Channel\EmailChannel;
+use T3Monitor\T3monitoring\Notification\FailureNotification;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
+use UnexpectedValueException;
 
 /**
  * Class ClientImport
@@ -33,23 +36,21 @@ class ClientImport extends BaseImport
     /** @var array */
     protected $failedClients = [];
 
-    /** @var  EmailNotification */
-    protected $emailNotification;
-
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->coreVersions = $this->getAllCoreVersions();
-        $this->emailNotification = GeneralUtility::makeInstance(EmailNotification::class);
         parent::__construct();
     }
 
     /**
      * @param null|int $clientId
+     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
+     * @throws \UnexpectedValueException
      */
     public function run($clientId = null)
     {
@@ -67,7 +68,36 @@ class ClientImport extends BaseImport
         }
 
         if ($this->responseCount['error'] > 0) {
-            $this->emailNotification->sendClientFailedEmail($this->failedClients);
+            $emailAddress = $this->emConfiguration->getEmailForFailedClient();
+            if (empty($emailAddress)) {
+                return;
+            }
+
+            if (!GeneralUtility::validEmail($emailAddress)) {
+                GeneralUtility::sysLog(
+                    sprintf('The email address "%s" is not valid, no notification sent', $emailAddress),
+                    't3monitoring',
+                    GeneralUtility::SYSLOG_SEVERITY_WARNING
+                );
+            }
+            $arguments = [
+                'clients' => $this->failedClients,
+                'email' => $emailAddress
+            ];
+            $text = $this->getFluidTemplate($arguments, 'ClientConnectionError.txt', 'txt');
+            $notification = GeneralUtility::makeInstance(FailureNotification::class, 'Monitoring Client Connection Failure', $text);
+            if (!empty($emailAddress)) {
+                if (!GeneralUtility::validEmail($emailAddress)) {
+                    throw new UnexpectedValueException(sprintf('Email address "%s" is invalid!', $emailAddress));
+                }
+
+                $channelOverrideConfiguration = $notification->getOverrideChannelConfig();
+                $channelOverrideConfiguration[EmailChannel::class] = [
+                    'recipientAddress' => $emailAddress
+                ];
+                $notification->setOverrideChannelConfig($channelOverrideConfiguration);
+            }
+            $notification->send();
         }
 
         /** @var DataIntegrity $dataIntegrity */
@@ -303,5 +333,28 @@ class ClientImport extends BaseImport
             '',
             'version'
         );
+    }
+
+    /**
+     * Creates a fluid instance with given template-file
+     *
+     * @param array $arguments
+     * @param string $file Path below Template-Root-Path
+     * @param string $format
+     *
+     * @return string
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    protected function getFluidTemplate(array $arguments, $file, $format = 'html')
+    {
+        /** @var StandaloneView $renderer */
+        $renderer = GeneralUtility::makeInstance(StandaloneView::class);
+        $renderer->setFormat($format);
+        $path = GeneralUtility::getFileAbsFileName('EXT:t3monitoring/Resources/Private/Templates/Notification/' . $file);
+        $renderer->setTemplatePathAndFilename($path);
+        $renderer->assignMultiple($arguments);
+
+        return trim($renderer->render());
     }
 }
