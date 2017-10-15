@@ -9,8 +9,6 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Command;
  */
 
 use T3Monitor\T3monitoring\Command\MonitoringCommandController;
-use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
-use T3Monitor\T3monitoring\Notification\EmailNotification;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use T3Monitor\T3monitoring\Service\Import\CoreImport;
 use T3Monitor\T3monitoring\Service\Import\ExtensionImport;

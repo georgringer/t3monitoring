@@ -8,11 +8,14 @@ namespace T3Monitor\T3monitoring\Command;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
-use T3Monitor\T3monitoring\Notification\EmailNotification;
+use T3Monitor\T3monitoring\Notification\Channel\EmailChannel;
+use T3Monitor\T3monitoring\Notification\ReportNotification;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Lang\LanguageService;
 use UnexpectedValueException;
 
@@ -21,10 +24,6 @@ use UnexpectedValueException;
  */
 class ReportCommandController extends CommandController
 {
-
-    /** @var EmailNotification */
-    protected $emailNotification;
-
     /** @var LanguageService */
     protected $languageService;
 
@@ -44,7 +43,6 @@ class ReportCommandController extends CommandController
      */
     public function __construct()
     {
-        $this->emailNotification = GeneralUtility::makeInstance(EmailNotification::class);
         $this->languageService = $GLOBALS['LANG'];
     }
 
@@ -52,7 +50,10 @@ class ReportCommandController extends CommandController
      * Generate collective report for all insecure clients (core or extensions)
      *
      * @param string $email Send email to this email address
+     *
      * @throws \UnexpectedValueException
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     public function adminCommand($email = '')
     {
@@ -63,13 +64,26 @@ class ReportCommandController extends CommandController
             return;
         }
 
+        $arguments = [
+            'email' => $email,
+            'clients' => $clients
+        ];
+        $text = $this->getFluidTemplate($arguments, 'AdminEmail.txt', 'txt');
+        $notification = GeneralUtility::makeInstance(ReportNotification::class, 'Monitoring Report', $text);
         if (!empty($email)) {
-            if (GeneralUtility::validEmail($email)) {
-                $this->emailNotification->sendAdminEmail($email, $clients);
-            } else {
+            if (!GeneralUtility::validEmail($email)) {
                 throw new UnexpectedValueException(sprintf('Email address "%s" is invalid!', $email));
             }
-        } else {
+
+            $channelOverrideConfiguration = $notification->getOverrideChannelConfig();
+            $channelOverrideConfiguration[EmailChannel::class] = [
+                'recipientAddress' => $email
+            ];
+            $notification->setOverrideChannelConfig($channelOverrideConfiguration);
+        }
+        $notification->send();
+
+        if (empty($email)) {
             $collectedClientData = [];
             foreach ($clients as $client) {
                 $insecureExtensions = [];
@@ -101,6 +115,10 @@ class ReportCommandController extends CommandController
 
     /**
      * Client command
+     *
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \UnexpectedValueException
      */
     public function clientCommand()
     {
@@ -111,7 +129,30 @@ class ReportCommandController extends CommandController
             return;
         }
 
-        $this->emailNotification->sendClientEmail($clients);
+        /** @var Client $client */
+        foreach ($clients as $client) {
+            $email = $client->getEmail();
+            if (!GeneralUtility::validEmail($email)) {
+                continue;
+            }
+            $arguments = [
+                'email' => $email,
+                'client' => $client
+            ];
+            $text = $this->getFluidTemplate($arguments, 'ClientEmail.txt', 'txt');
+            $notification = GeneralUtility::makeInstance(ReportNotification::class, 'Monitoring Report', $text);
+            if (!empty($email)) {
+                if (!GeneralUtility::validEmail($email)) {
+                    throw new UnexpectedValueException(sprintf('Email address "%s" is invalid!', $email));
+                }
+                $channelOverrideConfiguration = $notification->getOverrideChannelConfig();
+                $channelOverrideConfiguration[EmailChannel::class] = [
+                    'recipientAddress' => $email
+                ];
+                $notification->setOverrideChannelConfig($channelOverrideConfiguration);
+            }
+            $notification->send();
+        }
     }
 
     /**
@@ -123,4 +164,26 @@ class ReportCommandController extends CommandController
         return $this->languageService->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:' . $key);
     }
 
+    /**
+     * Creates a fluid instance with given template-file
+     *
+     * @param array $arguments
+     * @param string $file Path below Template-Root-Path
+     * @param string $format
+     *
+     * @return string
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    protected function getFluidTemplate(array $arguments, $file, $format = 'html')
+    {
+        /** @var StandaloneView $renderer */
+        $renderer = GeneralUtility::makeInstance(StandaloneView::class);
+        $renderer->setFormat($format);
+        $path = GeneralUtility::getFileAbsFileName('EXT:t3monitoring/Resources/Private/Templates/Notification/' . $file);
+        $renderer->setTemplatePathAndFilename($path);
+        $renderer->assignMultiple($arguments);
+
+        return trim($renderer->render());
+    }
 }
