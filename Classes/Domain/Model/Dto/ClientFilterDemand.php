@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * Class ClientFilterDemand
+ * Class ClientFilterDemand.
  */
 class ClientFilterDemand extends AbstractEntity
 {
-
     /** @var string */
     protected $version;
 
@@ -65,11 +65,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param string $version
+     *
      * @return $this
      */
     public function setVersion($version)
     {
         $this->version = $version;
+
         return $this;
     }
 
@@ -83,11 +85,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param int $sla
+     *
      * @return $this
      */
     public function setSla($sla)
     {
         $this->sla = $sla;
+
         return $this;
     }
 
@@ -101,11 +105,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param int $tag
+     *
      * @return $this
      */
     public function setTag($tag)
     {
         $this->tag = $tag;
+
         return $this;
     }
 
@@ -119,11 +125,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param string $searchWord
+     *
      * @return $this
      */
     public function setSearchWord($searchWord)
     {
         $this->searchWord = $searchWord;
+
         return $this;
     }
 
@@ -137,11 +145,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withErrorMessage
+     *
      * @return $this
      */
     public function setWithErrorMessage($withErrorMessage)
     {
         $this->withErrorMessage = $withErrorMessage;
+
         return $this;
     }
 
@@ -155,11 +165,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withInsecureExtensions
+     *
      * @return $this
      */
     public function setWithInsecureExtensions($withInsecureExtensions)
     {
         $this->withInsecureExtensions = $withInsecureExtensions;
+
         return $this;
     }
 
@@ -173,11 +185,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withInsecureCore
+     *
      * @return $this
      */
     public function setWithInsecureCore($withInsecureCore)
     {
         $this->withInsecureCore = $withInsecureCore;
+
         return $this;
     }
 
@@ -191,11 +205,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withOutdatedCore
+     *
      * @return $this
      */
     public function setWithOutdatedCore($withOutdatedCore)
     {
         $this->withOutdatedCore = $withOutdatedCore;
+
         return $this;
     }
 
@@ -209,11 +225,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withOutdatedExtensions
+     *
      * @return $this
      */
     public function setWithOutdatedExtensions($withOutdatedExtensions)
     {
         $this->withOutdatedExtensions = $withOutdatedExtensions;
+
         return $this;
     }
 
@@ -227,11 +245,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withExtraInfo
+     *
      * @return $this
      */
     public function setWithExtraInfo($withExtraInfo)
     {
         $this->withExtraInfo = $withExtraInfo;
+
         return $this;
     }
 
@@ -245,11 +265,13 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withExtraWarning
+     *
      * @return $this
      */
     public function setWithExtraWarning($withExtraWarning)
     {
         $this->withExtraWarning = $withExtraWarning;
+
         return $this;
     }
 
@@ -263,16 +285,18 @@ class ClientFilterDemand extends AbstractEntity
 
     /**
      * @param bool $withExtraDanger
+     *
      * @return $this
      */
     public function setWithExtraDanger($withExtraDanger)
     {
         $this->withExtraDanger = $withExtraDanger;
+
         return $this;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithEmailAddress()
     {
@@ -280,14 +304,14 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withEmailAddress
+     * @param bool $withEmailAddress
+     *
      * @return $this
      */
     public function setWithEmailAddress($withEmailAddress)
     {
         $this->withEmailAddress = $withEmailAddress;
+
         return $this;
     }
-
-
 }

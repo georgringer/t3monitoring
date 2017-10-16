@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 use TYPO3\CMS\Core\SingletonInterface;
 
 /**
- * Extension configuration
+ * Extension configuration.
  */
 class EmMonitoringConfiguration implements SingletonInterface
 {
-
     /** @var int */
     protected $pid = 0;
 
@@ -36,7 +36,7 @@ class EmMonitoringConfiguration implements SingletonInterface
 
     public function __construct()
     {
-        $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3monitoring']);
+        $settings = (array) unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3monitoring']);
         foreach ($settings as $key => $value) {
             if (property_exists(__CLASS__, $key)) {
                 $this->$key = $value;
@@ -49,7 +49,7 @@ class EmMonitoringConfiguration implements SingletonInterface
      */
     public function getPid()
     {
-        return (int)$this->pid;
+        return (int) $this->pid;
     }
 
     /**
@@ -57,7 +57,7 @@ class EmMonitoringConfiguration implements SingletonInterface
      */
     public function getLoadBulletins()
     {
-        return (bool)$this->loadBulletins;
+        return (bool) $this->loadBulletins;
     }
 
     /**
@@ -65,7 +65,7 @@ class EmMonitoringConfiguration implements SingletonInterface
      */
     public function getUseGoogleCharts()
     {
-        return (bool)$this->useGoogleCharts;
+        return (bool) $this->useGoogleCharts;
     }
 
     /**
@@ -91,5 +91,4 @@ class EmMonitoringConfiguration implements SingletonInterface
     {
         return $this->emailForFailedClient;
     }
-    
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * Class ExtensionFilterDemand
+ * Class ExtensionFilterDemand.
  */
 class ExtensionFilterDemand extends AbstractEntity
 {
-
     /** @var string */
     protected $name;
 

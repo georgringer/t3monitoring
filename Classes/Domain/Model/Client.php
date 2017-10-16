@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model;
 
 /*
@@ -12,11 +13,10 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
- * Client
+ * Client.
  */
 class Client extends AbstractEntity
 {
-
     /**
      * @var string
      * @validate NotEmpty
@@ -140,7 +140,7 @@ class Client extends AbstractEntity
     protected $tag = null;
 
     /**
-     * __construct
+     * __construct.
      */
     public function __construct()
     {
@@ -152,7 +152,7 @@ class Client extends AbstractEntity
      * Initializes all ObjectStorage properties
      * Do not modify this method!
      * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
+     * You may modify the constructor of this class instead.
      *
      * @return void
      */
@@ -162,7 +162,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the title
+     * Returns the title.
      *
      * @return string
      */
@@ -172,9 +172,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the title
+     * Sets the title.
      *
      * @param string $title
+     *
      * @return void
      */
     public function setTitle($title)
@@ -183,7 +184,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the domain
+     * Returns the domain.
      *
      * @return string
      */
@@ -193,9 +194,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the domain
+     * Sets the domain.
      *
      * @param string $domain
+     *
      * @return void
      */
     public function setDomain($domain)
@@ -236,7 +238,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the secret
+     * Returns the secret.
      *
      * @return string
      */
@@ -246,9 +248,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the secret
+     * Sets the secret.
      *
      * @param string $secret
+     *
      * @return void
      */
     public function setSecret($secret)
@@ -257,7 +260,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the email
+     * Returns the email.
      *
      * @return string
      */
@@ -267,9 +270,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the email
+     * Sets the email.
      *
      * @param string $email
+     *
      * @return void
      */
     public function setEmail($email)
@@ -278,7 +282,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the phpVersion
+     * Returns the phpVersion.
      *
      * @return string
      */
@@ -288,9 +292,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the phpVersion
+     * Sets the phpVersion.
      *
      * @param string $phpVersion
+     *
      * @return void
      */
     public function setPhpVersion($phpVersion)
@@ -299,7 +304,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the mysqlVersion
+     * Returns the mysqlVersion.
      *
      * @return string
      */
@@ -309,9 +314,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the mysqlVersion
+     * Sets the mysqlVersion.
      *
      * @param string $mysqlVersion
+     *
      * @return void
      */
     public function setMysqlVersion($mysqlVersion)
@@ -320,7 +326,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the diskFreeSpace
+     * Returns the diskFreeSpace.
      *
      * @return int
      */
@@ -330,9 +336,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the diskFreeSpace
+     * Sets the diskFreeSpace.
      *
      * @param int $diskFreeSpace
+     *
      * @return void
      */
     public function setDiskFreeSpace($diskFreeSpace)
@@ -341,7 +348,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the diskTotalSpace
+     * Returns the diskTotalSpace.
      *
      * @return int
      */
@@ -351,9 +358,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the diskTotalSpace
+     * Sets the diskTotalSpace.
      *
      * @param int $diskTotalSpace
+     *
      * @return void
      */
     public function setDiskTotalSpace($diskTotalSpace)
@@ -362,7 +370,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the insecureCore
+     * Returns the insecureCore.
      *
      * @return bool
      */
@@ -372,9 +380,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the insecureCore
+     * Sets the insecureCore.
      *
      * @param bool $insecureCore
+     *
      * @return void
      */
     public function setInsecureCore($insecureCore)
@@ -383,7 +392,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of insecureCore
+     * Returns the boolean state of insecureCore.
      *
      * @return bool
      */
@@ -393,7 +402,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the outdatedCore
+     * Returns the outdatedCore.
      *
      * @return bool
      */
@@ -403,9 +412,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the outdatedCore
+     * Sets the outdatedCore.
      *
      * @param bool $outdatedCore
+     *
      * @return void
      */
     public function setOutdatedCore($outdatedCore)
@@ -414,7 +424,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of outdatedCore
+     * Returns the boolean state of outdatedCore.
      *
      * @return bool
      */
@@ -424,7 +434,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the insecureExtensions
+     * Returns the insecureExtensions.
      *
      * @return int
      */
@@ -434,9 +444,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the insecureExtensions
+     * Sets the insecureExtensions.
      *
      * @param int $insecureExtensions
+     *
      * @return void
      */
     public function setInsecureExtensions($insecureExtensions)
@@ -445,7 +456,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the outdatedExtensions
+     * Returns the outdatedExtensions.
      *
      * @return int
      */
@@ -455,9 +466,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the outdatedExtensions
+     * Sets the outdatedExtensions.
      *
      * @param int $outdatedExtensions
+     *
      * @return void
      */
     public function setOutdatedExtensions($outdatedExtensions)
@@ -466,7 +478,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the errorMessage
+     * Returns the errorMessage.
      *
      * @return string
      */
@@ -476,9 +488,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the errorMessage
+     * Sets the errorMessage.
      *
      * @param string $errorMessage
+     *
      * @return void
      */
     public function setErrorMessage($errorMessage)
@@ -487,7 +500,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the extraInfo
+     * Returns the extraInfo.
      *
      * @return string
      */
@@ -497,9 +510,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the extraInfo
+     * Sets the extraInfo.
      *
      * @param string $extraInfo
+     *
      * @return void
      */
     public function setExtraInfo($extraInfo)
@@ -508,7 +522,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the extraWarning
+     * Returns the extraWarning.
      *
      * @return string
      */
@@ -518,9 +532,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the extraWarning
+     * Sets the extraWarning.
      *
      * @param string $extraWarning
+     *
      * @return void
      */
     public function setExtraWarning($extraWarning)
@@ -529,7 +544,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the extraDanger
+     * Returns the extraDanger.
      *
      * @return string
      */
@@ -539,9 +554,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the extraDanger
+     * Sets the extraDanger.
      *
      * @param string $extraDanger
+     *
      * @return void
      */
     public function setExtraDanger($extraDanger)
@@ -550,7 +566,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the lastSuccessfulImport
+     * Returns the lastSuccessfulImport.
      *
      * @return \DateTime
      */
@@ -560,9 +576,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the lastSuccessfulImport
+     * Sets the lastSuccessfulImport.
      *
      * @param \DateTime $lastSuccessfulImport
+     *
      * @return void
      */
     public function setLastSuccessfulImport(\DateTime $lastSuccessfulImport)
@@ -571,9 +588,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Adds a Extension
+     * Adds a Extension.
      *
      * @param \T3Monitor\T3monitoring\Domain\Model\Extension $extension
+     *
      * @return void
      */
     public function addExtension(Extension $extension)
@@ -582,9 +600,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Removes a Extension
+     * Removes a Extension.
      *
      * @param \T3Monitor\T3monitoring\Domain\Model\Extension $extensionToRemove The Extension to be removed
+     *
      * @return void
      */
     public function removeExtension(Extension $extensionToRemove)
@@ -593,7 +612,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the extensions
+     * Returns the extensions.
      *
      * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension>
      */
@@ -603,9 +622,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the extensions
+     * Sets the extensions.
      *
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension> $extensions
+     *
      * @return void
      */
     public function setExtensions(ObjectStorage $extensions)
@@ -614,7 +634,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the core
+     * Returns the core.
      *
      * @return \T3Monitor\T3monitoring\Domain\Model\Core
      */
@@ -624,9 +644,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the core
+     * Sets the core.
      *
      * @param \T3Monitor\T3monitoring\Domain\Model\Core $core
+     *
      * @return void
      */
     public function setCore(Core $core)
@@ -635,7 +656,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the sla
+     * Returns the sla.
      *
      * @return \T3Monitor\T3monitoring\Domain\Model\Sla
      */
@@ -645,9 +666,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the sla
+     * Sets the sla.
      *
      * @param \T3Monitor\T3monitoring\Domain\Model\Sla $sla
+     *
      * @return void
      */
     public function setSla(Sla $sla)
@@ -656,7 +678,7 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Returns the tag
+     * Returns the tag.
      *
      * @return \T3Monitor\T3monitoring\Domain\Model\Tag
      */
@@ -666,9 +688,10 @@ class Client extends AbstractEntity
     }
 
     /**
-     * Sets the tag
+     * Sets the tag.
      *
      * @param \T3Monitor\T3monitoring\Domain\Model\Tag $tag
+     *
      * @return void
      */
     public function setTag(Tag $tag)
@@ -684,6 +707,7 @@ class Client extends AbstractEntity
         if (!empty($this->extraInfo)) {
             return json_decode($this->extraInfo, true);
         }
+
         return [];
     }
 
@@ -695,6 +719,7 @@ class Client extends AbstractEntity
         if (!empty($this->extraWarning)) {
             return json_decode($this->extraWarning, true);
         }
+
         return [];
     }
 
@@ -706,6 +731,7 @@ class Client extends AbstractEntity
         if (!empty($this->extraDanger)) {
             return json_decode($this->extraDanger, true);
         }
+
         return [];
     }
 }

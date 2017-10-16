@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 /*
@@ -12,18 +13,17 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Class ExtensionFilterDemandTest
+ * Class ExtensionFilterDemandTest.
  */
 class ExtensionFilterDemandTest extends UnitTestCase
 {
-
     /**
      * @var ExtensionFilterDemand
      */
     protected $instance;
 
     /**
-     * Set up
+     * Set up.
      */
     protected function setUp()
     {

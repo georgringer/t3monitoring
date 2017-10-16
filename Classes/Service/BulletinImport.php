@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Service;
 
 /*
@@ -11,7 +12,7 @@ namespace T3Monitor\T3monitoring\Service;
 use DOMDocument;
 
 /**
- * Class BulletinImport
+ * Class BulletinImport.
  */
 class BulletinImport
 {
@@ -23,7 +24,7 @@ class BulletinImport
 
     /**
      * @param string $url
-     * @param int $limit
+     * @param int    $limit
      */
     public function __construct($url, $limit = 10)
     {
@@ -36,16 +37,17 @@ class BulletinImport
      */
     public function start()
     {
-        $feed = array();
+        $feed = [];
+
         try {
             $rss = new DOMDocument();
             $rss->load($this->url);
             foreach ($rss->getElementsByTagName('item') as $node) {
                 $feed[] = [
                     'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
-                    'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
-                    'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
-                    'date' => strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue),
+                    'desc'  => $node->getElementsByTagName('description')->item(0)->nodeValue,
+                    'link'  => $node->getElementsByTagName('link')->item(0)->nodeValue,
+                    'date'  => strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue),
                 ];
             }
         } catch (\Exception $e) {

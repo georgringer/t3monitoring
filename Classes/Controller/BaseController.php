@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -28,11 +29,10 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
- * Class BaseController
+ * Class BaseController.
  */
 class BaseController extends ActionController
 {
-
     /** @var BackendTemplateView */
     protected $view;
 
@@ -61,7 +61,7 @@ class BaseController extends ActionController
     protected $emConfiguration;
 
     /**
-     * Initialize action
+     * Initialize action.
      */
     public function initializeAction()
     {
@@ -77,37 +77,39 @@ class BaseController extends ActionController
     }
 
     /**
-     * Set up the doc header properly here
+     * Set up the doc header properly here.
      *
      * @param ViewInterface $view
+     *
      * @throws \InvalidArgumentException
      */
     protected function initializeView(ViewInterface $view)
     {
-        /** @var BackendTemplateView $view */
+        /* @var BackendTemplateView $view */
         parent::initializeView($view);
         $view->getModuleTemplate()->getDocHeaderComponent()->setMetaInformation([]);
         $view->assignMultiple([
             'emConfiguration' => $this->emConfiguration,
-            'formats' => [
-                'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
-                'time' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-                'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-            ]
+            'formats'         => [
+                'date'        => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
+                'time'        => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+                'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'].' '.$GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+            ],
         ]);
 
         /** @var PageRenderer $pageRenderer */
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/T3monitoring/Main');
         $pageRenderer->addCssFile(ExtensionManagementUtility::extRelPath('t3monitoring')
-            . 'Resources/Public/Css/t3monitoring.css');
+            .'Resources/Public/Css/t3monitoring.css');
 
         $this->createMenu();
         $this->getButtons();
     }
 
     /**
-     * Create menu
+     * Create menu.
+     *
      * @throws \InvalidArgumentException
      */
     protected function createMenu()
@@ -146,6 +148,7 @@ class BaseController extends ActionController
 
     /**
      * Create the panel of buttons for submitting the form or otherwise perform operations.
+     *
      * @throws \InvalidArgumentException
      */
     protected function getButtons()
@@ -167,14 +170,14 @@ class BaseController extends ActionController
         // Buttons for new records
         $returnUrl = rawurlencode(BackendUtility::getModuleUrl('tools_T3monitoringT3monitor', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => [
-                'action' => $this->request->getControllerActionName(),
-                'controller' => $this->request->getControllerName()
-            ]
+                'action'     => $this->request->getControllerActionName(),
+                'controller' => $this->request->getControllerName(),
+            ],
         ], false, true));
         $pid = $this->emConfiguration->getPid();
 
         // new client
-        $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $pid . ']=new&returnUrl=' . $returnUrl);
+        $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client]['.$pid.']=new&returnUrl='.$returnUrl);
         $addUserGroupButton = $buttonBar->makeLinkButton()
             ->setHref(BackendUtility::getModuleUrl('record_edit', $parameters))
             ->setTitle($this->getLabel('createNew.client'))
@@ -188,8 +191,8 @@ class BaseController extends ActionController
         ) {
             // edit client
             $arguments = $this->request->getArguments();
-            $clientId = (int)$arguments['client'];
-            $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $clientId . ']=edit&returnUrl=' . $returnUrl);
+            $clientId = (int) $arguments['client'];
+            $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client]['.$clientId.']=edit&returnUrl='.$returnUrl);
             $editClientButton = $buttonBar->makeLinkButton()
                 ->setHref(BackendUtility::getModuleUrl('record_edit', $parameters))
                 ->setTitle($this->getLabel('edit.client'))
@@ -210,13 +213,13 @@ class BaseController extends ActionController
         // Configuration
         $configurationLink = BackendUtility::getModuleUrl('tools_ExtensionmanagerExtensionmanager', [
             'tx_extensionmanager_tools_extensionmanagerextensionmanager' => [
-                'action' => 'showConfigurationForm',
+                'action'     => 'showConfigurationForm',
                 'controller' => 'Configuration',
-                'extension' => ['key' => 't3monitoring']
-            ]
+                'extension'  => ['key' => 't3monitoring'],
+            ],
         ]);
         $configurationButton = $buttonBar->makeLinkButton()
-            ->setHref($configurationLink . '&returnUrl=' . $returnUrl)
+            ->setHref($configurationLink.'&returnUrl='.$returnUrl)
             ->setTitle($this->getLabel('emConfiguration.link'))
             ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-system-extension-configure',
                 Icon::SIZE_SMALL));
@@ -225,11 +228,12 @@ class BaseController extends ActionController
 
     /**
      * @param string $key
+     *
      * @return string
      */
     protected function getLabel($key)
     {
-        return $this->getLanguageService()->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:' . $key);
+        return $this->getLanguageService()->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:'.$key);
     }
 
     /**
@@ -253,7 +257,7 @@ class BaseController extends ActionController
     }
 
     /**
-     * Returns the LanguageService
+     * Returns the LanguageService.
      *
      * @return LanguageService
      */

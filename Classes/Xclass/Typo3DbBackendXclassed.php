@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Xclass;
 
 /*
@@ -11,17 +12,18 @@ namespace T3Monitor\T3monitoring\Xclass;
 use TYPO3\CMS\Extbase\Persistence\Generic\Storage\Typo3DbBackend;
 
 /**
- * Xclassed Typo3DbBackend
+ * Xclassed Typo3DbBackend.
  */
 class Typo3DbBackendXclassed extends Typo3DbBackend
 {
-
     /**
-     * Fetches the rows directly from the database, not using prepared statement
+     * Fetches the rows directly from the database, not using prepared statement.
      *
      * @param array $statementParts
-     * @return array the result
+     *
      * @throws \TYPO3\CMS\Extbase\Persistence\Generic\Storage\Exception\SqlErrorException
+     *
+     * @return array the result
      */
     protected function getRowsFromDatabase(array $statementParts)
     {

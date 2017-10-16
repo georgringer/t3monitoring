@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -13,12 +14,12 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class AvailableUpdatesViewHelper
+ * Class AvailableUpdatesViewHelper.
  */
 class AvailableUpdatesViewHelper extends AbstractViewHelper
 {
     /**
-     * For CMS 8
+     * For CMS 8.
      *
      * @var bool
      */
@@ -26,23 +27,24 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
 
     /**
      * @param Extension $extension
-     * @param string $as
+     * @param string    $as
+     *
      * @return string
      */
     public function render(Extension $extension, $as = 'list')
     {
         $versions = [
             'bugfix' => $extension->getLastBugfixRelease(),
-            'minor' => $extension->getLastMinorRelease(),
-            'major' => $extension->getLastMajorRelease()
+            'minor'  => $extension->getLastMinorRelease(),
+            'major'  => $extension->getLastMajorRelease(),
         ];
 
         $result = [];
         foreach ($versions as $name => $version) {
             if (!empty($version) && $extension->getVersion() !== $version && !isset($result[$version])) {
                 $result[$version] = [
-                    'name' => $name,
-                    'version' => $version,
+                    'name'                   => $name,
+                    'version'                => $version,
                     'serializedDependencies' => $this->getDependenciesOfExtensionVersion($extension->getName(), $version),
                 ];
             }
@@ -57,6 +59,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
     /**
      * @param string $name
      * @param string $version
+     *
      * @return mixed
      */
     protected function getDependenciesOfExtensionVersion($name, $version)
@@ -70,6 +73,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
             'serialized_dependencies',
             $table,
             $where);
+
         return $row['serialized_dependencies'];
     }
 

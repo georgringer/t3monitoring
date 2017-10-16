@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -8,17 +9,15 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- * The repository for Clients
+ * The repository for Clients.
  */
 class ClientRepository extends BaseRepository
 {
-
     /** @var array */
     protected $searchFields = ['title', 'domain'];
 
@@ -27,6 +26,7 @@ class ClientRepository extends BaseRepository
 
     /**
      * @param ClientFilterDemand $demand
+     *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findByDemand(ClientFilterDemand $demand)
@@ -45,6 +45,7 @@ class ClientRepository extends BaseRepository
 
     /**
      * @param ClientFilterDemand $demand
+     *
      * @return int
      */
     public function countByDemand(ClientFilterDemand $demand)
@@ -56,11 +57,13 @@ class ClientRepository extends BaseRepository
                 $query->logicalAnd($constraints)
             );
         }
+
         return $query->execute()->count();
     }
 
     /**
      * @param bool $emailAddressRequired
+     *
      * @return \T3Monitor\T3monitoring\Domain\Model\Client[]
      */
     public function getAllForReport($emailAddressRequired = false)
@@ -90,7 +93,7 @@ class ClientRepository extends BaseRepository
 
     /**
      * @param ClientFilterDemand $demand
-     * @param QueryInterface $query
+     * @param QueryInterface     $query
      */
     protected function getConstraints(ClientFilterDemand $demand, QueryInterface $query)
     {
@@ -110,7 +113,7 @@ class ClientRepository extends BaseRepository
         if ($demand->getSearchWord()) {
             $searchConstraints = [];
             foreach ($this->searchFields as $field) {
-                $searchConstraints[] = $query->like($field, '%' . $demand->getSearchWord() . '%');
+                $searchConstraints[] = $query->like($field, '%'.$demand->getSearchWord().'%');
             }
             if (count($searchConstraints)) {
                 $constraints[] = $query->logicalOr($searchConstraints);
@@ -123,7 +126,7 @@ class ClientRepository extends BaseRepository
             if (count($split) === 3) {
                 $constraints[] = $query->equals('core.version', $demand->getVersion());
             } else {
-                $constraints[] = $query->like('core.version', $demand->getVersion() . '%');
+                $constraints[] = $query->like('core.version', $demand->getVersion().'%');
             }
         }
 
@@ -151,7 +154,7 @@ class ClientRepository extends BaseRepository
         if ($demand->isWithOutdatedCore()) {
             $constraints[] = $query->logicalOr([
                 $query->equals('core.isLatest', 0),
-                $query->equals('core.isActive', 0)
+                $query->equals('core.isActive', 0),
             ]);
         }
 

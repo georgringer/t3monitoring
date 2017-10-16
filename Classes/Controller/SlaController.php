@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Controller;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
 
 /**
- * SlaController
+ * SlaController.
  */
 class SlaController extends BaseController
 {
-
     /**
      * @var \T3Monitor\T3monitoring\Domain\Repository\SlaRepository
      */
@@ -30,7 +30,7 @@ class SlaController extends BaseController
     }
 
     /**
-     * action list
+     * action list.
      *
      * @return void
      */
@@ -41,9 +41,10 @@ class SlaController extends BaseController
     }
 
     /**
-     * action show
+     * action show.
      *
      * @param Sla $sla
+     *
      * @return void
      */
     public function showAction(Sla $sla = null)
@@ -55,8 +56,8 @@ class SlaController extends BaseController
         $demand = $this->getClientFilterDemand();
         $demand->setSla($sla->getUid());
         $this->view->assignMultiple([
-            'sla' => $sla,
-            'clients' => $this->clientRepository->findByDemand($demand)
+            'sla'     => $sla,
+            'clients' => $this->clientRepository->findByDemand($demand),
         ]);
     }
 }

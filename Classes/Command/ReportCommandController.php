@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Command;
 
 /*
@@ -17,11 +18,10 @@ use TYPO3\CMS\Lang\LanguageService;
 use UnexpectedValueException;
 
 /**
- * Report command controller
+ * Report command controller.
  */
 class ReportCommandController extends CommandController
 {
-
     /** @var EmailNotification */
     protected $emailNotification;
 
@@ -40,7 +40,7 @@ class ReportCommandController extends CommandController
     }
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -49,9 +49,10 @@ class ReportCommandController extends CommandController
     }
 
     /**
-     * Generate collective report for all insecure clients (core or extensions)
+     * Generate collective report for all insecure clients (core or extensions).
      *
      * @param string $email Send email to this email address
+     *
      * @throws \UnexpectedValueException
      */
     public function adminCommand($email = '')
@@ -60,6 +61,7 @@ class ReportCommandController extends CommandController
 
         if (count($clients) === 0) {
             $this->outputLine($this->getLabel('noInsecureClients'));
+
             return;
         }
 
@@ -86,7 +88,7 @@ class ReportCommandController extends CommandController
                 $collectedClientData[] = [
                     $client->getTitle(),
                     $client->getCore()->isInsecure() ? $client->getCore()->getVersion() : '✓',
-                    $insecureExtensions ? implode(', ', $insecureExtensions) : ''
+                    $insecureExtensions ? implode(', ', $insecureExtensions) : '',
                 ];
             }
 
@@ -100,7 +102,7 @@ class ReportCommandController extends CommandController
     }
 
     /**
-     * Client command
+     * Client command.
      */
     public function clientCommand()
     {
@@ -108,6 +110,7 @@ class ReportCommandController extends CommandController
 
         if (count($clients) === 0) {
             $this->outputLine($this->getLabel('noInsecureClients'));
+
             return;
         }
 
@@ -116,11 +119,11 @@ class ReportCommandController extends CommandController
 
     /**
      * @param string $key
+     *
      * @return string
      */
     protected function getLabel($key)
     {
-        return $this->languageService->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:' . $key);
+        return $this->languageService->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:'.$key);
     }
-
 }

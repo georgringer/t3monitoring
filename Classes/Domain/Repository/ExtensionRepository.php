@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -12,13 +13,12 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- * The repository for Extensions
+ * The repository for Extensions.
  */
 class ExtensionRepository extends BaseRepository
 {
-
     /**
-     * Initialize object
+     * Initialize object.
      */
     public function initializeObject()
     {
@@ -27,6 +27,7 @@ class ExtensionRepository extends BaseRepository
 
     /**
      * @param string $name
+     *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findAllVersionsByName($name)
@@ -42,6 +43,7 @@ class ExtensionRepository extends BaseRepository
 
     /**
      * @param ExtensionFilterDemand $demand
+     *
      * @return array
      */
     public function findByDemand(ExtensionFilterDemand $demand)
@@ -51,7 +53,7 @@ class ExtensionRepository extends BaseRepository
             'tx_t3monitoring_domain_model_extension ext
                 RIGHT JOIN tx_t3monitoring_client_extension_mm mm on mm.uid_foreign = ext.uid
                 RIGHT JOIN tx_t3monitoring_domain_model_client client on mm.uid_local=client.uid',
-            'ext.name is not null AND client.deleted=0 AND client.hidden=0' . $this->extendWhereClause($demand),
+            'ext.name is not null AND client.deleted=0 AND client.hidden=0'.$this->extendWhereClause($demand),
             '',
             'ext.name,ext.version_integer DESC,client.title'
         );
@@ -61,11 +63,13 @@ class ExtensionRepository extends BaseRepository
             $result[$row['name']][$row['version']]['insecure'] = $row['insecure'];
             $result[$row['name']][$row['version']]['clients'][] = $row;
         }
+
         return $result;
     }
 
     /**
      * @param ExtensionFilterDemand $demand
+     *
      * @return string
      */
     protected function extendWhereClause(ExtensionFilterDemand $demand)
@@ -77,15 +81,15 @@ class ExtensionRepository extends BaseRepository
             $searchString = $this->getDatabaseConnection()->quoteStr($demand->getName(), $table);
 
             if ($demand->isExactSearch()) {
-                $constraints[] = 'ext.name = "' . $searchString . '"';
+                $constraints[] = 'ext.name = "'.$searchString.'"';
             } else {
-                $constraints[] = 'ext.name LIKE "%' .
-                    $this->getDatabaseConnection()->escapeStrForLike($searchString, $table) . '%"';
+                $constraints[] = 'ext.name LIKE "%'.
+                    $this->getDatabaseConnection()->escapeStrForLike($searchString, $table).'%"';
             }
         }
 
         if (!empty($constraints)) {
-            return ' AND ' . implode(' AND ', $constraints);
+            return ' AND '.implode(' AND ', $constraints);
         } else {
             return '';
         }

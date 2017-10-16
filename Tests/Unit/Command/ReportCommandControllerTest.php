@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Command;
 
 /*
@@ -15,13 +16,13 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
- * Class ReportCommandControllerTest
+ * Class ReportCommandControllerTest.
  */
 class ReportCommandControllerTest extends UnitTestCase
 {
-
     /**
      * @test
+     *
      * @throws \InvalidArgumentException
      */
     public function reportCommandWillTriggerEmailNotification()

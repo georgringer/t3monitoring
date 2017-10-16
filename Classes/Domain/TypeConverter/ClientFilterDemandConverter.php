@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
 /**
- * Class ClientFilterDemandConverter
+ * Class ClientFilterDemandConverter.
  */
 class ClientFilterDemandConverter extends AbstractTypeConverter
 {
@@ -37,21 +37,23 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
     /**
      * Actually convert from $source to $targetType, by doing a typecast.
      *
-     * @param mixed $source
-     * @param string $targetType
-     * @param array $convertedChildProperties
+     * @param mixed                                 $source
+     * @param string                                $targetType
+     * @param array                                 $convertedChildProperties
      * @param PropertyMappingConfigurationInterface $configuration
+     *
      * @return float|\TYPO3\CMS\Extbase\Error\Error
+     *
      * @api
      */
     public function convertFrom(
         $source,
         $targetType,
-        array $convertedChildProperties = array(),
+        array $convertedChildProperties = [],
         PropertyMappingConfigurationInterface $configuration = null
     ) {
         if (!$this->isAllowed()) {
-            return null;
+            return;
         }
         $vars = GeneralUtility::_GET('tx_t3monitoring_tools_t3monitoringt3monitor');
         $properties = $vars['filter'];
@@ -59,16 +61,18 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
         $object = GeneralUtility::makeInstance($this->targetType);
         foreach ($properties as $key => $value) {
             if (property_exists($object, $key)) {
-                $setter = 'set' . ucfirst($key);
+                $setter = 'set'.ucfirst($key);
                 $object->$setter($value);
             }
         }
+
         return $object;
     }
 
     /**
-     * @param mixed $source
+     * @param mixed  $source
      * @param string $targetType
+     *
      * @return bool
      */
     public function canConvertFrom($source, $targetType)

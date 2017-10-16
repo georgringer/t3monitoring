@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -11,15 +12,15 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- * The repository for Slas
+ * The repository for Slas.
  */
 class SlaRepository extends BaseRepository
 {
-
     /**
-     * Initialize object
+     * Initialize object.
      */
-    public function initializeObject() {
+    public function initializeObject()
+    {
         $this->setDefaultOrderings(['sorting' => QueryInterface::ORDER_ASCENDING]);
     }
 }

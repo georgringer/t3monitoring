@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -13,16 +14,16 @@ use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * ClientController
+ * ClientController.
  */
 class ClientController extends BaseController
 {
-
     /**
-     * Show client
+     * Show client.
      *
      * @param Client $client
      * @ignorevalidation $client
+     *
      * @return void
      */
     public function showAction(Client $client = null)
@@ -38,10 +39,11 @@ class ClientController extends BaseController
     }
 
     /**
-     * Fetch client
+     * Fetch client.
      *
      * @param Client $client
      * @ignorevalidation $client
+     *
      * @return void
      */
     public function fetchAction(Client $client = null)

@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -12,7 +13,7 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- * The repository for Cores
+ * The repository for Cores.
  */
 class CoreRepository extends BaseRepository
 {
@@ -20,14 +21,16 @@ class CoreRepository extends BaseRepository
     const USED_ONLY = 1;
 
     /**
-     * Initialize object
+     * Initialize object.
      */
-    public function initializeObject() {
+    public function initializeObject()
+    {
         $this->setDefaultOrderings(['versionInteger' => QueryInterface::ORDER_DESCENDING]);
     }
 
     /**
      * @param CoreFilterDemand $demand
+     *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findByDemand(CoreFilterDemand $demand)
@@ -50,6 +53,7 @@ class CoreRepository extends BaseRepository
 
     /**
      * @param int $mode
+     *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findAllCoreVersions($mode = self::USED_ONLY)
@@ -60,16 +64,19 @@ class CoreRepository extends BaseRepository
                 $query->equals('isUsed', ($mode === self::USED_ONLY ? 1 : 0))
             ));
         }
+
         return $query->execute();
     }
 
     /**
      * @param string $version
+     *
      * @return \T3Monitor\T3monitoring\Domain\Model\Core
      */
     public function findByVersionAsInteger($version)
     {
         $query = $this->getQuery();
+
         return $query->matching(
             $query->logicalAnd(
                 $query->equals('versionInteger', $version)

@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -12,11 +13,10 @@ use T3Monitor\T3monitoring\Domain\Model\Tag;
 use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
 
 /**
- * TagController
+ * TagController.
  */
 class TagController extends BaseController
 {
-
     /**
      * @var TagRepository
      */
@@ -31,7 +31,7 @@ class TagController extends BaseController
     }
 
     /**
-     * action list
+     * action list.
      *
      * @return void
      */
@@ -42,9 +42,10 @@ class TagController extends BaseController
     }
 
     /**
-     * action show
+     * action show.
      *
      * @param Tag $tag
+     *
      * @return void
      */
     public function showAction(Tag $tag = null)
@@ -56,8 +57,8 @@ class TagController extends BaseController
         $demand = $this->getClientFilterDemand();
         $demand->setTag($tag->getUid());
         $this->view->assignMultiple([
-            'tag' => $tag,
-            'clients' => $this->clientRepository->findByDemand($demand)
+            'tag'     => $tag,
+            'clients' => $this->clientRepository->findByDemand($demand),
         ]);
     }
 }

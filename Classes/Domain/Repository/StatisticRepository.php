@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -11,15 +12,15 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 
 /**
- * The repository for statistics
+ * The repository for statistics.
  */
 class StatisticRepository extends BaseRepository
 {
-
     /**
      * @param ClientFilterDemand $demand
-     * @param bool $returnFirst
-     * @return array|NULL
+     * @param bool               $returnFirst
+     *
+     * @return array|null
      */
     public function getClientsByDemand(ClientFilterDemand $demand, $returnFirst = false)
     {
@@ -28,7 +29,7 @@ class StatisticRepository extends BaseRepository
         // version
         $version = $demand->getVersion();
         if ($version) {
-            $where .= ' AND tx_t3monitoring_domain_model_core.version_integer=' . (int)$version;
+            $where .= ' AND tx_t3monitoring_domain_model_core.version_integer='.(int) $version;
         }
 
         $rows = $this->getDatabaseConnection()->exec_SELECTgetRows(
@@ -43,24 +44,26 @@ class StatisticRepository extends BaseRepository
         if ($returnFirst) {
             return array_shift($rows);
         }
+
         return $rows;
     }
 
     /**
      * @param string $version
-     * @return array|FALSE|NULL
+     *
+     * @return array|false|null
      */
     public function getCoreVersion($version)
     {
         return $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
             '*',
             'tx_t3monitoring_domain_model_core',
-            'version_integer=' . (int)$version
+            'version_integer='.(int) $version
         );
     }
 
     /**
-     * @return array|NULL
+     * @return array|null
      */
     public function getUsedCoreVersionCount()
     {
@@ -81,8 +84,9 @@ class StatisticRepository extends BaseRepository
         $data = $this->getUsedCoreVersionCount();
         $result = [];
         foreach ($data as $row) {
-            $result[] = [$row['version'], (int)$row['count']];
+            $result[] = [$row['version'], (int) $row['count']];
         }
+
         return json_encode($result);
     }
 }

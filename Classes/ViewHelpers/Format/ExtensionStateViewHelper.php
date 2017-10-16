@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -12,13 +13,13 @@ use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class ExtensionStateViewHelper
+ * Class ExtensionStateViewHelper.
  */
 class ExtensionStateViewHelper extends AbstractViewHelper
 {
-
     /**
      * @param int $state
+     *
      * @return string
      */
     public function render($state = 0)
@@ -28,6 +29,7 @@ class ExtensionStateViewHelper extends AbstractViewHelper
         if (isset(Extension::$defaultStates[$state])) {
             $stateString = Extension::$defaultStates[$state];
         }
+
         return $stateString;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -11,13 +12,13 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class MysqlVersionViewHelper
+ * Class MysqlVersionViewHelper.
  */
 class MysqlVersionViewHelper extends AbstractViewHelper
 {
-
     /**
      * @param string $version
+     *
      * @return string
      */
     public function render($version = '')
@@ -25,12 +26,12 @@ class MysqlVersionViewHelper extends AbstractViewHelper
         $version = $version ?: $this->renderChildren();
 
         $versionString = str_pad($version, 5, '0', STR_PAD_LEFT);
-        $parts = array(
+        $parts = [
             $versionString[0],
             substr($versionString, 1, 2),
-            substr($versionString, 3, 5)
-        );
+            substr($versionString, 3, 5),
+        ];
 
-        return (int)$parts[0] . '.' . (int)$parts[1] . '.' . (int)$parts[2];
+        return (int) $parts[0].'.'.(int) $parts[1].'.'.(int) $parts[2];
     }
 }

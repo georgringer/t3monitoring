@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Domain\Model;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * Core
+ * Core.
  */
 class Core extends AbstractEntity
 {
-
     /**
      * @var string
      */
@@ -82,7 +82,7 @@ class Core extends AbstractEntity
     protected $isOfficial = false;
 
     /**
-     * Returns the version
+     * Returns the version.
      *
      * @return string
      */
@@ -92,9 +92,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the version
+     * Sets the version.
      *
      * @param string $version
+     *
      * @return void
      */
     public function setVersion($version)
@@ -103,7 +104,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the insecure
+     * Returns the insecure.
      *
      * @return bool
      */
@@ -113,9 +114,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the insecure
+     * Sets the insecure.
      *
      * @param bool $insecure
+     *
      * @return void
      */
     public function setInsecure($insecure)
@@ -124,7 +126,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of insecure
+     * Returns the boolean state of insecure.
      *
      * @return bool
      */
@@ -134,7 +136,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the nextSecureVersion
+     * Returns the nextSecureVersion.
      *
      * @return string
      */
@@ -144,9 +146,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the nextSecureVersion
+     * Sets the nextSecureVersion.
      *
      * @param string $nextSecureVersion
+     *
      * @return void
      */
     public function setNextSecureVersion($nextSecureVersion)
@@ -155,7 +158,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the type
+     * Returns the type.
      *
      * @return int
      */
@@ -165,9 +168,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the type
+     * Sets the type.
      *
      * @param int $type
+     *
      * @return void
      */
     public function setType($type)
@@ -176,7 +180,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the releaseDate
+     * Returns the releaseDate.
      *
      * @return \DateTime
      */
@@ -186,9 +190,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the releaseDate
+     * Sets the releaseDate.
      *
      * @param \DateTime $releaseDate
+     *
      * @return void
      */
     public function setReleaseDate(\DateTime $releaseDate)
@@ -197,7 +202,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the latest
+     * Returns the latest.
      *
      * @return string
      */
@@ -207,9 +212,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the latest
+     * Sets the latest.
      *
      * @param string $latest
+     *
      * @return void
      */
     public function setLatest($latest)
@@ -218,7 +224,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the stable
+     * Returns the stable.
      *
      * @return string
      */
@@ -228,9 +234,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the stable
+     * Sets the stable.
      *
      * @param string $stable
+     *
      * @return void
      */
     public function setStable($stable)
@@ -239,7 +246,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the isStable
+     * Returns the isStable.
      *
      * @return bool
      */
@@ -249,9 +256,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the isStable
+     * Sets the isStable.
      *
      * @param bool $isStable
+     *
      * @return void
      */
     public function setIsStable($isStable)
@@ -260,7 +268,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isStable
+     * Returns the boolean state of isStable.
      *
      * @return bool
      */
@@ -270,7 +278,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the isActive
+     * Returns the isActive.
      *
      * @return bool
      */
@@ -280,9 +288,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the isActive
+     * Sets the isActive.
      *
      * @param bool $isActive
+     *
      * @return void
      */
     public function setIsActive($isActive)
@@ -291,7 +300,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isActive
+     * Returns the boolean state of isActive.
      *
      * @return bool
      */
@@ -301,7 +310,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the isLatest
+     * Returns the isLatest.
      *
      * @return bool
      */
@@ -311,9 +320,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the isLatest
+     * Sets the isLatest.
      *
      * @param bool $isLatest
+     *
      * @return void
      */
     public function setIsLatest($isLatest)
@@ -322,7 +332,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isLatest
+     * Returns the boolean state of isLatest.
      *
      * @return bool
      */
@@ -332,7 +342,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the versionInteger
+     * Returns the versionInteger.
      *
      * @return int
      */
@@ -342,9 +352,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the versionInteger
+     * Sets the versionInteger.
      *
      * @param int $versionInteger
+     *
      * @return void
      */
     public function setVersionInteger($versionInteger)
@@ -353,7 +364,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the isUsed
+     * Returns the isUsed.
      *
      * @return bool
      */
@@ -363,9 +374,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the isUsed
+     * Sets the isUsed.
      *
      * @param bool $isUsed
+     *
      * @return void
      */
     public function setIsUsed($isUsed)
@@ -374,7 +386,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isUsed
+     * Returns the boolean state of isUsed.
      *
      * @return bool
      */
@@ -384,7 +396,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the isOfficial
+     * Returns the isOfficial.
      *
      * @return bool
      */
@@ -394,9 +406,10 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Sets the isOfficial
+     * Sets the isOfficial.
      *
      * @param bool $isOfficial
+     *
      * @return void
      */
     public function setIsOfficial($isOfficial)
@@ -405,7 +418,7 @@ class Core extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isOfficial
+     * Returns the boolean state of isOfficial.
      *
      * @return bool
      */

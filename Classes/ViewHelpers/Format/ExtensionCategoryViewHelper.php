@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -11,31 +12,31 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class ExtensionCategoryViewHelper
+ * Class ExtensionCategoryViewHelper.
  */
 class ExtensionCategoryViewHelper extends AbstractViewHelper
 {
-
     /**
      * Contains default categories.
      *
      * @var array
      */
-    protected static $defaultCategories = array(
-        0 => 'be',
-        1 => 'module',
-        2 => 'fe',
-        3 => 'plugin',
-        4 => 'misc',
-        5 => 'services',
-        6 => 'templates',
-        8 => 'doc',
-        9 => 'example',
-        10 => 'distribution'
-    );
+    protected static $defaultCategories = [
+        0  => 'be',
+        1  => 'module',
+        2  => 'fe',
+        3  => 'plugin',
+        4  => 'misc',
+        5  => 'services',
+        6  => 'templates',
+        8  => 'doc',
+        9  => 'example',
+        10 => 'distribution',
+    ];
 
     /**
      * @param int $category
+     *
      * @return string
      */
     public function render($category = 0)
@@ -45,6 +46,7 @@ class ExtensionCategoryViewHelper extends AbstractViewHelper
         if (isset(self::$defaultCategories[$category])) {
             $categoryString = self::$defaultCategories[$category];
         }
+
         return $categoryString;
     }
 }
