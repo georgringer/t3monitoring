@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Domain\Model;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * Tag
+ * Tag.
  */
 class Tag extends AbstractEntity
 {
-
     /**
      * @var string
      * @validate NotEmpty
@@ -28,7 +28,7 @@ class Tag extends AbstractEntity
     protected $description = '';
 
     /**
-     * Returns the title
+     * Returns the title.
      *
      * @return string
      */
@@ -38,9 +38,10 @@ class Tag extends AbstractEntity
     }
 
     /**
-     * Sets the title
+     * Sets the title.
      *
      * @param string $title
+     *
      * @return void
      */
     public function setTitle($title)
@@ -49,7 +50,7 @@ class Tag extends AbstractEntity
     }
 
     /**
-     * Returns the description
+     * Returns the description.
      *
      * @return string
      */
@@ -59,9 +60,10 @@ class Tag extends AbstractEntity
     }
 
     /**
-     * Sets the description
+     * Sets the description.
      *
      * @param string $description
+     *
      * @return void
      */
     public function setDescription($description)

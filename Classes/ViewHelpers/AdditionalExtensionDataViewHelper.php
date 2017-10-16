@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -12,21 +13,22 @@ use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class AdditionalExtensionDataViewHelper
+ * Class AdditionalExtensionDataViewHelper.
  */
 class AdditionalExtensionDataViewHelper extends AbstractViewHelper
 {
     /**
-     * For CMS 8
+     * For CMS 8.
      *
      * @var bool
      */
     protected $escapeOutput = false;
 
     /**
-     * @param int $client client id
-     * @param int $extension extension id
+     * @param int    $client    client id
+     * @param int    $extension extension id
      * @param string $as
+     *
      * @return string
      */
     public function render($client, $extension, $as)
@@ -34,11 +36,12 @@ class AdditionalExtensionDataViewHelper extends AbstractViewHelper
         $row = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
             'is_loaded,state,title',
             'tx_t3monitoring_client_extension_mm',
-            sprintf('uid_local=%s AND uid_foreign=%s', (int)$client, (int)$extension));
+            sprintf('uid_local=%s AND uid_foreign=%s', (int) $client, (int) $extension));
 
         $this->templateVariableContainer->add($as, $row);
         $output = $this->renderChildren();
         $this->templateVariableContainer->remove($as);
+
         return $output;
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -14,7 +15,7 @@ use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class BaseImport
+ * Class BaseImport.
  */
 class BaseImport
 {
@@ -25,7 +26,7 @@ class BaseImport
     protected $registry;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -35,11 +36,12 @@ class BaseImport
 
     /**
      * @param string $action
+     *
      * @throws \InvalidArgumentException
      */
     protected function setImportTime($action)
     {
-        $this->registry->set('t3monitoring', 'import' . ucfirst($action), $GLOBALS['EXEC_TIME']);
+        $this->registry->set('t3monitoring', 'import'.ucfirst($action), $GLOBALS['EXEC_TIME']);
     }
 
     /**

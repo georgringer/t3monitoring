@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -14,11 +15,10 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * Base repository
+ * Base repository.
  */
 class BaseRepository extends Repository
 {
-
     /**
      * @return DatabaseConnection
      */
@@ -33,6 +33,7 @@ class BaseRepository extends Repository
     public function findAll()
     {
         $query = $this->getQuery();
+
         return $query->execute();
     }
 
@@ -42,6 +43,7 @@ class BaseRepository extends Repository
     public function countAll()
     {
         $query = $this->getQuery();
+
         return $query->execute()->count();
     }
 

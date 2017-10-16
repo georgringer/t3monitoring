@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -11,13 +12,12 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
- * The repository for Tags
+ * The repository for Tags.
  */
 class TagRepository extends BaseRepository
 {
-
     /**
-     * Initialize object
+     * Initialize object.
      */
     public function initializeObject()
     {

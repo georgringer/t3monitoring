@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 /*
@@ -12,11 +13,10 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Class EmMonitoringConfigurationTest
+ * Class EmMonitoringConfigurationTest.
  */
 class EmMonitoringConfigurationTest extends UnitTestCase
 {
-
     /**
      * @test
      */

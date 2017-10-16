@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -16,22 +17,24 @@ use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
 
 /**
- * Edit Record ViewHelper, see FormEngine logic
+ * Edit Record ViewHelper, see FormEngine logic.
  */
 class EditRecordViewHelper extends AbstractViewHelper implements CompilableInterface
 {
     /**
-     * Returns a URL to link to FormEngine
+     * Returns a URL to link to FormEngine.
      *
      * @param string $parameters Is a set of GET params to send to FormEngine
+     *
      * @return string URL to FormEngine module + parameters
+     *
      * @see \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl()
      */
     public function render($parameters)
     {
         return static::renderStatic(
             [
-                'parameters' => $parameters
+                'parameters' => $parameters,
             ],
             $this->buildRenderChildrenClosure(),
             $this->renderingContext
@@ -39,11 +42,13 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
     }
 
     /**
-     * @param array $arguments
-     * @param callable|\Closure $renderChildrenClosure
+     * @param array                     $arguments
+     * @param callable|\Closure         $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
-     * @return string
+     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public static function renderStatic(
         array $arguments,
@@ -53,10 +58,11 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
         $parameters['returnUrl'] = 'index.php?M=tools_T3monitoringT3monitor&moduleToken='
-            . FormProtectionFactory::get()->generateToken('moduleCall', 'tools_T3monitoringT3monitor')
-            . GeneralUtility::implodeArrayForUrl(
+            .FormProtectionFactory::get()->generateToken('moduleCall', 'tools_T3monitoringT3monitor')
+            .GeneralUtility::implodeArrayForUrl(
                 'tx_t3monitoring_tools_t3monitoringt3monitor',
                 GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor'));
+
         return BackendUtility::getModuleUrl('record_edit', $parameters);
     }
 }

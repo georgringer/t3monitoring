@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Notification;
 
 /*
@@ -16,19 +17,18 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use UnexpectedValueException;
 
 /**
- * Class EmailNotification
+ * Class EmailNotification.
  */
 class EmailNotification
 {
-
     const DEFAULT_EMAIL_NAME = 'EXT:t3monitoring';
     const DEFAULT_EMAIL_ADDRESS = 'no-reply@example.com';
 
-    /** @var  EmMonitoringConfiguration */
+    /** @var EmMonitoringConfiguration */
     protected $emConfiguration;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -36,9 +36,10 @@ class EmailNotification
     }
 
     /**
-     * @param string $email
+     * @param string                                        $email
      * @param \T3Monitor\T3monitoring\Domain\Model\Client[] $clients
-     * @param string $subject
+     * @param string                                        $subject
+     *
      * @throws UnexpectedValueException
      */
     public function sendAdminEmail($email, $clients, $subject = 'Monitoring Report')
@@ -52,8 +53,8 @@ class EmailNotification
         }
 
         $arguments = [
-            'email' => $email,
-            'clients' => $clients
+            'email'   => $email,
+            'clients' => $clients,
         ];
         $template = $this->getFluidTemplate($arguments, 'AdminEmail.txt', 'txt');
         $this->sendMail($email, $subject, $template);
@@ -61,7 +62,7 @@ class EmailNotification
 
     /**
      * @param \T3Monitor\T3monitoring\Domain\Model\Client[] $clients
-     * @param string $subject
+     * @param string                                        $subject
      */
     public function sendClientEmail($clients, $subject = 'Monitoring Report')
     {
@@ -71,7 +72,7 @@ class EmailNotification
                 continue;
             }
             $arguments = [
-                'client' => $client
+                'client' => $client,
             ];
             $template = $this->getFluidTemplate($arguments, 'ClientEmail.txt', 'txt');
             $this->sendMail($client->getEmail(), $subject, $template);
@@ -79,7 +80,7 @@ class EmailNotification
     }
 
     /**
-     * @param array $clients
+     * @param array  $clients
      * @param string $subject
      */
     public function sendClientFailedEmail(array $clients, $subject = 'Monitoring Client Connection Failure')
@@ -97,7 +98,7 @@ class EmailNotification
         }
         $arguments = [
             'clients' => $clients,
-            'email' => $emailAddress
+            'email'   => $emailAddress,
         ];
         $template = $this->getFluidTemplate($arguments, 'ClientConnectionError.txt', 'txt');
         $this->sendMail($emailAddress, $subject, $template);
@@ -108,6 +109,7 @@ class EmailNotification
      * @param string $subject
      * @param string $plainContent
      * @param string $htmlContent
+     *
      * @return int
      */
     protected function sendMail($to, $subject, $plainContent, $htmlContent = '')
@@ -122,15 +124,17 @@ class EmailNotification
         if (!empty($htmlContent)) {
             $mailMessage->addPart($htmlContent, 'text/emailText');
         }
+
         return $mailMessage->send();
     }
 
     /**
-     * Creates a fluid instance with given template-file
+     * Creates a fluid instance with given template-file.
      *
-     * @param array $arguments
-     * @param string $file Path below Template-Root-Path
+     * @param array  $arguments
+     * @param string $file      Path below Template-Root-Path
      * @param string $format
+     *
      * @return string
      */
     protected function getFluidTemplate(array $arguments, $file, $format = 'html')
@@ -138,7 +142,7 @@ class EmailNotification
         /** @var StandaloneView $renderer */
         $renderer = GeneralUtility::makeInstance(StandaloneView::class);
         $renderer->setFormat($format);
-        $path = GeneralUtility::getFileAbsFileName('EXT:t3monitoring/Resources/Private/Templates/Notification/' . $file);
+        $path = GeneralUtility::getFileAbsFileName('EXT:t3monitoring/Resources/Private/Templates/Notification/'.$file);
         $renderer->setTemplatePathAndFilename($path);
         $renderer->assignMultiple($arguments);
 

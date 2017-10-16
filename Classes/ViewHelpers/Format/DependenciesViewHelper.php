@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -11,33 +12,34 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Class DependenciesViewHelper
+ * Class DependenciesViewHelper.
  */
 class DependenciesViewHelper extends AbstractViewHelper
 {
-
     /**
-     * For CMS 7
-     * 
+     * For CMS 7.
+     *
      * @var bool
      * */
     protected $escapingInterceptorEnabled = false;
 
     /**
-     * For CMS 8
-     * 
+     * For CMS 8.
+     *
      * @var bool
      */
     protected $escapeOutput = false;
 
     /**
-     * For CMS 8
+     * For CMS 8.
+     *
      * @var bool
      */
     protected $escapeChildren = false;
 
     /**
      * @param string $dependencies
+     *
      * @return string
      */
     public function render($dependencies = '')
@@ -54,12 +56,12 @@ class DependenciesViewHelper extends AbstractViewHelper
         }
         $output = [];
         foreach ($dependencies as $type => $list) {
-            $output[] = '<tr><th colspan="2">' . htmlspecialchars(ucfirst($type)) . '</th></tr>';
+            $output[] = '<tr><th colspan="2">'.htmlspecialchars(ucfirst($type)).'</th></tr>';
             foreach ($list as $item => $version) {
                 $output[$type] .= sprintf('<tr><td>%s</td><td>%s</td></tr>', htmlspecialchars($item), htmlspecialchars($version));
             }
         }
 
-        return '<table class="table table-white table-striped table-hover">' . implode(LF, $output) . '</table>';
+        return '<table class="table table-white table-striped table-hover">'.implode(LF, $output).'</table>';
     }
 }

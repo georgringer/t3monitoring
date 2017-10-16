@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -13,11 +14,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
- * Class CoreImport
+ * Class CoreImport.
  */
 class CoreImport extends BaseImport
 {
-
     const TYPE_REGULAR = 0;
     const TYPE_RELEASE = 1;
     const TYPE_SECURITY = 2;
@@ -27,7 +27,8 @@ class CoreImport extends BaseImport
     const MINIMAL_TYPO3_VERSION = '4.5.0';
 
     /**
-     * Run
+     * Run.
+     *
      * @throws \InvalidArgumentException
      */
     public function run()
@@ -56,7 +57,7 @@ class CoreImport extends BaseImport
             if (isset($previousCoreVersions[$version])) {
                 $this->getDatabaseConnection()->exec_UPDATEquery(
                     $table,
-                    'uid=' . $previousCoreVersions[$version]['uid'],
+                    'uid='.$previousCoreVersions[$version]['uid'],
                     $item
                 );
             } else {
@@ -85,7 +86,7 @@ class CoreImport extends BaseImport
         $minimalTypo3Version = VersionNumberUtility::convertVersionNumberToInteger(self::MINIMAL_TYPO3_VERSION);
 
         foreach ($import as $major => $minor) {
-            if ((int)$major >= 4) {
+            if ((int) $major >= 4) {
                 $latest = $minor['latest'];
                 $stable = $minor['stable'];
                 $active = $minor['active'];
@@ -99,17 +100,17 @@ class CoreImport extends BaseImport
                     }
 
                     $data[$version] = [
-                        'version' => $version,
+                        'version'         => $version,
                         'version_integer' => $versionAsInt,
-                        'release_date' => $this->getReleaseDate($release['date']),
-                        'type' => $this->getType($release['type']),
-                        'latest' => $latest,
-                        'is_latest' => $latest === $version,
-                        'is_stable' => $stable === $version,
-                        'is_active' => $active && $release['type'] !== 'development',
-                        'is_official' => 1,
-                        'insecure' => 0,
-                        'stable' => $stable,
+                        'release_date'    => $this->getReleaseDate($release['date']),
+                        'type'            => $this->getType($release['type']),
+                        'latest'          => $latest,
+                        'is_latest'       => $latest === $version,
+                        'is_stable'       => $stable === $version,
+                        'is_active'       => $active && $release['type'] !== 'development',
+                        'is_official'     => 1,
+                        'insecure'        => 0,
+                        'stable'          => $stable,
                     ];
                 }
             }
@@ -121,7 +122,7 @@ class CoreImport extends BaseImport
     }
 
     /**
-     * If version 7.6.1 has been a security release, also mark version 7.6.0 as insecure
+     * If version 7.6.1 has been a security release, also mark version 7.6.0 as insecure.
      *
      * @param array $releases
      */
@@ -157,18 +158,22 @@ class CoreImport extends BaseImport
 
     /**
      * @param string $date
+     *
      * @return string
      */
     protected function getReleaseDate($date)
     {
         $converted = new \DateTime($date);
+
         return $converted->format('Y-m-d H:i:s');
     }
 
     /**
      * @param string $type
-     * @return int
+     *
      * @throws \UnexpectedValueException
+     *
+     * @return int
      */
     protected function getType($type)
     {
@@ -188,12 +193,14 @@ class CoreImport extends BaseImport
             default:
                 throw new \UnexpectedValueException(sprintf('Not known type "%s" found', $type));
         }
+
         return $id;
     }
 
     /**
-     * @return mixed
      * @throws \UnexpectedValueException
+     *
+     * @return mixed
      */
     protected function getRawData()
     {

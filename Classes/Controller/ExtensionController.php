@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -11,11 +12,10 @@ namespace T3Monitor\T3monitoring\Controller;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 
 /**
- * ExtensionController
+ * ExtensionController.
  */
 class ExtensionController extends BaseController
 {
-
     /**
      * @var \T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository
      */
@@ -40,13 +40,13 @@ class ExtensionController extends BaseController
         }
 
         $this->view->assignMultiple([
-            'filter' => $filter,
-            'extensions' => $this->extensionRepository->findByDemand($filter)
+            'filter'     => $filter,
+            'extensions' => $this->extensionRepository->findByDemand($filter),
         ]);
     }
 
     /**
-     * action show
+     * action show.
      *
      * @param string $extension
      */
@@ -58,7 +58,7 @@ class ExtensionController extends BaseController
         $versions = $this->extensionRepository->findAllVersionsByName($extension);
         $this->view->assignMultiple([
              'versions' => $versions,
-            'latest' => $versions->getFirst(),
+            'latest'    => $versions->getFirst(),
         ]);
     }
 }

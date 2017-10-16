@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Notification;
 
 /*
@@ -13,11 +14,10 @@ use TYPO3\CMS\Core\Tests\UnitTestCase;
 use UnexpectedValueException;
 
 /**
- * Class EmailNotificationTest
+ * Class EmailNotificationTest.
  */
 class EmailNotificationTest extends UnitTestCase
 {
-
     /**
      * @test
      * @expectedException UnexpectedValueException

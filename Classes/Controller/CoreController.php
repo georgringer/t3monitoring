@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -12,11 +13,10 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 
 /**
- * CoreController
+ * CoreController.
  */
 class CoreController extends BaseController
 {
-
     /**
      * @param CoreFilterDemand|null $filter
      */
@@ -30,7 +30,7 @@ class CoreController extends BaseController
 
         $this->view->assignMultiple([
             'filter' => $filter,
-            'cores' => $this->coreRepository->findByDemand($filter)
+            'cores'  => $this->coreRepository->findByDemand($filter),
         ]);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Model;
 
 /*
@@ -11,26 +12,25 @@ namespace T3Monitor\T3monitoring\Domain\Model;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
- * Extension
+ * Extension.
  */
 class Extension extends AbstractEntity
 {
-
     /**
      * Contains default states.
      *
      * @var array
      */
-    public static $defaultStates = array(
-        0 => 'alpha',
-        1 => 'beta',
-        2 => 'stable',
-        3 => 'experimental',
-        4 => 'test',
-        5 => 'obsolete',
-        6 => 'excludeFromUpdates',
-        999 => 'n/a'
-    );
+    public static $defaultStates = [
+        0   => 'alpha',
+        1   => 'beta',
+        2   => 'stable',
+        3   => 'experimental',
+        4   => 'test',
+        5   => 'obsolete',
+        6   => 'excludeFromUpdates',
+        999 => 'n/a',
+    ];
 
     /**
      * @var string
@@ -134,7 +134,7 @@ class Extension extends AbstractEntity
     protected $serializedDependencies = '';
 
     /**
-     * Returns the name
+     * Returns the name.
      *
      * @return string
      */
@@ -144,9 +144,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the name
+     * Sets the name.
      *
      * @param string $name
+     *
      * @return void
      */
     public function setName($name)
@@ -155,7 +156,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the version
+     * Returns the version.
      *
      * @return string
      */
@@ -165,9 +166,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the version
+     * Sets the version.
      *
      * @param string $version
+     *
      * @return void
      */
     public function setVersion($version)
@@ -176,7 +178,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the insecure
+     * Returns the insecure.
      *
      * @return bool
      */
@@ -186,9 +188,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the insecure
+     * Sets the insecure.
      *
      * @param bool $insecure
+     *
      * @return void
      */
     public function setInsecure($insecure)
@@ -197,7 +200,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of insecure
+     * Returns the boolean state of insecure.
      *
      * @return bool
      */
@@ -207,7 +210,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the nextSecureVersion
+     * Returns the nextSecureVersion.
      *
      * @return string
      */
@@ -217,9 +220,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the nextSecureVersion
+     * Sets the nextSecureVersion.
      *
      * @param string $nextSecureVersion
+     *
      * @return void
      */
     public function setNextSecureVersion($nextSecureVersion)
@@ -228,7 +232,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the title
+     * Returns the title.
      *
      * @return string
      */
@@ -238,9 +242,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the title
+     * Sets the title.
      *
      * @param string $title
+     *
      * @return void
      */
     public function setTitle($title)
@@ -249,7 +254,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the description
+     * Returns the description.
      *
      * @return string
      */
@@ -259,9 +264,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the description
+     * Sets the description.
      *
      * @param string $description
+     *
      * @return void
      */
     public function setDescription($description)
@@ -270,7 +276,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the lastUpdated
+     * Returns the lastUpdated.
      *
      * @return \DateTime
      */
@@ -280,9 +286,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the lastUpdated
+     * Sets the lastUpdated.
      *
      * @param \DateTime $lastUpdated
+     *
      * @return void
      */
     public function setLastUpdated(\DateTime $lastUpdated)
@@ -291,7 +298,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the authorName
+     * Returns the authorName.
      *
      * @return string
      */
@@ -301,9 +308,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the authorName
+     * Sets the authorName.
      *
      * @param string $authorName
+     *
      * @return void
      */
     public function setAuthorName($authorName)
@@ -312,7 +320,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the updateComment
+     * Returns the updateComment.
      *
      * @return string
      */
@@ -322,9 +330,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the updateComment
+     * Sets the updateComment.
      *
      * @param string $updateComment
+     *
      * @return void
      */
     public function setUpdateComment($updateComment)
@@ -333,7 +342,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the state
+     * Returns the state.
      *
      * @return int
      */
@@ -343,9 +352,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the state
+     * Sets the state.
      *
      * @param int $state
+     *
      * @return void
      */
     public function setState($state)
@@ -354,7 +364,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the category
+     * Returns the category.
      *
      * @return int
      */
@@ -364,9 +374,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the category
+     * Sets the category.
      *
      * @param int $category
+     *
      * @return void
      */
     public function setCategory($category)
@@ -375,7 +386,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the versionInteger
+     * Returns the versionInteger.
      *
      * @return int
      */
@@ -385,9 +396,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the versionInteger
+     * Sets the versionInteger.
      *
      * @param int $versionInteger
+     *
      * @return void
      */
     public function setVersionInteger($versionInteger)
@@ -396,7 +408,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the isUsed
+     * Returns the isUsed.
      *
      * @return bool
      */
@@ -406,9 +418,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the isUsed
+     * Sets the isUsed.
      *
      * @param bool $isUsed
+     *
      * @return void
      */
     public function setIsUsed($isUsed)
@@ -417,7 +430,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isUsed
+     * Returns the boolean state of isUsed.
      *
      * @return bool
      */
@@ -427,7 +440,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the isOfficial
+     * Returns the isOfficial.
      *
      * @return bool
      */
@@ -437,9 +450,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the isOfficial
+     * Sets the isOfficial.
      *
      * @param bool $isOfficial
+     *
      * @return void
      */
     public function setIsOfficial($isOfficial)
@@ -448,7 +462,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isOfficial
+     * Returns the boolean state of isOfficial.
      *
      * @return bool
      */
@@ -458,7 +472,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the isModified
+     * Returns the isModified.
      *
      * @return bool
      */
@@ -468,9 +482,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the isModified
+     * Sets the isModified.
      *
      * @param bool $isModified
+     *
      * @return void
      */
     public function setIsModified($isModified)
@@ -479,7 +494,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isModified
+     * Returns the boolean state of isModified.
      *
      * @return bool
      */
@@ -489,7 +504,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the isLatest
+     * Returns the isLatest.
      *
      * @return bool
      */
@@ -499,9 +514,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the isLatest
+     * Sets the isLatest.
      *
      * @param bool $isLatest
+     *
      * @return void
      */
     public function setIsLatest($isLatest)
@@ -510,7 +526,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the boolean state of isLatest
+     * Returns the boolean state of isLatest.
      *
      * @return bool
      */
@@ -520,7 +536,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the lastBugfixRelease
+     * Returns the lastBugfixRelease.
      *
      * @return string
      */
@@ -530,9 +546,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the lastBugfixRelease
+     * Sets the lastBugfixRelease.
      *
      * @param string $lastBugfixRelease
+     *
      * @return void
      */
     public function setLastBugfixRelease($lastBugfixRelease)
@@ -541,7 +558,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the lastMinorRelease
+     * Returns the lastMinorRelease.
      *
      * @return string
      */
@@ -551,9 +568,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the lastMinorRelease
+     * Sets the lastMinorRelease.
      *
      * @param string $lastMinorRelease
+     *
      * @return void
      */
     public function setLastMinorRelease($lastMinorRelease)
@@ -562,7 +580,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the lastMajorRelease
+     * Returns the lastMajorRelease.
      *
      * @return string
      */
@@ -572,9 +590,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the lastMajorRelease
+     * Sets the lastMajorRelease.
      *
      * @param string $lastMajorRelease
+     *
      * @return void
      */
     public function setLastMajorRelease($lastMajorRelease)
@@ -583,7 +602,7 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Returns the serializedDependencies
+     * Returns the serializedDependencies.
      *
      * @return string
      */
@@ -593,9 +612,10 @@ class Extension extends AbstractEntity
     }
 
     /**
-     * Sets the serializedDependencies
+     * Sets the serializedDependencies.
      *
      * @param string $serializedDependencies
+     *
      * @return void
      */
     public function setSerializedDependencies($serializedDependencies)

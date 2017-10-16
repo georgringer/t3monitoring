@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 /*
@@ -13,18 +14,17 @@ use T3Monitor\T3monitoring\Domain\Model\Sla;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Class ClientTest
+ * Class ClientTest.
  */
 class ClientTest extends UnitTestCase
 {
-
     /**
      * @var Client
      */
     protected $instance;
 
     /**
-     * Set up
+     * Set up.
      */
     protected function setUp()
     {

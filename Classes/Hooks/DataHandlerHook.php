@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Hooks;
 
 /*
@@ -17,17 +18,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
- * Class DataHandlerHook
+ * Class DataHandlerHook.
  */
 class DataHandlerHook
 {
-
     /**
-     * @param string $status
-     * @param string $table
-     * @param string $recordUid
-     * @param array $fields
+     * @param string      $status
+     * @param string      $table
+     * @param string      $recordUid
+     * @param array       $fields
      * @param DataHandler $parentObject
+     *
      * @throws \InvalidArgumentException
      */
     public function processDatamap_afterDatabaseOperations(
@@ -42,7 +43,7 @@ class DataHandlerHook
                 $recordUid = $parentObject->substNEWwithIDs[$recordUid];
             }
 
-            $clientRow = $this->getDatabase()->exec_SELECTgetSingleRow('*', $table, 'uid=' . (int)$recordUid);
+            $clientRow = $this->getDatabase()->exec_SELECTgetSingleRow('*', $table, 'uid='.(int) $recordUid);
             if ($clientRow) {
                 $this->checkDomain($clientRow['domain']);
                 $this->importClient($recordUid);
@@ -52,6 +53,7 @@ class DataHandlerHook
 
     /**
      * @todo implement
+     *
      * @param string $domain
      */
     protected function checkDomain($domain)
@@ -76,7 +78,8 @@ class DataHandlerHook
 
     /**
      * @param string $message
-     * @param int $severity
+     * @param int    $severity
+     *
      * @throws \InvalidArgumentException
      */
     protected function addFlashMessage($message, $severity = FlashMessage::INFO)
@@ -93,11 +96,12 @@ class DataHandlerHook
     }
 
     /**
-     * Returns LanguageService
+     * Returns LanguageService.
      *
      * @return \TYPO3\CMS\Lang\LanguageService
      */
-    protected function getLanguageService() {
+    protected function getLanguageService()
+    {
         return $GLOBALS['LANG'];
     }
 

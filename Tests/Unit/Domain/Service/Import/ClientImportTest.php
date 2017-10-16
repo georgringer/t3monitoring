@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Service\Import;
 
 /*
@@ -12,11 +13,10 @@ use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Core\Tests\UnitTestCase;
 
 /**
- * Class ClientImportTest
+ * Class ClientImportTest.
  */
 class ClientImportTest extends UnitTestCase
 {
-
     /**
      * @param string $given
      * @param string $expected
@@ -37,15 +37,15 @@ class ClientImportTest extends UnitTestCase
         return [
             'domainWithProtocolAndEndSlash' => [
                 'http://www.domain.com/',
-                'http://www.domain.com'
+                'http://www.domain.com',
             ],
             'domainWithHttpsProtocol' => [
                 'https://www.domain2.com',
-                'https://www.domain2.com'
+                'https://www.domain2.com',
             ],
             'domainWithoutProtocol' => [
                 'domain3.at',
-                'http://domain3.at'
+                'http://domain3.at',
             ],
         ];
     }

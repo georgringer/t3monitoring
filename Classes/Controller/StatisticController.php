@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -12,8 +13,8 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\SlaRepository;
-use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
+use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
 use T3Monitor\T3monitoring\Service\BulletinImport;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use T3Monitor\T3monitoring\Service\Import\CoreImport;
@@ -22,11 +23,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
- * Class StatisticController
+ * Class StatisticController.
  */
 class StatisticController extends BaseController
 {
-
     /**
      * @var \T3Monitor\T3monitoring\Domain\Repository\SlaRepository
      */
@@ -38,7 +38,7 @@ class StatisticController extends BaseController
     protected $tagRepository = null;
 
     /**
-     * Initialize action
+     * Initialize action.
      */
     public function initializeAction()
     {
@@ -53,7 +53,7 @@ class StatisticController extends BaseController
     }
 
     /**
-     * Index action
+     * Index action.
      *
      * @param ClientFilterDemand|null $filter
      */
@@ -84,33 +84,33 @@ class StatisticController extends BaseController
         }
 
         $this->view->assignMultiple([
-            'filter' => $filter,
-            'clients' => $this->clientRepository->findByDemand($filter),
-            'coreVersions' => $this->getAllCoreVersions(),
-            'coreVersionUsage' => $this->statisticRepository->getUsedCoreVersionCount(),
-            'coreVersionUsageJson' => $this->statisticRepository->getUsedCoreVersionCountJson(),
-            'fullClientCount' => $this->clientRepository->countByDemand($emptyClientDemand),
-            'clientsWithErrorMessages' => $this->clientRepository->countByDemand($errorMessageDemand),
+            'filter'                        => $filter,
+            'clients'                       => $this->clientRepository->findByDemand($filter),
+            'coreVersions'                  => $this->getAllCoreVersions(),
+            'coreVersionUsage'              => $this->statisticRepository->getUsedCoreVersionCount(),
+            'coreVersionUsageJson'          => $this->statisticRepository->getUsedCoreVersionCountJson(),
+            'fullClientCount'               => $this->clientRepository->countByDemand($emptyClientDemand),
+            'clientsWithErrorMessages'      => $this->clientRepository->countByDemand($errorMessageDemand),
             'clientsWithInsecureExtensions' => $this->clientRepository->countByDemand($insecureExtensionsDemand),
             'clientsWithOutdatedExtensions' => $this->clientRepository->countByDemand($outdatedExtensionDemand),
-            'clientsWithInsecureCore' => $this->clientRepository->countByDemand($insecureCoreDemand),
-            'clientsWithOutdatedCore' => $this->clientRepository->countByDemand($outdatedCoreDemand),
-            'clientsWithWarningInfo' => $this->clientRepository->countByDemand($clientsWithWarningInfo),
-            'clientsWithDangerInfo' => $this->clientRepository->countByDemand($clientsWithDangerInfo),
-            'numberOfClients' => $this->clientRepository->countAll(),
-            'slaVersions' => $this->slaRepository->findAll(),
-            'tagVersions' => $this->tagRepository->findAll(),
-            'feedItems' => $feedItems,
-            'importTimes' => [
-                'client' => $this->registry->get('t3monitoring', 'importClient'),
-                'core' => $this->registry->get('t3monitoring', 'importCore'),
+            'clientsWithInsecureCore'       => $this->clientRepository->countByDemand($insecureCoreDemand),
+            'clientsWithOutdatedCore'       => $this->clientRepository->countByDemand($outdatedCoreDemand),
+            'clientsWithWarningInfo'        => $this->clientRepository->countByDemand($clientsWithWarningInfo),
+            'clientsWithDangerInfo'         => $this->clientRepository->countByDemand($clientsWithDangerInfo),
+            'numberOfClients'               => $this->clientRepository->countAll(),
+            'slaVersions'                   => $this->slaRepository->findAll(),
+            'tagVersions'                   => $this->tagRepository->findAll(),
+            'feedItems'                     => $feedItems,
+            'importTimes'                   => [
+                'client'    => $this->registry->get('t3monitoring', 'importClient'),
+                'core'      => $this->registry->get('t3monitoring', 'importCore'),
                 'extension' => $this->registry->get('t3monitoring', 'importExtension'),
             ],
         ]);
     }
 
     /**
-     * Administrator action
+     * Administrator action.
      *
      * @param string $import
      */
@@ -143,12 +143,12 @@ class StatisticController extends BaseController
 
         $this->view->assignMultiple([
             'success' => $success,
-            'error' => $error
+            'error'   => $error,
         ]);
     }
 
     /**
-     * Get all core versions
+     * Get all core versions.
      *
      * @return array
      */
@@ -159,15 +159,16 @@ class StatisticController extends BaseController
         foreach ($versions as $version) {
             /** @var \T3Monitor\T3monitoring\Domain\Model\Core $version */
             $info = VersionNumberUtility::convertVersionStringToArray($version->getVersion());
-            $branchVersion = $info['version_main'] . '.' . $info['version_sub'];
+            $branchVersion = $info['version_main'].'.'.$info['version_sub'];
             if (!isset($used[$branchVersion])) {
-                $key = $info['version_main'] . '.' . $info['version_sub'];
+                $key = $info['version_main'].'.'.$info['version_sub'];
 
                 $result[$key] = $branchVersion;
                 $used[$branchVersion] = true;
             }
-            $result[$version->getVersion()] = '- ' . $version->getVersion();
+            $result[$version->getVersion()] = '- '.$version->getVersion();
         }
+
         return $result;
     }
 }
