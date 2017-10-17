@@ -19,7 +19,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class DependenciesViewHelper extends AbstractViewHelper implements CompilableInterface
 {
-
     use CompileWithRenderStatic;
 
     /** @var bool */
@@ -61,5 +60,4 @@ class DependenciesViewHelper extends AbstractViewHelper implements CompilableInt
 
         return '<table class="table table-white table-striped table-hover">' . implode(LF, $output) . '</table>';
     }
-
 }
