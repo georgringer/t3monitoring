@@ -11,9 +11,7 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
@@ -24,7 +22,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class AvailableUpdatesViewHelper extends AbstractViewHelper implements CompilableInterface
 {
-
     use CompileWithRenderStatic;
 
     /** @var bool */
@@ -76,7 +73,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper implements Compilabl
      * @param string $version
      * @return string
      */
-    static protected function getDependenciesOfExtensionVersion(string $name, string $version): string
+    protected static function getDependenciesOfExtensionVersion(string $name, string $version): string
     {
         $table = 'tx_t3monitoring_domain_model_extension';
 
@@ -97,5 +94,4 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper implements Compilabl
         }
         return '';
     }
-
 }
