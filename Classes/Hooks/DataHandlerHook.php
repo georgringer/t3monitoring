@@ -101,5 +101,4 @@ class DataHandlerHook
     {
         return $GLOBALS['LANG'];
     }
-
 }
