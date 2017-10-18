@@ -59,5 +59,4 @@ class AdditionalExtensionDataViewHelper extends AbstractViewHelper implements Co
 
         return $output;
     }
-
 }
