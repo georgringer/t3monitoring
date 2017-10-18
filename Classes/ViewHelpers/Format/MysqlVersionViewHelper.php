@@ -20,7 +20,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class MysqlVersionViewHelper extends AbstractViewHelper implements CompilableInterface
 {
-
     use CompileWithRenderStatic;
 
     public function initializeArguments()
