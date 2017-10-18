@@ -244,7 +244,6 @@ class DataIntegrity
                     $queryBuilder->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder->createNamedParameter($client['uid'], \PDO::PARAM_INT))
                 )->execute()->fetchColumn(0);
 
-
             // update client
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable('tx_t3monitoring_domain_model_client');

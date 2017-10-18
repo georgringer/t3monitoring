@@ -19,7 +19,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class ExtensionCategoryViewHelper extends AbstractViewHelper implements CompilableInterface
 {
-
     use CompileWithRenderStatic;
 
     public function initializeArguments()
@@ -60,5 +59,4 @@ class ExtensionCategoryViewHelper extends AbstractViewHelper implements Compilab
         9 => 'example',
         10 => 'distribution'
     ];
-
 }
