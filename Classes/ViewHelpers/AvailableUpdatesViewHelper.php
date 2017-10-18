@@ -22,7 +22,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
  */
 class AvailableUpdatesViewHelper extends AbstractViewHelper implements CompilableInterface
 {
-
     use CompileWithRenderStatic;
 
     /** @var bool */
@@ -74,7 +73,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper implements Compilabl
      * @param string $version
      * @return string
      */
-    static protected function getDependenciesOfExtensionVersion(string $name, string $version): string
+    protected static function getDependenciesOfExtensionVersion(string $name, string $version): string
     {
         $table = 'tx_t3monitoring_domain_model_extension';
 
@@ -95,5 +94,4 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper implements Compilabl
         }
         return '';
     }
-
 }
