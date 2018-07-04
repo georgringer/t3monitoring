@@ -29,7 +29,7 @@ return [
         ],
     ],
     'palettes' => [
-        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, hidden'],
+        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password'],
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
         'paletteDiskSpace' => ['showitem' => 'disk_total_space, disk_free_space'],
     ],
