@@ -10,6 +10,10 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /**
@@ -47,55 +51,43 @@ class ExtensionRepository extends BaseRepository
      */
     public function findByDemand(ExtensionFilterDemand $demand)
     {
-        $connection = $this->getDatabaseConnection();
-        $qb = $connection->createQueryBuilder();
-        $qb->select('client.title', 'client.uid as clientUid', 'ext.name', 'ext.version', 'ext.insecure')
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_t3monitoring_domain_model_extension');
+        $expressionBuilder = $queryBuilder->expr();
+        $queryBuilder
+            ->select('client.title', 'client.uid as clientUid', 'ext.name', 'ext.version', 'ext.insecure')
             ->from('tx_t3monitoring_domain_model_extension', 'ext')
             ->rightJoin('ext', 'tx_t3monitoring_client_extension_mm', 'mm', 'mm.uid_foreign = ext.uid')
-            ->rightJoin('mm', 'tx_t3monitoring_domain_model_client', 'client', 'mm.uid_local=client.uid');
-        $eb = $qb->expr();
-        $conditions = $eb->andX(
-            $eb->isNotNull('ext.name'),
-            $eb->eq('client.deleted', 0),
-            $eb->eq('client.hidden', 0)
-            //$this->extendWhereClause($demand)
-        );
-        $qb->orderBy('ext.name', 'ASC');
-        $qb->orderBy('ext.version_integer', 'DESC');
-        $qb->orderBy('client.title', 'ASC');
-        $qb->andWhere($conditions);
+            ->rightJoin('mm', 'tx_t3monitoring_domain_model_client', 'client', 'mm.uid_local=client.uid')
+            ->where($expressionBuilder->isNotNull('ext.name'))
+            ->andWhere($expressionBuilder->eq('client.hidden', 0))
+            ->andWhere($expressionBuilder->eq('client.deleted',0))
+            ->orderBy('ext.name', 'ASC')
+            ->orderBy('ext.version_integer', 'DESC')
+            ->orderBy('client.title', 'ASC');
+        $this->extendWhereClause($demand, $queryBuilder, $expressionBuilder);
 
-        $rows = $qb->execute()->fetchAll();
-        foreach ($rows as $row) {
+        $result = [];
+        foreach ($queryBuilder->execute()->fetchAll() as $row) {
             $result[$row['name']][$row['version']]['insecure'] = $row['insecure'];
             $result[$row['name']][$row['version']]['clients'][] = $row;
         }
+
         return $result;
     }
 
     /**
      * @param ExtensionFilterDemand $demand
-     * @return string
+     * @param QueryBuilder          $queryBuilder
+     * @param ExpressionBuilder     $expressionBuilder
      */
-    protected function extendWhereClause(ExtensionFilterDemand $demand)
+    protected function extendWhereClause(ExtensionFilterDemand $demand, QueryBuilder &$queryBuilder, ExpressionBuilder $expressionBuilder)
     {
-        $table = 'tx_t3monitoring_domain_model_extension';
-        $constraints = [];
-        // name
         if ($demand->getName()) {
-            $searchString = $this->getDatabaseConnection()->quoteStr($demand->getName(), $table);
-
             if ($demand->isExactSearch()) {
-                $constraints[] = 'ext . name = "' . $searchString . '"';
+                $queryBuilder->andWhere($expressionBuilder->eq('ext.name', $queryBuilder->createNamedParameter($demand->getName())));
             } else {
-                $constraints[] = 'ext . name LIKE "%' .
-                    $this->getDatabaseConnection()->escapeStrForLike($searchString, $table) . '%"';
+                $queryBuilder->andWhere($expressionBuilder->like('ext.name', $queryBuilder->createNamedParameter('%' . $demand->getName() . '%')));
             }
         }
-
-        if (!empty($constraints)) {
-            return ' AND ' . implode(' AND ', $constraints);
-        }
-        return '';
     }
 }
