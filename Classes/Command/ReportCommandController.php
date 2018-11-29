@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Command;
 
 /*
@@ -54,7 +55,7 @@ class ReportCommandController extends CommandController
      * @param string $email Send email to this email address
      * @throws \UnexpectedValueException
      */
-    public function adminCommand($email = '')
+    public function adminCommand(string $email = '')
     {
         $clients = $this->clientRepository->getAllForReport();
 
@@ -118,9 +119,8 @@ class ReportCommandController extends CommandController
      * @param string $key
      * @return string
      */
-    protected function getLabel($key)
+    protected function getLabel($key): string
     {
         return $this->languageService->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:' . $key);
     }
-
 }

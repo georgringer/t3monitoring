@@ -1,5 +1,5 @@
 <?php
-namespace T3Monitor\T3monitoring\Tests\Unit\Command\Controller;
+namespace T3Monitor\T3monitoring\Tests\Unit\Command;
 
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
@@ -24,7 +24,7 @@ class ReportCommandControllerTest extends UnitTestCase
      * @test
      * @throws \InvalidArgumentException
      */
-    public function reportCommandWillTriggerEmailNotifiction()
+    public function reportCommandWillTriggerEmailNotification()
     {
         $dummyClients = ['123', '456'];
         $emailAddress = 'fo@bar.com';

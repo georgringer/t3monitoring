@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -9,28 +10,40 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Class AvailableUpdatesViewHelper
  */
-class AvailableUpdatesViewHelper extends AbstractViewHelper
+class AvailableUpdatesViewHelper extends AbstractViewHelper implements CompilableInterface
 {
-    /**
-     * For CMS 8
-     *
-     * @var bool
-     */
+    use CompileWithRenderStatic;
+
+    /** @var bool */
     protected $escapeOutput = false;
 
+    public function initializeArguments()
+    {
+        $this->registerArgument('extension', Extension::class, 'Extension', true);
+        $this->registerArgument('as', 'string', 'Output variable', false, 'list');
+    }
+
     /**
-     * @param Extension $extension
-     * @param string $as
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public function render(Extension $extension, $as = 'list')
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        /** @var Extension $extension */
+        $extension = $arguments['extension'];
+
         $versions = [
             'bugfix' => $extension->getLastBugfixRelease(),
             'minor' => $extension->getLastMinorRelease(),
@@ -43,13 +56,14 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
                 $result[$version] = [
                     'name' => $name,
                     'version' => $version,
-                    'serializedDependencies' => $this->getDependenciesOfExtensionVersion($extension->getName(), $version),
+                    'serializedDependencies' => self::getDependenciesOfExtensionVersion($extension->getName(), $version),
                 ];
             }
         }
-        $this->templateVariableContainer->add($as, $result);
-        $output = $this->renderChildren();
-        $this->templateVariableContainer->remove($as);
+
+        $renderingContext->getVariableProvider()->add($arguments['as'], $result);
+        $output = $renderChildrenClosure();
+        $renderingContext->getVariableProvider()->remove($arguments['as']);
 
         return $output;
     }
@@ -57,27 +71,27 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
     /**
      * @param string $name
      * @param string $version
-     * @return mixed
+     * @return string
      */
-    protected function getDependenciesOfExtensionVersion($name, $version)
+    protected static function getDependenciesOfExtensionVersion(string $name, string $version): string
     {
         $table = 'tx_t3monitoring_domain_model_extension';
-        $where = sprintf('name=%s AND version=%s',
-            $this->getDatabase()->fullQuoteStr($name, $table),
-            $this->getDatabase()->fullQuoteStr($version, $table)
-        );
-        $row = $this->getDatabase()->exec_SELECTgetSingleRow(
-            'serialized_dependencies',
-            $table,
-            $where);
-        return $row['serialized_dependencies'];
-    }
 
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabase()
-    {
-        return $GLOBALS['TYPO3_DB'];
+        $queryBuilderCoreExtensions = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($table);
+        $row = $queryBuilderCoreExtensions
+            ->select('serialized_dependencies')
+            ->from($table)
+            ->where(
+                $queryBuilderCoreExtensions->expr()->eq('name', $queryBuilderCoreExtensions->createNamedParameter($name)),
+                $queryBuilderCoreExtensions->expr()->eq('version', $queryBuilderCoreExtensions->createNamedParameter($version))
+            )
+            ->setMaxResults(1)
+            ->execute()->fetch();
+
+        if ($row) {
+            return (string)$row['serialized_dependencies'];
+        }
+        return '';
     }
 }

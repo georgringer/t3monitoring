@@ -9,6 +9,7 @@ namespace T3Monitor\T3monitoring\Notification;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Client;
+use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -19,15 +20,25 @@ use UnexpectedValueException;
  */
 class EmailNotification
 {
-
     const DEFAULT_EMAIL_NAME = 'EXT:t3monitoring';
     const DEFAULT_EMAIL_ADDRESS = 'no-reply@example.com';
+
+    /** @var  EmMonitoringConfiguration */
+    protected $emConfiguration;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
+    }
 
     /**
      * @param string $email
      * @param \T3Monitor\T3monitoring\Domain\Model\Client[] $clients
      * @param string $subject
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public function sendAdminEmail($email, $clients, $subject = 'Monitoring Report')
     {
@@ -56,7 +67,7 @@ class EmailNotification
         foreach ($clients as $client) {
             /** @var Client $client */
             if (!GeneralUtility::validEmail($client->getEmail())) {
-                continue;   
+                continue;
             }
             $arguments = [
                 'client' => $client
@@ -64,6 +75,31 @@ class EmailNotification
             $template = $this->getFluidTemplate($arguments, 'ClientEmail.txt', 'txt');
             $this->sendMail($client->getEmail(), $subject, $template);
         }
+    }
+
+    /**
+     * @param array $clients
+     * @param string $subject
+     */
+    public function sendClientFailedEmail(array $clients, $subject = 'Monitoring Client Connection Failure')
+    {
+        $emailAddress = $this->emConfiguration->getEmailForFailedClient();
+        if (empty($emailAddress)) {
+            return;
+        }
+        if (!GeneralUtility::validEmail($emailAddress)) {
+            GeneralUtility::sysLog(
+                sprintf('The email address "%s" is not valid, no notification sent', $emailAddress),
+                't3monitoring',
+                GeneralUtility::SYSLOG_SEVERITY_WARNING
+            );
+        }
+        $arguments = [
+            'clients' => $clients,
+            'email' => $emailAddress
+        ];
+        $template = $this->getFluidTemplate($arguments, 'ClientConnectionError.txt', 'txt');
+        $this->sendMail($emailAddress, $subject, $template);
     }
 
     /**

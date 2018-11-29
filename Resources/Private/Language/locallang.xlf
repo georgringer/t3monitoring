@@ -12,6 +12,21 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.domain">
 				<source>Domain</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.status">
+				<source>Status</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.error">
+				<source>Error</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.ok">
+				<source>OK</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.basic_auth_username">
+				<source>BasicAuth username</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.basic_auth_password">
+				<source>BasicAuth password</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.secret">
 				<source>Secret</source>
 			</trans-unit>
@@ -23,6 +38,12 @@
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
 				<source>Mysql Version</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
+				<source>Disk Total Space</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_free_space">
+				<source>Disk Free Space</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
 				<source>Insecure Core</source>
@@ -59,6 +80,9 @@
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.sla">
 				<source>Sla</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.tag">
+				<source>Tag</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_extension">
 				<source>Extension</source>
@@ -138,6 +162,18 @@
 			<trans-unit id="tx_t3monitoring_domain_model_core.type">
 				<source>Type</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.type.0">
+				<source>Regular</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.type.1">
+				<source>Release</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.type.2">
+				<source>Security</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.type.4">
+				<source>Development</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_core.release_date">
 				<source>Release Date</source>
 			</trans-unit>
@@ -173,6 +209,18 @@
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_sla.description">
 				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_tag">
+				<source>Tag</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_tag.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_tag.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="update.available">
+				<source>Update available</source>
 			</trans-unit>
 			<trans-unit id="secure">
 				<source>Secure</source>
@@ -240,6 +288,9 @@
 			<trans-unit id="sla">
 				<source>SLA</source>
 			</trans-unit>
+			<trans-unit id="tag">
+				<source>Tag</source>
+			</trans-unit>
 			<trans-unit id="administration">
 				<source>Administration</source>
 			</trans-unit>
@@ -281,6 +332,9 @@
 			</trans-unit>
 			<trans-unit id="sla.header">
 				<source>Service level agreements</source>
+			</trans-unit>
+			<trans-unit id="tag.header">
+				<source>Tags</source>
 			</trans-unit>
 			<trans-unit id="total">
 				<source>total</source>
@@ -356,6 +410,18 @@
 			</trans-unit>
 			<trans-unit id="sla.noClients">
 				<source>This SLA is not used by any client!</source>
+			</trans-unit>
+			<trans-unit id="tag.total">
+				<source>Tags (%s)</source>
+			</trans-unit>
+			<trans-unit id="sla.notFound">
+				<source>No Tag records found!</source>
+			</trans-unit>
+			<trans-unit id="tag.clients">
+				<source>List all clients with this tag</source>
+			</trans-unit>
+			<trans-unit id="tag.noClients">
+				<source>This Tag is not used by any client!</source>
 			</trans-unit>
 			<trans-unit id="extension.total">
 				<source>Extensions (%s)</source>

@@ -24,7 +24,6 @@ class MonitoringCommandController extends CommandController
      */
     public function importCoreCommand()
     {
-        /** @var CoreImport $import */
         $import = $this->objectManager->get(CoreImport::class);
         $import->run();
     }
@@ -34,7 +33,6 @@ class MonitoringCommandController extends CommandController
      */
     public function importExtensionsCommand()
     {
-        /** @var ExtensionImport $import */
         $import = $this->objectManager->get(ExtensionImport::class);
         $import->run();
     }
@@ -44,7 +42,6 @@ class MonitoringCommandController extends CommandController
      */
     public function importClientsCommand()
     {
-        /** @var ClientImport $import */
         $import = $this->objectManager->get(ClientImport::class);
         $import->run();
 

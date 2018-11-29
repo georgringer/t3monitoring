@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -42,7 +43,6 @@ class ClientController extends BaseController
      *
      * @param Client $client
      * @ignorevalidation $client
-     * @return void
      */
     public function fetchAction(Client $client = null)
     {

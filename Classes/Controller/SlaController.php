@@ -31,8 +31,6 @@ class SlaController extends BaseController
 
     /**
      * action list
-     *
-     * @return void
      */
     public function listAction()
     {
@@ -44,7 +42,6 @@ class SlaController extends BaseController
      * action show
      *
      * @param Sla $sla
-     * @return void
      */
     public function showAction(Sla $sla = null)
     {

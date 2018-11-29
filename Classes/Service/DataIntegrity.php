@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Service;
 
 /*
@@ -8,7 +9,9 @@ namespace T3Monitor\T3monitoring\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class DataIntegrity
@@ -51,79 +54,113 @@ class DataIntegrity
         $table = 'tx_t3monitoring_domain_model_extension';
 
         // Patch release
-        $queryResult = $this->getDatabaseConnection()->sql_query('
-            SELECT name,major_version as major,minor_version as minor
-            FROM tx_t3monitoring_domain_model_extension
-            WHERE insecure = 0 AND version_integer > 0 AND is_official = 1
-            GROUP BY name,major,minor'
-        );
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable($table);
 
-        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($queryResult)) {
-            $where = 'name=' . $this->getDatabaseConnection()->fullQuoteStr($row['name'],
-                    $table) . ' AND major_version=' . $row['major'] . ' AND minor_version=' . $row['minor'];
-            $highestBugFixRelease = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
-                'version',
-                $table,
-                $where,
-                '',
-                'version_integer desc'
-            );
+        $queryBuilder = $connection->createQueryBuilder();
+        $eb = $queryBuilder->expr();
+        $res = $queryBuilder
+            ->select('name', 'major_version', 'minor_version')
+            ->from($table)
+            ->where(
+                $eb->eq('insecure', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+                $eb->gt('version_integer', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+                $eb->eq('is_official', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
+            )
+            ->groupBy('name', 'major_version', 'minor_version')
+            ->execute();
+
+        $queryBuilder2 = $connection->createQueryBuilder();
+        $eb2 = $queryBuilder2->expr();
+        while ($row = $res->fetch()) {
+            $highestBugFixRelease = $queryBuilder2
+                ->select('version')
+                ->from($table)
+                ->where(
+                    $eb2->eq('name', $queryBuilder2->createNamedParameter($row['name'])),
+                    $eb2->eq('major_version', $queryBuilder2->createNamedParameter($row['major_version'], \PDO::PARAM_INT)),
+                    $eb2->eq('minor_version', $queryBuilder2->createNamedParameter($row['minor_version'], \PDO::PARAM_INT))
+                )
+                ->orderBy('version_integer', 'desc')
+                ->setMaxResults(1)
+                ->execute()
+                ->fetch();
+
             if (is_array($highestBugFixRelease)) {
-                $this->getDatabaseConnection()->exec_UPDATEquery($table, $where, [
-                    'last_bugfix_release' => $highestBugFixRelease['version']
-                ]);
+                $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable($table);
+                $connection->update(
+                    $table,
+                    ['last_bugfix_release' => $highestBugFixRelease['version']],
+                    [
+                        'name' => $row['name'],
+                        'major_version' => $row['major_version'],
+                        'minor_version' => $row['minor_version'],
+                    ]);
             }
         }
-        $this->getDatabaseConnection()->sql_free_result($queryResult);
 
         // Minor release
-        $queryResult = $this->getDatabaseConnection()->sql_query('
-            SELECT name,major_version as major
-            FROM tx_t3monitoring_domain_model_extension
-            WHERE insecure = 0 AND version_integer > 0 AND is_official = 1
-            GROUP BY name,major'
-        );
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($table);
+        $res = $queryBuilder
+            ->select('name', 'major_version')
+            ->from($table)
+            ->where(
+                $queryBuilder->expr()->eq('insecure', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+                $queryBuilder->expr()->gt('version_integer', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
+                $queryBuilder->expr()->eq('is_official', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
+            )
+            ->groupBy('name', 'major_version')
+            ->execute();
 
-        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($queryResult)) {
-            $where = 'name=' . $this->getDatabaseConnection()->fullQuoteStr($row['name'],
-                    $table) . ' AND major_version=' . $row['major'];
-            $highestBugFixRelease = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
-                'version',
-                $table,
-                $where,
-                '',
-                'version_integer desc'
-            );
+        $queryBuilder2 = $connection->createQueryBuilder();
+        while ($row = $res->fetch()) {
+            $highestBugFixRelease = $queryBuilder2
+                ->select('version')
+                ->from($table)
+                ->where(
+                    $queryBuilder->expr()->eq('name', $queryBuilder2->createNamedParameter($row['name'])),
+                    $queryBuilder->expr()->eq('major_version', $queryBuilder2->createNamedParameter($row['major_version'], \PDO::PARAM_INT))
+                )
+                ->orderBy('version_integer', 'desc')
+                ->setMaxResults(1)
+                ->execute()
+                ->fetch();
+
             if (is_array($highestBugFixRelease)) {
-                $this->getDatabaseConnection()->exec_UPDATEquery($table, $where, [
-                    'last_minor_release' => $highestBugFixRelease['version']
-                ]);
+                $connection->update(
+                    $table,
+                    ['last_minor_release' => $highestBugFixRelease['version']],
+                    [
+                        'name' => $row['name'],
+                        'major_version' => $row['major_version']
+                    ]);
             }
         }
-        $this->getDatabaseConnection()->sql_free_result($queryResult);
 
         // Major release
-        $queryResult = $this->getDatabaseConnection()->sql_query(
-            'SELECT a.version,a.name ' .
-            'FROM ' . $table . ' a ' .
-            'LEFT JOIN ' . $table . ' b ON a.name = b.name AND a.version_integer < b.version_integer ' .
-            'WHERE b.name IS NULL ' .
-            'ORDER BY a.uid'
-        );
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryResult = $queryBuilder
+            ->select('a.version', 'a.name')
+            ->from($table, 'a')
+            ->leftJoin('a', $table, 'b', 'a.name = b.name AND a.version_integer < b.version_integer')
+            ->where($queryBuilder->expr()->isNull('b.name'))
+            ->orderBy('a.uid')
+            ->execute();
 
-        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($queryResult)) {
-            $where = 'name=' . $this->getDatabaseConnection()->fullQuoteStr($row['name'], $table);
-            $this->getDatabaseConnection()->exec_UPDATEquery($table, $where, [
-                'last_major_release' => $row['version']
-            ]);
+        $queryBuilder = $connection->createQueryBuilder();
+        while ($row = $queryResult->fetch()) {
+            $queryBuilder->update($table)
+                ->set('last_major_release', $row['version'])
+                ->where($queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($row['name'])))
+                ->execute();
         }
-        $this->getDatabaseConnection()->sql_free_result($queryResult);
 
-        // mark latest version
-        $this->getDatabaseConnection()->sql_query('
-            UPDATE ' . $table . '
-            SET is_latest=1 WHERE version=last_major_release
-        ');
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder->update($table)
+            ->set('is_latest', 1)
+            ->where('version=last_major_release');
     }
 
     /**
@@ -132,26 +169,35 @@ class DataIntegrity
     protected function getNextSecureExtensionVersion()
     {
         $table = 'tx_t3monitoring_domain_model_extension';
-        $insecureExtensions = $this->getDatabaseConnection()->exec_SELECTgetRows(
-            'uid,name,version_integer',
-            $table,
-            'insecure=1');
+
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($table);
+        $insecureExtensions = $queryBuilder
+            ->select('uid', 'name', 'version_integer')
+            ->from($table)
+            ->where($queryBuilder->expr()->eq('insecure', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)))
+            ->execute()
+            ->fetchAll();
+
         foreach ($insecureExtensions as $row) {
-            $where = sprintf(
-                'insecure=0 AND name=%s AND version_integer>%s',
-                $this->getDatabaseConnection()->fullQuoteStr($row['name'], $table),
-                $row['version_integer']
-            );
-            $nextSecureVersion = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
-                'uid,version',
-                $table, $where);
+            $queryBuilder2 = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getQueryBuilderForTable($table);
+            $nextSecureVersion = $queryBuilder2
+                ->select('uid', 'version')
+                ->from($table)
+                ->where(
+                    $queryBuilder->expr()->eq('insecure', $queryBuilder2->createNamedParameter(0, \PDO::PARAM_INT)),
+                    $queryBuilder->expr()->eq('name', $queryBuilder2->createNamedParameter($row['name'])),
+                    $queryBuilder->expr()->gt('version_integer', $queryBuilder2->createNamedParameter($row['version_integer'], \PDO::PARAM_INT))
+                )
+                ->setMaxResults(1)
+                ->execute()
+                ->fetch();
 
             if (is_array($nextSecureVersion)) {
-                $this->getDatabaseConnection()->exec_UPDATEquery(
-                    $table,
-                    'uid=' . $row['uid'],
-                    ['next_secure_version' => $nextSecureVersion['version']]
-                );
+                $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+                    ->getConnectionForTable($table);
+                $connection->update($table, ['next_secure_version' => $nextSecureVersion['version']], ['uid' => $row['uid']]);
             }
         }
     }
@@ -162,23 +208,36 @@ class DataIntegrity
     protected function usedCore()
     {
         $table = 'tx_t3monitoring_domain_model_core';
-        $coreRows = $this->getDatabaseConnection()->exec_SELECTgetRows(
-            'tx_t3monitoring_domain_model_core.uid',
-            'tx_t3monitoring_domain_model_client LEFT JOIN tx_t3monitoring_domain_model_core on tx_t3monitoring_domain_model_core.uid=tx_t3monitoring_domain_model_client.core',
-            'tx_t3monitoring_domain_model_core.uid IS NOT NULL',
-            '',
-            '',
-            '',
-            'uid'
-        );
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($table);
+        $rows = $queryBuilder
+            ->select('tx_t3monitoring_domain_model_core.uid')
+            ->from($table)
+            ->leftJoin(
+                'tx_t3monitoring_domain_model_core',
+                'tx_t3monitoring_domain_model_client',
+                'tx_t3monitoring_domain_model_client',
+                $queryBuilder->expr()->eq('tx_t3monitoring_domain_model_core.uid', $queryBuilder->quoteIdentifier('tx_t3monitoring_domain_model_client.core'))
+            )
+            ->execute()
+            ->fetchAll();
+        $coreRows = [];
+        foreach ($rows as $row) {
+            $coreRows[$row['uid']] = $row;
+        }
 
-        $this->getDatabaseConnection()->exec_UPDATEquery($table, '1=1', array('is_used' => 0));
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable($table);
+        $qb = $connection->createQueryBuilder();
+        $qb->update($table)
+            ->set('is_used', 0)
+            ->execute();
         if (!empty($coreRows)) {
-            $this->getDatabaseConnection()->exec_UPDATEquery(
-                $table,
-                sprintf('uid IN(%s)', implode(',', array_keys($coreRows))),
-                array('is_used' => 1)
-            );
+            $qb->set('is_used', 1)->execute();
+            foreach ($coreRows as $id => $row) {
+                $qb->where('uid = ' . $id);
+                $qb->set('is_used', 1)->execute();
+            }
         }
     }
 
@@ -187,55 +246,77 @@ class DataIntegrity
      */
     protected function usedExtensions()
     {
-        $clients = $this->getDatabaseConnection()->exec_SELECTgetRows(
-            'uid,core',
-            'tx_t3monitoring_domain_model_client',
-            '1=1'
-        );
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getConnectionForTable('tx_t3monitoring_domain_model_client');
+        $queryBuilder = $connection->createQueryBuilder();
+        $clients = $queryBuilder
+            ->select('uid')
+            ->from('tx_t3monitoring_domain_model_client')
+            ->execute()
+            ->fetchAll();
 
         foreach ($clients as $client) {
-            // count insecure extensions
-            $countInsecure = $this->getDatabaseConnection()->exec_SELECTcountRows(
-                'uid',
-                'tx_t3monitoring_client_extension_mm
-                    LEFT JOIN tx_t3monitoring_domain_model_extension
-                        on tx_t3monitoring_client_extension_mm.uid_foreign=tx_t3monitoring_domain_model_extension.uid',
-                'is_official=1 AND insecure = 1 AND tx_t3monitoring_client_extension_mm.uid_local=' . $client['uid']
-            );
+            $queryBuilder = $connection->createQueryBuilder();
+            $countInsecure = $queryBuilder
+                ->count('uid')
+                ->from('tx_t3monitoring_client_extension_mm')
+                ->leftJoin(
+                    'tx_t3monitoring_client_extension_mm',
+                    'tx_t3monitoring_domain_model_extension',
+                    'tx_t3monitoring_domain_model_extension',
+                    $queryBuilder->expr()->eq('tx_t3monitoring_client_extension_mm.uid_foreign', $queryBuilder->quoteIdentifier('tx_t3monitoring_domain_model_extension.uid'))
+                )
+                ->where(
+                    $queryBuilder->expr()->eq('is_official', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
+                    $queryBuilder->expr()->eq('insecure', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
+                    $queryBuilder->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder->createNamedParameter($client['uid'], \PDO::PARAM_INT))
+                )->execute()->fetchColumn(0);
+
             // count outdated extensions
-            $countOutdated = $this->getDatabaseConnection()->exec_SELECTcountRows(
-                'uid',
-                'tx_t3monitoring_client_extension_mm
-                    LEFT JOIN tx_t3monitoring_domain_model_extension
-                        on tx_t3monitoring_client_extension_mm.uid_foreign=tx_t3monitoring_domain_model_extension.uid',
-                'is_official=1 AND insecure = 0 AND is_latest=0 AND tx_t3monitoring_client_extension_mm.uid_local=' . $client['uid']
-            );
+            $queryBuilder2 = $connection->createQueryBuilder();
+            $countOutdated = $queryBuilder2
+                ->count('uid')
+                ->from('tx_t3monitoring_client_extension_mm')
+                ->leftJoin(
+                    'tx_t3monitoring_client_extension_mm',
+                    'tx_t3monitoring_domain_model_extension',
+                    'tx_t3monitoring_domain_model_extension',
+                    $queryBuilder2->expr()->eq('tx_t3monitoring_client_extension_mm.uid_foreign', $queryBuilder2->quoteIdentifier('tx_t3monitoring_domain_model_extension.uid'))
+                )
+                ->where(
+                    $queryBuilder2->expr()->eq('is_official', $queryBuilder2->createNamedParameter(1, \PDO::PARAM_INT)),
+                    $queryBuilder2->expr()->eq('insecure', $queryBuilder2->createNamedParameter(0, \PDO::PARAM_INT)),
+                    $queryBuilder2->expr()->eq('is_latest', $queryBuilder2->createNamedParameter(0, \PDO::PARAM_INT)),
+                    $queryBuilder2->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder2->createNamedParameter($client['uid'], \PDO::PARAM_INT))
+                )->execute()->fetchColumn(0);
+
             // update client
-            $this->getDatabaseConnection()->exec_UPDATEquery(
+            $connection->update(
                 'tx_t3monitoring_domain_model_client',
-                'uid=' . $client['uid'],
                 [
                     'insecure_extensions' => $countInsecure,
                     'outdated_extensions' => $countOutdated
+                ],
+                [
+                    'uid' => $client['uid']
                 ]
             );
         }
 
         // Used extensions
-        $this->getDatabaseConnection()->sql_query('
-            UPDATE tx_t3monitoring_domain_model_extension
-            SET is_used=1
-            WHERE uid IN (
-              SELECT uid_foreign FROM tx_t3monitoring_client_extension_mm
-            );'
-        );
+        $queryBuilder = $connection->createQueryBuilder();
+        $subSelect = $queryBuilder->select('uid_foreign')->from('tx_t3monitoring_client_extension_mm')->getSQL();
+
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder
+            ->update('tx_t3monitoring_domain_model_extension')
+            ->set('is_used', 1)
+            ->where($queryBuilder->expr()->in('uid', $subSelect));
     }
 
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
+    protected function getQueryBuilderFor(string $table): QueryBuilder
     {
-        return $GLOBALS['TYPO3_DB'];
+        return GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($table);
     }
 }

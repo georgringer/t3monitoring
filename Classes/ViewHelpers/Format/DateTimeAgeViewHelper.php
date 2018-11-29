@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -10,20 +11,33 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 use DateTime;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Class DateTimeAgeViewHelper
  */
-class DateTimeAgeViewHelper extends AbstractViewHelper
+class DateTimeAgeViewHelper extends AbstractViewHelper implements CompilableInterface
 {
+    use CompileWithRenderStatic;
+
+    public function initializeArguments()
+    {
+        $this->registerArgument('date', DateTime::class, 'date', true);
+    }
 
     /**
-     * @param DateTime $date
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public function render(DateTime $date = null)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        /** @var DateTime $date */
+        $date = $arguments['date'];
         if ($date === null) {
             return '';
         }

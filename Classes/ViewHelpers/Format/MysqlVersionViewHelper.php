@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -8,28 +9,39 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use T3Monitor\T3monitoring\Domain\Model\Extension;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Class MysqlVersionViewHelper
  */
-class MysqlVersionViewHelper extends AbstractViewHelper
+class MysqlVersionViewHelper extends AbstractViewHelper implements CompilableInterface
 {
+    use CompileWithRenderStatic;
+
+    public function initializeArguments()
+    {
+        $this->registerArgument('version', 'string', 'state', false, '');
+    }
 
     /**
-     * @param string $version
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public function render($version = '')
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $version = $version ?: $this->renderChildren();
-
+        $version = $arguments['version'] ?: $renderChildrenClosure();
         $versionString = str_pad($version, 5, '0', STR_PAD_LEFT);
-        $parts = array(
+        $parts = [
             $versionString[0],
             substr($versionString, 1, 2),
             substr($versionString, 3, 5)
-        );
+        ];
 
         return (int)$parts[0] . '.' . (int)$parts[1] . '.' . (int)$parts[2];
     }

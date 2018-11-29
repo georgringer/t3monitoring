@@ -1,0 +1,44 @@
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<f:layout name="Simple" />
+
+<f:section name="content">
+	<h1>{f:translate(key:'tag.header')}</h1>
+	<f:if condition="{tags}">
+		<f:then>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					{f:translate(key:'tag.total', arguments:'{0:\'{tags -> f:count()}\'}')}
+				</div>
+				<table class="table table-striped table-hover">
+					<thead>
+					<tr>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_tag.title')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_tag.description')}</th>
+					</tr>
+					</thead>
+					<f:for each="{tags}" as="tag">
+						<tr>
+							<td class="text-nowrap">
+								<f:link.action action="show" arguments="{tag:tag}">
+									{tag.title}
+								</f:link.action>
+							</td>
+							<td>
+								<f:if condition="{tag.description}">
+									{tag.description -> f:format.nl2br()}
+								</f:if>
+							</td>
+						</tr>
+					</f:for>
+				</table>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="alert alert-notice">
+				{f:translate(key:'tag.notFound')}
+			</div>
+		</f:else>
+	</f:if>
+</f:section>
+</html>

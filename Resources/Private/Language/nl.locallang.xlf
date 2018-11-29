@@ -31,6 +31,14 @@
 				<source>Mysql Version</source>
 				<target>MySQL versie</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
+				<source>Disk Total Space</source>
+				<target>Disk Total Space</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_free_space">
+				<source>Disk Free Space</source>
+				<target>Disk Free Space</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
 				<source>Insecure Core</source>
 				<target>Onveilige core</target>
@@ -223,6 +231,10 @@
 				<source>Sla</source>
 				<target>Sla</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_tag">
+				<source>Tag</source>
+				<target>Tag</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_sla.title">
 				<source>Title</source>
 				<target>Titel</target>
@@ -378,6 +390,10 @@
 			<trans-unit id="sla.header">
 				<source>Service level agreements</source>
 				<target>Service Level Agreements</target>
+			</trans-unit>
+			<trans-unit id="tag.header">
+				<source>Tags</source>
+				<target>Tags</target>
 			</trans-unit>
 			<trans-unit id="total">
 				<source>total</source>

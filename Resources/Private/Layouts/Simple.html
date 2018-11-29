@@ -1,4 +1,7 @@
 <div class="t3monitor" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+	<f:if condition="{emConfiguration.useGoogleCharts}">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	</f:if>
 	<f:flashMessages />
 	<f:render section="content" />
 </div>

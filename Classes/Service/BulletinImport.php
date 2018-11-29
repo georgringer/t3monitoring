@@ -36,7 +36,7 @@ class BulletinImport
      */
     public function start()
     {
-        $feed = array();
+        $feed = [];
         try {
             $rss = new DOMDocument();
             $rss->load($this->url);

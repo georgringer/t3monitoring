@@ -47,7 +47,7 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
     public function convertFrom(
         $source,
         $targetType,
-        array $convertedChildProperties = array(),
+        array $convertedChildProperties = [],
         PropertyMappingConfigurationInterface $configuration = null
     ) {
         if (!$this->isAllowed()) {

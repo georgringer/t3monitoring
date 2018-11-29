@@ -35,7 +35,6 @@ class ExtensionController extends BaseController
     public function listAction(ExtensionFilterDemand $filter = null)
     {
         if ($filter === null) {
-            /** @var ExtensionFilterDemand $filter */
             $filter = $this->objectManager->get(ExtensionFilterDemand::class);
         }
 

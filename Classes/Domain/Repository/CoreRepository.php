@@ -22,7 +22,8 @@ class CoreRepository extends BaseRepository
     /**
      * Initialize object
      */
-    public function initializeObject() {
+    public function initializeObject()
+    {
         $this->setDefaultOrderings(['versionInteger' => QueryInterface::ORDER_DESCENDING]);
     }
 

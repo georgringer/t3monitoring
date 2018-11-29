@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -20,7 +21,8 @@ class ExtensionRepository extends BaseRepository
     /**
      * Initialize object
      */
-    public function initializeObject() {
+    public function initializeObject()
+    {
         $this->setDefaultOrderings(['name' => QueryInterface::ORDER_ASCENDING]);
     }
 
@@ -45,17 +47,25 @@ class ExtensionRepository extends BaseRepository
      */
     public function findByDemand(ExtensionFilterDemand $demand)
     {
-        $rows = $this->getDatabaseConnection()->exec_SELECTgetRows(
-            'client.title,client.uid as clientUid,ext.name, ext.version,ext.insecure',
-            'tx_t3monitoring_domain_model_extension ext
-                RIGHT JOIN tx_t3monitoring_client_extension_mm mm on mm.uid_foreign = ext.uid
-                RIGHT JOIN tx_t3monitoring_domain_model_client client on mm.uid_local=client.uid',
-            'ext.name is not null' . $this->extendWhereClause($demand),
-            '',
-            'ext.name,ext.version_integer DESC,client.title'
+        $connection = $this->getDatabaseConnection();
+        $qb = $connection->createQueryBuilder();
+        $qb->select('client.title', 'client.uid as clientUid', 'ext.name', 'ext.version', 'ext.insecure')
+            ->from('tx_t3monitoring_domain_model_extension', 'ext')
+            ->rightJoin('ext', 'tx_t3monitoring_client_extension_mm', 'mm', 'mm.uid_foreign = ext.uid')
+            ->rightJoin('mm', 'tx_t3monitoring_domain_model_client', 'client', 'mm.uid_local=client.uid');
+        $eb = $qb->expr();
+        $conditions = $eb->andX(
+            $eb->isNotNull('ext.name'),
+            $eb->eq('client.deleted', 0),
+            $eb->eq('client.hidden', 0)
+            //$this->extendWhereClause($demand)
         );
+        $qb->orderBy('ext.name', 'ASC');
+        $qb->orderBy('ext.version_integer', 'DESC');
+        $qb->orderBy('client.title', 'ASC');
+        $qb->andWhere($conditions);
 
-        $result = [];
+        $rows = $qb->execute()->fetchAll();
         foreach ($rows as $row) {
             $result[$row['name']][$row['version']]['insecure'] = $row['insecure'];
             $result[$row['name']][$row['version']]['clients'][] = $row;
@@ -76,17 +86,16 @@ class ExtensionRepository extends BaseRepository
             $searchString = $this->getDatabaseConnection()->quoteStr($demand->getName(), $table);
 
             if ($demand->isExactSearch()) {
-                $constraints[] = 'ext.name = "' . $searchString . '"';
+                $constraints[] = 'ext . name = "' . $searchString . '"';
             } else {
-                $constraints[] = 'ext.name LIKE "%' .
+                $constraints[] = 'ext . name LIKE "%' .
                     $this->getDatabaseConnection()->escapeStrForLike($searchString, $table) . '%"';
             }
         }
 
         if (!empty($constraints)) {
             return ' AND ' . implode(' AND ', $constraints);
-        } else {
-            return '';
         }
+        return '';
     }
 }

@@ -26,6 +26,18 @@ define([
 				ordering: true
 			});
 		}
+		var extensionList = $('.extension-list');
+		if (extensionList.length > 0) {
+				extensionList.DataTable({
+				"order": [[5, "asc"], [6, "asc"]],
+				paging: false,
+				lengthChange: false,
+				stateSave: false,
+				searching: false,
+				dom: 'tir',
+				ordering: true
+			});
+		}
 	});
 
 });

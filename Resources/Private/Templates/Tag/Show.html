@@ -1,0 +1,51 @@
+<html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<f:layout name="Simple" />
+
+<f:section name="content">
+	<h1>{f:translate(key:'tx_t3monitoring_domain_model_tag')}: {tag.title}</h1>
+
+	<f:if condition="{tag.description}">
+		<p class="lead">
+			{tag.description -> f:format.nl2br()} </p>
+	</f:if>
+
+	<h2>{f:translate(key:'tag.clients')}</h2>
+	<f:if condition="{clients}">
+		<f:then>
+			<table class="table table-striped table-hover">
+				<thead>
+				<tr>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_client.title')}</th>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_client.domain')}</th>
+				</tr>
+				</thead>
+				<tbody>
+				<f:for each="{clients}" as="client">
+					<tr>
+						<td>
+							<f:link.action action="show" controller="Client" arguments="{client:client}">{client.title}</f:link.action>
+						</td>
+						<td>
+							<f:if condition="{emConfiguration.presentationMode}">
+								<f:then>
+									<f:translate key="presentationMode.client.domain" />
+								</f:then>
+								<f:else>
+									<f:link.external uri="{client.domain}">{client.domain}</f:link.external>
+								</f:else>
+							</f:if>
+						</td>
+					</tr>
+				</f:for>
+				</tbody>
+			</table>
+		</f:then>
+		<f:else>
+			<div class="alert alert-notice">
+				{f:translate(key:'tag.noClients')}
+			</div>
+		</f:else>
+	</f:if>
+</f:section>
+</html>

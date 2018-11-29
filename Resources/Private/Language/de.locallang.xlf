@@ -31,6 +31,14 @@
 				<source>Mysql Version</source>
 				<target>Mysql Version</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
+				<source>Disk Total Space</source>
+				<target>Disk Total Space</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_free_space">
+				<source>Disk Free Space</source>
+				<target>Disk Free Space</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
 				<source>Insecure Core</source>
 				<target>Unsicherer Core</target>
@@ -223,6 +231,10 @@
 				<source>Sla</source>
 				<target>Sla</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_tag">
+				<source>Tag</source>
+				<target>Tag</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_sla.title">
 				<source>Title</source>
 				<target>Titel</target>
@@ -253,7 +265,7 @@
 			</trans-unit>
 			<trans-unit id="no.official.update">
 				<source>No official update available</source>
-				<target>Kein offizielle Update verfügbar</target>
+				<target>Kein offizielles Update verfügbar</target>
 			</trans-unit>
 			<trans-unit id="yes">
 				<source>yes</source>
@@ -379,6 +391,10 @@
 				<source>Service level agreements</source>
 				<target>Service Level Agreements</target>
 			</trans-unit>
+			<trans-unit id="tag.header">
+				<source>Tags</source>
+				<target>Tags</target>
+			</trans-unit>
 			<trans-unit id="total">
 				<source>total</source>
 				<target>insgesamt</target>
@@ -478,6 +494,22 @@
 			<trans-unit id="sla.noClients">
 				<source>This SLA is not used by any client!</source>
 				<target>Diese SLA wir von keinem Client benutzt!</target>
+			</trans-unit>
+			<trans-unit id="tag.total">
+				<source>Tags (%s)</source>
+				<target>Tags (%s)</target>
+			</trans-unit>
+			<trans-unit id="sla.notFound">
+				<source>No Tag records found!</source>
+				<target>Keine Tag Einträge gefunden!</target>
+			</trans-unit>
+			<trans-unit id="tag.clients">
+				<source>List all clients with this tag</source>
+				<target>Alle Clients mit diesem Tag anzeigen</target>
+			</trans-unit>
+			<trans-unit id="tag.noClients">
+				<source>This Tag is not used by any client!</source>
+				<target>Diese Tag wir von keinem Client benutzt!</target>
 			</trans-unit>
 			<trans-unit id="extension.total">
 				<source>Extensions (%s)</source>

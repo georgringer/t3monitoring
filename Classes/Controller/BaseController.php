@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -20,7 +21,6 @@ use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
@@ -99,8 +99,7 @@ class BaseController extends ActionController
         /** @var PageRenderer $pageRenderer */
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/T3monitoring/Main');
-        $pageRenderer->addCssFile(ExtensionManagementUtility::extRelPath('t3monitoring')
-            . 'Resources/Public/Css/t3monitoring.css');
+        $pageRenderer->addCssFile('EXT:t3monitoring/Resources/Public/Css/t3monitoring.css');
 
         $this->createMenu();
         $this->getButtons();
@@ -120,6 +119,7 @@ class BaseController extends ActionController
             ['controller' => 'Extension', 'action' => 'list', 'label' => $this->getLabel('extensionList')],
             ['controller' => 'Core', 'action' => 'list', 'label' => $this->getLabel('coreVersions')],
             ['controller' => 'Sla', 'action' => 'list', 'label' => $this->getLabel('sla')],
+            ['controller' => 'Tag', 'action' => 'list', 'label' => $this->getLabel('tag')],
             ['controller' => 'Statistic', 'action' => 'administration', 'label' => $this->getLabel('administration')],
         ];
 
@@ -169,7 +169,7 @@ class BaseController extends ActionController
                 'action' => $this->request->getControllerActionName(),
                 'controller' => $this->request->getControllerName()
             ]
-        ], false, true));
+        ]));
         $pid = $this->emConfiguration->getPid();
 
         // new client
@@ -226,7 +226,7 @@ class BaseController extends ActionController
      * @param string $key
      * @return string
      */
-    protected function getLabel($key)
+    protected function getLabel($key): string
     {
         return $this->getLanguageService()->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:' . $key);
     }
@@ -234,9 +234,8 @@ class BaseController extends ActionController
     /**
      * @return UriBuilder
      */
-    protected function getUriBuilder()
+    protected function getUriBuilder(): UriBuilder
     {
-        /** @var UriBuilder $uriBuilder */
         $uriBuilder = $this->objectManager->get(UriBuilder::class);
         $uriBuilder->setRequest($this->request);
 
@@ -246,7 +245,7 @@ class BaseController extends ActionController
     /**
      * @return ClientFilterDemand
      */
-    protected function getClientFilterDemand()
+    protected function getClientFilterDemand(): ClientFilterDemand
     {
         return $this->objectManager->get(ClientFilterDemand::class);
     }
@@ -256,7 +255,7 @@ class BaseController extends ActionController
      *
      * @return LanguageService
      */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }

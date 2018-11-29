@@ -20,9 +20,19 @@
     font-size: 14px;
 }
 
-.client-list th {
+.client-list th,
+.extension-list th {
     cursor: pointer;
 }
-.client-list th.no-sorting {
+.client-list th.no-sorting,
+.extension-list th.no-sorting {
     cursor: default;
+}
+
+.panel .table,
+.panel-collapse .table,
+.panel .table-fit,
+.panel-collapse .table-fit {
+    border: 0;
+    margin: 0;
 }

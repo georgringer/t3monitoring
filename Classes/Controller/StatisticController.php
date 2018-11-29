@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -13,6 +14,7 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\SlaRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
+use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
 use T3Monitor\T3monitoring\Service\BulletinImport;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use T3Monitor\T3monitoring\Service\Import\CoreImport;
@@ -32,6 +34,11 @@ class StatisticController extends BaseController
     protected $slaRepository = null;
 
     /**
+     * @var \T3Monitor\T3monitoring\Domain\Repository\TagRepository
+     */
+    protected $tagRepository = null;
+
+    /**
      * Initialize action
      */
     public function initializeAction()
@@ -41,6 +48,7 @@ class StatisticController extends BaseController
         $this->clientRepository = $this->objectManager->get(ClientRepository::class);
         $this->coreRepository = $this->objectManager->get(CoreRepository::class);
         $this->slaRepository = $this->objectManager->get(SlaRepository::class);
+        $this->tagRepository = $this->objectManager->get(TagRepository::class);
 
         parent::initializeAction();
     }
@@ -52,7 +60,7 @@ class StatisticController extends BaseController
      */
     public function indexAction(ClientFilterDemand $filter = null)
     {
-        if (is_null($filter)) {
+        if (null === $filter) {
             $filter = $this->getClientFilterDemand();
             $this->view->assign('showIntro', true);
         } else {
@@ -71,8 +79,7 @@ class StatisticController extends BaseController
         $feedItems = null;
         if ($this->emConfiguration->getLoadBulletins()) {
             /** @var BulletinImport $bulletinImport */
-            $bulletinImport = GeneralUtility::makeInstance(BulletinImport::class,
-                'https://typo3.org/xml-feeds/security/1/rss.xml', 5);
+            $bulletinImport = GeneralUtility::makeInstance(BulletinImport::class, 'https://typo3.org/?type=101', 5);
             $feedItems = $bulletinImport->start();
         }
 
@@ -81,6 +88,7 @@ class StatisticController extends BaseController
             'clients' => $this->clientRepository->findByDemand($filter),
             'coreVersions' => $this->getAllCoreVersions(),
             'coreVersionUsage' => $this->statisticRepository->getUsedCoreVersionCount(),
+            'coreVersionUsageJson' => $this->statisticRepository->getUsedCoreVersionCountJson(),
             'fullClientCount' => $this->clientRepository->countByDemand($emptyClientDemand),
             'clientsWithErrorMessages' => $this->clientRepository->countByDemand($errorMessageDemand),
             'clientsWithInsecureExtensions' => $this->clientRepository->countByDemand($insecureExtensionsDemand),
@@ -91,6 +99,7 @@ class StatisticController extends BaseController
             'clientsWithDangerInfo' => $this->clientRepository->countByDemand($clientsWithDangerInfo),
             'numberOfClients' => $this->clientRepository->countAll(),
             'slaVersions' => $this->slaRepository->findAll(),
+            'tagVersions' => $this->tagRepository->findAll(),
             'feedItems' => $feedItems,
             'importTimes' => [
                 'client' => $this->registry->get('t3monitoring', 'importClient'),
@@ -112,19 +121,16 @@ class StatisticController extends BaseController
         if (!empty($import)) {
             switch ($import) {
                 case 'clients':
-                    /** @var ClientImport $importService */
                     $importService = $this->objectManager->get(ClientImport::class);
                     $importService->run();
                     $success = true;
                     break;
                 case 'extensions':
-                    /** @var ExtensionImport $importService */
                     $importService = $this->objectManager->get(ExtensionImport::class);
                     $importService->run();
                     $success = true;
                     break;
                 case 'core':
-                    /** @var CoreImport $importService */
                     $importService = $this->objectManager->get(CoreImport::class);
                     $importService->run();
                     $success = true;

@@ -9,7 +9,7 @@ namespace T3Monitor\T3monitoring\Hooks;
  */
 
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
@@ -42,7 +42,7 @@ class DataHandlerHook
                 $recordUid = $parentObject->substNEWwithIDs[$recordUid];
             }
 
-            $clientRow = $this->getDatabase()->exec_SELECTgetSingleRow('*', $table, 'uid=' . (int)$recordUid);
+            $clientRow = BackendUtility::getRecord($table, (int)$recordUid);
             if ($clientRow) {
                 $this->checkDomain($clientRow['domain']);
                 $this->importClient($recordUid);
@@ -97,15 +97,8 @@ class DataHandlerHook
      *
      * @return \TYPO3\CMS\Lang\LanguageService
      */
-    protected function getLanguageService() {
-        return $GLOBALS['LANG'];
-    }
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabase()
+    protected function getLanguageService()
     {
-        return $GLOBALS['TYPO3_DB'];
+        return $GLOBALS['LANG'];
     }
 }

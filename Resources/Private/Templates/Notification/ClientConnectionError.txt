@@ -1,0 +1,9 @@
+Monitoring report of failed clients
+===================================
+
+The following clients could not be reached!
+
+<f:for each="{clients}" as="client">
+{client.title}: {client.domain}
+
+</f:for>

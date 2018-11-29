@@ -28,7 +28,7 @@
 									http://*******.***
 								</f:then>
 								<f:else>
-									<f:link.external uri="{client.domain}">{client.domain}</f:link.external>
+									<f:link.external uri="{client.domain}" target="_blank">{client.domain}</f:link.external>
 								</f:else>
 							</f:if>
 						</td>
@@ -44,7 +44,7 @@
 							</f:if>
 						</td>
 					</tr>
-					<tr class="{f:if(condition:client.core.insecure,then:'danger',else:'success')}">
+					<tr class="{f:if(condition:client.core.insecure,then:'danger',else:'')} {f:if(condition:client.core.islatest,then:'success',else:'warning')}">
 						<th>{core:icon(identifier:'apps-pagetree-root')} TYPO3 Version</th>
 						<td>{client.core.version}</td>
 					</tr>
@@ -56,13 +56,29 @@
 							</td>
 						</tr>
 					</f:if>
+					<f:if condition="{client.tag}">
+						<tr>
+							<th><i class="fa fa-tags fa-fw"></i> {f:translate(key:'tx_t3monitoring_domain_model_tag')}</th>
+							<td>
+								<f:link.action action="show" controller="Tag" arguments="{tag:client.tag}">{client.tag.title}</f:link.action>
+							</td>
+						</tr>
+					</f:if>
 					<tr>
-						<th><i class="fa fa-database"></i> Mysql Version</th>
+						<th><i class="fa fa-database fa-fw"></i> Mysql Version</th>
 						<td>{client.mysqlVersion -> monitor:format.mysqlVersion()}</td>
 					</tr>
 					<tr>
-						<th><i class="fa fa-code"></i> PHP Version</th>
+						<th><i class="fa fa-code fa-fw"></i> PHP Version</th>
 						<td>{client.phpVersion}</td>
+					</tr>
+					<tr>
+						<th><i class="fa fa-hdd-o fa-fw"></i> {f:translate(key:'tx_t3monitoring_domain_model_client.disk_total_space')}</th>
+						<td>{client.diskTotalSpace -> f:format.bytes(decimals: 1)}</td>
+					</tr>
+					<tr>
+						<th><i class="fa fa-hdd-o fa-fw"></i> {f:translate(key:'tx_t3monitoring_domain_model_client.disk_free_space')}</th>
+						<td>{client.diskFreeSpace -> f:format.bytes(decimals: 1)}</td>
 					</tr>
 				</table>
 			</div>
@@ -94,7 +110,7 @@
 			<div class="panel-heading">
 				{f:translate(key:'available.extensions')} ({client.extensions -> f:count()})
 			</div>
-			<table class="table table-striped table-hover">
+			<table class="table table-striped table-hover extension-list">
 				<thead>
 				<tr>
 					<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.name')}</th>
@@ -110,7 +126,7 @@
 				<f:for each="{client.extensions}" as="extension">
 
 					<monitor:additionalExtensionData as="extra" client="{client.uid}" extension="{extension.uid}">
-							<tr class="{f:if(condition:extra.is_loaded,then:'',else:'t3-page-ce-hidden')}{f:if(condition:extension.insecure,then:'danger',else:'')}">
+							<tr class="{f:if(condition:extra.is_loaded,then:'',else:'t3-page-ce-hidden')} {f:if(condition:extension.insecure,then:'danger',else:'')}">
 							<td>
 								<span data-toggle="tooltip" data-title="{extension.title}" data-placement="right">
 									<f:link.action action="show" controller="Extension" arguments="{extension:'{extension.name}'}">{extension.name}</f:link.action>

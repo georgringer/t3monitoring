@@ -22,6 +22,9 @@ class ClientFilterDemand extends AbstractEntity
     /** @var int */
     protected $sla;
 
+    /** @var int */
+    protected $tag;
+
     /** @var string */
     protected $searchWord;
 
@@ -85,6 +88,24 @@ class ClientFilterDemand extends AbstractEntity
     public function setSla($sla)
     {
         $this->sla = $sla;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * @param int $tag
+     * @return $this
+     */
+    public function setTag($tag)
+    {
+        $this->tag = $tag;
         return $this;
     }
 
@@ -251,7 +272,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isWithEmailAddress()
     {
@@ -259,7 +280,7 @@ class ClientFilterDemand extends AbstractEntity
     }
 
     /**
-     * @param boolean $withEmailAddress
+     * @param bool $withEmailAddress
      * @return $this
      */
     public function setWithEmailAddress($withEmailAddress)
@@ -267,6 +288,4 @@ class ClientFilterDemand extends AbstractEntity
         $this->withEmailAddress = $withEmailAddress;
         return $this;
     }
-
-
 }

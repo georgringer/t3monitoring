@@ -5,8 +5,14 @@ pid = 1
 # cat=records/enable/102; type=boolean; label=Load Bulletins:If set, the security bulletins are fetched and displayed
 loadBulletins = 1
 
-# cat=records/enable/103; type=boolean; label=Presentation mode:If set, sensitive client information is obfuscated
+# cat=records/enable/103; type=string; label=Mail for failed client:Define an email address which gets an email if a client could not be reached
+emailForFailedClient =
+
+# cat=records/enable/104; type=boolean; label=Use google charts
+useGoogleCharts = 1
+
+# cat=records/enable/120; type=boolean; label=Presentation mode:If set, sensitive client information is obfuscated
 presentationMode = 0
 
-# cat=records/enable/110; type=string; label=Add a hint for the IP:Remember the IP of the monitoring server
+# cat=records/enable/130; type=string; label=Add a hint for the IP:Remember the IP of the monitoring server
 ipHint =

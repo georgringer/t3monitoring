@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -8,41 +9,38 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 /**
  * Class DependenciesViewHelper
  */
-class DependenciesViewHelper extends AbstractViewHelper
+class DependenciesViewHelper extends AbstractViewHelper implements CompilableInterface
 {
+    use CompileWithRenderStatic;
 
-    /**
-     * For CMS 7
-     * 
-     * @var bool
-     * */
-    protected $escapingInterceptorEnabled = false;
-
-    /**
-     * For CMS 8
-     * 
-     * @var bool
-     */
+    /** @var bool */
     protected $escapeOutput = false;
 
-    /**
-     * For CMS 8
-     * @var bool
-     */
+    /** @var bool */
     protected $escapeChildren = false;
 
+    public function initializeArguments()
+    {
+        $this->registerArgument('dependencies', 'string', 'dependencies');
+    }
+
     /**
-     * @param string $dependencies
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
      * @return string
      */
-    public function render($dependencies = '')
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
-        $dependencies = $dependencies ?: $this->renderChildren();
+        $dependencies = $arguments['dependencies'] ?: $renderChildrenClosure();
 
         if (empty($dependencies)) {
             return '';

@@ -8,7 +8,6 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -19,10 +18,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 class ClientRepository extends BaseRepository
 {
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $searchFields = ['title', 'domain'];
+
+    /** @var array */
+    protected $defaultOrderings = ['title' => QueryInterface::ORDER_ASCENDING];
 
     /**
      * @param ClientFilterDemand $demand
@@ -68,10 +68,10 @@ class ClientRepository extends BaseRepository
         $demand = $this->getFilterDemand();
         $demand->setWithInsecureCore(true);
         $demand->setWithInsecureExtensions(true);
+        $demand->setWithExtraDanger(true);
 
         $constraints[] = $query->logicalOr(
-            $this->getConstraints($demand, $query, true
-            )
+            $this->getConstraints($demand, $query)
         );
 
         if ($emailAddressRequired) {
@@ -98,6 +98,11 @@ class ClientRepository extends BaseRepository
         // SLA
         if ($demand->getSla()) {
             $constraints[] = $query->equals('sla', $demand->getSla());
+        }
+
+        // Tag
+        if ($demand->getTag()) {
+            $constraints[] = $query->equals('tag', $demand->getTag());
         }
 
         // Search

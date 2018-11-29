@@ -8,7 +8,9 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3\CMS\Core\Database\DatabaseConnection;
+use TYPO3\CMS\Core\Database\Connection;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
@@ -18,13 +20,13 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  */
 class BaseRepository extends Repository
 {
-
     /**
-     * @return DatabaseConnection
+     * @return Connection
+     * @throws \Doctrine\DBAL\DBALException
      */
-    protected function getDatabaseConnection()
+    protected function getDatabaseConnection() : Connection
     {
-        return $GLOBALS['TYPO3_DB'];
+        return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionByName(ConnectionPool::DEFAULT_CONNECTION_NAME);
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_sla',
+        'title' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_tag',
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -12,13 +12,13 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'title,description,',
-        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_sla.gif'
+        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_tag.gif'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, title, description',
     ],
     'types' => [
-        '1' => ['showitem' => 'title, description,
+        '1' => ['showitem' => 'title, description, 
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                 hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,'],
@@ -33,16 +33,17 @@ return [
         ],
         'title' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_sla.title',
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_tag.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
+                'max' => 255,
                 'eval' => 'trim,required'
             ],
         ],
         'description' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_sla.description',
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_tag.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,

@@ -23,7 +23,6 @@ class CoreController extends BaseController
     public function listAction(CoreFilterDemand $filter = null)
     {
         if ($filter === null) {
-            /** @var CoreFilterDemand $filter */
             $filter = $this->objectManager->get(CoreFilterDemand::class);
             $filter->setUsage(CoreRepository::USED_ONLY);
         }

@@ -1,39 +1,36 @@
 <?php
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
+
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  */
+
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+
 /**
  * Edit Record ViewHelper, see FormEngine logic
  */
 class EditRecordViewHelper extends AbstractViewHelper implements CompilableInterface
 {
+    use CompileWithRenderStatic;
+
     /**
-     * Returns a URL to link to FormEngine
-     *
-     * @param string $parameters Is a set of GET params to send to FormEngine
-     * @return string URL to FormEngine module + parameters
-     * @see \TYPO3\CMS\Backend\Utility\BackendUtility::getModuleUrl()
      */
-    public function render($parameters)
+    public function initializeArguments()
     {
-        return static::renderStatic(
-            [
-                'parameters' => $parameters
-            ],
-            $this->buildRenderChildrenClosure(),
-            $this->renderingContext
-        );
+        $this->registerArgument('parameters', 'string', 'parameters', true);
     }
+
     /**
      * @param array $arguments
      * @param callable|\Closure $renderChildrenClosure
@@ -47,6 +44,7 @@ class EditRecordViewHelper extends AbstractViewHelper implements CompilableInter
         RenderingContextInterface $renderingContext
     ) {
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
+
         $parameters['returnUrl'] = 'index.php?M=tools_T3monitoringT3monitor&moduleToken='
             . FormProtectionFactory::get()->generateToken('moduleCall', 'tools_T3monitoringT3monitor')
             . GeneralUtility::implodeArrayForUrl(

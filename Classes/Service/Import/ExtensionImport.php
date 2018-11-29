@@ -1,4 +1,5 @@
 <?php
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -8,8 +9,11 @@ namespace T3Monitor\T3monitoring\Service\Import;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use InvalidArgumentException;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException;
 use TYPO3\CMS\Extensionmanager\Utility\Repository\Helper;
 
 /**
@@ -22,8 +26,10 @@ class ExtensionImport extends BaseImport
     const MIN_DATE = '26.1.2011';
 
     /**
-     * Run
-     * @throws \InvalidArgumentException
+     * Run extension import
+     *
+     * @throws InvalidArgumentException
+     * @throws ExtensionManagerException
      */
     public function run()
     {
@@ -31,37 +37,35 @@ class ExtensionImport extends BaseImport
         if ($updateRequired) {
             $this->insertExtensionsInCustomTable();
         }
-        /** @var DataIntegrity $dataIntegrity */
         $dataIntegrity = GeneralUtility::makeInstance(DataIntegrity::class);
         $dataIntegrity->invokeAfterExtensionImport();
         $this->setImportTime('extension');
     }
 
     /**
-     * Inser Extension in custom table
+     * Insert Extension in custom table
      */
     protected function insertExtensionsInCustomTable()
     {
         $table = 'tx_t3monitoring_domain_model_extension';
-        $res = $this->getDatabaseConnection()->exec_SELECTquery(
-            'extension_key,state,review_state,version,title,category,description,last_updated,author_name,update_comment,integer_version,state,current_version,serialized_dependencies',
-            'tx_extensionmanager_domain_model_extension',
-            'last_updated >' . strtotime(self::MIN_DATE)
-        );
+        $queryBuilderCoreExtensions = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable('tx_extensionmanager_domain_model_extension');
+        $res = $queryBuilderCoreExtensions
+            ->select('extension_key', 'state', 'review_state', 'version', 'title', 'category', 'description', 'last_updated', 'author_name', 'update_comment', 'integer_version', 'current_version', 'serialized_dependencies')
+            ->from('tx_extensionmanager_domain_model_extension')
+            ->where(
+                $queryBuilderCoreExtensions->expr()->gt('last_updated', $queryBuilderCoreExtensions->createNamedParameter(strtotime(self::MIN_DATE)))
+            )->execute();
 
-        while ($row = $this->getDatabaseConnection()->sql_fetch_assoc($res)) {
-            $exists = $this->getDatabaseConnection()->exec_SELECTgetSingleRow(
-                'uid,version,name',
-                $table,
-                'version=' . $this->getDatabaseConnection()->fullQuoteStr($row['version'], $table)
-                . ' AND name=' . $this->getDatabaseConnection()->fullQuoteStr($row['extension_key'], $table)
-            );
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+            ->getQueryBuilderForTable($table);
+        while ($row = $res->fetch()) {
             $versionSplit = explode('.', $row['version'], 3);
 
             $fields = [
                 'pid' => $this->emConfiguration->getPid(),
                 'is_official' => 1,
-                'insecure' => ((int)$row['review_state'] === -1 ? 1 : 0),
+                'insecure' => (int)$row['review_state'] === -1 ? 1 : 0,
                 'name' => $row['extension_key'],
                 'version' => $row['version'],
                 'version_integer' => $row['integer_version'],
@@ -78,24 +82,40 @@ class ExtensionImport extends BaseImport
                 'tstamp' => $GLOBALS['EXEC_TIME'],
             ];
 
+            $exists = $queryBuilder
+                ->select('uid', 'version', 'name')
+                ->from($table)
+                ->where(
+                    $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($row['version'])),
+                    $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($row['extension_key']))
+                )->execute()->fetch();
+
+            $connection = GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable($table);
+
             // update
-            if (is_array($exists)) {
-                $this->getDatabaseConnection()->exec_UPDATEquery($table, 'uid=' . (int)$exists['uid'], $fields);
+            if (is_array($exists) && !empty($exists)) {
+                $connection->update(
+                    $table,
+                    $fields,
+                    [
+                        'uid' => (int)$exists['uid']
+                    ]
+                );
             } else {
                 // insert
                 $fields['crdate'] = $GLOBALS['EXEC_TIME'];
-                $this->getDatabaseConnection()->exec_INSERTquery($table, $fields);
+                $connection->insert($table, $fields);
             }
         }
     }
 
     /**
      * @return bool TRUE if the extension list was successfully update, FALSE if no update necessary
-     * @throws \TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException
+     * @throws ExtensionManagerException
      */
-    protected function updateExtensionList()
+    protected function updateExtensionList(): bool
     {
-        /** @var Helper $extensionRepository */
         $extensionRepository = GeneralUtility::makeInstance(Helper::class);
         return $extensionRepository->updateExtList();
     }

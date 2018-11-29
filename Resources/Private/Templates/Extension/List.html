@@ -29,7 +29,7 @@
 		<f:then>
 			<div class="panel panel-default panel-space">
 				<div class="panel-heading">
-					{f:translate(key:'extensions.total', arguments:'{0:\'{extensions -> f:count()}\'}')}
+					{f:translate(key:'extension.total', arguments:'{0:\'{extensions -> f:count()}\'}')}
 				</div>
 				<table class="table table-striped table-hover">
 					<thead>
@@ -74,9 +74,9 @@
 				</table>
 		</f:then>
 		<f:else>
-			<div class="callout callout-notice">
-				{f:translate(key:'extension.notFound')}
-			</div>
+			<f:be.infobox>
+				<p>{f:translate(key:'extension.notFound')}</p>
+			</f:be.infobox>
 		</f:else>
 	</f:if>
 </f:section>

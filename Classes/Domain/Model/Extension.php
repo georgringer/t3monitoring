@@ -21,7 +21,7 @@ class Extension extends AbstractEntity
      *
      * @var array
      */
-    public static $defaultStates = array(
+    public static $defaultStates = [
         0 => 'alpha',
         1 => 'beta',
         2 => 'stable',
@@ -30,7 +30,7 @@ class Extension extends AbstractEntity
         5 => 'obsolete',
         6 => 'excludeFromUpdates',
         999 => 'n/a'
-    );
+    ];
 
     /**
      * @var string
