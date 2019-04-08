@@ -600,7 +600,7 @@ class Client extends AbstractEntity
      */
     public function getExtensions()
     {
-        return ($this->extensions instanceof LazyLoadingProxy ? $this->extensions->_loadRealInstance() : $this->extensions);
+        return $this->extensions instanceof LazyLoadingProxy ? $this->extensions->_loadRealInstance() : $this->extensions;
     }
 
     /**
@@ -621,7 +621,7 @@ class Client extends AbstractEntity
      */
     public function getCore()
     {
-        return ($this->core instanceof LazyLoadingProxy ? $this->core->_loadRealInstance() : $this->core);
+        return $this->core instanceof LazyLoadingProxy ? $this->core->_loadRealInstance() : $this->core;
     }
 
     /**
@@ -642,7 +642,7 @@ class Client extends AbstractEntity
      */
     public function getSla()
     {
-        return ($this->sla instanceof LazyLoadingProxy ? $this->sla->_loadRealInstance() : $this->sla);
+        return $this->sla instanceof LazyLoadingProxy ? $this->sla->_loadRealInstance() : $this->sla;
     }
 
     /**
@@ -663,7 +663,7 @@ class Client extends AbstractEntity
      */
     public function getTag()
     {
-        return ($this->tag instanceof LazyLoadingProxy ? $this->tag->_loadRealInstance() : $this->tag);
+        return $this->tag instanceof LazyLoadingProxy ? $this->tag->_loadRealInstance() : $this->tag;
     }
 
     /**
