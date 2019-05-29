@@ -20,7 +20,7 @@ return [
         '1' => [
             'showitem' => '
         --div--;General,title, --palette--;;paletteDomain,email,sla,tag,
-        --div--;Readonly information,last_successful_import,error_message,core, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,extensions,
+        --div--;Readonly information,last_successful_import,error_message, --palette--;;paletteCore, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,extensions,
                 insecure_core, outdated_core, insecure_extensions, outdated_extensions,
         --div--;Extra,extra_info,extra_warning,extra_danger,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
@@ -29,6 +29,7 @@ return [
         ],
     ],
     'palettes' => [
+        'paletteCore' => ['showitem' => 'core, application_context'],
         'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, hidden'],
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
         'paletteDiskSpace' => ['showitem' => 'disk_total_space, disk_free_space'],
@@ -204,6 +205,16 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
+            ],
+        ],
+        'application_context' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.application_context',
+            'config' => [
+                'readOnly' => true,
+                'type' => 'input',
+                'size' => 5,
+                'eval' => 'trim'
             ],
         ],
         'error_message' => [

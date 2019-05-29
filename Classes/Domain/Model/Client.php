@@ -94,6 +94,11 @@ class Client extends AbstractEntity
     /**
      * @var string
      */
+    protected $applicationContext = '';
+
+    /**
+     * @var string
+     */
     protected $errorMessage = '';
 
     /**
@@ -464,6 +469,22 @@ class Client extends AbstractEntity
     public function setOutdatedExtensions($outdatedExtensions)
     {
         $this->outdatedExtensions = $outdatedExtensions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApplicationContext()
+    {
+        return $this->applicationContext;
+    }
+
+    /**
+     * @param string $applicationContext
+     */
+    public function setApplicationContext($applicationContext)
+    {
+        $this->applicationContext = $applicationContext;
     }
 
     /**
