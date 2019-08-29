@@ -136,6 +136,7 @@
                                 <div id="chart_core_versions"></div>
                                 <script type="text/javascript">
                                     var dataSet = {coreVersionUsageJson -> f:format.raw()};
+                                    <![CDATA[
                                     // Load the Visualization API and the corechart package.
                                     google.charts.load('current', {'packages':['corechart']});
 
@@ -164,6 +165,7 @@
                                         var chart = new google.visualization.PieChart(document.getElementById('chart_core_versions'));
                                         chart.draw(data, options);
                                     }
+                                    ]]>
                                 </script>
                             </f:if>
                         </div>
