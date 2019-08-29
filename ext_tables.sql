@@ -56,7 +56,7 @@ CREATE TABLE tx_t3monitoring_domain_model_extension (
 	description text NOT NULL,
 	last_updated datetime DEFAULT NULL,
 	author_name varchar(255) DEFAULT '' NOT NULL,
-	update_comment varchar(255) DEFAULT '' NOT NULL,
+	update_comment text NOT NULL,
 	state int(11) DEFAULT '0' NOT NULL,
 	category int(11) DEFAULT '0' NOT NULL,
 	version_integer int(11) DEFAULT '0' NOT NULL,
