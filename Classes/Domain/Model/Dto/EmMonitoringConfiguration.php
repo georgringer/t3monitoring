@@ -35,6 +35,9 @@ class EmMonitoringConfiguration implements SingletonInterface
     /** @var string */
     protected $emailForFailedClient = '';
 
+    /** @var int */
+    protected $emailAllowedAmountOfFailures = 0;
+
     public function __construct()
     {
         $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3monitoring']);
@@ -91,5 +94,13 @@ class EmMonitoringConfiguration implements SingletonInterface
     public function getEmailForFailedClient(): string
     {
         return $this->emailForFailedClient;
+    }
+
+    /**
+     * @return int
+     */
+    public function getEmailAllowedAmountOfFailures(): int
+    {
+        return $this->emailAllowedAmountOfFailures;
     }
 }

@@ -8,7 +8,10 @@ loadBulletins = 1
 # cat=records/enable/103; type=string; label=Mail for failed client:Define an email address which gets an email if a client could not be reached
 emailForFailedClient =
 
-# cat=records/enable/104; type=boolean; label=Use google charts
+# cat=records/enable/104; type=string; label=Delay email:How many times a client import may fail (temporary service outages)
+emailAllowedAmountOfFailures = 0
+
+# cat=records/enable/110; type=boolean; label=Use google charts
 useGoogleCharts = 1
 
 # cat=records/enable/120; type=boolean; label=Presentation mode:If set, sensitive client information is obfuscated

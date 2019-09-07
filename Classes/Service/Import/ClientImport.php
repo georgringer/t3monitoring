@@ -74,7 +74,10 @@ class ClientImport extends BaseImport
         }
 
         if ($this->responseCount['error'] > 0) {
-            $this->emailNotification->sendClientFailedEmail($this->failedClients);
+            $clientsForMailNotification = $this->getClientsForMailNotification();
+            if (count($clientsForMailNotification) > 0) {
+                $this->emailNotification->sendClientFailedEmail($clientsForMailNotification);
+            }
         }
 
         $dataIntegrity = GeneralUtility::makeInstance(DataIntegrity::class);
@@ -116,6 +119,7 @@ class ClientImport extends BaseImport
                 'disk_free_space' => $json['core']['diskFreeSpace'],
                 'core' => $this->getUsedCore($json['core']['typo3Version']),
                 'extensions' => $this->handleExtensionRelations($row['uid'], (array)$json['extensions']),
+                'error_count' => 0
             ];
 
             $this->addExtraData($json, $update, 'info');
@@ -162,7 +166,8 @@ class ClientImport extends BaseImport
             ->getConnectionForTable(self::TABLE);
         $connection->update(self::TABLE,
             [
-                'error_message' => $error->getMessage()
+                'error_message' => $error->getMessage(),
+                'error_count' => $client['error_count'] + 1
             ],
             [
                 'uid' => (int)$client['uid']
@@ -359,5 +364,19 @@ class ClientImport extends BaseImport
     {
         return GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable($table);
+    }
+
+    protected function getClientsForMailNotification() : array
+    {
+        $allowedAmountOfFailures = $this->emConfiguration->getEmailAllowedAmountOfFailures();
+        $clientsForMailNotification = [];
+
+        foreach ($this->failedClients as $client) {
+            if ($client['error_count'] +1 > $allowedAmountOfFailures) {
+                $clientsForMailNotification[] = $client;
+            }
+        }
+
+        return $clientsForMailNotification;
     }
 }
