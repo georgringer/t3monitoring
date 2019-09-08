@@ -21,6 +21,7 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	insecure_extensions int(11) DEFAULT '0' NOT NULL,
 	outdated_extensions int(11) DEFAULT '0' NOT NULL,
 	error_message varchar(255) DEFAULT '' NOT NULL,
+	application_context varchar(255) DEFAULT '' NOT NULL,
 	extra_info text NOT NULL,
 	extra_warning text NOT NULL,
 	extra_danger text NOT NULL,

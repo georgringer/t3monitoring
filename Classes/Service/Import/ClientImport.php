@@ -116,6 +116,7 @@ class ClientImport extends BaseImport
                 'disk_free_space' => $json['core']['diskFreeSpace'],
                 'core' => $this->getUsedCore($json['core']['typo3Version']),
                 'extensions' => $this->handleExtensionRelations($row['uid'], (array)$json['extensions']),
+                'application_context' => $json['core']['applicationContext'],
             ];
 
             $this->addExtraData($json, $update, 'info');

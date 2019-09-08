@@ -57,6 +57,9 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_extensions">
 				<source>Outdated Extensions</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.application_context">
+				<source>Application Context</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.error_message">
 				<source>Error Message</source>
 			</trans-unit>
