@@ -15,6 +15,7 @@ use T3Monitor\T3monitoring\Notification\EmailNotification;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
@@ -112,8 +113,8 @@ class ClientImport extends BaseImport
                 'error_message' => '',
                 'php_version' => $json['core']['phpVersion'],
                 'mysql_version' => $json['core']['mysqlClientVersion'],
-                'disk_total_space' => $json['core']['diskTotalSpace'],
-                'disk_free_space' => $json['core']['diskFreeSpace'],
+                'disk_total_space' => $json['core']['diskTotalSpace'] ?: 0,
+                'disk_free_space' => $json['core']['diskFreeSpace'] ?: 0,
                 'core' => $this->getUsedCore($json['core']['typo3Version']),
                 'extensions' => $this->handleExtensionRelations($row['uid'], (array)$json['extensions']),
             ];
@@ -181,18 +182,33 @@ class ClientImport extends BaseImport
     {
         $domain = $this->unifyDomain($row['domain']);
         $url = $domain . '/index.php?eID=t3monitoring&secret=' . rawurlencode($row['secret']);
-        $report = [];
         $headers = [
-            'User-Agent: TYPO3-Monitoring/' . ExtensionManagementUtility::getExtensionVersion('t3monitoring'),
-            'Accept: application/json'
+            'User-Agent' => 'TYPO3-Monitoring/' . ExtensionManagementUtility::getExtensionVersion('t3monitoring'),
+            'Accept' => 'application/json',
+        ];
+        if (!empty($row['host_header'])) {
+            $headers['Host'] = trim($row['host_header']);
+        }
+        $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+        $additionalOptions = [
+            'headers' => $headers,
+            'allow_redirects' => true,
+            'verify' => (bool)!$row['ignore_cert_errors'],
         ];
         if (!empty($row['basic_auth_username']) && !empty($row['basic_auth_password'])) {
-            $headers[] = 'Authorization: Basic ' . base64_encode($row['basic_auth_username'] . ':' . $row['basic_auth_password']);
+            $additionalOptions['auth'] = [ $row['basic_auth_username'], $row['basic_auth_password'] ];
         }
-        $response = GeneralUtility::getUrl($url, 0, $headers, $report);
-        if (!empty($report['message']) && $report['message'] !== 'OK') {
-            throw new \RuntimeException($report['message']);
+        if (!empty($row['force_ip_resolve'])) {
+            $additionalOptions['force_ip_resolve'] = $row['force_ip_resolve'];
         }
+        $response = $requestFactory->request($url, 'GET', $additionalOptions);
+        if (!empty($response->getReasonPhrase()) && $response->getReasonPhrase() !== 'OK') {
+            throw new \RuntimeException($response->getReasonPhrase());
+        }
+        if (in_array($response->getStatusCode(), [ 200, 301, 302 ], true)) {
+            $response = $response->getBody()->getContents();
+        }
+
         return $response;
     }
 
@@ -264,12 +280,16 @@ class ClientImport extends BaseImport
                     'title' => (string)$data['title'],
                     'description' => (string)$data['description'],
                     'author_name' => (string)$data['author'],
-                    'state' => array_search($data['state'], Extension::$defaultStates, true),
+                    'state' => array_search($data['state'], Extension::$defaultStates, true) ?: key(array_slice(Extension::$defaultStates, -1, 1, true)),
                     'category' => (int)array_search($data['category'], Extension::$defaultCategories),
                     'is_official' => 0,
                     'tstamp' => $GLOBALS['EXEC_TIME'],
-                    'serialized_dependencies' => $this->serializeDependencies($data['constraints']),
+                    'update_comment' => '',
                 ];
+
+                if ($data['constraints'] !== null) {
+                    $insert['serialized_dependencies'] = $this->serializeDependencies($data['constraints']);
+                }
 
                 $connection = $this->getConnectionTableFor($table);
                 $connection->insert('tx_t3monitoring_domain_model_extension', $insert);
@@ -280,7 +300,7 @@ class ClientImport extends BaseImport
                 $client,
                 $relationId,
                 $data['title'],
-                array_search($data['state'], Extension::$defaultStates, true),
+                array_search($data['state'], Extension::$defaultStates, true) ?: key(array_slice(Extension::$defaultStates, -1, 1, true)),
                 $data['isLoaded'],
             ];
 

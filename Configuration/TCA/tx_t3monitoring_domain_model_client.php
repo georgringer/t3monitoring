@@ -14,12 +14,12 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
+        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, host_header, ignore_cert_errors, force_ip_resolve, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
     ],
     'types' => [
         '1' => [
             'showitem' => '
-        --div--;General,title, --palette--;;paletteDomain,email,sla,tag,
+        --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,
         --div--;Readonly information,last_successful_import,error_message,core, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,extensions,
                 insecure_core, outdated_core, insecure_extensions, outdated_extensions,
         --div--;Extra,extra_info,extra_warning,extra_danger,
@@ -29,7 +29,8 @@ return [
         ],
     ],
     'palettes' => [
-        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, hidden'],
+        'paletteTitle' => ['showitem' => 'title, hidden'],
+        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, host_header, --linebreak--, ignore_cert_errors, force_ip_resolve'],
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
         'paletteDiskSpace' => ['showitem' => 'disk_total_space, disk_free_space'],
     ],
@@ -56,7 +57,7 @@ return [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.domain',
             'config' => [
                 'type' => 'input',
-                'size' => 30,
+                'size' => 50,
                 'eval' => 'trim,required',
                 'placeholder' => 'http://yourdomain.com/'
             ],
@@ -66,7 +67,7 @@ return [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.secret',
             'config' => [
                 'type' => 'input',
-                'size' => 30,
+                'size' => 50,
                 'eval' => 'trim,required',
                 'min' => 5,
                 'max' => 255
@@ -88,6 +89,40 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,password'
+            ],
+        ],
+        'host_header' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.hostHeader',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim',
+                'placeholder' => 'app.myproject.com'
+            ],
+        ],
+        'ignore_cert_errors' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.ignoreCertErrors',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+        'force_ip_resolve' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.forceIpResolve',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'minitems' => 1,
+                'maxitems' => 1,
+                'default' => 'v4',
+                'items' => [
+                    ['', ''],
+                    ['IPv4', 'v4'],
+                    ['IPv6', 'v6'],
+                ],
+                'default' => '',
             ],
         ],
         'email' => [
@@ -213,7 +248,8 @@ return [
                 'readOnly' => true,
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
+                'default' => ''
             ],
         ],
         'extra_info' => [

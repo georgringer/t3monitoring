@@ -27,6 +27,18 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.basic_auth_password">
 				<source>BasicAuth password</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.hostHeader">
+				<source>Host Header</source>
+				<context context-type="context">Label for field host header (type input). It's an optional field.</context>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.ignoreCertErrors">
+				<source>Ignore Certificate Errors</source>
+				<context context-type="context">Label for field Ignore Certificate Errors (type checkbox). It's an optional field.</context>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.forceIpResolve">
+				<source>Force IP Resolve</source>
+				<context context-type="context">Label for field Force IP Resolve (type select).</context>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.secret">
 				<source>Secret</source>
 			</trans-unit>

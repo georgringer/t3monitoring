@@ -11,7 +11,7 @@ This extensions provides the possibility to monitor all of your TYPO3 installati
 
 **Requirements**
 
-- At least TYPO3 CMS 7 LTS (monitoring works also for 6.2 installations)
+- At least TYPO3 CMS 8 LTS (monitoring works also for 6.2 installations)
 - The host must have access to every client to be able to fetch the data
 
 Important: This extension is still beta and things might change!
@@ -63,6 +63,10 @@ Create a record "**Client**" on any sys folder and fill out at least the followi
 - Title
 - Domain. Include ``http://`` or ``https://``.
 - Secret: This is the same secret as defined in the configuration of *t3monitoring_client* in the client installation. Please don't reuse any secrets twice.
+- (Optional) BasicAuth username and password: (if your client is secured via HTTP Basic Auth)
+- (Optional) Host Header: (if you want to monitor a client which can't be resolved via public DNS services) (
+- (Optional) Ignore Certificate Errors: Ignores certificate errors (mostly necessary if you use the previous field "Host Header" in conjunction with Let's Encrypt)
+- (Optional) Force IP Resolve: IPv4 or IPv6
 
 Create an optional record "**SLA**" to group your clients. Examples could be:
 
@@ -85,5 +89,3 @@ Especially the import of extensions can take a while, therefore you can use diff
 - ``./typo3/cli_dispatch.phpsh extbase monitoring:importCore`` to fetch latest core versions
 - ``./typo3/cli_dispatch.phpsh extbase monitoring:importExtensions`` to fetch the extensions
 - ``./typo3/cli_dispatch.phpsh extbase monitoring:importClients`` to fetch the client data
-
-
