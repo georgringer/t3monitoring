@@ -116,7 +116,6 @@ return [
                 'renderType' => 'selectSingle',
                 'minitems' => 1,
                 'maxitems' => 1,
-                'default' => 'v4',
                 'items' => [
                     ['', ''],
                     ['IPv4', 'v4'],
