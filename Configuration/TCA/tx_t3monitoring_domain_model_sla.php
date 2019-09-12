@@ -25,14 +25,12 @@ return [
     ],
     'columns' => [
         'hidden' => [
-            'exclude' => true,
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
             ],
         ],
         'title' => [
-            'exclude' => true,
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_sla.title',
             'config' => [
                 'type' => 'input',
@@ -41,7 +39,6 @@ return [
             ],
         ],
         'description' => [
-            'exclude' => true,
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_sla.description',
             'config' => [
                 'type' => 'text',
