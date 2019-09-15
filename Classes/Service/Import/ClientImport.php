@@ -13,6 +13,7 @@ use Exception;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
+use T3Monitor\T3monitoring\Service\CheckExecutor;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\RequestFactory;
@@ -20,6 +21,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class ClientImport
@@ -27,6 +29,10 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 class ClientImport extends BaseImport
 {
     const TABLE = 'tx_t3monitoring_domain_model_client';
+
+    const MESSAGE_INFO = 'info';
+    const MESSAGE_WARNING = 'warning';
+    const MESSAGE_DANGER = 'danger';
 
     /** @var array */
     protected $coreVersions = [];
@@ -37,8 +43,11 @@ class ClientImport extends BaseImport
     /** @var array */
     protected $failedClients = [];
 
-    /** @var  EmailNotification */
+    /** @var EmailNotification */
     protected $emailNotification;
+
+    /** @var CheckExecutor */
+    protected $checkExecutor;
 
     /**
      * Constructor
@@ -47,6 +56,10 @@ class ClientImport extends BaseImport
     {
         $this->coreVersions = $this->getAllCoreVersions();
         $this->emailNotification = GeneralUtility::makeInstance(EmailNotification::class);
+
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->checkExecutor = $objectManager->get(CheckExecutor::class);
+
         parent::__construct();
     }
 
@@ -123,9 +136,10 @@ class ClientImport extends BaseImport
                 'error_count' => 0
             ];
 
-            $this->addExtraData($json, $update, 'info');
-            $this->addExtraData($json, $update, 'warning');
-            $this->addExtraData($json, $update, 'danger');
+            $this->checkExecutor->applyRulesAndModifyClientData($json);
+            $this->addExtraData($json, $update, self::MESSAGE_INFO);
+            $this->addExtraData($json, $update, self::MESSAGE_WARNING);
+            $this->addExtraData($json, $update, self::MESSAGE_DANGER);
 
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable(self::TABLE);
@@ -199,6 +213,7 @@ class ClientImport extends BaseImport
             'headers' => $headers,
             'allow_redirects' => true,
             'verify' => (bool)!$row['ignore_cert_errors'],
+            'form_params' => $this->checkExecutor->getProviderArguments()
         ];
         if (!empty($row['basic_auth_username']) && !empty($row['basic_auth_password'])) {
             $additionalOptions['auth'] = [ $row['basic_auth_username'], $row['basic_auth_password'] ];
@@ -206,7 +221,7 @@ class ClientImport extends BaseImport
         if (!empty($row['force_ip_resolve'])) {
             $additionalOptions['force_ip_resolve'] = $row['force_ip_resolve'];
         }
-        $response = $requestFactory->request($url, 'GET', $additionalOptions);
+        $response = $requestFactory->request($url, 'POST', $additionalOptions);
         if (!empty($response->getReasonPhrase()) && $response->getReasonPhrase() !== 'OK') {
             throw new \RuntimeException($response->getReasonPhrase());
         }

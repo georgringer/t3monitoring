@@ -1,197 +1,231 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2016-04-11T12:45:21Z" product-name="t3monitoring">
-		<header/>
-		<body>
-			<trans-unit id="tx_t3monitoring_domain_model_client">
-				<source>Client</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.domain">
-				<source>Domain</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.status">
-				<source>Status</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.error">
-				<source>Error</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.ok">
-				<source>OK</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.secret">
-				<source>Secret</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.email">
-				<source>Email</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.php_version">
-				<source>Php Version</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
-				<source>Mysql Version</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
-				<source>Insecure Core</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_core">
-				<source>Outdated Core</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_extensions">
-				<source>Insecure Extensions</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_extensions">
-				<source>Outdated Extensions</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.error_message">
-				<source>Error Message</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extra_info">
-				<source>Extra Info</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extra_warning">
-				<source>Extra Warning</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extra_danger">
-				<source>Extra Danger</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.last_successful_import">
-				<source>Last Successful Import</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extensions">
-				<source>Extensions</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.core">
-				<source>Core</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.sla">
-				<source>Sla</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension">
-				<source>Extension</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.version">
-				<source>Version</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.insecure">
-				<source>Insecure</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.next_secure_version">
-				<source>Next Secure Version</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.description">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_updated">
-				<source>Last Updated</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.author_name">
-				<source>Author Name</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.update_comment">
-				<source>Update Comment</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.state">
-				<source>State</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.category">
-				<source>Category</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.version_integer">
-				<source>Version Integer</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_used">
-				<source>Is Used</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_official">
-				<source>Is Official</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_modified">
-				<source>Is Modified</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_latest">
-				<source>Is Latest</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_bugfix_release">
-				<source>Last Bugfix Release</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_minor_release">
-				<source>Last Minor Release</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_major_release">
-				<source>Last Major Release</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.serialized_dependencies">
-				<source>Serialized Dependencies</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core">
-				<source>Core</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.version">
-				<source>Version</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.insecure">
-				<source>Insecure</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.next_secure_version">
-				<source>Next Secure Version</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.type">
-				<source>Type</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.release_date">
-				<source>Release Date</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.latest">
-				<source>Latest</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.stable">
-				<source>Stable</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_stable">
-				<source>Is Stable</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_active">
-				<source>Is Active</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_latest">
-				<source>Is Latest</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.version_integer">
-				<source>Version Integer</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_used">
-				<source>Is Used</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_official">
-				<source>Is Official</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_sla">
-				<source>Sla</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_sla.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_sla.description">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_tag">
-				<source>Tag</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_tag.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_tag.description">
-				<source>Description</source>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" datatype="plaintext" original="messages" date="2016-04-11T12:45:21Z"
+          product-name="t3monitoring">
+        <header/>
+        <body>
+            <trans-unit id="tx_t3monitoring_domain_model_client">
+                <source>Client</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.domain">
+                <source>Domain</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.error">
+                <source>Error</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.ok">
+                <source>OK</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.secret">
+                <source>Secret</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.php_version">
+                <source>Php Version</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
+                <source>Mysql Version</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
+                <source>Insecure Core</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.outdated_core">
+                <source>Outdated Core</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.insecure_extensions">
+                <source>Insecure Extensions</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.outdated_extensions">
+                <source>Outdated Extensions</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.error_message">
+                <source>Error Message</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.extra_info">
+                <source>Extra Info</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.extra_warning">
+                <source>Extra Warning</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.extra_danger">
+                <source>Extra Danger</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.last_successful_import">
+                <source>Last Successful Import</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.extensions">
+                <source>Extensions</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.core">
+                <source>Core</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.sla">
+                <source>Sla</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension">
+                <source>Extension</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.version">
+                <source>Version</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.insecure">
+                <source>Insecure</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.next_secure_version">
+                <source>Next Secure Version</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.last_updated">
+                <source>Last Updated</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.author_name">
+                <source>Author Name</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.update_comment">
+                <source>Update Comment</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.state">
+                <source>State</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.category">
+                <source>Category</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.version_integer">
+                <source>Version Integer</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.is_used">
+                <source>Is Used</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.is_official">
+                <source>Is Official</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.is_modified">
+                <source>Is Modified</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.is_latest">
+                <source>Is Latest</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.last_bugfix_release">
+                <source>Last Bugfix Release</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.last_minor_release">
+                <source>Last Minor Release</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.last_major_release">
+                <source>Last Major Release</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_extension.serialized_dependencies">
+                <source>Serialized Dependencies</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core">
+                <source>Core</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.version">
+                <source>Version</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.insecure">
+                <source>Insecure</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.next_secure_version">
+                <source>Next Secure Version</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.type">
+                <source>Type</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.release_date">
+                <source>Release Date</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.latest">
+                <source>Latest</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.stable">
+                <source>Stable</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.is_stable">
+                <source>Is Stable</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.is_active">
+                <source>Is Active</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.is_latest">
+                <source>Is Latest</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.version_integer">
+                <source>Version Integer</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.is_used">
+                <source>Is Used</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_core.is_official">
+                <source>Is Official</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_sla">
+                <source>Sla</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_sla.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_sla.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_tag">
+                <source>Tag</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_tag.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_tag.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_rule">
+                <source>Rule</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_rule.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_rule.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_rule.execution_criteria">
+                <source>Execution Criteria</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_rule.failure_criteria">
+                <source>Failure Criteria</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_rule.message_category">
+                <source>Message category</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_check">
+                <source>Check</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_check.type">
+                <source>Type</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_check.argument">
+                <source>Argument</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_check.operator">
+                <source>Operator: Result must be true to fullfill critera</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_check.value">
+                <source>Value for comparison</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>
