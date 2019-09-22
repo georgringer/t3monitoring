@@ -191,20 +191,14 @@
                                     {f:translate(key:'rules')}
                                 </div>
                                 <table class="table table-striped table-hover extension-list">
-                                    <thead>
-                                    <tr>
-                                        <th>{f:translate(key:'tx_t3monitoring_domain_model_client.title')}</th>
-                                        <th>Fail count</th>
-                                    </tr>
-                                    </thead>
                                     <tbody>
                                     <f:for each="{rules}" as="rule">
                                         <tr>
-                                            <td>
+                                                <th>
                                                 <f:link.action title="{rule.description}" additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withFailedRule: '{rule.uid}'}}}">
                                                     {rule.title}
                                                 </f:link.action>
-                                            </td>
+                                                </th>
                                             <td>
                                                 <f:if condition="{rule.fail_count} == 0">
                                                     <f:then>
