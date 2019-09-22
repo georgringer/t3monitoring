@@ -12,6 +12,14 @@ class ConfigurationResolver extends BaseResolver
         }
     }
 
+    public function execute()
+    {
+        if (!isset($this->json['configuration'])) {
+            return;
+        }
+        return parent::execute();
+    }
+
     public function getProviderArguments()
     {
         return $this->argument;

@@ -33,6 +33,7 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	core int(11) unsigned DEFAULT '0',
 	sla int(11) unsigned DEFAULT '0',
 	tag tinytext,
+	check_result int(11) unsigned DEFAULT '0',
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -203,7 +204,7 @@ CREATE TABLE tx_t3monitoring_domain_model_check (
 	uid int(11) NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-  title varchar(255) DEFAULT '' NOT NULL,
+	title varchar(255) DEFAULT '' NOT NULL,
 	type varchar(255) DEFAULT '' NOT NULL,
 	argument varchar(255) DEFAULT '' NOT NULL,
 	operator varchar(255) DEFAULT '' NOT NULL,
@@ -231,6 +232,30 @@ CREATE TABLE tx_t3monitoring_rule_check_mm (
 );
 
 CREATE TABLE tx_t3monitoring_rule_failure_criteria_check_mm (
+	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
+	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting int(11) unsigned DEFAULT '0' NOT NULL,
+	sorting_foreign int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid_local,uid_foreign),
+	KEY uid_local (uid_local),
+	KEY uid_foreign (uid_foreign)
+);
+
+CREATE TABLE tx_t3monitoring_domain_model_checkresult (
+
+	uid int(11) NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+	client int(11) DEFAULT '0' NOT NULL,
+	failed_rules int(11) DEFAULT '0' NOT NULL,
+	missing_provider_data tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	crdate int(11) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid)
+);
+
+CREATE TABLE tx_t3monitoring_checkresult_failed_rules_mm (
 	uid_local int(11) unsigned DEFAULT '0' NOT NULL,
 	uid_foreign int(11) unsigned DEFAULT '0' NOT NULL,
 	sorting int(11) unsigned DEFAULT '0' NOT NULL,

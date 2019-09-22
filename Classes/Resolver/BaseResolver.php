@@ -39,14 +39,18 @@ class BaseResolver implements ResolverInterface
     public function setValueForComparison() {
     }
 
-    public function execute(): ?bool
+    /**
+     * Return value may be
+     *
+     * true  = Check failed
+     * false = Check okay
+     * null  = Missing provider data
+     *
+     * @return bool|null
+     */
+    public function execute()
     {
         $result = call_user_func_array([$this, $this->operator . 'Operator'], []);
-
-        if (is_bool($result) === false) {
-            throw new \Exception('Return value from operator function must be a boolean', 1568057811);
-        }
-
         return $result;
     }
 

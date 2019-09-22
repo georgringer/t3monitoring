@@ -7,7 +7,7 @@ interface ResolverInterface
 
     public function setValueForComparison();
 
-    public function execute(): ?bool;
+    public function execute();
 
     public function getProviderArguments();
 }

@@ -13,7 +13,7 @@ use Exception;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
-use T3Monitor\T3monitoring\Service\CheckExecutor;
+use T3Monitor\T3monitoring\Service\CheckResultService;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\RequestFactory;
@@ -46,8 +46,8 @@ class ClientImport extends BaseImport
     /** @var EmailNotification */
     protected $emailNotification;
 
-    /** @var CheckExecutor */
-    protected $checkExecutor;
+    /** @var CheckResultService */
+    protected $checkResultService;
 
     /**
      * Constructor
@@ -58,7 +58,7 @@ class ClientImport extends BaseImport
         $this->emailNotification = GeneralUtility::makeInstance(EmailNotification::class);
 
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->checkExecutor = $objectManager->get(CheckExecutor::class);
+        $this->checkResultService = $objectManager->get(CheckResultService::class);
 
         parent::__construct();
     }
@@ -136,7 +136,9 @@ class ClientImport extends BaseImport
                 'error_count' => 0
             ];
 
-            $this->checkExecutor->applyRulesAndModifyClientData($json);
+            $checkResult = $this->checkResultService->createCheckResult($row['uid'], $json);
+            $update['check_result'] = $checkResult->getUid();
+
             $this->addExtraData($json, $update, self::MESSAGE_INFO);
             $this->addExtraData($json, $update, self::MESSAGE_WARNING);
             $this->addExtraData($json, $update, self::MESSAGE_DANGER);
@@ -213,7 +215,7 @@ class ClientImport extends BaseImport
             'headers' => $headers,
             'allow_redirects' => true,
             'verify' => (bool)!$row['ignore_cert_errors'],
-            'form_params' => $this->checkExecutor->getProviderArguments()
+            'form_params' => $this->checkResultService->getProviderArguments()
         ];
         if (!empty($row['basic_auth_username']) && !empty($row['basic_auth_password'])) {
             $additionalOptions['auth'] = [ $row['basic_auth_username'], $row['basic_auth_password'] ];

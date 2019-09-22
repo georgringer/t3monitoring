@@ -74,6 +74,7 @@ class StatisticController extends BaseController
         $outdatedExtensionDemand = $this->getClientFilterDemand()->setWithOutdatedExtensions(true);
         $clientsWithWarningInfo = $this->getClientFilterDemand()->setWithExtraWarning(true);
         $clientsWithDangerInfo = $this->getClientFilterDemand()->setWithExtraDanger(true);
+        $clientsWithMissingProviderData = $this->getClientFilterDemand()->setWithMissingProviderData(true);
         $emptyClientDemand = $this->getClientFilterDemand();
 
         $feedItems = null;
@@ -97,9 +98,11 @@ class StatisticController extends BaseController
             'clientsWithOutdatedCore' => $this->clientRepository->countByDemand($outdatedCoreDemand),
             'clientsWithWarningInfo' => $this->clientRepository->countByDemand($clientsWithWarningInfo),
             'clientsWithDangerInfo' => $this->clientRepository->countByDemand($clientsWithDangerInfo),
+            'clientsWithMissingProviderData' => $this->clientRepository->countByDemand($clientsWithMissingProviderData),
             'numberOfClients' => $this->clientRepository->countAll(),
             'slaVersions' => $this->slaRepository->findAll(),
             'tagVersions' => $this->tagRepository->findAll(),
+            'rules' => $this->checkResultRepository->findAllWithFailCount(),
             'feedItems' => $feedItems,
             'importTimes' => [
                 'client' => $this->registry->get('t3monitoring', 'importClient'),

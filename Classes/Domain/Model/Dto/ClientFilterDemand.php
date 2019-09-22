@@ -55,6 +55,12 @@ class ClientFilterDemand extends AbstractEntity
     /** @var bool */
     protected $withEmailAddress;
 
+    /** @var int */
+    protected $withFailedRule;
+
+    /** @var bool */
+    protected $withMissingProviderData;
+
     /**
      * @return string
      */
@@ -286,6 +292,39 @@ class ClientFilterDemand extends AbstractEntity
     public function setWithEmailAddress($withEmailAddress)
     {
         $this->withEmailAddress = $withEmailAddress;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function isWithFailedRule()
+    {
+        return $this->withFailedRule;
+    }
+
+    /**
+     * @param int $withFailedRule
+     */
+    public function setWithFailedRule($withFailedRule)
+    {
+        $this->withFailedRule = $withFailedRule;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWithMissingProviderData()
+    {
+        return $this->withMissingProviderData;
+    }
+
+    /**
+     * @param bool $withMissingProviderData
+     */
+    public function setWithMissingProviderData($withMissingProviderData)
+    {
+        $this->withMissingProviderData = $withMissingProviderData;
         return $this;
     }
 }

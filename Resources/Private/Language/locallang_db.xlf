@@ -70,6 +70,9 @@
             <trans-unit id="tx_t3monitoring_domain_model_client.sla">
                 <source>Sla</source>
             </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_client.check_result">
+                <source>Check result</source>
+            </trans-unit>
             <trans-unit id="tx_t3monitoring_domain_model_extension">
                 <source>Extension</source>
             </trans-unit>
@@ -225,6 +228,9 @@
             </trans-unit>
             <trans-unit id="tx_t3monitoring_domain_model_check.value">
                 <source>Value for comparison</source>
+            </trans-unit>
+            <trans-unit id="tx_t3monitoring_domain_model_checkresult.missing_provider_data">
+                <source>Missing providers</source>
             </trans-unit>
         </body>
     </file>
