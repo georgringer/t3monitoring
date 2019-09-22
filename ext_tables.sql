@@ -206,7 +206,7 @@ CREATE TABLE tx_t3monitoring_domain_model_check (
 
 	title varchar(255) DEFAULT '' NOT NULL,
 	type varchar(255) DEFAULT '' NOT NULL,
-	argument varchar(255) DEFAULT '' NOT NULL,
+	argument text DEFAULT '' NOT NULL,
 	operator varchar(255) DEFAULT '' NOT NULL,
 	value varchar(255) DEFAULT '' NOT NULL,
 

@@ -62,7 +62,11 @@ class CheckResultService implements SingletonInterface
         foreach ($checks as $check) {
             $providerArguments = $this->getResolver($check)->getProviderArguments();
             if ($providerArguments) {
-                $allProviderArguments[$check->getType()][] = $providerArguments;
+                if (is_array($providerArguments)) {
+                    $allProviderArguments[$check->getType()] = $providerArguments;
+                } else {
+                     $allProviderArguments[$check->getType()][] = $providerArguments;
+                }
             }
         }
 
@@ -82,6 +86,7 @@ class CheckResultService implements SingletonInterface
         $checkResult->setClient($resolverData->getClient()['uid']);
 
         foreach ($this->rules as $rule) {
+            $this->resolverData->setRule($rule);
             $checkFailureCriterias = true;
             foreach ($rule->getExecutionCriteria() as $executionCriteria) {
                 $checkFailureCriterias = $this->runCheck($executionCriteria);

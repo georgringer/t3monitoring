@@ -100,6 +100,24 @@ return [
                 ]
             ]
         ],
+        'backendUser' => [
+            'showitem' => 'hidden, title, type, argument, operator',
+            'columnsOverrides' => [
+                'argument' => [
+                    'label' => 'List of backend users separated by newline',
+                    'config' => [
+                        'type' => 'text'
+                    ]
+                ],
+                'operator' => [
+                    'config' => [
+                        'items' => [
+                            ['is active', 'isActive'],
+                        ]
+                    ]
+                ],
+            ]
+        ],
     ],
     'columns' => [
         'hidden' => [

@@ -137,8 +137,10 @@ class ClientImport extends BaseImport
                 'error_count' => 0
             ];
 
-            $checkResultCreationDemand = new ResolverData($row, $json, $responseHeaders);
-            $checkResult = $this->checkResultService->createCheckResult($checkResultCreationDemand);
+            $resolverData = new ResolverData($row, $json, $responseHeaders);
+            $checkResult = $this->checkResultService->createCheckResult($resolverData);
+            $json = $resolverData->getResponse();
+
             $update['earlier_check_result'] = $row['check_result'];
             $update['check_result'] = $checkResult->getUid();
 

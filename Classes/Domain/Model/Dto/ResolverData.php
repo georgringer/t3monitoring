@@ -8,6 +8,8 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use T3Monitor\T3monitoring\Domain\Model\Rule;
+
 class ResolverData
 {
     /**
@@ -24,6 +26,11 @@ class ResolverData
      * @var array
      */
     protected $responseHeaders;
+
+    /**
+     * @var Rule
+     */
+    protected $rule;
 
     public function __construct(array $client, array $response, array $responseHeaders)
     {
@@ -79,4 +86,21 @@ class ResolverData
     {
         $this->responseHeaders = $responseHeaders;
     }
+
+    /**
+     * @return Rule
+     */
+    public function getRule()
+    {
+        return $this->rule;
+    }
+
+    /**
+     * @param Rule $rule
+     */
+    public function setRule(Rule $rule)
+    {
+        $this->rule = $rule;
+    }
+
 }
