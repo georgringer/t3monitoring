@@ -3,6 +3,7 @@ namespace T3Monitor\T3monitoring\Service;
 
 use T3Monitor\T3monitoring\Domain\Model\Check;
 use T3Monitor\T3monitoring\Domain\Model\CheckResult;
+use T3Monitor\T3monitoring\Domain\Model\Dto\ResolverData;
 use T3Monitor\T3monitoring\Domain\Repository\CheckResultRepository;
 use T3Monitor\T3monitoring\Domain\Repository\RuleRepository;
 use T3Monitor\T3monitoring\Resolver\ResolverInterface;
@@ -14,8 +15,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 class CheckResultService implements SingletonInterface
 {
-    /** @var array */
-    protected $json;
+    /** @var ResolverData */
+    protected $resolverData;
 
     /** @var QueryResultInterface */
     protected $rules;
@@ -70,16 +71,15 @@ class CheckResultService implements SingletonInterface
     }
 
     /**
-     * @param integer $client
-     * @param array $json
+     * @param ResolverData $resolverData
      * @return CheckResult
      * @throws IllegalObjectTypeException
      */
-    public function createCheckResult($client, $json)
+    public function createCheckResult(ResolverData $resolverData)
     {
-        $this->json = $json;
+        $this->resolverData = $resolverData;
         $checkResult = new CheckResult();
-        $checkResult->setClient($client);
+        $checkResult->setClient($resolverData->getClient()['uid']);
 
         foreach ($this->rules as $rule) {
             $checkFailureCriterias = true;
@@ -112,15 +112,23 @@ class CheckResultService implements SingletonInterface
         return $checkResult;
     }
 
+    /**
+     * @param Check $check
+     * @return null|bool
+     */
     protected function runCheck(Check $check)
     {
         $resolver = $this->getResolver($check);
-        $resolver->setClientResponse($this->json);
+        $resolver->setup($this->resolverData);
         $resolver->setValueForComparison();
         return $resolver->execute();
     }
 
-    protected function getResolver(Check $check): ResolverInterface
+    /**
+     * @param Check $check
+     * @return ResolverInterface
+     */
+    protected function getResolver(Check $check)
     {
         $resolverClass = $GLOBALS['TYPO3_CONF_VARS']['EXT']['t3monitoring']['resolver'][$check->getType()];
         $resolver = GeneralUtility::makeInstance($resolverClass, $check);

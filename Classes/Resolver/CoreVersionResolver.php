@@ -7,6 +7,6 @@ class CoreVersionResolver extends ComposerVersionResolver
 
     public function setValueForComparison()
     {
-        $this->valueForComparison = $this->json['core']['typo3Version'];
+        $this->valueForComparison = $this->resolverData->getResponse()['core']['typo3Version'];
     }
 }

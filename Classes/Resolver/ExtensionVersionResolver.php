@@ -5,7 +5,8 @@ class ExtensionVersionResolver extends ComposerVersionResolver
 {
     const TITLE = 'Extension version';
 
-    public function setup() {
-        $this->valueForComparison = $this->json['extensions'][$this->argument]['version'];
+    public function setValueForComparison()
+    {
+        $this->valueForComparison = $this->resolverData->getResponse()['extensions'][$this->argument]['version'];
     }
 }

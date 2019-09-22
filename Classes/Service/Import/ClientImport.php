@@ -10,6 +10,7 @@ namespace T3Monitor\T3monitoring\Service\Import;
  */
 
 use Exception;
+use T3Monitor\T3monitoring\Domain\Model\Dto\ResolverData;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
@@ -114,7 +115,7 @@ class ClientImport extends BaseImport
     protected function importSingleClient(array $row)
     {
         try {
-            $response = $this->requestClientData($row);
+            list($response, $responseHeaders) = $this->requestClientData($row);
             if (empty($response)) {
                 throw new \RuntimeException('Empty response from client ' . $row['title']);
             }
@@ -136,7 +137,9 @@ class ClientImport extends BaseImport
                 'error_count' => 0
             ];
 
-            $checkResult = $this->checkResultService->createCheckResult($row['uid'], $json);
+            $checkResultCreationDemand = new ResolverData($row, $json, $responseHeaders);
+            $checkResult = $this->checkResultService->createCheckResult($checkResultCreationDemand);
+            $update['earlier_check_result'] = $row['check_result'];
             $update['check_result'] = $checkResult->getUid();
 
             $this->addExtraData($json, $update, self::MESSAGE_INFO);
@@ -195,7 +198,7 @@ class ClientImport extends BaseImport
     /**
      * @param array $row
      *
-     * @return mixed
+     * @return array
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
@@ -227,11 +230,12 @@ class ClientImport extends BaseImport
         if (!empty($response->getReasonPhrase()) && $response->getReasonPhrase() !== 'OK') {
             throw new \RuntimeException($response->getReasonPhrase());
         }
+        $responseHeaders = $response->getHeaders();
         if (in_array($response->getStatusCode(), [ 200, 301, 302 ], true)) {
             $response = $response->getBody()->getContents();
         }
 
-        return $response;
+        return [$response, $responseHeaders];
     }
 
     /**

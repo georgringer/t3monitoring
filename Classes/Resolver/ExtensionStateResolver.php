@@ -5,23 +5,23 @@ class ExtensionStateResolver extends BaseResolver
 {
     const TITLE = 'Extension state';
 
-    public function isPresentOperator() : bool
+    public function isPresentOperator(): bool
     {
-        return in_array($this->argument, $this->json['extensions']);
+        return in_array($this->argument, $this->resolverData->getResponse()['extensions']);
     }
 
-    public function isNotPresentOperator() : bool
+    public function isNotPresentOperator(): bool
     {
-        return !in_array($this->argument, $this->json['extensions']);
+        return !in_array($this->argument, $this->resolverData->getResponse()['extensions']);
     }
 
-    public function isLoadedOperator() : bool
+    public function isLoadedOperator(): bool
     {
-        return (bool)$this->json['extensions'][$this->argument]['isLoaded'] === true;
+        return (bool)$this->resolverData->getResponse()['extensions'][$this->argument]['isLoaded'] === true;
     }
 
-    public function isNotLoadedOperator() : bool
+    public function isNotLoadedOperator(): bool
     {
-        return (bool)$this->json['extensions'][$this->argument]['isLoaded'] === false;
+        return (bool)$this->resolverData->getResponse()['extensions'][$this->argument]['isLoaded'] === false;
     }
 }

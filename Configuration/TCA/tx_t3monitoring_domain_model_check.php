@@ -37,6 +37,19 @@ return [
                 ]
             ]
         ],
+        'header' => [
+            'showitem' => 'hidden, title, type, argument, operator',
+            'columnsOverrides' => [
+                'operator' => [
+                    'config' => [
+                        'items' => [
+                            ['is set', 'isSet'],
+                            ['is not set', 'isNotSet'],
+                        ]
+                    ]
+                ]
+            ]
+        ],
         'coreVersion' => [
             'showitem' => 'hidden, title, type, operator, value',
             'columnsOverrides' => [

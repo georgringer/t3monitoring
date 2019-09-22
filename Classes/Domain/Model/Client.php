@@ -134,6 +134,11 @@ class Client extends AbstractEntity
     /**
      * @var \T3Monitor\T3monitoring\Domain\Model\CheckResult
      */
+    protected $earlierCheckResult;
+
+    /**
+     * @var \T3Monitor\T3monitoring\Domain\Model\CheckResult
+     */
     protected $checkResult;
 
     /**
@@ -776,6 +781,22 @@ class Client extends AbstractEntity
             return json_decode($this->extraDanger, true);
         }
         return [];
+    }
+
+    /**
+     * @return \T3Monitor\T3monitoring\Domain\Model\CheckResult
+     */
+    public function getEarlierCheckResult()
+    {
+        return $this->earlierCheckResult;
+    }
+
+    /**
+     * @param \T3Monitor\T3monitoring\Domain\Model\CheckResult $earlierCheckResult
+     */
+    public function setEarlierCheckResult(CheckResult $earlierCheckResult)
+    {
+        $this->earlierCheckResult = $earlierCheckResult;
     }
 
     /**

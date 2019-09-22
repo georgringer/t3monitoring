@@ -7,14 +7,14 @@ class ConfigurationResolver extends BaseResolver
 
     public function setValueForComparison()
     {
-        if (isset($this->json['configuration'][$this->argument])) {
-            $this->valueForComparison = $this->json['configuration'][$this->argument];
+        if (isset($this->resolverData->getResponse()['configuration'][$this->argument])) {
+            $this->valueForComparison = $this->resolverData->getResponse()['configuration'][$this->argument];
         }
     }
 
     public function execute()
     {
-        if (!isset($this->json['configuration'])) {
+        if (!isset($this->resolverData->getResponse()['configuration'])) {
             return;
         }
         return parent::execute();

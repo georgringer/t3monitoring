@@ -2,9 +2,15 @@
 namespace T3Monitor\T3monitoring\Resolver;
 
 use T3Monitor\T3monitoring\Domain\Model\Check;
+use T3Monitor\T3monitoring\Domain\Model\Dto\ResolverData;
 
 class BaseResolver implements ResolverInterface
 {
+    /**
+     * @var ResolverData
+     */
+    protected $resolverData;
+
     /**
      * @var string
      */
@@ -32,11 +38,13 @@ class BaseResolver implements ResolverInterface
         $this->value = $check->getValue();
     }
 
-    public function setClientResponse(array $json) {
-        $this->json = $json;
+    public function setup(ResolverData $resolverData)
+    {
+        $this->resolverData = $resolverData;
     }
 
-    public function setValueForComparison() {
+    public function setValueForComparison()
+    {
     }
 
     /**
