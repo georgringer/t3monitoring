@@ -195,7 +195,6 @@ class ClientRepository extends BaseRepository
         return GeneralUtility::makeInstance(ClientFilterDemand::class);
     }
 
-
     /**
      * @param int $ruleId
      * @return array

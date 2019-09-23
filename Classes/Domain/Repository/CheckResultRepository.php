@@ -1,8 +1,6 @@
 <?php
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
-
 class CheckResultRepository extends BaseRepository
 {
     public function findAllWithFailCount()

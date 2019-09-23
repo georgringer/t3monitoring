@@ -65,7 +65,7 @@ class CheckResultService implements SingletonInterface
                 if (is_array($providerArguments)) {
                     $allProviderArguments[$check->getType()] = $providerArguments;
                 } else {
-                     $allProviderArguments[$check->getType()][] = $providerArguments;
+                    $allProviderArguments[$check->getType()][] = $providerArguments;
                 }
             }
         }

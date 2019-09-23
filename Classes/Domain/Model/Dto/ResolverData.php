@@ -102,5 +102,4 @@ class ResolverData
     {
         $this->rule = $rule;
     }
-
 }

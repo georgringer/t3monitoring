@@ -1,8 +1,6 @@
 <?php
 namespace T3Monitor\T3monitoring\Resolver;
 
-use T3Monitor\T3monitoring\Domain\Model\Dto\ResolverData;
-
 class HeaderResolver extends BaseResolver
 {
     const TITLE = 'HTTP Header';
