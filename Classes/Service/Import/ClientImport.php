@@ -140,8 +140,6 @@ class ClientImport extends BaseImport
             $resolverData = new ResolverData($row, $json, $responseHeaders);
             $checkResult = $this->checkResultService->createCheckResult($resolverData);
             $json = $resolverData->getResponse();
-
-            $update['earlier_check_result'] = $row['check_result'];
             $update['check_result'] = $checkResult->getUid();
 
             $this->addExtraData($json, $update, self::MESSAGE_INFO);
