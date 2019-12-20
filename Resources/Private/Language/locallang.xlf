@@ -393,6 +393,12 @@
 			<trans-unit id="filter.withExtraDanger">
 				<source>Additional errors</source>
 			</trans-unit>
+			<trans-unit id="filter.withMissingProviderData">
+				<source>Missing provider data</source>
+			</trans-unit>
+			<trans-unit id="filter.withMissingProviderData.description">
+				<source>Some rules can not be checked because monitoring client does not provide needed data (Outdated).</source>
+			</trans-unit>
 			<trans-unit id="filter.fieldset.core">
 				<source>Core</source>
 			</trans-unit>
@@ -496,6 +502,9 @@
 			</trans-unit>
 			<trans-unit id="fetchClient.success">
 				<source>The data of the client has been successfully fetched!</source>
+			</trans-unit>
+			<trans-unit id="rules">
+				<source>Rules</source>
 			</trans-unit>
 		</body>
 	</file>

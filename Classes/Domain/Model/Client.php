@@ -132,6 +132,11 @@ class Client extends AbstractEntity
     protected $lastSuccessfulImport = null;
 
     /**
+     * @var \T3Monitor\T3monitoring\Domain\Model\CheckResult
+     */
+    protected $checkResult;
+
+    /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension>
      * @lazy
      */
@@ -771,5 +776,21 @@ class Client extends AbstractEntity
             return json_decode($this->extraDanger, true);
         }
         return [];
+    }
+
+    /**
+     * @return \T3Monitor\T3monitoring\Domain\Model\CheckResult
+     */
+    public function getCheckResult()
+    {
+        return $this->checkResult;
+    }
+
+    /**
+     * @param \T3Monitor\T3monitoring\Domain\Model\CheckResult $checkResult
+     */
+    public function setCheckResult(CheckResult $checkResult)
+    {
+        $this->checkResult = $checkResult;
     }
 }

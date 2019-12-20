@@ -299,5 +299,16 @@ return [
                 'maxitems' => 1,
             ],
         ],
+        'check_result' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.check_result',
+            'config' => [
+                'readOnly' => true,
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'tx_t3monitoring_domain_model_checkresult',
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
+        ],
     ],
 ];

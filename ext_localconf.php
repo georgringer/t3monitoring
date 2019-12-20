@@ -11,6 +11,13 @@ call_user_func(
             = \T3Monitor\T3monitoring\Command\ReportCommandController::class;
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][$extKey]
             = \T3Monitor\T3monitoring\Hooks\DataHandlerHook::class;
+
+        $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['resolver']['backendUser'] = \T3Monitor\T3monitoring\Resolver\BackendUserResolver::class;
+        $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['resolver']['configurationValue'] = \T3Monitor\T3monitoring\Resolver\ConfigurationResolver::class;
+        $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['resolver']['header'] = \T3Monitor\T3monitoring\Resolver\HeaderResolver::class;
+        $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['resolver']['extensionState'] = \T3Monitor\T3monitoring\Resolver\ExtensionStateResolver::class;
+        $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['resolver']['extensionVersion'] = \T3Monitor\T3monitoring\Resolver\ExtensionVersionResolver::class;
+        $GLOBALS['TYPO3_CONF_VARS']['EXT'][$extKey]['resolver']['coreVersion'] = \T3Monitor\T3monitoring\Resolver\CoreVersionResolver::class;
     },
     't3monitoring'
 );

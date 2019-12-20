@@ -11,6 +11,7 @@ namespace T3Monitor\T3monitoring\Controller;
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
+use T3Monitor\T3monitoring\Domain\Repository\CheckResultRepository;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
@@ -38,6 +39,9 @@ class BaseController extends ActionController
 
     /** @var StatisticRepository */
     protected $statisticRepository;
+
+    /** @var CheckResultRepository */
+    protected $checkResultRepository;
 
     /** @var ClientRepository */
     protected $clientRepository;
@@ -67,6 +71,7 @@ class BaseController extends ActionController
     {
         $this->statisticRepository = $this->objectManager->get(StatisticRepository::class);
         $this->filterDemand = $this->objectManager->get(ClientFilterDemand::class);
+        $this->checkResultRepository = $this->objectManager->get(CheckResultRepository::class);
         $this->clientRepository = $this->objectManager->get(ClientRepository::class);
         $this->coreRepository = $this->objectManager->get(CoreRepository::class);
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);

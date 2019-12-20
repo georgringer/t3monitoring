@@ -218,6 +218,36 @@
 			</table>
 		</div>
 	</f:if>
+
+	<f:if condition="{client.checkResult}">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				{f:translate(key:'rules')}
+			</div>
+			<table class="table table-striped table-hover extension-list">
+				<thead>
+				<tr>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_client.title')}</th>
+					<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.description')}</th>
+				</tr>
+				</thead>
+				<tbody>
+					<f:if condition="{client.checkResult.missingProviderData}">
+						<tr class="danger">
+							<td>{f:translate(key:'filter.withMissingProviderData')}</td>
+							<td>{f:translate(key:'filter.withMissingProviderData.description')}</td>
+						</tr>
+					</f:if>
+					<f:for each="{client.checkResult.failedRules}" as="rule">
+						<tr>
+							<td class="{rule.messageCategory}">{rule.title}</td>
+							<td class="{rule.messageCategory}">{rule.description}</td>
+						</tr>
+					</f:for>
+				</tbody>
+			</table>
+		</div>
+	</f:if>
 </f:section>
 
 <f:section name="extra">

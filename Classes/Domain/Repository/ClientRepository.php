@@ -8,6 +8,7 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Doctrine\DBAL\DBALException;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -76,7 +77,7 @@ class ClientRepository extends BaseRepository
 
         if ($emailAddressRequired) {
             $constraints[] = $query->logicalNot(
-              $query->equals('email', '')
+                $query->equals('email', '')
             );
         }
 
@@ -169,6 +170,20 @@ class ClientRepository extends BaseRepository
             $constraints[] = $query->logicalNot($query->equals('extraDanger', ''));
         }
 
+        // missing provider data
+        if ($demand->isWithMissingProviderData()) {
+            $constraints[] = $query->logicalNot($query->equals('checkResult.missingProviderData', ''));
+        }
+
+        // failed rules
+        if ($demand->isWithFailedRule() > 0) {
+            $clientIdsWithFailedRule = $this->getClientIdsByFailedRule($demand->isWithFailedRule());
+            if (count($clientIdsWithFailedRule) === 0) {
+                $clientIdsWithFailedRule[] = 0;
+            }
+            $constraints[] = $query->in('uid', $clientIdsWithFailedRule);
+        }
+
         return $constraints;
     }
 
@@ -178,5 +193,37 @@ class ClientRepository extends BaseRepository
     protected function getFilterDemand()
     {
         return GeneralUtility::makeInstance(ClientFilterDemand::class);
+    }
+
+    /**
+     * @param int $ruleId
+     * @return array
+     * @throws DBALException
+     */
+    protected function getClientIdsByFailedRule(int $ruleId)
+    {
+        $queryBuilder = $this->getDatabaseConnection()->createQueryBuilder();
+        $select = sprintf('
+            tx_t3monitoring_domain_model_client.uid
+            FROM tx_t3monitoring_domain_model_client
+            LEFT JOIN tx_t3monitoring_domain_model_checkresult
+                ON tx_t3monitoring_domain_model_checkresult.uid = tx_t3monitoring_domain_model_client.check_result
+            LEFT JOIN tx_t3monitoring_checkresult_failed_rules_mm
+                ON tx_t3monitoring_checkresult_failed_rules_mm.uid_local = tx_t3monitoring_domain_model_checkresult.uid
+            WHERE tx_t3monitoring_checkresult_failed_rules_mm.uid_foreign = %d',
+            $ruleId
+        );
+
+        $rows = $queryBuilder
+            ->addSelectLiteral($select)
+            ->execute()
+            ->fetchAll();
+
+        $clientIds = [];
+        foreach ($rows as $row) {
+            $clientIds[] = $row['uid'];
+        }
+
+        return $clientIds;
     }
 }

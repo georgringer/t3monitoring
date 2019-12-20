@@ -10,8 +10,10 @@ namespace T3Monitor\T3monitoring\Service\Import;
  */
 
 use Exception;
+use T3Monitor\T3monitoring\Domain\Model\Dto\ResolverData;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
+use T3Monitor\T3monitoring\Service\CheckResultService;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -20,6 +22,7 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class ClientImport
@@ -27,6 +30,10 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 class ClientImport extends BaseImport
 {
     const TABLE = 'tx_t3monitoring_domain_model_client';
+
+    const MESSAGE_INFO = 'info';
+    const MESSAGE_WARNING = 'warning';
+    const MESSAGE_DANGER = 'danger';
 
     /** @var array */
     protected $coreVersions = [];
@@ -37,8 +44,11 @@ class ClientImport extends BaseImport
     /** @var array */
     protected $failedClients = [];
 
-    /** @var  EmailNotification */
+    /** @var EmailNotification */
     protected $emailNotification;
+
+    /** @var CheckResultService */
+    protected $checkResultService;
 
     /**
      * Constructor
@@ -47,6 +57,10 @@ class ClientImport extends BaseImport
     {
         $this->coreVersions = $this->getAllCoreVersions();
         $this->emailNotification = GeneralUtility::makeInstance(EmailNotification::class);
+
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->checkResultService = $objectManager->get(CheckResultService::class);
+
         parent::__construct();
     }
 
@@ -101,7 +115,7 @@ class ClientImport extends BaseImport
     protected function importSingleClient(array $row)
     {
         try {
-            $response = $this->requestClientData($row);
+            list($response, $responseHeaders) = $this->requestClientData($row);
             if (empty($response)) {
                 throw new \RuntimeException('Empty response from client ' . $row['title']);
             }
@@ -123,9 +137,14 @@ class ClientImport extends BaseImport
                 'error_count' => 0
             ];
 
-            $this->addExtraData($json, $update, 'info');
-            $this->addExtraData($json, $update, 'warning');
-            $this->addExtraData($json, $update, 'danger');
+            $resolverData = new ResolverData($row, $json, $responseHeaders);
+            $checkResult = $this->checkResultService->createCheckResult($resolverData);
+            $json = $resolverData->getResponse();
+            $update['check_result'] = $checkResult->getUid();
+
+            $this->addExtraData($json, $update, self::MESSAGE_INFO);
+            $this->addExtraData($json, $update, self::MESSAGE_WARNING);
+            $this->addExtraData($json, $update, self::MESSAGE_DANGER);
 
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable(self::TABLE);
@@ -179,7 +198,7 @@ class ClientImport extends BaseImport
     /**
      * @param array $row
      *
-     * @return mixed
+     * @return array
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
@@ -199,6 +218,7 @@ class ClientImport extends BaseImport
             'headers' => $headers,
             'allow_redirects' => true,
             'verify' => (bool)!$row['ignore_cert_errors'],
+            'form_params' => $this->checkResultService->getProviderArguments()
         ];
         if (!empty($row['basic_auth_username']) && !empty($row['basic_auth_password'])) {
             $additionalOptions['auth'] = [ $row['basic_auth_username'], $row['basic_auth_password'] ];
@@ -206,15 +226,16 @@ class ClientImport extends BaseImport
         if (!empty($row['force_ip_resolve'])) {
             $additionalOptions['force_ip_resolve'] = $row['force_ip_resolve'];
         }
-        $response = $requestFactory->request($url, 'GET', $additionalOptions);
+        $response = $requestFactory->request($url, 'POST', $additionalOptions);
         if (!empty($response->getReasonPhrase()) && $response->getReasonPhrase() !== 'OK') {
             throw new \RuntimeException($response->getReasonPhrase());
         }
+        $responseHeaders = $response->getHeaders();
         if (in_array($response->getStatusCode(), [ 200, 301, 302 ], true)) {
             $response = $response->getBody()->getContents();
         }
 
-        return $response;
+        return [$response, $responseHeaders];
     }
 
     /**
