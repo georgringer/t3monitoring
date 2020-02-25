@@ -9,7 +9,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ExtensionFilterDemandTest
@@ -25,8 +25,9 @@ class ExtensionFilterDemandTest extends UnitTestCase
     /**
      * Set up
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $this->instance = new ExtensionFilterDemand();
     }
 

@@ -12,7 +12,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-
 /**
  * Class MysqlVersionViewHelper
  */

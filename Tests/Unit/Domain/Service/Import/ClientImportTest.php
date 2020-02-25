@@ -1,5 +1,5 @@
 <?php
-namespace T3Monitor\T3monitoring\Tests\Unit\Service\Import;
+namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Service\Import;
 
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
@@ -9,7 +9,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Service\Import;
  */
 
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ClientImportTest

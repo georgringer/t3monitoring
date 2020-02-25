@@ -8,11 +8,13 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Command;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use T3Monitor\T3monitoring\Command\ReportCommandController;
+use Prophecy\Prophecy\ObjectProphecy;
+use T3Monitor\T3monitoring\Command\ReportClientCommand;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ReportCommandControllerTest
@@ -26,12 +28,16 @@ class ReportCommandControllerTest extends UnitTestCase
      */
     public function reportCommandWillTriggerEmailNotification()
     {
+        // todo fix test
         $dummyClients = ['123', '456'];
         $emailAddress = 'fo@bar.com';
-        $mockedClientImport = $this->getAccessibleMock(ReportCommandController::class, ['outputLine'], [], '', false);
+        /** @var ReportClientCommand|AccessibleObjectInterface $mockedClientImport */
+        $mockedClientImport = $this->getAccessibleMock(ReportClientCommand::class, ['outputLine'], [], '', false);
 
+        /** @var EmailNotification|ObjectProphecy $emailNotification */
         $emailNotification = $this->prophesize(EmailNotification::class);
 
+        /** @var ClientRepository|ObjectProphecy $repository */
         $repository = $this->prophesize(ClientRepository::class);
         $repository->getAllForReport()->willReturn($dummyClients);
         $languageService = $this->prophesize(LanguageService::class);

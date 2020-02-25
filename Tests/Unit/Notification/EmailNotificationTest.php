@@ -9,7 +9,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Notification;
  */
 
 use T3Monitor\T3monitoring\Notification\EmailNotification;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 use UnexpectedValueException;
 
 /**

@@ -9,7 +9,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class EmMonitoringConfigurationTest

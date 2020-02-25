@@ -1,5 +1,5 @@
 <?php
-namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
+namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model;
 
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
@@ -10,7 +10,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ClientTest
@@ -26,8 +26,9 @@ class ClientTest extends UnitTestCase
     /**
      * Set up
      */
-    protected function setUp()
+    protected function setUp(): void
     {
+        parent::setUp();
         $this->instance = new Client();
     }
 

@@ -8,12 +8,11 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Command;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use T3Monitor\T3monitoring\Command\MonitoringCommandController;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use T3Monitor\T3monitoring\Service\Import\CoreImport;
 use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
-use TYPO3\CMS\Core\Tests\UnitTestCase;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class MonitoringCommandControllerTest
@@ -26,6 +25,7 @@ class MonitioringCommandControllerTest extends UnitTestCase
      */
     public function coreImportCommandWillTriggerCoreImport()
     {
+        // todo fix test
         $mockedCommand = $this->getAccessibleMock(MonitoringCommandController::class, ['dummy'], [], '', false);
         $mockedCoreImport = $this->prophesize(CoreImport::class);
         $mockedCoreImport->run()->shouldBeCalled();
@@ -42,6 +42,7 @@ class MonitioringCommandControllerTest extends UnitTestCase
      */
     public function extensionImportCommandWillTriggerExtensionImport()
     {
+        // todo fix test
         $mockedCommand = $this->getAccessibleMock(MonitoringCommandController::class, ['dummy'], [], '', false);
         $mockedImportExtensions = $this->prophesize(ExtensionImport::class);
         $mockedImportExtensions->run()->shouldBeCalled();
@@ -58,6 +59,7 @@ class MonitioringCommandControllerTest extends UnitTestCase
      */
     public function clientImportCommandWillTriggerClientImport()
     {
+        // todo fix test
         $mockedCommand = $this->getAccessibleMock(MonitoringCommandController::class, ['dummy'], [], '', false);
         $mockedImport = $this->prophesize(ClientImport::class);
         $mockedImport->getResponseCount()->willReturn([]);
@@ -75,6 +77,7 @@ class MonitioringCommandControllerTest extends UnitTestCase
      */
     public function allImportCommandWillTriggerAllImports()
     {
+        // todo fix test
         $mockedCommand = $this->getAccessibleMock(MonitoringCommandController::class, ['dummy'], [], '', false);
         $mockedImportClient = $this->prophesize(ClientImport::class);
         $mockedImportClient->getResponseCount()->willReturn([]);
