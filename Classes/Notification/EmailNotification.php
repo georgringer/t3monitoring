@@ -8,18 +8,24 @@ namespace T3Monitor\T3monitoring\Notification;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\Mime\Address;
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use UnexpectedValueException;
 
 /**
  * Class EmailNotification
  */
-class EmailNotification
+class EmailNotification implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     const DEFAULT_EMAIL_NAME = 'EXT:t3monitoring';
     const DEFAULT_EMAIL_ADDRESS = 'no-reply@example.com';
 
@@ -88,11 +94,7 @@ class EmailNotification
             return;
         }
         if (!GeneralUtility::validEmail($emailAddress)) {
-            GeneralUtility::sysLog(
-                sprintf('The email address "%s" is not valid, no notification sent', $emailAddress),
-                't3monitoring',
-                GeneralUtility::SYSLOG_SEVERITY_WARNING
-            );
+            $this->logger->warning(sprintf('The email address "%s" is not valid, no notification sent', $emailAddress));
         }
         $arguments = [
             'clients' => $clients,
@@ -109,18 +111,31 @@ class EmailNotification
      * @param string $htmlContent
      * @return int
      */
-    protected function sendMail($to, $subject, $plainContent, $htmlContent = '')
+    protected function sendMail(string $to, string $subject, string $plainContent, string $htmlContent = '')
     {
         /** @var MailMessage $mailMessage */
         $mailMessage = GeneralUtility::makeInstance(MailMessage::class);
-        $mailMessage
-            ->setSubject($subject)
-            ->addFrom($this->getSenderEmailAddress(), $this->getSenderEmailName())
-            ->setTo($to)
-            ->setBody($plainContent)->setContentType('text/plain');
-        if (!empty($htmlContent)) {
-            $mailMessage->addPart($htmlContent, 'text/emailText');
+        $isv10 = VersionNumberUtility::convertVersionNumberToInteger('10.0') <= VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch);
+        if ($isv10) {
+            $mailMessage
+                ->setTo($to)
+                ->setSubject($subject)
+                ->text($plainContent)
+                ->addFrom(new Address($this->getSenderEmailAddress(), $this->getSenderEmailName()));
+            if (!empty($htmlContent)) {
+                $mailMessage->html($htmlContent);
+            }
+        } else {
+            $mailMessage
+                ->setTo($to)
+                ->setSubject($subject)
+                ->setBody($plainContent)->setContentType('text/plain')
+                ->addFrom($this->getSenderEmailAddress(), $this->getSenderEmailName());
+            if (!empty($htmlContent)) {
+                $mailMessage->addPart($htmlContent, 'text/html');
+            }
         }
+
         return $mailMessage->send();
     }
 

@@ -18,7 +18,7 @@ class Tag extends AbstractEntity
 
     /**
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 

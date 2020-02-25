@@ -6,6 +6,7 @@
     "GPL-2.0-or-later"
   ],
   "require": {
+    "ext-json": "*",
     "typo3/cms-core": "^9 || ^10"
   },
   "require-dev": {

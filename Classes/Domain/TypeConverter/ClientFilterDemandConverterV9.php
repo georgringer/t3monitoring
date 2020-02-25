@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 /**
  * Class ClientFilterDemandConverter
  */
-class ClientFilterDemandConverter extends AbstractTypeConverter
+class ClientFilterDemandConverterV9 extends AbstractTypeConverter
 {
     /**
      * @var array<string>
@@ -82,10 +82,6 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
     protected function isAllowed()
     {
         $vars = GeneralUtility::_GET('tx_t3monitoring_tools_t3monitoringt3monitor');
-        if (!isset($vars) || !is_array($vars['filter'])) {
-            return false;
-        }
-
-        return true;
+        return isset($vars) && is_array($vars['filter']);
     }
 }
