@@ -6,7 +6,7 @@
     "GPL-2.0-or-later"
   ],
   "require": {
-    "typo3/cms-core": "^8.7 || ^9.2"
+    "typo3/cms-core": "^9 || ^10"
   },
   "require-dev": {
     "mikey179/vfsStream": "~1.6.0",
@@ -23,9 +23,6 @@
       "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
       "TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
     }
-  },
-  "replace": {
-    "t3monitoring": "*"
   },
   "config": {
     "vendor-dir": ".Build/vendor",
