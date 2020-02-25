@@ -23,7 +23,7 @@ class ClientController extends BaseController
      * Show client
      *
      * @param Client $client
-     * @ignorevalidation $client
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $client
      * @return void
      */
     public function showAction(Client $client = null)
@@ -42,7 +42,7 @@ class ClientController extends BaseController
      * Fetch client
      *
      * @param Client $client
-     * @ignorevalidation $client
+     * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $client
      */
     public function fetchAction(Client $client = null)
     {

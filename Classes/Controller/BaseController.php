@@ -15,17 +15,16 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Class BaseController
@@ -163,8 +162,10 @@ class BaseController extends ActionController
             $buttonBar->addButton($viewButton);
         }
 
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
         // Buttons for new records
-        $returnUrl = rawurlencode(BackendUtility::getModuleUrl('tools_T3monitoringT3monitor', [
+        $returnUrl = rawurlencode($uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => [
                 'action' => $this->request->getControllerActionName(),
                 'controller' => $this->request->getControllerName()
@@ -175,7 +176,7 @@ class BaseController extends ActionController
         // new client
         $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $pid . ']=new&returnUrl=' . $returnUrl);
         $addUserGroupButton = $buttonBar->makeLinkButton()
-            ->setHref(BackendUtility::getModuleUrl('record_edit', $parameters))
+            ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
             ->setTitle($this->getLabel('createNew.client'))
             ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-document-new',
                 Icon::SIZE_SMALL));
@@ -190,14 +191,13 @@ class BaseController extends ActionController
             $clientId = (int)$arguments['client'];
             $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $clientId . ']=edit&returnUrl=' . $returnUrl);
             $editClientButton = $buttonBar->makeLinkButton()
-                ->setHref(BackendUtility::getModuleUrl('record_edit', $parameters))
+                ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($this->getLabel('edit.client'))
                 ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-open',
                     Icon::SIZE_SMALL));
             $buttonBar->addButton($editClientButton, ButtonBar::BUTTON_POSITION_LEFT);
 
             // fetch client data
-            $arguments = $this->request->getArguments();
             $downloadClientDataButton = $buttonBar->makeLinkButton()
                 ->setHref($this->getUriBuilder()->reset()->uriFor('fetch', ['client' => $clientId], 'Client'))
                 ->setTitle($this->getLabel('fetchClient.link'))
