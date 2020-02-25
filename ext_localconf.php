@@ -11,10 +11,6 @@ call_user_func(
             : \T3Monitor\T3monitoring\Domain\TypeConverter\ClientFilterDemandConverterV9::class
         );
 
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][]
-            = \T3Monitor\T3monitoring\Command\MonitoringCommandController::class;
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][]
-            = \T3Monitor\T3monitoring\Command\ReportCommandController::class;
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['t3monitoring']
             = \T3Monitor\T3monitoring\Hooks\DataHandlerHook::class;
     }
