@@ -8,8 +8,6 @@ namespace T3Monitor\T3monitoring\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use DOMDocument;
-
 /**
  * Class BulletinImport
  */
@@ -38,8 +36,9 @@ class BulletinImport
     {
         $feed = [];
         try {
-            $rss = new DOMDocument();
+            $rss = new \DOMDocument();
             $rss->load($this->url);
+            /** @var \DOMElement $node */
             foreach ($rss->getElementsByTagName('item') as $node) {
                 $feed[] = [
                     'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,

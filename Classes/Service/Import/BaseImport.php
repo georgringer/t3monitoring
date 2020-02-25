@@ -9,7 +9,6 @@ namespace T3Monitor\T3monitoring\Service\Import;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -40,13 +39,5 @@ class BaseImport
     protected function setImportTime($action)
     {
         $this->registry->set('t3monitoring', 'import' . ucfirst($action), $GLOBALS['EXEC_TIME']);
-    }
-
-    /**
-     * @return DatabaseConnection
-     */
-    protected function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
     }
 }
