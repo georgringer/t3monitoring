@@ -11,34 +11,25 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class AdditionalExtensionDataViewHelper
  */
-class AdditionalExtensionDataViewHelper extends AbstractViewHelper implements CompilableInterface
+class AdditionalExtensionDataViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     /** @var bool */
     protected $escapeOutput = false;
 
     public function initializeArguments()
     {
+        parent::initializeArguments();
         $this->registerArgument('client', 'int', 'Client', true);
         $this->registerArgument('extension', 'int', 'Extension', true);
         $this->registerArgument('as', 'string', 'Output variable', true);
     }
 
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
-     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         $queryBuilderCoreExtensions = GeneralUtility::makeInstance(ConnectionPool::class)

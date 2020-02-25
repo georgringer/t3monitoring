@@ -10,29 +10,20 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class ExtensionStateViewHelper
  */
-class ExtensionStateViewHelper extends AbstractViewHelper implements CompilableInterface
+class ExtensionStateViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     public function initializeArguments()
     {
+        parent::initializeArguments();
         $this->registerArgument('state', 'int', 'state', false, 0);
     }
 
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
-     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         $state = $arguments['state'] ?: $renderChildrenClosure();

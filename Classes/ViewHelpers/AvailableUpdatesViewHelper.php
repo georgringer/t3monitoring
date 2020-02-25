@@ -13,34 +13,25 @@ use T3Monitor\T3monitoring\Domain\Model\Core;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Fluid\Core\ViewHelper\Facets\CompilableInterface;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class AvailableUpdatesViewHelper
  */
-class AvailableUpdatesViewHelper extends AbstractViewHelper implements CompilableInterface
+class AvailableUpdatesViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     /** @var bool */
     protected $escapeOutput = false;
 
     public function initializeArguments()
     {
+        parent::initializeArguments();
         $this->registerArgument('extension', Extension::class, 'Extension', true);
         $this->registerArgument('core', Core::class, 'Core', true);
         $this->registerArgument('as', 'string', 'Output variable', false, 'list');
     }
 
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
-     */
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         /** @var Extension $extension */
