@@ -59,9 +59,6 @@ return [
                     ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.4', 4],
                 ],
                 'default' => 0,
-                'size' => 1,
-                'maxitems' => 1,
-                'eval' => ''
             ],
         ],
         'release_date' => [
@@ -71,7 +68,6 @@ return [
                 'type' => 'input',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
-                'default' => '0000-00-00 00:00:00'
             ],
         ],
         'latest' => [

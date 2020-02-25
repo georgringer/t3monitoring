@@ -11,13 +11,13 @@ return [
             'disabled' => 'hidden',
         ],
         'searchFields' => 'title,domain,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
-        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg '
+        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, host_header, ignore_cert_errors, force_ip_resolve, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
     ],
     'types' => [
-        '1' => [
+        1 => [
             'showitem' => '
         --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,
         --div--;Readonly information,last_successful_import,error_message,--palette--;;paletteCore, --palette--;;paletteExtensions, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,
@@ -40,6 +40,7 @@ return [
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
+                'default' => 0,
             ],
         ],
         'title' => [
@@ -106,8 +107,6 @@ return [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'minitems' => 1,
-                'maxitems' => 1,
                 'items' => [
                     ['', ''],
                     ['IPv4', 'v4'],
@@ -132,7 +131,6 @@ return [
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_t3monitoring_domain_model_sla',
                 'minitems' => 0,
-                'maxitems' => 1,
                 'default' => 0,
                 'items' => [
                     ['', 0]
@@ -296,7 +294,6 @@ return [
                 'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_t3monitoring_domain_model_core',
                 'minitems' => 0,
-                'maxitems' => 1,
             ],
         ],
     ],

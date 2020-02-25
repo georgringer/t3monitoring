@@ -9,8 +9,7 @@ return [
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'enablecolumns' => [
-        ],
+        'enablecolumns' => [],
         'searchFields' => 'name,version,insecure,next_secure_version,title,description,last_updated,author_name,update_comment,state,category,version_integer,is_used,is_official,is_modified,is_latest,last_bugfix_release,last_minor_release,last_major_release,serialized_dependencies,',
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_extension.svg'
     ],
@@ -18,10 +17,10 @@ return [
         'showRecordFieldList' => 'name, version, insecure, next_secure_version, title, description, last_updated, author_name, update_comment, state, category, version_integer, is_used, is_official, is_modified, is_latest, last_bugfix_release, last_minor_release, last_major_release, serialized_dependencies',
     ],
     'types' => [
-        '1' => ['showitem' => 'name, version, insecure, next_secure_version, title, description, last_updated, author_name, update_comment, state, category, version_integer, is_used, is_official, is_modified, is_latest,last_bugfix_release, last_minor_release, last_major_release, typo3_min_version,typo3_max_version,serialized_dependencies'],
+        1 => ['showitem' => 'name, version, insecure, next_secure_version, title, description, last_updated, author_name, update_comment, state, category, version_integer, is_used, is_official, is_modified, is_latest,last_bugfix_release, last_minor_release, last_major_release, typo3_min_version,typo3_max_version,serialized_dependencies'],
     ],
     'palettes' => [
-        '1' => ['showitem' => ''],
+        1 => ['showitem' => ''],
     ],
     'columns' => [
         'name' => [
@@ -79,7 +78,6 @@ return [
                 'dbType' => 'datetime',
                 'renderType' => 'inputDateTime',
                 'eval' => 'datetime',
-                'default' => '0000-00-00 00:00:00'
             ],
         ],
         'author_name' => [
@@ -107,9 +105,6 @@ return [
                 'items' => [
                     ['-- Label --', 0],
                 ],
-                'size' => 1,
-                'maxitems' => 1,
-                'eval' => ''
             ],
         ],
         'category' => [
@@ -120,9 +115,6 @@ return [
                 'items' => [
                     ['-- Label --', 0],
                 ],
-                'size' => 1,
-                'maxitems' => 1,
-                'eval' => ''
             ],
         ],
         'version_integer' => [

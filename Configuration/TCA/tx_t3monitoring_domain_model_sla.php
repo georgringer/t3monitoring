@@ -18,7 +18,7 @@ return [
         'showRecordFieldList' => 'hidden, title, description',
     ],
     'types' => [
-        '1' => ['showitem' => 'title, description,
+        1 => ['showitem' => 'title, description,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                 hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,'],
@@ -28,6 +28,7 @@ return [
             'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.hidden',
             'config' => [
                 'type' => 'check',
+                'default' => 0,
             ],
         ],
         'title' => [
