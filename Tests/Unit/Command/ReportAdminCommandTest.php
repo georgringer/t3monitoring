@@ -9,43 +9,48 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Command;
  */
 
 use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use T3Monitor\T3monitoring\Command\ReportClientCommand;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
-use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ReportCommandControllerTest
  */
-class ReportCommandControllerTest extends UnitTestCase
+class ReportAdminCommandTest extends UnitTestCase
 {
 
     /**
      * @test
-     * @throws \InvalidArgumentException
      */
-    public function reportCommandWillTriggerEmailNotification()
+    public function executeWillTriggerEmailNotification()
     {
-        // todo fix test
         $dummyClients = ['123', '456'];
         $emailAddress = 'fo@bar.com';
+
         /** @var ReportClientCommand|AccessibleObjectInterface $mockedClientImport */
-        $mockedClientImport = $this->getAccessibleMock(ReportClientCommand::class, ['outputLine'], [], '', false);
+        $mockedClientImport = $this->getAccessibleMock(ReportClientCommand::class, ['dummy'], [], '', false);
 
         /** @var EmailNotification|ObjectProphecy $emailNotification */
         $emailNotification = $this->prophesize(EmailNotification::class);
+        $emailNotification->sendAdminEmail($emailAddress, $dummyClients)->shouldBeCalled();
+        GeneralUtility::addInstance(EmailNotification::class, $emailNotification->reveal());
 
         /** @var ClientRepository|ObjectProphecy $repository */
         $repository = $this->prophesize(ClientRepository::class);
         $repository->getAllForReport()->willReturn($dummyClients);
-        $languageService = $this->prophesize(LanguageService::class);
-        $mockedClientImport->_set('languageService', $languageService->reveal());
-        $mockedClientImport->_set('clientRepository', $repository->reveal());
-        $mockedClientImport->_set('emailNotification', $emailNotification->reveal());
-        $emailNotification->sendAdminEmail($emailAddress, $dummyClients)->shouldBeCalled();
+        GeneralUtility::addInstance(ClientRepository::class, $repository->reveal());
 
-        $mockedClientImport->_call('adminCommand', 'fo@bar.com');
+        /** @var InputInterface|ObjectProphecy $input */
+        $input = $this->prophesize(InputInterface::class);
+        $input->getArgument('email')->willReturn($emailAddress);
+
+        $mockedClientImport->_call('execute', $input->reveal(), $this->prophesize(OutputInterface::class)->reveal());
+
+        GeneralUtility::purgeInstances();
     }
 }

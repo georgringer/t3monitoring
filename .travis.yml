@@ -1,13 +1,9 @@
 language: php
 
 php:
-  - 7.0
-  - 7.1
   - 7.2
-
-env:
-  matrix:
-    - TYPO3_VERSION=8.7.*
+  - 7.3
+  - 7.4
 
 sudo: false
 
@@ -26,11 +22,8 @@ before_install:
   - composer --version
 
 before_script:
-  - composer require typo3/cms=$TYPO3_VERSION
-  - composer require typo3/testing-framework:1.* --dev
-  # Restore composer.json
-  - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
+  - composer install
 
 script:
   - >

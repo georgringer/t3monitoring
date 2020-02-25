@@ -10,6 +10,7 @@ namespace T3Monitor\T3monitoring\Command;
  */
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -30,7 +31,8 @@ class ReportAdminCommand extends Command
      */
     protected function configure()
     {
-        $this->setDescription('Report admin');
+        $this->addArgument('email', InputArgument::OPTIONAL, 'Email address to send report to', '');
+        $this->setDescription('Generate collective report for all insecure clients (core or extensions)');
     }
 
     /**
@@ -49,7 +51,9 @@ class ReportAdminCommand extends Command
             return;
         }
 
-        if (!empty($email)) {
+        $email = $input->getArgument('email');
+
+        if ($email !== '') {
             if (GeneralUtility::validEmail($email)) {
                 GeneralUtility::makeInstance(EmailNotification::class)->sendAdminEmail($email, $clients);
             } else {
