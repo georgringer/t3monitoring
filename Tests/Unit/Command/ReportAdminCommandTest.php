@@ -26,6 +26,7 @@ class ReportAdminCommandTest extends UnitTestCase
     protected function tearDown(): void
     {
         GeneralUtility::purgeInstances();
+        GeneralUtility::resetSingletonInstances([]);
         parent::tearDown();
     }
 
@@ -48,7 +49,7 @@ class ReportAdminCommandTest extends UnitTestCase
         /** @var ClientRepository|ObjectProphecy $repository */
         $repository = $this->prophesize(ClientRepository::class);
         $repository->getAllForReport()->willReturn($dummyClients);
-        GeneralUtility::addInstance(ClientRepository::class, $repository->reveal());
+        GeneralUtility::setSingletonInstance(ClientRepository::class, $repository->reveal());
 
         /** @var InputInterface|ObjectProphecy $input */
         $input = $this->prophesize(InputInterface::class);
