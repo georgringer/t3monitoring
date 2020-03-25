@@ -12,7 +12,6 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Mime\Address;
 use T3Monitor\T3monitoring\Domain\Model\Client;
-use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
@@ -28,17 +27,6 @@ class EmailNotification implements LoggerAwareInterface
 
     const DEFAULT_EMAIL_NAME = 'EXT:t3monitoring';
     const DEFAULT_EMAIL_ADDRESS = 'no-reply@example.com';
-
-    /** @var  EmMonitoringConfiguration */
-    protected $emConfiguration;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
-    }
 
     /**
      * @param string $email
@@ -83,13 +71,8 @@ class EmailNotification implements LoggerAwareInterface
         }
     }
 
-    /**
-     * @param array $clients
-     * @param string $subject
-     */
-    public function sendClientFailedEmail(array $clients, $subject = 'Monitoring Client Connection Failure')
+    public function sendClientFailedEmail(array $clients, string $emailAddress, $subject = 'Monitoring Client Connection Failure')
     {
-        $emailAddress = $this->emConfiguration->getEmailForFailedClient();
         if (empty($emailAddress)) {
             return;
         }

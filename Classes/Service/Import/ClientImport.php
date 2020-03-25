@@ -77,7 +77,7 @@ class ClientImport extends BaseImport
         if ($this->responseCount['error'] > 0) {
             $clientsForMailNotification = $this->getClientsForMailNotification();
             if (count($clientsForMailNotification) > 0) {
-                $this->emailNotification->sendClientFailedEmail($clientsForMailNotification);
+                $this->emailNotification->sendClientFailedEmail($clientsForMailNotification, $this->emConfiguration->getEmailForFailedClient());
             }
         }
 
