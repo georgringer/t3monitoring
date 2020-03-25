@@ -23,6 +23,11 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ReportAdminCommandTest extends UnitTestCase
 {
+    protected function tearDown(): void
+    {
+        GeneralUtility::purgeInstances();
+        parent::tearDown();
+    }
 
     /**
      * @test
@@ -50,7 +55,5 @@ class ReportAdminCommandTest extends UnitTestCase
         $input->getArgument('email')->willReturn($emailAddress);
 
         $mockedClientImport->_call('execute', $input->reveal(), $this->prophesize(OutputInterface::class)->reveal());
-
-        GeneralUtility::purgeInstances();
     }
 }
