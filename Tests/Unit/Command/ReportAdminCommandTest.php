@@ -12,7 +12,6 @@ use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use T3Monitor\T3monitoring\Command\ReportAdminCommand;
-use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
@@ -23,8 +22,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ReportAdminCommandTest extends UnitTestCase
 {
-    protected $resetSingletonInstances = true;
-
     /**
      * @test
      */
@@ -35,16 +32,12 @@ class ReportAdminCommandTest extends UnitTestCase
 
         /** @var ReportAdminCommand|AccessibleObjectInterface $mockedClientImport */
         $mockedClientImport = $this->getAccessibleMock(ReportAdminCommand::class, ['dummy'], [], '', false);
+        $mockedClientImport->_set('clients', $dummyClients);
 
         /** @var EmailNotification|ObjectProphecy $emailNotification */
         $emailNotification = $this->prophesize(EmailNotification::class);
         $emailNotification->sendAdminEmail($emailAddress, $dummyClients)->shouldBeCalled();
         GeneralUtility::addInstance(EmailNotification::class, $emailNotification->reveal());
-
-        /** @var ClientRepository|ObjectProphecy $repository */
-        $repository = $this->prophesize(ClientRepository::class);
-        $repository->getAllForReport()->willReturn($dummyClients);
-        GeneralUtility::setSingletonInstance(ClientRepository::class, $repository->reveal());
 
         /** @var InputInterface|ObjectProphecy $input */
         $input = $this->prophesize(InputInterface::class);

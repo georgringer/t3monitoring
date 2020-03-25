@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
@@ -26,6 +27,9 @@ use TYPO3\CMS\Extbase\Object\ObjectManager;
  */
 class ReportAdminCommand extends Command
 {
+    /** @var Client[] */
+    protected $clients = [];
+
     /**
      * Configure the command by defining the name, options and arguments
      */
@@ -33,6 +37,14 @@ class ReportAdminCommand extends Command
     {
         $this->addArgument('email', InputArgument::OPTIONAL, 'Email address to send report to', '');
         $this->setDescription('Generate collective report for all insecure clients (core or extensions)');
+    }
+
+    protected function initialize(InputInterface $input, OutputInterface $output)
+    {
+        parent::initialize($input, $output);
+
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $this->clients = $objectManager->get(ClientRepository::class)->getAllForReport();
     }
 
     /**
@@ -44,9 +56,7 @@ class ReportAdminCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $clients = $objectManager->get(ClientRepository::class)->getAllForReport();
-        if (count($clients) === 0) {
+        if (count($this->clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
             return;
         }
@@ -55,13 +65,13 @@ class ReportAdminCommand extends Command
 
         if ($email !== '') {
             if (GeneralUtility::validEmail($email)) {
-                GeneralUtility::makeInstance(EmailNotification::class)->sendAdminEmail($email, $clients);
+                GeneralUtility::makeInstance(EmailNotification::class)->sendAdminEmail($email, $this->clients);
             } else {
                 throw new \UnexpectedValueException(sprintf('Email address "%s" is invalid!', $email));
             }
         } else {
             $collectedClientData = [];
-            foreach ($clients as $client) {
+            foreach ($this->clients as $client) {
                 $insecureExtensions = [];
                 if ($client->getInsecureExtensions()) {
                     $extensions = $client->getExtensions();
