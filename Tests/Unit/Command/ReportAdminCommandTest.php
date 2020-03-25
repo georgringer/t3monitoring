@@ -11,7 +11,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Command;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use T3Monitor\T3monitoring\Command\ReportClientCommand;
+use T3Monitor\T3monitoring\Command\ReportAdminCommand;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -23,12 +23,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ReportAdminCommandTest extends UnitTestCase
 {
-    protected function tearDown(): void
-    {
-        GeneralUtility::purgeInstances();
-        GeneralUtility::resetSingletonInstances([]);
-        parent::tearDown();
-    }
+    protected $resetSingletonInstances = true;
 
     /**
      * @test
@@ -38,8 +33,8 @@ class ReportAdminCommandTest extends UnitTestCase
         $dummyClients = ['123', '456'];
         $emailAddress = 'fo@bar.com';
 
-        /** @var ReportClientCommand|AccessibleObjectInterface $mockedClientImport */
-        $mockedClientImport = $this->getAccessibleMock(ReportClientCommand::class, ['dummy'], [], '', false);
+        /** @var ReportAdminCommand|AccessibleObjectInterface $mockedClientImport */
+        $mockedClientImport = $this->getAccessibleMock(ReportAdminCommand::class, ['dummy'], [], '', false);
 
         /** @var EmailNotification|ObjectProphecy $emailNotification */
         $emailNotification = $this->prophesize(EmailNotification::class);
