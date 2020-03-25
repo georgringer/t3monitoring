@@ -9,7 +9,9 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Extension configuration
@@ -40,7 +42,7 @@ class EmMonitoringConfiguration implements SingletonInterface
 
     public function __construct()
     {
-        $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['t3monitoring']);
+        $settings = (array)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('t3monitoring');
         foreach ($settings as $key => $value) {
             if (property_exists(__CLASS__, $key)) {
                 $this->$key = $value;
