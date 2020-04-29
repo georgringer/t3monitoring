@@ -154,6 +154,14 @@ class Client extends AbstractEntity
      * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $tag = null;
+    /**
+     * @var string
+     */
+    protected $publicKey = null;
+    /**
+     * @var string
+     */
+    protected $cipher = null;
 
     /**
      * __construct
@@ -738,6 +746,38 @@ class Client extends AbstractEntity
     public function setTag(Tag $tag)
     {
         $this->tag = $tag;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicKey()
+    {
+        return $this->publicKey;
+    }
+
+    /**
+     * @param string $publicKey
+     */
+    public function setPublicKey($publicKey)
+    {
+        $this->publicKey = $publicKey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCipher(): string
+    {
+        return $this->cipher;
+    }
+
+    /**
+     * @param string $cipher
+     */
+    public function setCipher(string $cipher): void
+    {
+        $this->cipher = $cipher;
     }
 
     /**

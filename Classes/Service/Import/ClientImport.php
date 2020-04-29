@@ -51,11 +51,11 @@ class ClientImport extends BaseImport
     }
 
     /**
-     * @param int $clientId
+     * @param int|null $clientId
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function run(int $clientId = 0)
+    public function run(int $clientId = null)
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable(self::TABLE);
@@ -212,6 +212,15 @@ class ClientImport extends BaseImport
         }
         if (in_array($response->getStatusCode(), [ 200, 301, 302 ], true)) {
             $response = $response->getBody()->getContents();
+            if (
+                !empty($row['public_key'])
+                && !empty($row['cipher'])
+                && in_array($row['cipher'], openssl_get_cipher_methods())
+            ) {
+                try {
+                    $response = openssl_decrypt($response, 'aes', $row['public_key']);
+                } catch (\Exception $e) {}
+            }
         }
 
         return $response;

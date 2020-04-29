@@ -20,6 +20,7 @@ return [
         1 => [
             'showitem' => '
         --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,
+        --div--;SSL,--palette--;;paletteSecureConnection,
         --div--;Readonly information,last_successful_import,error_message,--palette--;;paletteCore, --palette--;;paletteExtensions, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,
         --div--;Extra,extra_info,extra_warning,extra_danger,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
@@ -34,6 +35,7 @@ return [
         'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, host_header, --linebreak--, ignore_cert_errors, force_ip_resolve'],
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
         'paletteDiskSpace' => ['showitem' => 'disk_total_space, disk_free_space'],
+        'paletteSecureConnection' => ['showitem' => 'public_key,--linebreak--,cipher']
     ],
     'columns' => [
         'hidden' => [
@@ -295,6 +297,18 @@ return [
                 'foreign_table' => 'tx_t3monitoring_domain_model_core',
                 'minitems' => 0,
             ],
+        ],
+        'public_key' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.public_key',
+            'config' => [
+                'type' => 'text'
+            ]
+        ],
+        'cipher' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.cipher',
+            'config' => [
+                'type' => 'input'
+            ]
         ],
     ],
 ];
