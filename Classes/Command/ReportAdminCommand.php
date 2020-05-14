@@ -98,6 +98,7 @@ class ReportAdminCommand extends Command
             $style = new SymfonyStyle($input, $output);
             $style->table($header, $collectedClientData);
         }
+        return 0;
     }
 
     protected function getLabel(string $key): string

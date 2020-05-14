@@ -48,6 +48,7 @@ class ReportClientCommand extends Command
         }
 
         GeneralUtility::makeInstance(EmailNotification::class)->sendClientEmail($clients);
+        return 0;
     }
 
     protected function getLabel(string $key): string

@@ -40,5 +40,6 @@ class ImportExtensionsCommand extends Command
     {
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $objectManager->get(ExtensionImport::class)->run();
+        return 0;
     }
 }
