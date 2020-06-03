@@ -84,7 +84,7 @@ class BaseController extends ActionController
             $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
             $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript/';
             $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
-            $fullJsPath = PathUtility::getRelativePath(Environment::getProjectPath(), $fullJsPath);
+            $fullJsPath = PathUtility::getRelativePath(Environment::getPublicPath(), $fullJsPath);
             $fullJsPath = rtrim($fullJsPath, '/');
             $pageRenderer->addRequireJsConfiguration([
                 'paths' => [
