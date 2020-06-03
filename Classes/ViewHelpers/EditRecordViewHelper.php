@@ -10,7 +10,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
  */
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -28,14 +27,14 @@ class EditRecordViewHelper extends AbstractViewHelper
 
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
-        $parameters['returnUrl'] = 'index.php?M=tools_T3monitoringT3monitor&moduleToken='
-            . FormProtectionFactory::get()->generateToken('moduleCall', 'tools_T3monitoringT3monitor')
-            . GeneralUtility::implodeArrayForUrl(
-                'tx_t3monitoring_tools_t3monitoringt3monitor',
-                GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor'));
-        $uriBuild = GeneralUtility::makeInstance(UriBuilder::class);
-        return $uriBuild->buildUriFromRoute('record_edit', $parameters);
+        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
+            'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
+        ]);
+
+        return $uriBuilder->buildUriFromRoute('record_edit', $parameters);
     }
 }
