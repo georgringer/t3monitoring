@@ -48,5 +48,6 @@ class ImportClientsCommand extends Command
         foreach ($result as $label => $count) {
             $output->writeln(sprintf('%s: %s', $label, $count));
         }
+        return 0;
     }
 }

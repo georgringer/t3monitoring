@@ -41,5 +41,6 @@ class ImportCoreCommand extends Command
     {
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $objectManager->get(CoreImport::class)->run();
+        return 0;
     }
 }

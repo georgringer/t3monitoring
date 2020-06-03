@@ -58,7 +58,7 @@ class ReportAdminCommand extends Command
     {
         if (count($this->clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
-            return;
+            return 0;
         }
 
         $email = $input->getArgument('email');
@@ -98,6 +98,7 @@ class ReportAdminCommand extends Command
             $style = new SymfonyStyle($input, $output);
             $style->table($header, $collectedClientData);
         }
+        return 0;
     }
 
     protected function getLabel(string $key): string
