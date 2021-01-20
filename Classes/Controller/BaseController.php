@@ -86,6 +86,7 @@ class BaseController extends ActionController
             $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
             $fullJsPath = PathUtility::getRelativePath(Environment::getPublicPath(), $fullJsPath);
             $fullJsPath = rtrim($fullJsPath, '/');
+            $fullJsPath = '/' . $fullJsPath;
             $pageRenderer->addRequireJsConfiguration([
                 'paths' => [
                     'datatables' => $fullJsPath . '/jquery.dataTables.min',
