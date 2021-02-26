@@ -140,7 +140,7 @@ class BaseController extends ActionController
             ['controller' => 'Sla', 'action' => 'list', 'label' => $this->getLabel('sla')],
             ['controller' => 'Tag', 'action' => 'list', 'label' => $this->getLabel('tag')],
             ['controller' => 'Statistic', 'action' => 'administration', 'label' => $this->getLabel('administration')],
-            ['controller' => 'Task', 'action' => 'list', 'label' => $this->getLabel('tasks')]
+            ['controller' => 'Task', 'action' => 'list', 'label' => $this->getLabel('task')]
         ];
 
         foreach ($actions as $action) {

@@ -336,8 +336,8 @@
 			<trans-unit id="administration">
 				<source>Administration</source>
 			</trans-unit>
-			<trans-unit id="tasks">
-				<source>Scheduled Tasks</source>
+			<trans-unit id="task">
+				<source>Scheduled tasks</source>
 			</trans-unit>
 			<trans-unit id="available.extensions">
 				<source>Available extensions</source>
