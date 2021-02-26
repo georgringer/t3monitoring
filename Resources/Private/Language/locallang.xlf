@@ -237,6 +237,30 @@
 			<trans-unit id="tx_t3monitoring_domain_model_tag.description">
 				<source>Description</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task">
+				<source>Task</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.description">
+				<source>Task description</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.client_task_uid">
+				<source>Task UID on the client installation</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.nextexecution">
+				<source>Next task execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_time">
+				<source>Last task execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_failure">
+				<source>Error occured on last execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_context">
+				<source>Last task execution context</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.client">
+				<source>Client</source>
+			</trans-unit>
 			<trans-unit id="update.available">
 				<source>Update available</source>
 			</trans-unit>
@@ -311,6 +335,9 @@
 			</trans-unit>
 			<trans-unit id="administration">
 				<source>Administration</source>
+			</trans-unit>
+			<trans-unit id="tasks">
+				<source>Scheduled Tasks</source>
 			</trans-unit>
 			<trans-unit id="available.extensions">
 				<source>Available extensions</source>
