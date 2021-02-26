@@ -41,7 +41,7 @@ class Task extends AbstractEntity
      *
      * @var int
      */
-    protected $lastexecutionTimestamp = 0;
+    protected $lastexecution = 0;
 
     /**
      * The last execution failure error message
@@ -135,21 +135,21 @@ class Task extends AbstractEntity
      *
      * @return int
      */
-    public function getLastexecutionTimestamp(): int
+    public function getLastexecution(): int
     {
-        return $this->lastexecutionTimestamp;
+        return $this->lastexecution;
     }
 
     /**
      * Set the last execution timestamp
      *
-     * @param int $lastexecutionTimestamp The last execution timestamp
+     * @param int $lastexecution The last execution timestamp
      *
      * @return void
      */
-    public function setLastexecutionTimestamp(int $lastexecutionTimestamp): void
+    public function setLastexecution(int $lastexecution): void
     {
-        $this->lastexecutionTimestamp = $lastexecutionTimestamp;
+        $this->lastexecution = $lastexecution;
     }
 
     /**

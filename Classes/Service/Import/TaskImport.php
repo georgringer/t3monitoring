@@ -47,6 +47,9 @@ class TaskImport extends BaseImport
             $connection->beginTransaction();
             try {
                 foreach ($tasks as $task) {
+                    $task['lastexecution'] = $task['lastexecution_time'];
+                    unset($task['lastexecution_time']);
+
                     $task['pid'] = $this->emConfiguration->getPid();
                     $task['client_task_uid'] = $task['uid'];
                     $task['tstamp'] = $GLOBALS['EXEC_TIME'];

@@ -186,7 +186,7 @@ CREATE TABLE tx_t3monitoring_domain_model_task (
 	description text NOT NULL,
 	client_task_uid int(11) NOT NULL,
 	nextexecution int(11) DEFAULT '0' NOT NULL,
-	lastexecution_time int(11) DEFAULT '0' NOT NULL,
+	lastexecution int(11) DEFAULT '0' NOT NULL,
 	lastexecution_failure text NOT NULL,
 	lastexecution_context varchar(10) DEFAULT '' NOT NULL,
 	client int(11) DEFAULT '0' NOT NULL

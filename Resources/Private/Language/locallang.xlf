@@ -249,7 +249,7 @@
 			<trans-unit id="tx_t3monitoring_domain_model_task.nextexecution">
 				<source>Next task execution</source>
 			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_time">
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution">
 				<source>Last task execution</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_failure">

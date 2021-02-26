@@ -12,11 +12,11 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_task.svg',
     ],
     'interface' => [
-        'showRecordFieldList' => 'description, client_task_uid, nextexecution, lastexecution_time, lastexecution_failure, lastexecution_context, client',
+        'showRecordFieldList' => 'description, client_task_uid, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, client',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'description, client_task_uid, nextexecution, lastexecution_time, lastexecution_failure, lastexecution_context, client'],
+            'showitem' => 'description, client_task_uid, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, client'],
     ],
     'columns' => [
         'description' => [
@@ -51,9 +51,9 @@ return [
                 'eval' => 'datetime'
             ],
         ],
-        'lastexecution_time' => [
+        'lastexecution' => [
             'exclude' => false,
-            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.lastexecution_time',
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.lastexecution',
             'config' => [
                 'readOnly' => 'true',
                 'type' => 'input',
