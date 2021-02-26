@@ -140,6 +140,7 @@ class BaseController extends ActionController
             ['controller' => 'Sla', 'action' => 'list', 'label' => $this->getLabel('sla')],
             ['controller' => 'Tag', 'action' => 'list', 'label' => $this->getLabel('tag')],
             ['controller' => 'Statistic', 'action' => 'administration', 'label' => $this->getLabel('administration')],
+            ['controller' => 'Task', 'action' => 'list', 'label' => $this->getLabel('tasks')]
         ];
 
         foreach ($actions as $action) {
@@ -195,8 +196,10 @@ class BaseController extends ActionController
         $addUserGroupButton = $buttonBar->makeLinkButton()
             ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
             ->setTitle($this->getLabel('createNew.client'))
-            ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-document-new',
-                Icon::SIZE_SMALL));
+            ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
+                'actions-document-new',
+                Icon::SIZE_SMALL
+            ));
         $buttonBar->addButton($addUserGroupButton, ButtonBar::BUTTON_POSITION_LEFT);
 
         // client single view
@@ -210,16 +213,20 @@ class BaseController extends ActionController
             $editClientButton = $buttonBar->makeLinkButton()
                 ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($this->getLabel('edit.client'))
-                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-open',
-                    Icon::SIZE_SMALL));
+                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
+                    'actions-open',
+                    Icon::SIZE_SMALL
+                ));
             $buttonBar->addButton($editClientButton, ButtonBar::BUTTON_POSITION_LEFT);
 
             // fetch client data
             $downloadClientDataButton = $buttonBar->makeLinkButton()
                 ->setHref($this->getUriBuilder()->reset()->uriFor('fetch', ['client' => $clientId], 'Client'))
                 ->setTitle($this->getLabel('fetchClient.link'))
-                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-system-extension-download',
-                    Icon::SIZE_SMALL));
+                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon(
+                    'actions-system-extension-download',
+                    Icon::SIZE_SMALL
+                ));
             $buttonBar->addButton($downloadClientDataButton, ButtonBar::BUTTON_POSITION_LEFT);
         }
     }
