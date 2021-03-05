@@ -2,6 +2,8 @@
 
 namespace T3Monitor\T3monitoring\Controller;
 
+use T3Monitor\T3monitoring\Domain\Repository\TaskRepository;
+
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
  *
@@ -9,13 +11,32 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
- /**
-  * Class TaskController
-  */
- class TaskController extends BaseController
- {
-     protected function listAction()
-     {
-         $this->view->assign('tasks', ['test']);
-     }
- }
+/**
+ * TaskController
+ */
+class TaskController extends BaseController
+{
+    /**
+     * The task repository
+     *
+     * @var TaskRepository
+     */
+    protected $taskRepository = null;
+
+    public function injectTaskRepository(TaskRepository $taskRepository)
+    {
+        $this->taskRepository = $taskRepository;
+    }
+
+    /**
+     * List action shows all tasks
+     *
+     * @return void
+     */
+    protected function listAction(): void
+    {
+        $this->view->assignMultiple([
+            'tasks' => $this->taskRepository->findAll()
+        ]);
+    }
+}
