@@ -587,6 +587,90 @@
 				<source>The data of the client has been successfully fetched!</source>
 				<target>Die Daten des Clients wurden erfolgreich abgerufen!</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task">
+				<source>Task</source>
+				<target>Task</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.client_task_uid">
+				<source>Task uid on client</source>
+				<target>Uid des Task am Client</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.description">
+				<source>Task description</source>
+				<target>Task </target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.nextexecution">
+				<source>Next execution</source>
+				<target>Nächste Ausführung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution">
+				<source>Last  execution</source>
+				<target>Letzte Ausführung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_failure">
+				<source>Error occured on last execution</source>
+				<target>Fehler bei der letzten Ausführung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_context">
+				<source>Last execution context</source>
+				<target>Context der letzten Ausführung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.class">
+				<source>The task class</source>
+				<target>Die Task Klasse</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.multiple">
+				<source>Allow paralell execution</source>
+				<target>Paralelle Ausführung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.type">
+				<source>Type</source>
+				<target>Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.type.1">
+				<source>Single</source>
+				<target>Einmalig</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.type.2">
+				<source>Recurring</source>
+				<target>Widerkehrend</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.frequency">
+				<source>Frequency (interval or cron command)</source>
+				<target>Frequenz (Interval oder Cron Befehl)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.client">
+				<source>Client</source>
+				<target>Client</target>
+			</trans-unit>
+			<trans-unit id="task">
+				<source>Scheduled tasks</source>
+				<target>Geplante Tasks</target>
+			</trans-unit>
+			<trans-unit id="task.notFound">
+				<source>No scheduled tasks found</source>
+				<target>Keine geplanten Tasks gefunden</target>
+			</trans-unit>
+			<trans-unit id="task.header">
+				<source>Scheduled tasks</source>
+				<target>Geplante Tasks</target>
+			</trans-unit>
+			<trans-unit id="task.total">
+				<source>Scheduled tasks (%s)</source>
+				<target>Geplante Tasks (%s)</target>
+			</trans-unit>
+			<trans-unit id="task.error">
+				<source>Error</source>
+				<target>Fehler</target>
+			</trans-unit>
+			<trans-unit id="task.ok">
+				<source>OK</source>
+				<target>OK</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.table.col.client_task_uid">
+				<source>Client task Uid</source>
+				<target>Client Task Uid</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

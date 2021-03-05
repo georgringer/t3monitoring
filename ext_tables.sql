@@ -189,5 +189,10 @@ CREATE TABLE tx_t3monitoring_domain_model_task (
 	lastexecution int(11) DEFAULT '0' NOT NULL,
 	lastexecution_failure text NOT NULL,
 	lastexecution_context varchar(10) DEFAULT '' NOT NULL,
+	class varchar(255) DEFAULT '' NOT NULL,
+	multiple tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	type varchar(50) DEFAULT '' NOT NULL,
+	frequency varchar(50) DEFAULT '' NOT NULL,
+	command varchar(255) DEFAULT '' NOT NULL,
 	client int(11) DEFAULT '0' NOT NULL
 );

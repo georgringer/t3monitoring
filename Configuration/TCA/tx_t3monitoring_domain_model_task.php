@@ -12,23 +12,13 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_task.svg',
     ],
     'interface' => [
-        'showRecordFieldList' => 'description, client_task_uid, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, client',
+        'showRecordFieldList' => 'client_task_uid, description, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, class, multiple, type, frequency, client',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'description, client_task_uid, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, client'],
+            'showitem' => 'client_task_uid, description, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, class, multiple, type, frequency, client'],
     ],
     'columns' => [
-        'description' => [
-            'exclude' => false,
-            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.description',
-            'config' => [
-                'readOnly' => 'true',
-                'type' => 'text',
-                'default' => '',
-                'enableRichtext' => 'false'
-            ],
-        ],
         'client_task_uid' => [
             'exclude' => false,
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.client_task_uid',
@@ -37,6 +27,16 @@ return [
                 'size' => 10,
                 'eval' => 'trim,required',
                 'readOnly' => 'true'
+            ],
+        ],
+        'description' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.description',
+            'config' => [
+                'readOnly' => 'true',
+                'type' => 'text',
+                'default' => '',
+                'enableRichtext' => 'false'
             ],
         ],
         'nextexecution' => [
@@ -80,6 +80,29 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim'
+            ],
+        ],
+        'class' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.class',
+            'config' => [
+                'readOnly' => 'true',
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
+        'type' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.type',
+            'config' => [
+                'readOnly' => 'true',
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.type.1:', '1'],
+                    ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.type.2', '2'],
+                ],
             ],
         ],
         'client' => [

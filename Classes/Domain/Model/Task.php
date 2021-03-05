@@ -58,6 +58,34 @@ class Task extends AbstractEntity
     protected $lastexecutionContext = '';
 
     /**
+     * The task class
+     *
+     * @var string
+     */
+    protected $class = '';
+
+    /**
+     * Multiple executions allowed?
+     *
+     * @var bool
+     */
+    protected $multiple = false;
+
+    /**
+     * The type of the task (Single, Recurring)
+     *
+     * @var int
+     */
+    protected $type = 2;
+
+    /**
+     * The tasks frequency (seconds or cronCmd)
+     *
+     * @var string
+     */
+    protected $frequency = '';
+
+    /**
      * The attached client
      *
      * @var Client
@@ -194,6 +222,94 @@ class Task extends AbstractEntity
     public function setLastexecutionContext(string $lastexecutionContext): void
     {
         $this->lastexecutionContext = $lastexecutionContext;
+    }
+
+    /**
+     * Get the class
+     *
+     * @return string
+     */
+    public function getClass(): string
+    {
+        return $this->class;
+    }
+
+    /**
+     * Set the class
+     *
+     * @param string $class The task class
+     *
+     * @return void
+     */
+    public function setClass(string $class): void
+    {
+        $this->class = $class;
+    }
+
+    /**
+     * Get the multiple
+     *
+     * @return bool
+     */
+    public function getMultiple(): bool
+    {
+        return $this->multiple;
+    }
+
+    /**
+     * Set the multiple
+     *
+     * @param bool $multiple The task multiple
+     *
+     * @return void
+     */
+    public function setMultiple(bool $multiple): void
+    {
+        $this->multiple = $multiple;
+    }
+
+    /**
+     * Get the type
+     *
+     * @return int
+     */
+    public function gettype(): int
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set the type
+     *
+     * @param int $type The task type
+     *
+     * @return void
+     */
+    public function setType(int $type): void
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * Get the frequency
+     *
+     * @return string
+     */
+    public function getFrequency(): string
+    {
+        return $this->frequency;
+    }
+
+    /**
+     * Set the frequency
+     *
+     * @param string $frequency The task frequency
+     *
+     * @return void
+     */
+    public function setFrequency(string $frequency): void
+    {
+        $this->frequency = $frequency;
     }
 
     /**
