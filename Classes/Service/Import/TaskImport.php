@@ -1,6 +1,7 @@
 <?php
 namespace T3Monitor\T3monitoring\Service\Import;
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -23,7 +24,68 @@ class TaskImport extends BaseImport
      *
      * @return void
      */
-    public function importTasks(array $client, array $tasks): void
+    public function importTasks(array $client, array $importTasks): void
+    {
+        $currentTasks = $this->getTasksForClient($client['uid']);
+
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(self::TABLE);
+        $connection->beginTransaction();
+        try {
+            foreach ($importTasks as $importTask) {
+                $importTask['lastexecution'] = $importTask['lastexecution_time'];
+                unset($importTask['lastexecution_time']);
+
+                $importTask['pid'] = $this->emConfiguration->getPid();
+
+                $importTask['client_task_uid'] = $importTask['uid'];
+                $importTask['tstamp'] = $GLOBALS['EXEC_TIME'];
+                $importTask['client'] = $client['uid'];
+
+                if (isset($currentTasks[$importTask['uid']])) {
+                    $importTaskUid = $importTask['uid'];
+                    unset($importTask['uid']);
+                    $connection->update(
+                        self::TABLE,
+                        $importTask,
+                        [
+                            'uid' => $currentTasks[$importTaskUid],
+                            'client' => $client['uid']
+                        ],
+                    );
+                    unset($currentTasks[$importTaskUid]);
+                } else {
+                    unset($importTask['uid']);
+                    $importTask['crdate'] = $GLOBALS['EXEC_TIME'];
+                    $connection->insert(
+                        self::TABLE,
+                        $importTask
+                    );
+                }
+            }
+            foreach ($currentTasks as $deleteTaskUid) {
+                $connection->delete(
+                    self::TABLE,
+                    ['uid' => (int)$deleteTaskUid],
+                    [Connection::PARAM_INT]
+                );
+            }
+            $connection->commit();
+
+            // TODO: Delete "old" tasks --> Check "currentTasks" array --> If there are tasks in there, which are not present in "tasks --> Delete them
+        } catch (\Exception $e) {
+            $connection->rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Returns the current tasks of this client from the database
+     *
+     * @param int $clientUid The uid of the client
+     *
+     * @return array<string> Array holding the UIDs of the tasks in this database
+     */
+    private function getTasksForClient(int $clientUid): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(self::TABLE);
         $statement = $queryBuilder
@@ -31,53 +93,18 @@ class TaskImport extends BaseImport
             ->from(self::TABLE)
             ->where(
                 $queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq('client', $queryBuilder->createNamedParameter(intval($client['uid'], \PDO::PARAM_INT)))
+                $queryBuilder->expr()->eq('client', $queryBuilder->createNamedParameter(intval($clientUid, \PDO::PARAM_INT)))
             )
             ->execute();
 
         if (is_object($statement)) {
             $rows = $statement->fetchAll();
-
-            $previousTasks = [];
+            $currentTasks = [];
             foreach ($rows as $row) {
-                $previousTasks[$row['client_task_uid']] = $row;
+                $currentTasks[$row['client_task_uid']] = $row['uid'];
             }
-
-            $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(self::TABLE);
-            $connection->beginTransaction();
-            try {
-                foreach ($tasks as $task) {
-                    $task['lastexecution'] = $task['lastexecution_time'];
-                    unset($task['lastexecution_time']);
-
-                    $task['pid'] = $this->emConfiguration->getPid();
-                    $task['client_task_uid'] = $task['uid'];
-                    $task['tstamp'] = $GLOBALS['EXEC_TIME'];
-                    $task['client'] = $client['uid'];
-
-                    if (isset($previousTasks[$task['uid']])) {
-                        $connection->update(
-                            self::TABLE,
-                            $task,
-                            [
-                                'uid' => $previousTasks[$task['uid']]['uid'],
-                                'client' => $client['uid']
-                            ],
-                        );
-                    } else {
-                        unset($task['uid']);
-                        $task['crdate'] = $GLOBALS['EXEC_TIME'];
-                        $connection->insert(
-                            self::TABLE,
-                            $task
-                        );
-                    }
-                }
-                $connection->commit();
-            } catch (\Exception $e) {
-                $connection->rollBack();
-                throw $e;
-            }
+            return $currentTasks;
         }
+        return [];
     }
 }
