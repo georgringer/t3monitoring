@@ -17,8 +17,11 @@
                         <tr>
                             <th></th>
                             <th>{f:translate(key:'tx_t3monitoring_domain_model_client')}</th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.table.col.client_task_uid')}</th>
+                            <th><span title="{f:translate(key:'tx_t3monitoring_domain_model_task.table.col.client_task_uid')}">Uid</span></th>
+                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.class')}</th>
+                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.type')}</th>
                             <th>{f:translate(key:'tx_t3monitoring_domain_model_task.description')}</th>
+                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.frequency')}</th>
                             <th>{f:translate(key:'tx_t3monitoring_domain_model_task.lastexecution')}</th>
                             <th>{f:translate(key:'tx_t3monitoring_domain_model_task.nextexecution')}</th>
                         </tr>
@@ -53,8 +56,17 @@
                                 <td data-order="{task.taskClientUid}">
                                     {task.clientTaskUid}
                                 </td>
+                                <td>
+                                    <span title="{task.class}">{task.classShort}</span>
+                                </td>
+                                <td>
+                                    <f:translate key="tx_t3monitoring_domain_model_task.type.{task.type}" />
+                                </td>
                                 <td data-order="{task.description -> f:format.htmlspecialchars()}">
                                     {task.description}
+                                </td>
+                                <td>
+                                    {task.frequency}
                                 </td>
                                 <td data-order="{task.lastexecution}">
                                     <f:format.date format="d.m.Y H:i">{task.lastexecution}</f:format.date> ({task.lastexecutionContext})

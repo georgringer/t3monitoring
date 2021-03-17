@@ -597,7 +597,7 @@
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.description">
 				<source>Task description</source>
-				<target>Task </target>
+				<target>Task Beschreibung </target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.nextexecution">
 				<source>Next execution</source>
@@ -616,8 +616,8 @@
 				<target>Context der letzten Ausführung</target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.class">
-				<source>The task class</source>
-				<target>Die Task Klasse</target>
+				<source>Class</source>
+				<target>Klasse</target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.multiple">
 				<source>Allow paralell execution</source>
@@ -636,8 +636,8 @@
 				<target>Widerkehrend</target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.frequency">
-				<source>Frequency (interval or cron command)</source>
-				<target>Frequenz (Interval oder Cron Befehl)</target>
+				<source>Frequency</source>
+				<target>Frequenz</target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.client">
 				<source>Client</source>
@@ -670,6 +670,14 @@
 			<trans-unit id="tx_t3monitoring_domain_model_task.table.col.client_task_uid">
 				<source>Client task Uid</source>
 				<target>Client Task Uid</target>
+			</trans-unit>
+			<trans-unit id="client.show.tasks.empty">
+				<source>There are no tasks for this client.</source>
+				<target>Es gibt keine "Geplanten Tasks" für diesen Client.</target>
+			</trans-unit>
+			<trans-unit id="client.show.tasks.available">
+				<source>Available tasks</source>
+				<target>Vorhandene Tasks</target>
 			</trans-unit>
 		</body>
 	</file>

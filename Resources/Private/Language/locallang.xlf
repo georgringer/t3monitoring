@@ -519,7 +519,7 @@
 				<source>Last execution context</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.class">
-				<source>The task class</source>
+				<source>Class</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.multiple">
 				<source>Allow paralell execution</source>
@@ -534,7 +534,7 @@
 				<source>Recurring</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.frequency">
-				<source>Frequency (interval or cron command)</source>
+				<source>Frequency</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.client">
 				<source>Client</source>
@@ -558,7 +558,13 @@
 				<source>OK</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.table.col.client_task_uid">
-				<source>Client task UID</source>
+				<source>Task</source>
+			</trans-unit>
+			<trans-unit id="client.show.tasks.empty">
+				<source>There are no tasks for this client.</source>
+			</trans-unit>
+			<trans-unit id="client.show.tasks.available">
+				<source>Available tasks</source>
 			</trans-unit>
 		</body>
 	</file>
