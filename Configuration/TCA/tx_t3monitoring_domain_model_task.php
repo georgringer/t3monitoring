@@ -105,6 +105,16 @@ return [
                 ],
             ],
         ],
+        'frequency' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.frequency',
+            'config' => [
+                'readOnly' => 'true',
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
+            ],
+        ],
         'client' => [
             'exclude' => false,
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.client',
