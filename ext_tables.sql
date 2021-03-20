@@ -33,6 +33,8 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	core int(11) unsigned DEFAULT '0',
 	sla int(11) unsigned DEFAULT '0',
 	tag tinytext,
+	task_alert_late tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	task_alert_error tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

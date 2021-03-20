@@ -87,6 +87,14 @@
 				<source>Sla</source>
 				<target>Sla</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.task_alert_late">
+				<source>Alert on late tasks?</source>
+				<target>Benachrichtigung bei verspäteten Tasks?</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.task_alert_error">
+				<source>Alert on error tasks?</source>
+				<target>Benachrichtigung bei fehlerhaften Tasks?</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_extension">
 				<source>Extension</source>
 				<target>Extension</target>

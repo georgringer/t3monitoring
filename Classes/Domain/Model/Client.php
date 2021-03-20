@@ -159,6 +159,16 @@ class Client extends AbstractEntity
     protected $tag = null;
 
     /**
+     * @var bool
+     */
+    protected $taskAlertLate = false;
+
+    /**
+     * @var bool
+     */
+    protected $taskAlertError = false;
+
+    /**
      * __construct
      */
     public function __construct()
@@ -786,5 +796,49 @@ class Client extends AbstractEntity
         $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
         $taskRepository = $objectManager->get(TaskRepository::class);
         return $taskRepository->getTaskStatusForClientId($this->uid);
+    }
+
+    /**
+     * Get the value of taskAlertLate
+     *
+     * @return  bool
+     */
+    public function getTaskAlertLate()
+    {
+        return $this->taskAlertLate;
+    }
+
+    /**
+     * Set the value of taskAlertLate
+     *
+     * @param bool $taskAlertLate
+     *
+     * @return void
+     */
+    public function setTaskAlertLate(bool $taskAlertLate): void
+    {
+        $this->taskAlertLate = $taskAlertLate;
+    }
+
+    /**
+     * Get the value of taskAlertError
+     *
+     * @return  bool
+     */
+    public function getTaskAlertError()
+    {
+        return $this->taskAlertError;
+    }
+
+    /**
+     * Set the value of taskAlertError
+     *
+     * @param bool $taskAlertError
+     *
+     * @return void
+     */
+    public function setTaskAlertError(bool $taskAlertError): void
+    {
+        $this->taskAlertError = $taskAlertError;
     }
 }

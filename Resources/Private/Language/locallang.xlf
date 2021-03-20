@@ -96,6 +96,12 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.tag">
 				<source>Tag</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.task_alert_late">
+				<source>Alert on late tasks?</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.task_alert_error">
+				<source>Alert on error tasks?</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_extension">
 				<source>Extension</source>
 			</trans-unit>
