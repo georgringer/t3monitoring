@@ -536,6 +536,9 @@
 			<trans-unit id="tx_t3monitoring_domain_model_task.frequency">
 				<source>Frequency</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.late">
+				<source>Late</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.client">
 				<source>Client</source>
 			</trans-unit>

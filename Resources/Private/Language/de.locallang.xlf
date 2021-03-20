@@ -639,6 +639,10 @@
 				<source>Frequency</source>
 				<target>Frequenz</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.late">
+				<source>Late</source>
+				<target>Verspätet</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.client">
 				<source>Client</source>
 				<target>Client</target>
