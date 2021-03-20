@@ -70,8 +70,6 @@ class TaskImport extends BaseImport
                 );
             }
             $connection->commit();
-
-            // TODO: Delete "old" tasks --> Check "currentTasks" array --> If there are tasks in there, which are not present in "tasks --> Delete them
         } catch (\Exception $e) {
             $connection->rollBack();
             throw $e;
