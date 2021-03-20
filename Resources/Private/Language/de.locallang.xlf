@@ -665,11 +665,15 @@
 			</trans-unit>
 			<trans-unit id="task.error">
 				<source>Error</source>
-				<target>Fehler</target>
+				<target>Error</target>
 			</trans-unit>
 			<trans-unit id="task.ok">
 				<source>OK</source>
 				<target>OK</target>
+			</trans-unit>
+			<trans-unit id="task.status">
+				<source>Tasks</source>
+				<target>Tasks</target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_task.table.col.client_task_uid">
 				<source>Client task Uid</source>

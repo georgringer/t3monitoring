@@ -31,7 +31,7 @@
                 </td>
                 <td>
                     <f:if condition="{task.late}">
-                        <span class="label label-danger" style="padding: 5px;" title="{f:translate(key:'tx_t3monitoring_domain_model_task.late')}">
+                        <span class="label label-warning" style="padding: 5px;" title="{f:translate(key:'tx_t3monitoring_domain_model_task.late')}">
                             <core:icon identifier="actions-clock" size="small" />
                         </span>
                     </f:if>
@@ -62,7 +62,7 @@
                             </span>
                         </f:then>
                         <f:else>
-                            <span class="label label-warning" style="padding: 5px;" title="{f:translate(key:'tx_t3monitoring_domain_model_task.type.{task.type}')}">
+                            <span class="label label-info" style="padding: 5px;" title="{f:translate(key:'tx_t3monitoring_domain_model_task.type.{task.type}')}">
                                 <core:icon identifier="actions-refresh" size="small" />
                             </span>
                         </f:else>

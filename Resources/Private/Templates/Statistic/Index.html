@@ -308,6 +308,7 @@
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_client')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_client.domain')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_client.status')}</th>
+                                                    <th>{f:translate(key:'task.status')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_sla')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_tag')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_core')}</th>
@@ -357,6 +358,22 @@
                                                                 </f:then>
                                                                 <f:else>
                                                                     <span class="label label-success">{f:translate(key:'tx_t3monitoring_domain_model_client.ok')}</span>
+                                                                </f:else>
+                                                            </f:if>
+                                                        </td>
+                                                        <td>
+                                                            <f:if condition="{client.taskStatus} == 0">
+                                                                <f:then>
+                                                                    -
+                                                                </f:then>
+                                                                <f:else if="{client.taskStatus} == 1">
+                                                                    <span class="label label-warning"><f:translate key="tx_t3monitoring_domain_model_task.late" /></span>
+                                                                </f:else>
+                                                                <f:else if="{client.taskStatus} == 2">
+                                                                    <span class="label label-danger"><f:translate key="task.error" /></span>
+                                                                </f:else>
+                                                                <f:else>
+                                                                    <span class="label label-success"><f:translate key="task.ok" /></span>
                                                                 </f:else>
                                                             </f:if>
                                                         </td>
