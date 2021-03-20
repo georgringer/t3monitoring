@@ -12,11 +12,11 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_task.svg',
     ],
     'interface' => [
-        'showRecordFieldList' => 'client_task_uid, description, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, class, multiple, type, frequency, client',
+        'showRecordFieldList' => 'client_task_uid, description, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, class, multiple, type, frequency, client, late',
     ],
     'types' => [
         '1' => [
-            'showitem' => 'client_task_uid, description, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, class, multiple, type, frequency, client'],
+            'showitem' => 'client_task_uid, description, nextexecution, lastexecution, lastexecution_failure, lastexecution_context, class, multiple, type, frequency, client, late'],
     ],
     'columns' => [
         'client_task_uid' => [
@@ -127,5 +127,22 @@ return [
                 'maxitems' => 1
             ],
         ],
+        'late' => [
+            'exclude' => false,
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_task.late',
+            'config' => [
+                'readOnly' => 'true',
+                'type' => 'check',
+                'renderType' => 'checkboxToggle',
+                'items' => [
+                    '0' => [
+                        '0' => '',
+                        '1' => 'late',
+                        'labelChecked' => 'Enabled',
+                        'labelUnchecked' => 'Disabled'
+                    ]
+                ]
+            ]
+        ]
     ],
 ];

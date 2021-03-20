@@ -93,6 +93,13 @@ class Task extends AbstractEntity
     protected $client = null;
 
     /**
+     * Whether the task is late or not
+     *
+     * @var bool
+     */
+    protected $late = false;
+
+    /**
      * Get the uid of the tasks on the client system.
      *
      * @return int
@@ -332,5 +339,40 @@ class Task extends AbstractEntity
     public function setClient(Client $client): void
     {
         $this->client = $client;
+    }
+
+    /**
+     * Explodes the class name and returns the last part
+     *
+     * @return string The last class part
+     */
+    public function getClassShort(): string
+    {
+        $parts = explode('\\', $this->class);
+        return end($parts);
+    }
+
+    /**
+     * Get whether the task is late or not
+     *
+     * @return  bool
+     */
+    public function getLate()
+    {
+        return $this->late;
+    }
+
+    /**
+     * Set whether the task is late or not
+     *
+     * @param bool $late  Whether the task is late or not
+     *
+     * @return  self
+     */
+    public function setLate(bool $late)
+    {
+        $this->late = $late;
+
+        return $this;
     }
 }

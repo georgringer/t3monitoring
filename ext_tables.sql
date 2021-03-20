@@ -194,5 +194,6 @@ CREATE TABLE tx_t3monitoring_domain_model_task (
 	type varchar(50) DEFAULT '' NOT NULL,
 	frequency varchar(50) DEFAULT '' NOT NULL,
 	command varchar(255) DEFAULT '' NOT NULL,
-	client int(11) DEFAULT '0' NOT NULL
+	client int(11) DEFAULT '0' NOT NULL,
+	late tinyint(1) unsigned DEFAULT '0' NOT NULL
 );
