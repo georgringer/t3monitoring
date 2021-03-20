@@ -12,72 +12,7 @@
                 <div class="panel-heading">
                     {f:translate(key:'task.total', arguments:'{0:\'{tasks -> f:count()}\'}')}
                 </div>
-                <table class="table table-striped table-hover task-list">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_client')}</th>
-                            <th><span title="{f:translate(key:'tx_t3monitoring_domain_model_task.table.col.client_task_uid')}">Uid</span></th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.class')}</th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.type')}</th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.description')}</th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.frequency')}</th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.lastexecution')}</th>
-                            <th>{f:translate(key:'tx_t3monitoring_domain_model_task.nextexecution')}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <f:for each="{tasks}" as="task">
-                            <tr>
-                                <td>
-                                    <f:if condition="{task.lastexecutionFailure}">
-                                        <f:then>
-                                            <span data-toggle="tooltip" data-title="{task.lastexecutionFailure}" data-placement="right" class="label label-danger">
-                                                <f:translate key="task.error" />
-                                            </span>
-                                        </f:then>
-                                        <f:else>
-                                            <span class="label label-success"><f:translate key="task.ok" /></span>
-                                        </f:else>
-                                    </f:if>
-                                </td>
-                                <td data-order="{task.client.title -> f:format.htmlspecialchars()}">
-                                    <f:link.action action="show" controller="Client" arguments="{client:task.client}">
-                                        <f:if condition="{emConfiguration.presentationMode}">
-                                            <f:then>
-                                                <f:translate key="presentationMode.client.title" arguments="{0:task.client.uid}" />
-                                            </f:then>
-                                            <f:else>
-                                                {task.client.title}
-                                            </f:else>
-                                        </f:if>
-                                    </f:link.action>
-                                </td>
-                                <td data-order="{task.taskClientUid}">
-                                    {task.clientTaskUid}
-                                </td>
-                                <td>
-                                    <span title="{task.class}">{task.classShort}</span>
-                                </td>
-                                <td>
-                                    <f:translate key="tx_t3monitoring_domain_model_task.type.{task.type}" />
-                                </td>
-                                <td data-order="{task.description -> f:format.htmlspecialchars()}">
-                                    {task.description}
-                                </td>
-                                <td>
-                                    {task.frequency}
-                                </td>
-                                <td data-order="{task.lastexecution}">
-                                    <f:format.date format="d.m.Y H:i">{task.lastexecution}</f:format.date> ({task.lastexecutionContext})
-                                </td>
-                                <td data-order="{task.nextexecution}">
-                                    <f:format.date format="d.m.Y H:i">{task.nextexecution}</f:format.date>
-                                </td>
-                            </tr>
-                        </f:for>
-                    </tbody>
-                </table>
+                <f:render partial="Task/Table" arguments="{tasks: tasks}" />
             </div>
         </f:then>
         <f:else>
