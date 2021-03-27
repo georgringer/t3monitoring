@@ -87,6 +87,14 @@
 				<source>Sla</source>
 				<target>Sla</target>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.public_key">
+				<source>Public key for client</source>
+				<target>Öffentlicher Schlüssel des Client</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.cipher">
+				<source>OpenSSL cipher from client</source>
+				<target>OpenSSL Verschlüsselungsmethode des Client</target>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_extension">
 				<source>Extension</source>
 				<target>Extension</target>
