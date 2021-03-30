@@ -77,7 +77,8 @@ class TaskImport extends BaseImport
     }
 
     /**
-     * Returns the current tasks of this client from the database
+     * Returns the the uid and the client_task_uid of all tasks of
+     * a specific client.
      *
      * @param int $clientUid The uid of the client
      *
