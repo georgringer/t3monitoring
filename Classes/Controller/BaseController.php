@@ -16,12 +16,16 @@ use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -73,6 +77,22 @@ class BaseController extends ActionController
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
 
         parent::initializeAction();
+
+        $isv10 = VersionNumberUtility::convertVersionNumberToInteger('10.0')
+            <= VersionNumberUtility::convertVersionNumberToInteger((new Typo3Version())->getBranch());
+        if ($isv10) {
+            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+            $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript/';
+            $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
+            $fullJsPath = PathUtility::getRelativePath(Environment::getPublicPath(), $fullJsPath);
+            $fullJsPath = rtrim($fullJsPath, '/');
+            $pageRenderer->addRequireJsConfiguration([
+                'paths' => [
+                    'datatables' => $fullJsPath . '/jquery.dataTables.min',
+                    'datatablesBootstrap' => $fullJsPath . '/dataTables.bootstrap.min',
+                ]
+            ]);
+        }
     }
 
     /**
@@ -166,10 +186,7 @@ class BaseController extends ActionController
 
         // Buttons for new records
         $returnUrl = rawurlencode($uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
-            'tx_t3monitoring_tools_t3monitoringt3monitor' => [
-                'action' => $this->request->getControllerActionName(),
-                'controller' => $this->request->getControllerName()
-            ]
+            'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
         ]));
         $pid = $this->emConfiguration->getPid();
 

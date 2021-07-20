@@ -300,8 +300,7 @@
                                     <f:then>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                {f:translate(key:'clients.total', arguments:'{0:\'{clients ->
-                                                f:count()}\'}')}
+                                                {f:translate(key:'clients.total', arguments:'{0:\'{clients -> f:count()}\'}')}
                                             </div>
                                             <table class="table table-striped table-hover client-list">
                                                 <thead>
@@ -315,19 +314,18 @@
                                                     <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'clients.numberOfExtensions')}" class="badge badge-info">-</span></th>
                                                     <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}" class="badge badge-danger">-</span></th>
                                                     <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}" class="badge badge-default">-</span></th>
-                                                    <th class="no-sorting text-center" colspan="2">
+                                                    <th class="no-sorting text-center" data-orderable="false">
                                                         {f:translate(key:'client.extra')}
                                                     </th>
-                                                    <th class="no-sorting"></th>
+                                                    <th class="no-sorting" data-orderable="false"></th>
+                                                    <th class="no-sorting" data-orderable="false"></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <f:for each="{clients}" as="client">
                                                     <tr>
                                                         <td data-order="{client.title -> f:format.htmlspecialchars()}">
-                                                            <f:link.action action="show" controller="Client"
-                                                                           arguments="{client:client}">
-
+                                                            <f:link.action action="show" controller="Client" arguments="{client:client}">
                                                                 <f:if condition="{emConfiguration.presentationMode}">
                                                                     <f:then>
                                                                         <f:translate key="presentationMode.client.title" arguments="{0:client.uid}" />
@@ -339,9 +337,7 @@
                                                             </f:link.action>
                                                         </td>
                                                         <td data-order="{client.domain -> f:format.htmlspecialchars()}">
-                                                            <f:link.action action="show" controller="Client"
-                                                                           arguments="{client:client}">
-
+                                                            <f:link.action action="show" controller="Client" arguments="{client:client}">
                                                                 <f:if condition="{emConfiguration.presentationMode}">
                                                                     <f:then>
                                                                         <f:translate key="presentationMode.client.domain" arguments="{0:client.uid}" />
@@ -367,8 +363,7 @@
                                                         <td class="text-nowrap">
                                                             <f:if condition="{client.sla}">
                                                                 <f:then>
-                                                                    <f:link.action action="show" controller="Sla"
-                                                                                   arguments="{sla:client.sla}">
+                                                                    <f:link.action action="show" controller="Sla" arguments="{sla:client.sla}">
                                                                         {client.sla.title}
                                                                     </f:link.action>
                                                                 </f:then>

@@ -44,7 +44,7 @@ class ReportClientCommand extends Command
         $clients = $objectManager->get(ClientRepository::class)->getAllForReport(true);
         if (count($clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
-            return;
+            return 0;
         }
 
         GeneralUtility::makeInstance(EmailNotification::class)->sendClientEmail($clients);
