@@ -26,7 +26,7 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	error_message text DEFAULT '' NOT NULL,
 	error_count int(11) DEFAULT '0' NOT NULL,
 	extra_info text NOT NULL,
-	extra_warning text NOT NULL,
+	extra_warning mediumtext NOT NULL,
 	extra_danger text NOT NULL,
 	last_successful_import int(11) DEFAULT '0' NOT NULL,
 	extensions int(11) unsigned DEFAULT '0' NOT NULL,
