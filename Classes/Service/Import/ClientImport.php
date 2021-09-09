@@ -135,9 +135,8 @@ class ClientImport extends BaseImport
                 ->getConnectionForTable(self::TABLE);
             $connection->update(self::TABLE, $update, ['uid' => (int)$row['uid']]);
 
-            if (isset($json['tasks']) && count($json['tasks']) > 0) {
-                $this->taskImporter->importTasks($row, $json['tasks']);
-            }
+            // Import tasks --> if no json for tasks is given, only deletions
+            $this->taskImporter->importTasks($row, $json['tasks']);
 
             $this->responseCount['success']++;
         } catch (Exception $e) {

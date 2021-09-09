@@ -20,11 +20,11 @@ class TaskImport extends BaseImport
      * Import the given tasks for a client into the database.
      *
      * @param array<string> $client The client
-     * @param array<string> $tasks The client's scheduled tasks
+     * @param array<string> ?$importTasks The client's scheduled tasks
      *
      * @return void
      */
-    public function importTasks(array $client, array $importTasks): void
+    public function importTasks(array $client, ?array $importTasks): void
     {
         $currentTasks = $this->getTasksForClient($client['uid']);
 
