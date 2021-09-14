@@ -135,7 +135,7 @@
                           <f:if condition="{emConfiguration.useGoogleCharts}">
                             <div style="width: 100%; overflow: hidden;" id="chart_core_versions"></div>
                             <script type="text/javascript">
-                                var dataSet = {coreVersionUsageJson -> f:format.raw()};
+                                var dataSet = <f:format.raw>{coreVersionUsageJson}</f:format.raw>;
                                 // Load the Visualization API and the corechart package.
                                 google.charts.load('current', {'packages':['corechart']});
 
