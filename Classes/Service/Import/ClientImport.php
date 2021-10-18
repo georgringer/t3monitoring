@@ -66,6 +66,10 @@ class ClientImport extends BaseImport
             $query->where(
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($clientId, \PDO::PARAM_INT))
             );
+        } else {
+            $query->where(
+                $queryBuilder->expr()->eq('exclude_from_import', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+            );
         }
 
         $clientRows = $query->execute()->fetchAll();

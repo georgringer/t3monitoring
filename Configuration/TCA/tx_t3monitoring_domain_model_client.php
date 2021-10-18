@@ -14,7 +14,7 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, host_header, ignore_cert_errors, force_ip_resolve, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
+        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, host_header, ignore_cert_errors, exclude_from_import, force_ip_resolve, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
     ],
     'types' => [
         1 => [
@@ -31,7 +31,7 @@ return [
         'paletteTitle' => ['showitem' => 'title'],
         'paletteCore' => ['showitem' => 'core, insecure_core, outdated_core,'],
         'paletteExtensions' => ['showitem' => 'extensions, --linebreak--, insecure_extensions, outdated_extensions,'],
-        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, host_header, --linebreak--, ignore_cert_errors, force_ip_resolve'],
+        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, host_header, --linebreak--, ignore_cert_errors, exclude_from_import, force_ip_resolve'],
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
         'paletteDiskSpace' => ['showitem' => 'disk_total_space, disk_free_space'],
     ],
@@ -98,6 +98,12 @@ return [
         ],
         'ignore_cert_errors' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.ignoreCertErrors',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
+        'exclude_from_import' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.excludeFromImport',
             'config' => [
                 'type' => 'check',
             ],

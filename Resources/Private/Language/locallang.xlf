@@ -35,6 +35,10 @@
 				<source>Ignore Certificate Errors</source>
 				<context context-type="context">Label for field Ignore Certificate Errors (type checkbox). It's an optional field.</context>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.excludeFromImport">
+				<source>Exclude from Import</source>
+				<context context-type="context">Label for field Exclude from Import (type checkbox). It's an optional field.</context>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.forceIpResolve">
 				<source>Force IP Resolve</source>
 				<context context-type="context">Label for field Force IP Resolve (type select).</context>

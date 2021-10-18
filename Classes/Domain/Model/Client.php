@@ -41,6 +41,11 @@ class Client extends AbstractEntity
     protected $ignoreCertErrors = false;
 
     /**
+     * @var bool
+     */
+    protected $excludeFromImport = false;
+
+    /**
      * @var string
      */
     protected $forceIpResolve = '';
@@ -281,6 +286,22 @@ class Client extends AbstractEntity
     public function setIgnoreCertErrors(bool $ignoreCertErrors)
     {
         $this->ignoreCertErrors = $ignoreCertErrors;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExcludeFromImport()
+    {
+        return $this->excludeFromImport;
+    }
+
+    /**
+     * @param bool $ignoreCertErrors
+     */
+    public function setExcludeFromImport(bool $excludeFromImport)
+    {
+        $this->excludeFromImport = $excludeFromImport;
     }
 
     /**

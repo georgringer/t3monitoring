@@ -43,7 +43,7 @@ class DataHandlerHook
             }
 
             $clientRow = BackendUtility::getRecord($table, (int)$recordUid);
-            if ($clientRow) {
+            if ($clientRow && $clientRow['exclude_from_import'] !== 1) {
                 $this->checkDomain($clientRow['domain']);
                 $this->importClient($recordUid);
             }

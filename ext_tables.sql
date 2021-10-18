@@ -13,6 +13,7 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	host_header varchar(255) DEFAULT '' NOT NULL,
 	force_ip_resolve enum('', 'v4', 'v6') DEFAULT '' NOT NULL,
 	ignore_cert_errors tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	exclude_from_import tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	secret varchar(255) DEFAULT '' NOT NULL,
 	email varchar(255) DEFAULT '' NOT NULL,
 	php_version varchar(255) DEFAULT '' NOT NULL,
