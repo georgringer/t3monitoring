@@ -20,7 +20,6 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Report command controller
@@ -43,8 +42,7 @@ class ReportAdminCommand extends Command
     {
         parent::initialize($input, $output);
 
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->clients = $objectManager->get(ClientRepository::class)->getAllForReport();
+        $this->clients = GeneralUtility::makeInstance(ClientRepository::class)->getAllForReport();
     }
 
     /**

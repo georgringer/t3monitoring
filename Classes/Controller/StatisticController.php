@@ -43,12 +43,12 @@ class StatisticController extends BaseController
      */
     public function initializeAction()
     {
-        $this->statisticRepository = $this->objectManager->get(StatisticRepository::class);
-        $this->filterDemand = $this->objectManager->get(ClientFilterDemand::class);
-        $this->clientRepository = $this->objectManager->get(ClientRepository::class);
-        $this->coreRepository = $this->objectManager->get(CoreRepository::class);
-        $this->slaRepository = $this->objectManager->get(SlaRepository::class);
-        $this->tagRepository = $this->objectManager->get(TagRepository::class);
+        $this->statisticRepository = GeneralUtility::makeInstance(StatisticRepository::class);
+        $this->filterDemand = GeneralUtility::makeInstance(ClientFilterDemand::class);
+        $this->clientRepository = GeneralUtility::makeInstance(ClientRepository::class);
+        $this->coreRepository = GeneralUtility::makeInstance(CoreRepository::class);
+        $this->slaRepository = GeneralUtility::makeInstance(SlaRepository::class);
+        $this->tagRepository = GeneralUtility::makeInstance(TagRepository::class);
 
         parent::initializeAction();
     }
@@ -121,17 +121,17 @@ class StatisticController extends BaseController
         if (!empty($import)) {
             switch ($import) {
                 case 'clients':
-                    $importService = $this->objectManager->get(ClientImport::class);
+                    $importService = GeneralUtility::makeInstance(ClientImport::class);
                     $importService->run();
                     $success = true;
                     break;
                 case 'extensions':
-                    $importService = $this->objectManager->get(ExtensionImport::class);
+                    $importService = GeneralUtility::makeInstance(ExtensionImport::class);
                     $importService->run();
                     $success = true;
                     break;
                 case 'core':
-                    $importService = $this->objectManager->get(CoreImport::class);
+                    $importService = GeneralUtility::makeInstance(CoreImport::class);
                     $importService->run();
                     $success = true;
                     break;

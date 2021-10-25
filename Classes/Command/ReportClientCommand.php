@@ -16,7 +16,6 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Report command controller
@@ -40,8 +39,7 @@ class ReportClientCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $clients = $objectManager->get(ClientRepository::class)->getAllForReport(true);
+        $clients = GeneralUtility::makeInstance(ClientRepository::class)->getAllForReport(true);
         if (count($clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
             return 0;

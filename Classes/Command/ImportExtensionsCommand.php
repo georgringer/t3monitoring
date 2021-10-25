@@ -13,7 +13,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Monitoring command controller
@@ -38,8 +37,7 @@ class ImportExtensionsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $objectManager->get(ExtensionImport::class)->run();
+        GeneralUtility::makeInstance(ExtensionImport::class)->run();
         return 0;
     }
 }

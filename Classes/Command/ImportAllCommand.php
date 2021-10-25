@@ -15,7 +15,6 @@ use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use T3Monitor\T3monitoring\Service\Import\CoreImport;
 use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Monitoring command controller
@@ -42,10 +41,9 @@ class ImportAllCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $objectManager->get(CoreImport::class)->run();
-        $objectManager->get(ExtensionImport::class)->run();
-        $import = $objectManager->get(ClientImport::class);
+        GeneralUtility::makeInstance(CoreImport::class)->run();
+        GeneralUtility::makeInstance(ExtensionImport::class)->run();
+        $import = GeneralUtility::makeInstance(ClientImport::class);
         $import->run();
 
         $result = $import->getResponseCount();

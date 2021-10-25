@@ -68,10 +68,10 @@ class BaseController extends ActionController
      */
     public function initializeAction()
     {
-        $this->statisticRepository = $this->objectManager->get(StatisticRepository::class);
-        $this->filterDemand = $this->objectManager->get(ClientFilterDemand::class);
-        $this->clientRepository = $this->objectManager->get(ClientRepository::class);
-        $this->coreRepository = $this->objectManager->get(CoreRepository::class);
+        $this->statisticRepository = GeneralUtility::makeInstance(StatisticRepository::class);
+        $this->filterDemand = GeneralUtility::makeInstance(ClientFilterDemand::class);
+        $this->clientRepository = GeneralUtility::makeInstance(ClientRepository::class);
+        $this->coreRepository = GeneralUtility::makeInstance(CoreRepository::class);
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
         $this->registry = GeneralUtility::makeInstance(Registry::class);
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
@@ -238,7 +238,7 @@ class BaseController extends ActionController
      */
     protected function getUriBuilder(): UriBuilder
     {
-        $uriBuilder = $this->objectManager->get(UriBuilder::class);
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $uriBuilder->setRequest($this->request);
 
         return $uriBuilder;
@@ -249,7 +249,7 @@ class BaseController extends ActionController
      */
     protected function getClientFilterDemand(): ClientFilterDemand
     {
-        return $this->objectManager->get(ClientFilterDemand::class);
+        return GeneralUtility::makeInstance(ClientFilterDemand::class);
     }
 
     /**
