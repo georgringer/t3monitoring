@@ -17,7 +17,7 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 /**
  * Class ClientFilterDemandConverter
  */
-class ClientFilterDemandConverterV10 extends AbstractTypeConverter
+class ClientFilterDemandConverter extends AbstractTypeConverter
 {
     /**
      * @var array<string>
