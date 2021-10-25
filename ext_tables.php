@@ -4,17 +4,17 @@ defined('TYPO3_MODE') || die('Access denied.');
 call_user_func(
     function () {
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'T3Monitor.t3monitoring',
+            'T3monitoring',
             'tools',
             't3monitor',
             'top',
             [
-                'Statistic' => 'index,administration',
-                'Core' => 'list',
-                'Client' => 'show,fetch',
-                'Extension' => 'list, show',
-                'Sla' => 'list, show',
-                'Tag' => 'list, show',
+                \T3Monitor\T3monitoring\Controller\StatisticController::class => 'index,administration',
+                \T3Monitor\T3monitoring\Controller\CoreController::class => 'list',
+                \T3Monitor\T3monitoring\Controller\ClientController::class => 'show,fetch',
+                \T3Monitor\T3monitoring\Controller\ExtensionController::class => 'list, show',
+                \T3Monitor\T3monitoring\Controller\SlaController::class => 'list, show',
+                \T3Monitor\T3monitoring\Controller\TagController::class => 'list, show',
             ],
             [
                 'access' => 'user,group',
