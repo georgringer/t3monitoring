@@ -71,7 +71,7 @@ class ClientFilterDemandConverterV9 extends AbstractTypeConverter
      * @param string $targetType
      * @return bool
      */
-    public function canConvertFrom($source, $targetType)
+    public function canConvertFrom($source, $targetType): bool
     {
         return $this->isAllowed();
     }
