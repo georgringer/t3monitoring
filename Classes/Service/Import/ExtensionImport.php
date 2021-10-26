@@ -12,10 +12,11 @@ namespace T3Monitor\T3monitoring\Service\Import;
 use InvalidArgumentException;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException;
-use TYPO3\CMS\Extensionmanager\Utility\Repository\Helper;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extensionmanager\Controller\UpdateFromTerController;
 
 /**
  * Class ExtensionImport
@@ -30,7 +31,6 @@ class ExtensionImport extends BaseImport
      * Run extension import
      *
      * @throws InvalidArgumentException
-     * @throws ExtensionManagerException
      */
     public function run()
     {
@@ -125,18 +125,59 @@ class ExtensionImport extends BaseImport
             return;
         }
 
-        $split = VersionNumberUtility::splitVersionRange($dependencies['depends']['typo3']);
+        $split = self::splitVersionRange($dependencies['depends']['typo3']);
         $fields['typo3_min_version'] = VersionNumberUtility::convertVersionNumberToInteger($split[0]);
         $fields['typo3_max_version'] = VersionNumberUtility::convertVersionNumberToInteger($split[1]);
     }
 
     /**
      * @return bool TRUE if the extension list was successfully update, FALSE if no update necessary
-     * @throws ExtensionManagerException
      */
     protected function updateExtensionList(): bool
     {
-        $extensionRepository = GeneralUtility::makeInstance(Helper::class);
-        return $extensionRepository->updateExtList();
+        if (GeneralUtility::makeInstance(Typo3Version::class)->getMajorVersion() == 10) {
+            return GeneralUtility::makeInstance('TYPO3\CMS\Extensionmanager\Utility\Repository\Helper')->updateExtList();
+        } else {
+            /** @var Request $request */
+            $request = GeneralUtility::makeInstance(Request::class);
+            /** @var UpdateFromTerController $controller */
+            $controller = GeneralUtility::makeInstance(UpdateFromTerController::class);
+            $jsonResponse = $controller->processRequest(
+                $request
+                    ->withControllerActionName('updateExtensionListFromTer')
+                    ->withArgument('forceUpdateCheck', true)
+            );
+            $result = json_decode($jsonResponse->getBody(), true);
+
+            return $result['updated'];
+        }
+    }
+
+    /**
+     * Splits a version range into an array.
+     *
+     * If a single version number is given, it is considered a minimum value.
+     * If a dash is found, the numbers left and right are considered as minimum and maximum. Empty values are allowed.
+     * If no version can be parsed "0.0.0" — "0.0.0" is the result
+     *
+     * @param string $version A string with a version range.
+     * @return array
+     */
+    protected static function splitVersionRange($version)
+    {
+        $versionRange = [];
+        if (strpos($version, '-') !== false) {
+            $versionRange = explode('-', $version, 2);
+        } else {
+            $versionRange[0] = $version;
+            $versionRange[1] = '';
+        }
+        if (!$versionRange[0]) {
+            $versionRange[0] = '0.0.0';
+        }
+        if (!$versionRange[1]) {
+            $versionRange[1] = '0.0.0';
+        }
+        return $versionRange;
     }
 }
