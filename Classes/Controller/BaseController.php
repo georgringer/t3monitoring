@@ -16,7 +16,6 @@ use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
-use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -77,10 +76,9 @@ class BaseController extends ActionController
         parent::initializeAction();
 
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript/';
+        $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript';
         $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
-        $fullJsPath = PathUtility::getRelativePath(Environment::getPublicPath(), $fullJsPath);
-        $fullJsPath = rtrim($fullJsPath, '/');
+        $fullJsPath = PathUtility::getAbsoluteWebPath($fullJsPath);
         $pageRenderer->addRequireJsConfiguration([
             'paths' => [
                 'datatables' => $fullJsPath . '/jquery.dataTables.min',
