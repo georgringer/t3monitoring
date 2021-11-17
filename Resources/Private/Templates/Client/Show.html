@@ -218,6 +218,20 @@
 			</table>
 		</div>
 	</f:if>
+
+	<f:if condition="{tasks}">
+		<f:then>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					{f:translate(key:'client.show.tasks.available')} ({tasks -> f:count()})
+				</div>
+				<f:render partial="Task/Table" arguments="{tasks: tasks}" />
+			</div>
+		</f:then>
+		<f:else>
+			<f:translate key="client.show.tasks.empty" />
+		</f:else>
+	</f:if>
 </f:section>
 
 <f:section name="extra">

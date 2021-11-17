@@ -100,6 +100,12 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.tag">
 				<source>Tag</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.task_alert_late">
+				<source>Alert on late tasks?</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.task_alert_error">
+				<source>Alert on error tasks?</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_extension">
 				<source>Extension</source>
 			</trans-unit>
@@ -500,6 +506,81 @@
 			</trans-unit>
 			<trans-unit id="fetchClient.success">
 				<source>The data of the client has been successfully fetched!</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task">
+				<source>Task</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.client_task_uid">
+				<source>Task uid on client</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.description">
+				<source>Task description</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.nextexecution">
+				<source>Next execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution">
+				<source>Last  execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_failure">
+				<source>Error occured on last execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.lastexecution_context">
+				<source>Last execution context</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.class">
+				<source>Class</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.multiple">
+				<source>Allow paralell execution</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.type">
+				<source>Type</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.type.1">
+				<source>Single</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.type.2">
+				<source>Recurring</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.frequency">
+				<source>Frequency</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.late">
+				<source>Late</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.client">
+				<source>Client</source>
+			</trans-unit>
+			<trans-unit id="task">
+				<source>Scheduled tasks</source>
+			</trans-unit>
+			<trans-unit id="task.notFound">
+				<source>No scheduled tasks found</source>
+			</trans-unit>
+			<trans-unit id="task.header">
+				<source>Scheduled tasks</source>
+			</trans-unit>
+			<trans-unit id="task.total">
+				<source>Scheduled tasks (%s)</source>
+			</trans-unit>
+			<trans-unit id="task.error">
+				<source>Error</source>
+			</trans-unit>
+			<trans-unit id="task.ok">
+				<source>OK</source>
+			</trans-unit>
+			<trans-unit id="task.status">
+				<source>Tasks</source>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_task.table.col.client_task_uid">
+				<source>Task</source>
+			</trans-unit>
+			<trans-unit id="client.show.tasks.empty">
+				<source>There are no tasks for this client.</source>
+			</trans-unit>
+			<trans-unit id="client.show.tasks.available">
+				<source>Available tasks</source>
 			</trans-unit>
 		</body>
 	</file>

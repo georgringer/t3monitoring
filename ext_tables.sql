@@ -34,6 +34,8 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	core int(11) unsigned DEFAULT '0',
 	sla int(11) unsigned DEFAULT '0',
 	tag tinytext,
+	task_alert_late tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	task_alert_error tinyint(4) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -178,4 +180,23 @@ CREATE TABLE tx_t3monitoring_client_extension_mm (
 
 	KEY uid_local (uid_local),
 	KEY uid_foreign (uid_foreign)
+);
+
+#
+# Table structure for table 'tx_t3monitoring_domain_model_task'
+#
+CREATE TABLE tx_t3monitoring_domain_model_task (
+	description text NOT NULL,
+	client_task_uid int(11) NOT NULL,
+	nextexecution int(11) DEFAULT '0' NOT NULL,
+	lastexecution int(11) DEFAULT '0' NOT NULL,
+	lastexecution_failure text NOT NULL,
+	lastexecution_context varchar(10) DEFAULT '' NOT NULL,
+	class varchar(255) DEFAULT '' NOT NULL,
+	multiple tinyint(4) unsigned DEFAULT '0' NOT NULL,
+	type varchar(50) DEFAULT '' NOT NULL,
+	frequency varchar(50) DEFAULT '' NOT NULL,
+	command varchar(255) DEFAULT '' NOT NULL,
+	client int(11) DEFAULT '0' NOT NULL,
+	late tinyint(1) unsigned DEFAULT '0' NOT NULL
 );

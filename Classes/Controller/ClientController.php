@@ -10,6 +10,7 @@ namespace T3Monitor\T3monitoring\Controller;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Client;
+use T3Monitor\T3monitoring\Domain\Repository\TaskRepository;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -18,6 +19,21 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ClientController extends BaseController
 {
+
+    /**
+     * @var \T3Monitor\T3monitoring\Domain\Repository\TaskRepository
+     */
+    protected $taskRepository = null;
+
+    /**
+     * Constructor for new client controller objects
+     *
+     * @param TaskRepository $taskRepository The task repository
+     */ 
+    public function __construct(TaskRepository $taskRepository)
+    {
+        $this->taskRepository = $taskRepository;
+    }
 
     /**
      * Show client
@@ -35,6 +51,7 @@ class ClientController extends BaseController
 
         $this->view->assignMultiple([
             'client' => $client,
+            'tasks' => $this->taskRepository->findByClientId($client->getUid())
         ]);
     }
 

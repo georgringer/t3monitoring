@@ -15,6 +15,7 @@ call_user_func(
                 'Extension' => 'list, show',
                 'Sla' => 'list, show',
                 'Tag' => 'list, show',
+                'Task' => 'list'
             ],
             [
                 'access' => 'user,group',
@@ -28,5 +29,6 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3monitoring_domain_model_extension');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3monitoring_domain_model_sla');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3monitoring_domain_model_tag');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3monitoring_domain_model_task');
     }
 );

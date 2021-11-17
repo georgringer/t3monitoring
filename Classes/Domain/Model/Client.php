@@ -8,9 +8,12 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use T3Monitor\T3monitoring\Domain\Repository\TaskRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Client
@@ -792,5 +795,17 @@ class Client extends AbstractEntity
             return json_decode($this->extraDanger, true);
         }
         return [];
+    }
+
+    /**
+     * Return the overall task status for a client.
+     *
+     * @return int
+     */
+    public function getTaskStatus(): int
+    {
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
+        $taskRepository = $objectManager->get(TaskRepository::class);
+        return $taskRepository->getTaskStatusForClientId($this->uid);
     }
 }

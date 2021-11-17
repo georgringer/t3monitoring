@@ -8,6 +8,7 @@ This extensions provides the possibility to monitor all of your TYPO3 installati
 - used TYPO3 version and if it is up to date
 - available TYPO3 extensions and if those are installed, insecure or if there are bugfix, minor or major updates
 - additional information like PHP & Mysql versions.
+- overview and status of the client's scheduled tasks
 
 **Requirements**
 

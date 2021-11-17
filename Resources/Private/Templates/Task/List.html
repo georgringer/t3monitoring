@@ -1,0 +1,24 @@
+<html data-namespace-typo3-fluid="true"
+	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers">
+
+<f:layout name="Simple" />
+
+<f:section name="content">
+    <h1>{f:translate(key:'task.header')}</h1>
+    <f:if condition="{tasks}">
+        <f:then>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {f:translate(key:'task.total', arguments:'{0:\'{tasks -> f:count()}\'}')}
+                </div>
+                <f:render partial="Task/Table" arguments="{tasks: tasks}" />
+            </div>
+        </f:then>
+        <f:else>
+            <div class="alert alert-notice">
+                {f:translate(key:'task.notFound')}
+            </div>
+        </f:else>
+    </f:if>
+</f:section>

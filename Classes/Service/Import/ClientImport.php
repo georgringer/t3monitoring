@@ -40,6 +40,9 @@ class ClientImport extends BaseImport
     /** @var  EmailNotification */
     protected $emailNotification;
 
+    /** @var TaskImport */
+    protected $taskImporter = null;
+
     /**
      * Constructor
      */
@@ -47,6 +50,7 @@ class ClientImport extends BaseImport
     {
         $this->coreVersions = $this->getAllCoreVersions();
         $this->emailNotification = GeneralUtility::makeInstance(EmailNotification::class);
+        $this->taskImporter = GeneralUtility::makeInstance(TaskImport::class);
         parent::__construct();
     }
 
@@ -135,6 +139,9 @@ class ClientImport extends BaseImport
                 ->getConnectionForTable(self::TABLE);
             $connection->update(self::TABLE, $update, ['uid' => (int)$row['uid']]);
 
+            // Import tasks --> if no json for tasks is given, only deletions
+            $this->taskImporter->importTasks($row, $json['tasks']);
+
             $this->responseCount['success']++;
         } catch (Exception $e) {
             $this->handleError($row, $e);
@@ -169,7 +176,8 @@ class ClientImport extends BaseImport
 
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable(self::TABLE);
-        $connection->update(self::TABLE,
+        $connection->update(
+            self::TABLE,
             [
                 'error_message' => $error->getMessage(),
                 'error_count' => $client['error_count'] + 1
@@ -250,9 +258,9 @@ class ClientImport extends BaseImport
         $whereClause = [];
         foreach ($extensions as $key => $data) {
             $whereClause[] = $queryBuilder->expr()->andX(
-                    $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($data['version'])),
-                    $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($key))
-                );
+                $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($data['version'])),
+                $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($key))
+            );
         }
 
         $existingExtensions = $queryBuilder
