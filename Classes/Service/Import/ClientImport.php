@@ -18,7 +18,6 @@ use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 /**
@@ -229,7 +228,7 @@ class ClientImport extends BaseImport
     protected function unifyDomain($domain)
     {
         $domain = rtrim($domain, '/');
-        if (!StringUtility::beginsWith($domain, 'http://') && !StringUtility::beginsWith($domain, 'https://')) {
+        if (!str_starts_with($domain, 'http://') && !str_starts_with($domain, 'https://')) {
             $domain = 'http://' . $domain;
         }
 

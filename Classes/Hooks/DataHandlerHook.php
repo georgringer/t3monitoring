@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
 
 /**
  * Class DataHandlerHook
@@ -38,7 +37,7 @@ class DataHandlerHook
         DataHandler $parentObject
     ) {
         if ($table === 'tx_t3monitoring_domain_model_client') {
-            if (is_string($recordUid) && StringUtility::beginsWith($recordUid, 'NEW')) {
+            if (is_string($recordUid) && str_starts_with($recordUid, 'NEW')) {
                 $recordUid = $parentObject->substNEWwithIDs[$recordUid];
             }
 
