@@ -102,7 +102,7 @@ class ClientRepository extends BaseRepository
 
         // Tag
         if ($demand->getTag()) {
-            $constraints[] = $query->equals('tag', $demand->getTag());
+            $constraints[] = $query->contains('tag', $demand->getTag());
         }
 
         // Search
