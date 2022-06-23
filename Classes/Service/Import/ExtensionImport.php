@@ -32,7 +32,7 @@ class ExtensionImport extends BaseImport
      */
     public function run()
     {
-//        $updateRequired = $this->updateExtensionList();
+        // $updateRequired = $this->updateExtensionList();
         // always set $updateRequired = true, as $this->updateExtensionList() never returns true
         $updateRequired = true;
         if ($updateRequired) {
