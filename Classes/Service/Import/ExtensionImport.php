@@ -32,7 +32,9 @@ class ExtensionImport extends BaseImport
      */
     public function run()
     {
-        $updateRequired = $this->updateExtensionList();
+//        $updateRequired = $this->updateExtensionList();
+        // always set $updateRequired = true, as $this->updateExtensionList() never returns true
+        $updateRequired = true;
         if ($updateRequired) {
             $this->insertExtensionsInCustomTable();
         }
@@ -137,6 +139,8 @@ class ExtensionImport extends BaseImport
 
         $remoteRegistry = GeneralUtility::makeInstance(RemoteRegistry::class);
         foreach ($remoteRegistry->getListableRemotes() as $remote) {
+            // TYPO3 11.5.12: at least TYPO3\CMS\Extensionmanager\Remote\TerExtensionRemote::getAvailablePackages()
+            // returns void, so $updated will never become TRUE here...
             $remoteUpdate = $remote->getAvailablePackages();
             if ($remoteUpdate) {
                 $updated = true;

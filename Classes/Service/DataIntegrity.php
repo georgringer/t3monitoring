@@ -154,6 +154,13 @@ class DataIntegrity
                 ->execute();
         }
 
+        // set is_latest = 0 for extension versions that are not last_major_release
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder->update($table)
+            ->set('is_latest', 0)
+            ->where('version != last_major_release')
+            ->execute();
+
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->update($table)
             ->set('is_latest', 1)
