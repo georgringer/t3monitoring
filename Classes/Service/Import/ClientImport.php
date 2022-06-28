@@ -136,7 +136,9 @@ class ClientImport extends BaseImport
             $connection->update(self::TABLE, $update, ['uid' => (int)$row['uid']]);
 
             // Import tasks --> if no json for tasks is given, only deletions
-            $this->taskImporter->importTasks($row, $json['tasks']);
+            if ($json['tasks']) {
+                $this->taskImporter->importTasks($row, $json['tasks']);
+            }
 
             $this->responseCount['success']++;
         } catch (Exception $e) {
