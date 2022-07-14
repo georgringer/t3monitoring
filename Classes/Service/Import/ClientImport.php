@@ -274,6 +274,7 @@ class ClientImport extends BaseImport
 
             $state = array_search($data['state'] ?? null, Extension::$defaultStates, true) ?: key(array_slice(Extension::$defaultStates, -1, 1, true));
             $title = empty($data['title']) ? 'extension has no title' : $data['title'];
+            $category = empty($data['category']) ? false : $data['category'];
 
             if ($found) {
                 $relationId = $found['uid'];
@@ -292,7 +293,7 @@ class ClientImport extends BaseImport
                     'description' => $data['description'] ?? '',
                     'author_name' => $data['author'] ?? '',
                     'state' => $state,
-                    'category' => (int)array_search($data['category'], Extension::$defaultCategories),
+                    'category' => (int)array_search($category, Extension::$defaultCategories),
                     'is_official' => 0,
                     'tstamp' => $GLOBALS['EXEC_TIME'],
                     'update_comment' => '',

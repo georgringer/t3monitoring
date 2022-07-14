@@ -120,8 +120,14 @@ class ExtensionImport extends BaseImport
         if (!$fields['serialized_dependencies']) {
             return;
         }
+
         $dependencies = unserialize($fields['serialized_dependencies']);
-        if (!is_array($dependencies) || !is_array($dependencies['depends']) || !isset($dependencies['depends']['typo3'])) {
+        $depends = null;
+        if (array_key_exists('depends', $dependencies)) {
+            $depends = $dependencies['depends'];
+        }
+
+        if (!is_array($dependencies) || !is_array($depends) || !isset($dependencies['depends']['typo3'])) {
             return;
         }
 
