@@ -229,7 +229,7 @@
 			<f:for each="{data}" as="value" key="key">
 				<tr class="{cssClass}">
 					<th style="width: 20%;">{key}</th>
-					<td>{value}</td>
+					<td>{value -> f:format.html()}</td>
 				</tr>
 			</f:for>
 		</table>
