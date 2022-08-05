@@ -53,7 +53,7 @@
 				<source>Php Version</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
-				<source>Mysql Version</source>
+				<source>Database Version</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
 				<source>Disk Total Space</source>
