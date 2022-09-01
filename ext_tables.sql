@@ -35,6 +35,9 @@ CREATE TABLE tx_t3monitoring_domain_model_client (
 	sla int(11) unsigned DEFAULT '0',
 	tag tinytext,
 
+	public_key text,
+	cipher varchar(20) default '' not null,
+
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
