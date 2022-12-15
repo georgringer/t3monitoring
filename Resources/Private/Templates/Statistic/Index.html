@@ -312,6 +312,7 @@
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_sla')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_tag')}</th>
                                                     <th>{f:translate(key:'tx_t3monitoring_domain_model_core')}</th>
+                                                    <th>PHP</th>
                                                     <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'clients.numberOfExtensions')}" class="badge badge-info">-</span></th>
                                                     <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}" class="badge badge-danger">-</span></th>
                                                     <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}" class="badge badge-default">-</span></th>
@@ -400,9 +401,17 @@
                                                                 <f:else>-</f:else>
                                                             </f:if>
                                                         </td>
+                                                        
                                                         <td data-order={client.core.versionInteger}" data-type="num" class="text-nowrap {f:if(condition:client.core.insecure,then:'danger',else:'')} {f:if(condition:client.core.islatest,then:'success',else:'warning')}">
                                                             {client.core.version}
                                                         </td>
+                                                        <f:comment>QUICK AND DIRTY ;-)</f:comment>
+                                                        <f:variable name="phpClass">
+                                                            <f:if condition="{client.phpVersion -> f:format.crop(maxCharacters: 1)} == 5">danger</f:if>
+                                                            <f:if condition="{client.phpVersion -> f:format.crop(maxCharacters: 1)} == 7">danger</f:if>
+                                                            <f:if condition="{client.phpVersion -> f:format.crop(maxCharacters: 1)} == 8">success</f:if>
+                                                        </f:variable>
+                                                        <td class="{phpClass}">{client.phpVersion}</td>
                                                         <td class="text-center" data-type="num">
                                                             <f:if condition="{client.extensions}">
                                                                 <span data-toggle="tooltip"
