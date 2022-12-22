@@ -8,7 +8,9 @@ namespace T3Monitor\T3monitoring\Service\Import;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -23,6 +25,8 @@ class BaseImport
     /** @var Registry */
     protected $registry;
 
+    protected EventDispatcherInterface $eventDispatcher;
+
     /**
      * Constructor
      */
@@ -30,6 +34,8 @@ class BaseImport
     {
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
         $this->registry = GeneralUtility::makeInstance(Registry::class);
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+
     }
 
     /**

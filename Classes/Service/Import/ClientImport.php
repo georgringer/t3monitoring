@@ -11,6 +11,7 @@ namespace T3Monitor\T3monitoring\Service\Import;
 
 use Exception;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
+use T3Monitor\T3monitoring\Event\ImportClientDataEvent;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Database\Connection;
@@ -125,6 +126,11 @@ class ClientImport extends BaseImport
                 'extensions' => $this->handleExtensionRelations($row['uid'], (array)$json['extensions']),
                 'error_count' => 0
             ];
+
+            $event = $this->eventDispatcher->dispatch(
+                new ImportClientDataEvent($json, $row, $update)
+            );
+            $update = $event->getUpdate();
 
             $this->addExtraData($json, $update, 'info');
             $this->addExtraData($json, $update, 'warning');
