@@ -63,7 +63,7 @@ return [
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
-                'rows' => 15,
+                'rows' => 10,
                 'eval' => 'trim'
             ],
         ],
