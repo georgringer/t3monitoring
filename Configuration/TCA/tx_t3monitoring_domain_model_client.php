@@ -10,13 +10,13 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
-        'searchFields' => 'title,domain,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
+        'searchFields' => 'title,domain,comment,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
     ],
     'types' => [
         1 => [
             'showitem' => '
-        --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,
+        --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,comment,
         --div--;Readonly information,last_successful_import,error_message,--palette--;;paletteCore, --palette--;;paletteExtensions, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,
         --div--;Extra,extra_info,extra_warning,extra_danger,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
@@ -56,6 +56,15 @@ return [
                 'size' => 50,
                 'eval' => 'trim,required',
                 'placeholder' => 'http://yourdomain.com/'
+            ],
+        ],
+        'comment' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.comment',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 15,
+                'eval' => 'trim'
             ],
         ],
         'secret' => [

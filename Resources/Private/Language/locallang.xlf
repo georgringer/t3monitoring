@@ -12,6 +12,9 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.domain">
 				<source>Domain</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.comment">
+				<source>Comment</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.status">
 				<source>Status</source>
 			</trans-unit>

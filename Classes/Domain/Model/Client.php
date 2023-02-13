@@ -33,6 +33,11 @@ class Client extends AbstractEntity
     /**
      * @var string
      */
+    protected $comment = '';
+
+    /**
+     * @var string
+     */
     protected $hostHeader = '';
 
     /**
@@ -222,6 +227,27 @@ class Client extends AbstractEntity
     public function setDomain($domain)
     {
         $this->domain = $domain;
+    }
+
+    /**
+     * Returns the comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the comment
+     *
+     * @param string $comment
+     * @return void
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
     }
 
     /**
