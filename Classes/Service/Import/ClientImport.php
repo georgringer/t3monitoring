@@ -254,10 +254,12 @@ class ClientImport extends BaseImport
 
         $whereClause = [];
         foreach ($extensions as $key => $data) {
-            $whereClause[] = $queryBuilder->expr()->andX(
+            if (!empty($data['version'])) {
+                $whereClause[] = $queryBuilder->expr()->andX(
                     $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($data['version'])),
                     $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($key))
                 );
+            }
         }
 
         $existingExtensions = $queryBuilder
@@ -271,8 +273,9 @@ class ClientImport extends BaseImport
         foreach ($extensions as $key => $data) {
             // search if exists
             $found = null;
+            $version = $data['version'] ?? '';
             foreach ($existingExtensions as $existingExtension) {
-                if ($existingExtension['name'] === $key && $existingExtension['version'] === $data['version']) {
+                if ($existingExtension['name'] === $key && $existingExtension['version'] === $version) {
                     $found = $existingExtension;
                     break;
                 }
@@ -285,16 +288,16 @@ class ClientImport extends BaseImport
             if ($found) {
                 $relationId = $found['uid'];
             } else {
-                $versionSplit = explode('.', $data['version'], 3);
+                $versionSplit = explode('.', $version, 3);
 
                 $insert = [
                     'crdate' => $GLOBALS['EXEC_TIME'],
                     'pid' => $this->emConfiguration->getPid(),
                     'name' => $key,
-                    'version' => (string)$data['version'],
-                    'version_integer' => VersionNumberUtility::convertVersionNumberToInteger($data['version']),
-                    'major_version' => (int)$versionSplit[0],
-                    'minor_version' => (int)$versionSplit[1],
+                    'version' => (string)$version,
+                    'version_integer' => VersionNumberUtility::convertVersionNumberToInteger($version),
+                    'major_version' => (int)($versionSplit[0] ?? 0),
+                    'minor_version' => (int)($versionSplit[1] ?? 0),
                     'title' => $title,
                     'description' => $data['description'] ?? '',
                     'author_name' => $data['author'] ?? '',
