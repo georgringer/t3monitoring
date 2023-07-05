@@ -216,7 +216,7 @@ class DataIntegrity
         $rows = $queryBuilder
             ->select('tx_t3monitoring_domain_model_core.uid')
             ->from($table)
-            ->leftJoin(
+            ->innerJoin(
                 'tx_t3monitoring_domain_model_core',
                 'tx_t3monitoring_domain_model_client',
                 'tx_t3monitoring_domain_model_client',
@@ -235,7 +235,6 @@ class DataIntegrity
             ->set('is_used', 0)
             ->execute();
         if (!empty($coreRows)) {
-            $qb->set('is_used', 1)->execute();
             foreach ($coreRows as $id => $row) {
                 $qb->where('uid = ' . $id);
                 $qb->set('is_used', 1)->execute();
