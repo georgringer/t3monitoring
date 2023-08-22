@@ -31,7 +31,7 @@
 				<source>Php Version</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
-				<source>Mysql Version</source>
+				<source>Database Version</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
 				<source>Insecure Core</source>

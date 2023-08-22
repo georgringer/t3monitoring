@@ -1,0 +1,45 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  T3Monitor\T3monitoring\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+
+  T3Monitor\T3monitoring\Command\ImportCoreCommand:
+    tags:
+      - name: 'console.command'
+        command: 'monitoring:importCore'
+        schedulable: true
+
+  T3Monitor\T3monitoring\Command\ImportExtensionsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'monitoring:importExtensions'
+        schedulable: true
+
+  T3Monitor\T3monitoring\Command\ImportClientsCommand:
+    tags:
+      - name: 'console.command'
+        command: 'monitoring:importClients'
+        schedulable: true
+
+  T3Monitor\T3monitoring\Command\ImportAllCommand:
+    tags:
+      - name: 'console.command'
+        command: 'monitoring:importAll'
+        schedulable: true
+
+  T3Monitor\T3monitoring\Command\ReportAdminCommand:
+    tags:
+      - name: 'console.command'
+        command: 'reporting:admin'
+        schedulable: true
+
+  T3Monitor\T3monitoring\Command\ReportClientCommand:
+    tags:
+      - name: 'console.command'
+        command: 'reporting:client'
+        schedulable: true

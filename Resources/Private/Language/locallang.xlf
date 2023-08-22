@@ -12,6 +12,9 @@
 			<trans-unit id="tx_t3monitoring_domain_model_client.domain">
 				<source>Domain</source>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.comment">
+				<source>Comment</source>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.status">
 				<source>Status</source>
 			</trans-unit>
@@ -35,6 +38,10 @@
 				<source>Ignore Certificate Errors</source>
 				<context context-type="context">Label for field Ignore Certificate Errors (type checkbox). It's an optional field.</context>
 			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.excludeFromImport">
+				<source>Exclude from Import</source>
+				<context context-type="context">Label for field Exclude from Import (type checkbox). It's an optional field.</context>
+			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.forceIpResolve">
 				<source>Force IP Resolve</source>
 				<context context-type="context">Label for field Force IP Resolve (type select).</context>
@@ -49,7 +56,7 @@
 				<source>Php Version</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
-				<source>Mysql Version</source>
+				<source>Database Version</source>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
 				<source>Disk Total Space</source>

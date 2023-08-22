@@ -44,6 +44,7 @@ class DependenciesViewHelper extends AbstractViewHelper
         $output = [];
         foreach ($dependencies as $type => $list) {
             $output[] = '<tr><th colspan="2">' . htmlspecialchars(ucfirst($type)) . '</th></tr>';
+            $output[$type] = '';
             foreach ($list as $item => $version) {
                 $output[$type] .= sprintf('<tr><td>%s</td><td>%s</td></tr>', htmlspecialchars($item), htmlspecialchars($version));
             }

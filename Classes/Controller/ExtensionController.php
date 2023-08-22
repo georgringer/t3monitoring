@@ -9,6 +9,7 @@ namespace T3Monitor\T3monitoring\Controller;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * ExtensionController
@@ -35,7 +36,7 @@ class ExtensionController extends BaseController
     public function listAction(ExtensionFilterDemand $filter = null)
     {
         if ($filter === null) {
-            $filter = $this->objectManager->get(ExtensionFilterDemand::class);
+            $filter = GeneralUtility::makeInstance(ExtensionFilterDemand::class);
         }
 
         $this->view->assignMultiple([

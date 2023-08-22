@@ -154,6 +154,13 @@ class DataIntegrity
                 ->execute();
         }
 
+        // set is_latest = 0 for extension versions that are not last_major_release
+        $queryBuilder = $connection->createQueryBuilder();
+        $queryBuilder->update($table)
+            ->set('is_latest', 0)
+            ->where('version != last_major_release')
+            ->execute();
+
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->update($table)
             ->set('is_latest', 1)
@@ -209,7 +216,7 @@ class DataIntegrity
         $rows = $queryBuilder
             ->select('tx_t3monitoring_domain_model_core.uid')
             ->from($table)
-            ->leftJoin(
+            ->innerJoin(
                 'tx_t3monitoring_domain_model_core',
                 'tx_t3monitoring_domain_model_client',
                 'tx_t3monitoring_domain_model_client',
@@ -228,7 +235,6 @@ class DataIntegrity
             ->set('is_used', 0)
             ->execute();
         if (!empty($coreRows)) {
-            $qb->set('is_used', 1)->execute();
             foreach ($coreRows as $id => $row) {
                 $qb->where('uid = ' . $id);
                 $qb->set('is_used', 1)->execute();

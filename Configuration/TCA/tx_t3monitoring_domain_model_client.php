@@ -10,16 +10,13 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
-        'searchFields' => 'title,domain,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
+        'searchFields' => 'title,domain,comment,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
-    ],
-    'interface' => [
-        'showRecordFieldList' => 'hidden, title, domain, secret, basic_auth_username, basic_auth_password, host_header, ignore_cert_errors, force_ip_resolve, php_version, mysql_version, disk_total_space, disk_free_space, insecure_core, outdated_core, insecure_extensions, outdated_extensions, error_message, extensions, core, sla, tag',
     ],
     'types' => [
         1 => [
             'showitem' => '
-        --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,
+        --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,comment,
         --div--;Readonly information,last_successful_import,error_message,--palette--;;paletteCore, --palette--;;paletteExtensions, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,
         --div--;Extra,extra_info,extra_warning,extra_danger,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
@@ -31,7 +28,7 @@ return [
         'paletteTitle' => ['showitem' => 'title'],
         'paletteCore' => ['showitem' => 'core, insecure_core, outdated_core,'],
         'paletteExtensions' => ['showitem' => 'extensions, --linebreak--, insecure_extensions, outdated_extensions,'],
-        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, host_header, --linebreak--, ignore_cert_errors, force_ip_resolve'],
+        'paletteDomain' => ['showitem' => 'domain, secret, --linebreak--, basic_auth_username, basic_auth_password, host_header, --linebreak--, ignore_cert_errors, exclude_from_import, force_ip_resolve'],
         'paletteVersions' => ['showitem' => 'php_version, mysql_version'],
         'paletteDiskSpace' => ['showitem' => 'disk_total_space, disk_free_space'],
     ],
@@ -59,6 +56,15 @@ return [
                 'size' => 50,
                 'eval' => 'trim,required',
                 'placeholder' => 'http://yourdomain.com/'
+            ],
+        ],
+        'comment' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.comment',
+            'config' => [
+                'type' => 'text',
+                'cols' => 40,
+                'rows' => 10,
+                'eval' => 'trim'
             ],
         ],
         'secret' => [
@@ -102,6 +108,12 @@ return [
                 'type' => 'check',
             ],
         ],
+        'exclude_from_import' => [
+            'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.excludeFromImport',
+            'config' => [
+                'type' => 'check',
+            ],
+        ],
         'force_ip_resolve' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.forceIpResolve',
             'config' => [
@@ -140,7 +152,6 @@ return [
         'tag' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client.tag',
             'config' => [
-                'enableMultiSelectFilterTextfield' => 1,
                 'type' => 'select',
                 'default' => '',
                 'renderType' => 'selectMultipleSideBySide',

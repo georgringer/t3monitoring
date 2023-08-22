@@ -33,12 +33,22 @@ class Client extends AbstractEntity
     /**
      * @var string
      */
+    protected $comment = '';
+
+    /**
+     * @var string
+     */
     protected $hostHeader = '';
 
     /**
      * @var bool
      */
     protected $ignoreCertErrors = false;
+
+    /**
+     * @var bool
+     */
+    protected $excludeFromImport = false;
 
     /**
      * @var string
@@ -220,6 +230,27 @@ class Client extends AbstractEntity
     }
 
     /**
+     * Returns the comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Sets the comment
+     *
+     * @param string $comment
+     * @return void
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    }
+
+    /**
      * @return string
      */
     public function getBasicAuthUsername()
@@ -281,6 +312,22 @@ class Client extends AbstractEntity
     public function setIgnoreCertErrors(bool $ignoreCertErrors)
     {
         $this->ignoreCertErrors = $ignoreCertErrors;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isExcludeFromImport()
+    {
+        return $this->excludeFromImport;
+    }
+
+    /**
+     * @param bool $ignoreCertErrors
+     */
+    public function setExcludeFromImport(bool $excludeFromImport)
+    {
+        $this->excludeFromImport = $excludeFromImport;
     }
 
     /**

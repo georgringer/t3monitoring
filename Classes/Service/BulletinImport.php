@@ -8,6 +8,9 @@ namespace T3Monitor\T3monitoring\Service;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Http\RequestFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * Class BulletinImport
  */
@@ -36,18 +39,24 @@ class BulletinImport
     {
         $feed = [];
         try {
-            $rss = new \DOMDocument();
-            $rss->load($this->url);
-            /** @var \DOMElement $node */
-            foreach ($rss->getElementsByTagName('item') as $node) {
-                $feed[] = [
-                    'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
-                    'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
-                    'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
-                    'date' => strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue),
-                ];
+            /** @var RequestFactory $requestFactory */
+            $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+            $response = $requestFactory->request($this->url);
+            if ($response->getStatusCode() == 200) {
+                $rss = new \DOMDocument();
+                $rss->loadXML($response->getBody()->getContents());
+
+                /** @var \DOMElement $node */
+                foreach ($rss->getElementsByTagName('item') as $node) {
+                    $feed[] = [
+                        'title' => $node->getElementsByTagName('title')->item(0)->nodeValue,
+                        'desc' => $node->getElementsByTagName('description')->item(0)->nodeValue,
+                        'link' => $node->getElementsByTagName('link')->item(0)->nodeValue,
+                        'date' => strtotime($node->getElementsByTagName('pubDate')->item(0)->nodeValue),
+                    ];
+                }
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // do nothing
         }
 

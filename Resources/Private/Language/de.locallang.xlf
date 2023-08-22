@@ -29,7 +29,7 @@
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
 				<source>Mysql Version</source>
-				<target>Mysql Version</target>
+				<target>Datenbank Version</target>
 			</trans-unit>
 			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
 				<source>Disk Total Space</source>

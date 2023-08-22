@@ -67,8 +67,8 @@
 						</tr>
 					</f:if>
 					<tr>
-						<th><i class="fa fa-database fa-fw"></i> Mysql Version</th>
-						<td>{client.mysqlVersion -> monitor:format.mysqlVersion()}</td>
+						<th><i class="fa fa-database fa-fw"></i> {f:translate(key:'tx_t3monitoring_domain_model_client.mysql_version')}</th>
+						<td>{client.mysqlVersion}</td>
 					</tr>
 					<tr>
 						<th><i class="fa fa-code fa-fw"></i> PHP Version</th>
@@ -81,6 +81,10 @@
 					<tr>
 						<th><i class="fa fa-hdd-o fa-fw"></i> {f:translate(key:'tx_t3monitoring_domain_model_client.disk_free_space')}</th>
 						<td>{client.diskFreeSpace -> f:format.bytes(decimals: 1)}</td>
+					</tr>
+					<tr>
+						<th><i class="fa fa-comment-o fa-fw"></i> {f:translate(key:'tx_t3monitoring_domain_model_client.comment')}</th>
+						<td>{client.comment -> f:format.nl2br()}</td>
 					</tr>
 				</table>
 			</div>
@@ -229,7 +233,7 @@
 			<f:for each="{data}" as="value" key="key">
 				<tr class="{cssClass}">
 					<th style="width: 20%;">{key}</th>
-					<td>{value}</td>
+					<td>{value -> f:format.html()}</td>
 				</tr>
 			</f:for>
 		</table>

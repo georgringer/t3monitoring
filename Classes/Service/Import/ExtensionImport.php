@@ -14,8 +14,7 @@ use T3Monitor\T3monitoring\Service\DataIntegrity;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException;
-use TYPO3\CMS\Extensionmanager\Utility\Repository\Helper;
+use TYPO3\CMS\Extensionmanager\Remote\RemoteRegistry;
 
 /**
  * Class ExtensionImport
@@ -30,11 +29,12 @@ class ExtensionImport extends BaseImport
      * Run extension import
      *
      * @throws InvalidArgumentException
-     * @throws ExtensionManagerException
      */
     public function run()
     {
-        $updateRequired = $this->updateExtensionList();
+        // $updateRequired = $this->updateExtensionList();
+        // always set $updateRequired = true, as $this->updateExtensionList() never returns true
+        $updateRequired = true;
         if ($updateRequired) {
             $this->insertExtensionsInCustomTable();
         }
@@ -120,23 +120,67 @@ class ExtensionImport extends BaseImport
         if (!$fields['serialized_dependencies']) {
             return;
         }
+
         $dependencies = unserialize($fields['serialized_dependencies']);
-        if (!is_array($dependencies) || !is_array($dependencies['depends']) || !isset($dependencies['depends']['typo3'])) {
+        $depends = null;
+        if (array_key_exists('depends', $dependencies)) {
+            $depends = $dependencies['depends'];
+        }
+
+        if (!is_array($dependencies) || !is_array($depends) || !isset($dependencies['depends']['typo3'])) {
             return;
         }
 
-        $split = VersionNumberUtility::splitVersionRange($dependencies['depends']['typo3']);
+        $split = self::splitVersionRange($dependencies['depends']['typo3']);
         $fields['typo3_min_version'] = VersionNumberUtility::convertVersionNumberToInteger($split[0]);
         $fields['typo3_max_version'] = VersionNumberUtility::convertVersionNumberToInteger($split[1]);
     }
 
     /**
      * @return bool TRUE if the extension list was successfully update, FALSE if no update necessary
-     * @throws ExtensionManagerException
      */
     protected function updateExtensionList(): bool
     {
-        $extensionRepository = GeneralUtility::makeInstance(Helper::class);
-        return $extensionRepository->updateExtList();
+        $updated = false;
+
+        $remoteRegistry = GeneralUtility::makeInstance(RemoteRegistry::class);
+        foreach ($remoteRegistry->getListableRemotes() as $remote) {
+            // TYPO3 11.5.12: at least TYPO3\CMS\Extensionmanager\Remote\TerExtensionRemote::getAvailablePackages()
+            // returns void, so $updated will never become TRUE here...
+            $remoteUpdate = $remote->getAvailablePackages();
+            if ($remoteUpdate) {
+                $updated = true;
+            }
+        }
+
+        return $updated;
+    }
+
+    /**
+     * Splits a version range into an array.
+     *
+     * If a single version number is given, it is considered a minimum value.
+     * If a dash is found, the numbers left and right are considered as minimum and maximum. Empty values are allowed.
+     * If no version can be parsed "0.0.0" — "0.0.0" is the result
+     *
+     * @param string $version A string with a version range.
+     * @return array
+     */
+    protected static function splitVersionRange($version)
+    {
+        $versionRange = [];
+        if (strpos($version, '-') !== false) {
+            $versionRange = explode('-', $version, 2);
+        } else {
+            $versionRange[0] = $version;
+            $versionRange[1] = '';
+        }
+        if (!$versionRange[0]) {
+            $versionRange[0] = '0.0.0';
+        }
+        if (!$versionRange[1]) {
+            $versionRange[1] = '0.0.0';
+        }
+        return $versionRange;
     }
 }

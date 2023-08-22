@@ -13,7 +13,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Monitoring command controller
@@ -40,8 +39,7 @@ class ImportClientsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $import = $objectManager->get(ClientImport::class);
+        $import = GeneralUtility::makeInstance(ClientImport::class);
         $import->run();
 
         $result = $import->getResponseCount();

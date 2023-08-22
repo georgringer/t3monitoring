@@ -10,6 +10,7 @@ namespace T3Monitor\T3monitoring\Controller;
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * CoreController
@@ -23,7 +24,7 @@ class CoreController extends BaseController
     public function listAction(CoreFilterDemand $filter = null)
     {
         if ($filter === null) {
-            $filter = $this->objectManager->get(CoreFilterDemand::class);
+            $filter = GeneralUtility::makeInstance(CoreFilterDemand::class);
             $filter->setUsage(CoreRepository::USED_ONLY);
         }
 

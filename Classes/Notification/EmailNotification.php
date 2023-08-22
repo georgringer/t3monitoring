@@ -14,7 +14,6 @@ use Symfony\Component\Mime\Address;
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use UnexpectedValueException;
 
@@ -98,25 +97,13 @@ class EmailNotification implements LoggerAwareInterface
     {
         /** @var MailMessage $mailMessage */
         $mailMessage = GeneralUtility::makeInstance(MailMessage::class);
-        $isv10 = VersionNumberUtility::convertVersionNumberToInteger('10.0') <= VersionNumberUtility::convertVersionNumberToInteger(TYPO3_branch);
-        if ($isv10) {
-            $mailMessage
-                ->setTo($to)
-                ->setSubject($subject)
-                ->text($plainContent)
-                ->addFrom(new Address($this->getSenderEmailAddress(), $this->getSenderEmailName()));
-            if (!empty($htmlContent)) {
-                $mailMessage->html($htmlContent);
-            }
-        } else {
-            $mailMessage
-                ->setTo($to)
-                ->setSubject($subject)
-                ->setBody($plainContent)->setContentType('text/plain')
-                ->addFrom($this->getSenderEmailAddress(), $this->getSenderEmailName());
-            if (!empty($htmlContent)) {
-                $mailMessage->addPart($htmlContent, 'text/html');
-            }
+        $mailMessage
+            ->setTo($to)
+            ->setSubject($subject)
+            ->text($plainContent)
+            ->addFrom(new Address($this->getSenderEmailAddress(), $this->getSenderEmailName()));
+        if (!empty($htmlContent)) {
+            $mailMessage->html($htmlContent);
         }
 
         return $mailMessage->send();

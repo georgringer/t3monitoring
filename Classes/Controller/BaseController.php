@@ -16,16 +16,13 @@ use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
-use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -68,31 +65,26 @@ class BaseController extends ActionController
      */
     public function initializeAction()
     {
-        $this->statisticRepository = $this->objectManager->get(StatisticRepository::class);
-        $this->filterDemand = $this->objectManager->get(ClientFilterDemand::class);
-        $this->clientRepository = $this->objectManager->get(ClientRepository::class);
-        $this->coreRepository = $this->objectManager->get(CoreRepository::class);
+        $this->statisticRepository = GeneralUtility::makeInstance(StatisticRepository::class);
+        $this->filterDemand = GeneralUtility::makeInstance(ClientFilterDemand::class);
+        $this->clientRepository = GeneralUtility::makeInstance(ClientRepository::class);
+        $this->coreRepository = GeneralUtility::makeInstance(CoreRepository::class);
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
         $this->registry = GeneralUtility::makeInstance(Registry::class);
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
 
         parent::initializeAction();
 
-        $isv10 = VersionNumberUtility::convertVersionNumberToInteger('10.0')
-            <= VersionNumberUtility::convertVersionNumberToInteger((new Typo3Version())->getBranch());
-        if ($isv10) {
-            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-            $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript/';
-            $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
-            $fullJsPath = PathUtility::getRelativePath(Environment::getPublicPath(), $fullJsPath);
-            $fullJsPath = rtrim($fullJsPath, '/');
-            $pageRenderer->addRequireJsConfiguration([
-                'paths' => [
-                    'datatables' => $fullJsPath . '/jquery.dataTables.min',
-                    'datatablesBootstrap' => $fullJsPath . '/dataTables.bootstrap.min',
-                ]
-            ]);
-        }
+        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+        $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript';
+        $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
+        $fullJsPath = PathUtility::getAbsoluteWebPath($fullJsPath);
+        $pageRenderer->addRequireJsConfiguration([
+            'paths' => [
+                'datatables' => $fullJsPath . '/jquery.dataTables.min',
+                'datatablesBootstrap' => $fullJsPath . '/dataTables.bootstrap.min',
+            ]
+        ]);
     }
 
     /**
@@ -195,7 +187,7 @@ class BaseController extends ActionController
         $addUserGroupButton = $buttonBar->makeLinkButton()
             ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
             ->setTitle($this->getLabel('createNew.client'))
-            ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-document-new',
+            ->setIcon($this->iconFactory->getIcon('actions-document-new',
                 Icon::SIZE_SMALL));
         $buttonBar->addButton($addUserGroupButton, ButtonBar::BUTTON_POSITION_LEFT);
 
@@ -210,7 +202,7 @@ class BaseController extends ActionController
             $editClientButton = $buttonBar->makeLinkButton()
                 ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($this->getLabel('edit.client'))
-                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-open',
+                ->setIcon($this->iconFactory->getIcon('actions-open',
                     Icon::SIZE_SMALL));
             $buttonBar->addButton($editClientButton, ButtonBar::BUTTON_POSITION_LEFT);
 
@@ -218,7 +210,7 @@ class BaseController extends ActionController
             $downloadClientDataButton = $buttonBar->makeLinkButton()
                 ->setHref($this->getUriBuilder()->reset()->uriFor('fetch', ['client' => $clientId], 'Client'))
                 ->setTitle($this->getLabel('fetchClient.link'))
-                ->setIcon($this->view->getModuleTemplate()->getIconFactory()->getIcon('actions-system-extension-download',
+                ->setIcon($this->iconFactory->getIcon('actions-system-extension-download',
                     Icon::SIZE_SMALL));
             $buttonBar->addButton($downloadClientDataButton, ButtonBar::BUTTON_POSITION_LEFT);
         }
@@ -238,7 +230,7 @@ class BaseController extends ActionController
      */
     protected function getUriBuilder(): UriBuilder
     {
-        $uriBuilder = $this->objectManager->get(UriBuilder::class);
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         $uriBuilder->setRequest($this->request);
 
         return $uriBuilder;
@@ -249,7 +241,7 @@ class BaseController extends ActionController
      */
     protected function getClientFilterDemand(): ClientFilterDemand
     {
-        return $this->objectManager->get(ClientFilterDemand::class);
+        return GeneralUtility::makeInstance(ClientFilterDemand::class);
     }
 
     /**
