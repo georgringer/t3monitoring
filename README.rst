@@ -92,11 +92,11 @@ Especially the import of extensions can take a while, therefore you can use diff
 
 Notifications
 -------------
-t3monitor contains various notifications.
+t3monitoring contains various notifications.
 
 Failed to fetch client info
 """""""""""""""""""""""""""
-This notification sends an email, if a clients information (provided by the extension "t3monitoring_client") cannot be accessed/fetched. You may configure the email recipient in the "Extension Configuration" of the t3monitor extension using the setting "records.emailForFailedClient".
+This notification sends an email, if a clients information (provided by the extension "t3monitoring_client") cannot be accessed/fetched. You may configure the email recipient in the "Extension Configuration" of the t3monitoring extension using the setting "records.emailForFailedClient".
 
 The notification is send by the Symfony Console Command **"monitoring:importClients"** and consists of a single email which contains a list of all failing clients. The frequency of the notification email depends on your scheduled task for importing the clients.
 
@@ -106,7 +106,7 @@ Client report
 """""""""""""
 Another possible notification is the "Client report". It is represented by the Symfony Console Command **"reporting:client"**. It generates an email for each client and uses the clients email property ("email") as recipient address. If there is no email set, its not possible to send a notfication.
 
-If t3monitor identifies security problems, an outdated core or additional error messages the notification is sent. If the client does not break with these regulations, no email is sent.
+If t3monitoring identifies security problems, an outdated core or additional error messages the notification is sent. If the client does not break with these regulations, no email is sent.
 
 The frequency is again defined by the according scheduled task.
 
