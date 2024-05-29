@@ -5,7 +5,6 @@ return [
         'label' => 'version',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'enablecolumns' => [
         ],
         'security' => [
@@ -53,10 +52,10 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.0', 0],
-                    ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.1', 1],
-                    ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.2', 2],
-                    ['LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.4', 4],
+                    ['label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.0', 'value' => 0],
+                    ['label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.1', 'value' => 1],
+                    ['label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.2', 'value' => 2],
+                    ['label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.type.4', 'value' => 4],
                 ],
                 'default' => 0,
             ],
@@ -64,10 +63,9 @@ return [
         'release_date' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.release_date',
             'config' => [
+                'type' => 'datetime',
+                'format' => 'datetime',
                 'dbType' => 'datetime',
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
             ],
         ],
         'latest' => [
@@ -110,9 +108,8 @@ return [
         'version_integer' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_core.version_integer',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int'
+                'type' => 'number',
+                'size' => 10,
             ],
         ],
         'is_used' => [

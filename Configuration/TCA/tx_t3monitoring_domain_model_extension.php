@@ -8,7 +8,6 @@ return [
         'hideTable' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'enablecolumns' => [],
         'security' => [
             'ignorePageTypeRestriction' => true,
@@ -28,7 +27,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true
             ],
         ],
         'version' => [
@@ -74,10 +74,9 @@ return [
         'last_updated' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.last_updated',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
+                'format' => 'datetime',
                 'dbType' => 'datetime',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
             ],
         ],
         'author_name' => [
@@ -103,7 +102,7 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['-- Label --', 0],
+                    ['label' => '-- Label --', 'value' => 0],
                 ],
             ],
         ],
@@ -113,16 +112,15 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['-- Label --', 0],
+                    ['label' => '-- Label --', 'value' => 0],
                 ],
             ],
         ],
         'version_integer' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.version_integer',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int'
+                'type' => 'number',
+                'size' => 10,
             ],
         ],
         'is_used' => [
