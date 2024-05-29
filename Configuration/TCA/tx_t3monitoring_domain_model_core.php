@@ -8,6 +8,9 @@ return [
         'cruser_id' => 'cruser_id',
         'enablecolumns' => [
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'searchFields' => 'version,insecure,next_secure_version,type,release_date,latest,stable,is_stable,is_active,is_latest,version_integer,is_used,is_official,',
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_core.svg'
     ],
