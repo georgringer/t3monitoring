@@ -67,7 +67,7 @@ class ExtensionRepository extends BaseRepository
         $this->extendWhereClause($demand, $queryBuilder, $expressionBuilder);
 
         $result = [];
-        foreach ($queryBuilder->execute()->fetchAll() as $row) {
+        foreach ($queryBuilder->executeQuery()->fetchAll() as $row) {
             $result[$row['name']][$row['version']]['insecure'] = $row['insecure'];
             $result[$row['name']][$row['version']]['clients'][] = $row;
         }

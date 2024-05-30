@@ -42,7 +42,7 @@ class StatisticRepository extends BaseRepository
             )
             ->orderBy('tx_t3monitoring_domain_model_core.version_integer')
             ->groupBy('tx_t3monitoring_domain_model_core.version', 'version_integer', 'insecure', 'is_stable', 'is_latest', 'is_active')
-            ->execute()->fetchAll();
+            ->executeQuery()->fetchAll();
     }
 
     /**

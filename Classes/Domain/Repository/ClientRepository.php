@@ -52,7 +52,7 @@ class ClientRepository extends BaseRepository
         $constraints = $this->getConstraints($demand, $query);
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
         }
         return $query->execute()->count();
@@ -81,7 +81,7 @@ class ClientRepository extends BaseRepository
         }
 
         $query->matching(
-            $query->logicalAnd($constraints)
+            $query->logicalAnd(...$constraints)
         );
 
         return $query->execute();
@@ -148,10 +148,10 @@ class ClientRepository extends BaseRepository
 
         // outdated core
         if ($demand->isWithOutdatedCore()) {
-            $constraints[] = $query->logicalOr([
+            $constraints[] = $query->logicalOr(
                 $query->equals('core.isLatest', 0),
                 $query->equals('core.isActive', 0)
-            ]);
+            );
         }
 
         // extra info
