@@ -15,7 +15,7 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -33,8 +33,8 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 class BaseController extends ActionController
 {
 
-    /** @var BackendTemplateView */
-    protected $view;
+    /** @var ModuleTemplateFactory */
+    protected $moduleTemplateFactory;
 
     /** @var StatisticRepository */
     protected $statisticRepository;
@@ -47,9 +47,6 @@ class BaseController extends ActionController
 
     /** @var ClientFilterDemand */
     protected $filterDemand;
-
-    /** @var BackendTemplateView */
-    protected $defaultViewObjectName = BackendTemplateView::class;
 
     /** @var IconFactory */
     protected $iconFactory;
@@ -72,7 +69,19 @@ class BaseController extends ActionController
         $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
         $this->registry = GeneralUtility::makeInstance(Registry::class);
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
+        $this->moduleTemplateFactory = GeneralUtility::makeInstance(ModuleTemplateFactory::class);
 
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->moduleTemplate->assignMultiple([
+            'emConfiguration' => $this->emConfiguration,
+            'formats' => [
+                'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
+                'time' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+                'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+            ]
+        ]);
+        $this->createMenu();
+        $this->getButtons();
         parent::initializeAction();
 
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
@@ -85,35 +94,7 @@ class BaseController extends ActionController
                 'datatablesBootstrap' => $fullJsPath . '/dataTables.bootstrap.min',
             ]
         ]);
-    }
-
-    /**
-     * Set up the doc header properly here
-     *
-     * @param ViewInterface $view
-     * @throws \InvalidArgumentException
-     */
-    protected function initializeView(ViewInterface $view)
-    {
-        /** @var BackendTemplateView $view */
-        parent::initializeView($view);
-        $view->getModuleTemplate()->getDocHeaderComponent()->setMetaInformation([]);
-        $view->assignMultiple([
-            'emConfiguration' => $this->emConfiguration,
-            'formats' => [
-                'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
-                'time' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-                'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-            ]
-        ]);
-
-        /** @var PageRenderer $pageRenderer */
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $pageRenderer->loadRequireJsModule('TYPO3/CMS/T3monitoring/Main');
         $pageRenderer->addCssFile('EXT:t3monitoring/Resources/Public/Css/t3monitoring.css');
-
-        $this->createMenu();
-        $this->getButtons();
     }
 
     /**
@@ -122,7 +103,7 @@ class BaseController extends ActionController
      */
     protected function createMenu()
     {
-        $menu = $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier('t3monitoring');
 
         $actions = [
@@ -151,7 +132,7 @@ class BaseController extends ActionController
             $menu->addMenuItem($item);
         }
 
-        $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
@@ -160,7 +141,7 @@ class BaseController extends ActionController
      */
     protected function getButtons()
     {
-        $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         // Home
         if (($this->request->getControllerName() !== 'Statistic'
@@ -177,7 +158,7 @@ class BaseController extends ActionController
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
         // Buttons for new records
-        $returnUrl = rawurlencode($uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
+        $returnUrl = rawurlencode($uriBuilder->buildUriFromRoutePath('/module/tools/t3monitoring', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
         ]));
         $pid = $this->emConfiguration->getPid();

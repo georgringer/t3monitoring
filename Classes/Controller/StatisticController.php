@@ -9,6 +9,7 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
@@ -49,7 +50,7 @@ class StatisticController extends BaseController
         $this->coreRepository = GeneralUtility::makeInstance(CoreRepository::class);
         $this->slaRepository = GeneralUtility::makeInstance(SlaRepository::class);
         $this->tagRepository = GeneralUtility::makeInstance(TagRepository::class);
-
+        
         parent::initializeAction();
     }
 
@@ -58,13 +59,13 @@ class StatisticController extends BaseController
      *
      * @param ClientFilterDemand|null $filter
      */
-    public function indexAction(ClientFilterDemand $filter = null)
+    public function indexAction(ClientFilterDemand $filter = null): ResponseInterface
     {
         if (null === $filter) {
             $filter = $this->getClientFilterDemand();
-            $this->view->assign('showIntro', true);
+            $this->moduleTemplate->assign('showIntro', true);
         } else {
-            $this->view->assign('showSearch', true);
+            $this->moduleTemplate->assign('showSearch', true);
         }
 
         $errorMessageDemand = $this->getClientFilterDemand()->setWithErrorMessage(true);
@@ -83,7 +84,7 @@ class StatisticController extends BaseController
             $feedItems = $bulletinImport->start();
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'filter' => $filter,
             'clients' => $this->clientRepository->findByDemand($filter),
             'coreVersions' => $this->getAllCoreVersions(),
@@ -107,6 +108,8 @@ class StatisticController extends BaseController
                 'extension' => $this->registry->get('t3monitoring', 'importExtension'),
             ],
         ]);
+
+        return $this->moduleTemplate->renderResponse('Index');
     }
 
     /**
@@ -114,7 +117,7 @@ class StatisticController extends BaseController
      *
      * @param string $import
      */
-    public function administrationAction($import = '')
+    public function administrationAction($import = ''): ResponseInterface
     {
         $success = $error = false;
 
@@ -138,10 +141,13 @@ class StatisticController extends BaseController
             }
         }
 
-        $this->view->assignMultiple([
+        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $moduleTemplate->assignMultiple([
             'success' => $success,
-            'error' => $error
+            'error' => $error,
         ]);
+
+        return $moduleTemplate->renderResponse('Administration');
     }
 
     /**

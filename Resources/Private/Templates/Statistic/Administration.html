@@ -1,32 +1,32 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers">
 
-<f:layout name="Simple" />
+<f:layout name="Module" />
 
-<f:section name="content">
-	<h1>{f:translate(key:'view.administration')}</h1>
+<f:section name="Content">
+	<h1>{f:translate(key:'view.administration', extensionName: 't3monitoring')}</h1>
 	<f:if condition="{emConfiguration.ipHint}">
 		<div class="alert alert-info">
-			<f:format.raw><f:translate key="administration.ipHint" arguments="{0:emConfiguration.ipHint}" /></f:format.raw>
+			<f:format.raw><f:translate key="administration.ipHint" extensionName="t3monitoring" arguments="{0:emConfiguration.ipHint}" /></f:format.raw>
 		</div>
 	</f:if>
 
-	<h3>{f:translate(key:'administration.import.headline')}</h3>
-	<p>{f:translate(key:'administration.import.description')}</p>
+	<h3>{f:translate(key:'administration.import.headline', extensionName: 't3monitoring')}</h3>
+	<p>{f:translate(key:'administration.import.description', extensionName: 't3monitoring')}</p>
 
 	<div class="btn-toolbar">
 		<div class="btn-group" role="group">
 			<f:link.action action="administration" arguments="{import:'clients'}" class="btn btn-info">
-				{core:icon(identifier:'actions-system-extension-download', alternativeMarkupIdentifier: 'inline')} {f:translate(key:'tx_t3monitoring_domain_model_client')}
+				{core:icon(identifier:'actions-system-extension-download', alternativeMarkupIdentifier: 'inline')} {f:translate(key:'tx_t3monitoring_domain_model_client', extensionName: 't3monitoring')}
 			</f:link.action>
 		</div>
 		<div class="btn-group" role="group">
 			<f:link.action action="administration" arguments="{import:'core'}" class="btn btn-info">
-				{core:icon(identifier:'actions-system-extension-download', alternativeMarkupIdentifier: 'inline')} {f:translate(key:'tx_t3monitoring_domain_model_core')}
+				{core:icon(identifier:'actions-system-extension-download', alternativeMarkupIdentifier: 'inline')} {f:translate(key:'tx_t3monitoring_domain_model_core', extensionName: 't3monitoring')}
 			</f:link.action>
 		</div>
 		<div class="btn-group" role="group">
 			<f:link.action action="administration" arguments="{import:'extensions'}" class="btn btn-info">
-				{core:icon(identifier:'actions-system-extension-download', alternativeMarkupIdentifier: 'inline')} {f:translate(key:'tx_t3monitoring_domain_model_extension')}
+				{core:icon(identifier:'actions-system-extension-download', alternativeMarkupIdentifier: 'inline')} {f:translate(key:'tx_t3monitoring_domain_model_extension', extensionName: 't3monitoring')}
 			</f:link.action>
 		</div>
 	</div>
@@ -35,7 +35,7 @@
 		<f:if condition="{success}">
 			<br><br>
 			<div class="alert alert-success">
-				{f:translate(key:'administration.import.success')}
+				{f:translate(key:'administration.import.success', extensionName: 't3monitoring')}
 			</div>
 		</f:if>
 	</div>

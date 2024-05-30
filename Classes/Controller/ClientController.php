@@ -9,6 +9,7 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -26,16 +27,18 @@ class ClientController extends BaseController
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $client
      * @return void
      */
-    public function showAction(Client $client = null)
+    public function showAction(Client $client = null): ResponseInterface
     {
         if ($client === null) {
             // @todo flash message
-            $this->redirect('index', 'Statistic');
+           return $this->redirect('index', 'Statistic');
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'client' => $client,
         ]);
+
+        return $this->moduleTemplate->renderResponse('Show');
     }
 
     /**
@@ -44,17 +47,17 @@ class ClientController extends BaseController
      * @param Client $client
      * @TYPO3\CMS\Extbase\Annotation\IgnoreValidation $client
      */
-    public function fetchAction(Client $client = null)
+    public function fetchAction(Client $client = null): ResponseInterface
     {
         if ($client === null) {
             // @todo flash message
-            $this->redirect('index', 'Statistic');
+            return $this->redirect('index', 'Statistic');
         } else {
             /** @var ClientImport $import */
             $import = GeneralUtility::makeInstance(ClientImport::class);
             $import->run($client->getUid());
             $this->addFlashMessage($this->getLabel('fetchClient.success'));
-            $this->redirect('show', null, null, ['client' => $client]);
+            return $this->redirect('show', null, null, ['client' => $client]);
         }
     }
 }

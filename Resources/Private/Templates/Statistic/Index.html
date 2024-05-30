@@ -2,24 +2,27 @@
       xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
       xmlns:monitor="http://typo3.org/ns/T3Monitor/T3monitoring/ViewHelpers">
 
-<f:layout name="Simple"/>
+<f:layout name="Module"/>
 
-<f:section name="content">
+<f:section name="Content">
     <f:if condition="{fullClientCount}">
         <f:then>
             <f:if condition="{showIntro}">
+                <f:if condition="{emConfiguration.useGoogleCharts}">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                </f:if>
+
                 <div class="row">
                     <div class="col-md-3">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                {f:translate(key:'clients.total', arguments:'{0:numberOfClients}')}
+                                {f:translate(key:'clients.total', extensionName: 't3monitoring', arguments:'{0:numberOfClients}')}
                             </div>
                             <table class="table table-striped table-hover">
                                 <tr>
                                     <th>
-                                        <f:link.action
-                                                additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withErrorMessage:'1'}}}">
-                                            {f:translate(key:'clients.notReachable')}
+                                        <f:link.action additionalParams="{filter:{withErrorMessage:'1'}}">
+                                            {f:translate(key:'clients.notReachable', extensionName: 't3monitoring')}
                                         </f:link.action>
                                     </th>
                                     <td>
@@ -28,9 +31,8 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <f:link.action
-                                                additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withInsecureCore: '1'}}}">
-                                            {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_core')}
+                                        <f:link.action additionalParams="{filter:{withInsecureCore: '1'}}">
+                                            {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_core', extensionName: 't3monitoring')}
                                         </f:link.action>
                                     </th>
                                     <td>
@@ -39,9 +41,8 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <f:link.action
-                                                additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withOutdatedCore: '1'}}}">
-                                            {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_core')}
+                                        <f:link.action additionalParams="{filter:{withOutdatedCore: '1'}}">
+                                            {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_core', extensionName: 't3monitoring')}
                                         </f:link.action>
                                     </th>
                                     <td>
@@ -50,9 +51,8 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        <f:link.action
-                                                additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withInsecureExtensions:1}}}">
-                                            {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}
+                                        <f:link.action additionalParams="{filter:{withInsecureExtensions:1}}">
+                                            {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions', extensionName: 't3monitoring')}
                                         </f:link.action>
                                     </th>
                                     <td>
@@ -63,13 +63,12 @@
                                     <th>
                                         <f:if condition="{clientsWithOutdatedExtensions}">
                                             <f:then>
-                                                <f:link.action
-                                                        additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withOutdatedExtensions:1}}}">
-                                                    {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}
+                                                <f:link.action additionalParams="{filter:{withOutdatedExtensions:1}}">
+                                                    {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions', extensionName: 't3monitoring')}
                                                 </f:link.action>
                                             </f:then>
                                             <f:else>
-                                                {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}
+                                                {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions', extensionName: 't3monitoring')}
                                             </f:else>
                                         </f:if>
                                     </th>
@@ -80,9 +79,8 @@
                                 <f:if condition="{clientsWithWarningInfo}">
                                     <tr>
                                         <th>
-                                            <f:link.action
-                                                    additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withExtraWarning :1}}}">
-                                                {f:translate(key:'filter.withExtraWarning')}
+                                            <f:link.action additionalParams="{filter:{withExtraWarning :1}}">
+                                                {f:translate(key:'filter.withExtraWarning', extensionName: 't3monitoring')}
                                             </f:link.action>
                                         </th>
                                         <td>
@@ -93,9 +91,8 @@
                                 <f:if condition="{clientsWithDangerInfo}">
                                     <tr>
                                         <th>
-                                            <f:link.action
-                                                    additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{withExtraDanger:1}}}">
-                                                {f:translate(key:'filter.withExtraDanger')}
+                                            <f:link.action additionalParams="{filter:{withExtraDanger:1}}">
+                                                {f:translate(key:'filter.withExtraDanger', extensionName: 't3monitoring')}
                                             </f:link.action>
                                         </th>
                                         <td>
@@ -114,16 +111,15 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_core.version')}</th>
-                                    <th>{f:translate(key:'count')}</th>
+                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_core.version', extensionName: 't3monitoring')}</th>
+                                    <th>{f:translate(key:'count', extensionName: 't3monitoring')}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <f:for each="{coreVersionUsage}" as="line">
                                     <tr>
                                         <td class="{f:if(condition:line.insecureCore,then:'danger',else:'')} {f:if(condition:line.is_latest,then:'success',else:'warning')}">
-                                            <f:link.action
-                                                    additionalParams="{tx_t3monitoring_tools_t3monitoringt3monitor:{filter:{version:line.version}}}">
+                                            <f:link.action additionalParams="{filter:{version:line.version}}">
                                                 {line.version}
                                             </f:link.action>
                                         </td>
@@ -171,7 +167,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <f:translate key="bulletins.headline" />
+                                <f:translate key="bulletins.headline" extensionName="t3monitoring" />
                             </div>
                             <div class="panel-body">
                             <f:if condition="{emConfiguration.loadBulletins}">
@@ -193,21 +189,21 @@
                                         </f:then>
                                         <f:else>
                                             <div class="alert alert-warning">
-                                                {f:translate(key:'bulletins.errorFetch')}
+                                                {f:translate(key:'bulletins.errorFetch', extensionName: 't3monitoring')}
                                             </div>
                                         </f:else>
                                     </f:if>
                                 </f:then>
                                 <f:else>
                                     <f:be.infobox>
-                                        <p>{f:translate(key:'bulletins.disabled')}</p>
+                                        <p>{f:translate(key:'bulletins.disabled', extensionName: 't3monitoring')}</p>
                                     </f:be.infobox>
                                 </f:else>
                             </f:if>
                             </div>
                             <div class="panel-footer">
                                 <a href="https://typo3.org/help/security-advisories/security/all/" target="_blank"
-                                    class="t3-link">{f:translate(key:'bulletins.all')}</a>
+                                    class="t3-link">{f:translate(key:'bulletins.all', extensionName: 't3monitoring')}</a>
                             </div>
                         </div>
 
@@ -222,7 +218,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label for="form-client">{f:translate(key:'tx_t3monitoring_domain_model_client')}</label>
+                            <label for="form-client">{f:translate(key:'tx_t3monitoring_domain_model_client', extensionName: 't3monitoring')}</label>
                             <f:form.textfield property="searchWord" id="form-client" class="form-control"/>
                         </div>
 
@@ -234,7 +230,7 @@
 
                         <f:if condition="{slaVersions}">
                             <div class="form-group">
-                                <label for="form-sla">{f:translate(key:'tx_t3monitoring_domain_model_sla')}</label>
+                                <label for="form-sla">{f:translate(key:'tx_t3monitoring_domain_model_sla', extensionName: 't3monitoring')}</label>
                                 <f:form.select property="sla" id="form-sla" options="{slaVersions}"
                                                optionValueField="uid" optionLabelField="title" class="form-control"
                                                prependOptionLabel="" prependOptionValue=""/>
@@ -243,7 +239,7 @@
 
                         <f:if condition="{tagVersions}">
                             <div class="form-group">
-                                <label for="form-tag">{f:translate(key:'tag')}</label>
+                                <label for="form-tag">{f:translate(key:'tag', extensionName: 't3monitoring')}</label>
                                 <f:form.select property="tag" id="form-tag" options="{tagVersions}"
                                                optionValueField="uid" optionLabelField="title" class="form-control"
                                                prependOptionLabel="" prependOptionValue=""/>
@@ -251,45 +247,45 @@
                         </f:if>
 
                         <fieldset>
-                            <legend class="legend">{f:translate(key:'filter.fieldset.core')}</legend>
+                            <legend class="legend">{f:translate(key:'filter.fieldset.core', extensionName: 't3monitoring')}</legend>
                             <div class="checkbox">
                                 <label>
                                     <f:form.checkbox property="withInsecureCore" value="1"/>
-                                    {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_core')}</label>
+                                    {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_core', extensionName: 't3monitoring')}</label>
                             </div>
 
                             <div class="checkbox">
                                 <label>
                                     <f:form.checkbox property="withOutdatedCore" value="1"/>
-                                    {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_core')}</label>
+                                    {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_core', extensionName: 't3monitoring')}</label>
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend class="legend">{f:translate(key:'filter.fieldset.extensions')}</legend>
+                            <legend class="legend">{f:translate(key:'filter.fieldset.extensions', extensionName: 't3monitoring')}</legend>
                             <div class="checkbox">
                                 <label>
                                     <f:form.checkbox property="withOutdatedExtensions" value="1"/>
-                                    {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}</label>
+                                    {f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions', extensionName: 't3monitoring')}</label>
                             </div>
 
                             <div class="checkbox">
                                 <label>
                                     <f:form.checkbox property="withInsecureExtensions" value="1"/>
-                                    {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}</label>
+                                    {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions', extensionName: 't3monitoring')}</label>
                             </div>
                         </fieldset>
                         <fieldset>
-                            <legend class="legend">{f:translate(key:'filter.fieldset.misc')}</legend>
+                            <legend class="legend">{f:translate(key:'filter.fieldset.misc', extensionName: 't3monitoring')}</legend>
                             <div class="checkbox">
                                 <label>
                                     <f:form.checkbox property="withErrorMessage" value="1"/>
-                                    {f:translate(key:'filter.connectionErrors')}</label>
+                                    {f:translate(key:'filter.connectionErrors', extensionName: 't3monitoring')}</label>
                             </div>
                         </fieldset>
 
                         <div class="form-group">
                             <button class="btn btn-default">
-                                {core:icon(identifier:'actions-search')} {f:translate(key:'search')}
+                                {core:icon(identifier:'actions-search')} {f:translate(key:'search', extensionName: 't3monitoring')}
                             </button>
                         </div>
                     </div>
@@ -300,22 +296,22 @@
                                     <f:then>
                                         <div class="panel panel-default">
                                             <div class="panel-heading">
-                                                {f:translate(key:'clients.total', arguments:'{0:\'{clients -> f:count()}\'}')}
+                                                {f:translate(key:'clients.total', extensionName: 't3monitoring', arguments:'{0:\'{clients -> f:count()}\'}')}
                                             </div>
                                             <table class="table table-striped table-hover client-list">
                                                 <thead>
                                                 <tr>
-                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_client')}</th>
-                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_client.domain')}</th>
-                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_client.status')}</th>
-                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_sla')}</th>
-                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_tag')}</th>
-                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_core')}</th>
-                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'clients.numberOfExtensions')}" class="badge badge-info">-</span></th>
-                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}" class="badge badge-danger">-</span></th>
-                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}" class="badge badge-default">-</span></th>
+                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_client', extensionName: 't3monitoring')}</th>
+                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_client.domain', extensionName: 't3monitoring')}</th>
+                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_client.status', extensionName: 't3monitoring')}</th>
+                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_sla', extensionName: 't3monitoring')}</th>
+                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_tag', extensionName: 't3monitoring')}</th>
+                                                    <th>{f:translate(key:'tx_t3monitoring_domain_model_core', extensionName: 't3monitoring')}</th>
+                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'clients.numberOfExtensions', extensionName: 't3monitoring')}" class="badge badge-info">-</span></th>
+                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions', extensionName: 't3monitoring')}" class="badge badge-danger">-</span></th>
+                                                    <th class="text-center"><span data-toggle="tooltip" data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions', extensionName: 't3monitoring')}" class="badge badge-default">-</span></th>
                                                     <th class="no-sorting text-center" data-orderable="false">
-                                                        {f:translate(key:'client.extra')}
+                                                        {f:translate(key:'client.extra', extensionName: 't3monitoring')}
                                                     </th>
                                                     <th class="no-sorting" data-orderable="false"></th>
                                                     <th class="no-sorting" data-orderable="false"></th>
@@ -328,7 +324,7 @@
                                                             <f:link.action action="show" controller="Client" arguments="{client:client}">
                                                                 <f:if condition="{emConfiguration.presentationMode}">
                                                                     <f:then>
-                                                                        <f:translate key="presentationMode.client.title" arguments="{0:client.uid}" />
+                                                                        <f:translate key="presentationMode.client.title" extensionName="t3monitoring" arguments="{0:client.uid}" />
                                                                     </f:then>
                                                                     <f:else>
                                                                          {client.title}
@@ -340,7 +336,7 @@
                                                             <f:link.action action="show" controller="Client" arguments="{client:client}">
                                                                 <f:if condition="{emConfiguration.presentationMode}">
                                                                     <f:then>
-                                                                        <f:translate key="presentationMode.client.domain" arguments="{0:client.uid}" />
+                                                                        <f:translate key="presentationMode.client.domain" extensionName="t3monitoring" arguments="{0:client.uid}" />
                                                                     </f:then>
                                                                     <f:else>
                                                                         {client.domain}
@@ -353,10 +349,10 @@
                                                                 <f:then>
                                                                     <span data-toggle="tooltip"
                                                                           data-title="{client.errorMessage}"
-                                                                          data-placement="left" class="label label-danger">{f:translate(key:'tx_t3monitoring_domain_model_client.error')}</span>
+                                                                          data-placement="left" class="label label-danger">{f:translate(key:'tx_t3monitoring_domain_model_client.error', extensionName: 't3monitoring')}</span>
                                                                 </f:then>
                                                                 <f:else>
-                                                                    <span class="label label-success">{f:translate(key:'tx_t3monitoring_domain_model_client.ok')}</span>
+                                                                    <span class="label label-success">{f:translate(key:'tx_t3monitoring_domain_model_client.ok', extensionName: 't3monitoring')}</span>
                                                                 </f:else>
                                                             </f:if>
                                                         </td>
@@ -389,35 +385,35 @@
                                                         <td class="text-center" data-type="num">
                                                             <f:if condition="{client.extensions}">
                                                                 <span data-toggle="tooltip"
-                                                                      data-title="{f:translate(key:'clients.numberOfExtensions')}"
+                                                                      data-title="{f:translate(key:'clients.numberOfExtensions', extensionName: 't3monitoring')}"
                                                                       data-placement="left" class="badge badge-info">{client.extensions -> f:count()}</span>
                                                             </f:if>
                                                         </td>
                                                         <td class="text-center" data-type="num">
                                                             <f:if condition="{client.insecureExtensions}">
                                                                 <span data-toggle="tooltip"
-                                                                      data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions')}"
+                                                                      data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.insecure_extensions', extensionName: 't3monitoring')}"
                                                                       data-placement="left" class="badge badge-danger">{client.insecureExtensions}</span>
                                                             </f:if>
                                                         </td>
                                                         <td class="text-center" data-type="num">
                                                             <f:if condition="{client.outdatedExtensions}">
                                                                 <span data-toggle="tooltip"
-                                                                      data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions')}"
+                                                                      data-title="{f:translate(key:'tx_t3monitoring_domain_model_client.outdated_extensions', extensionName: 't3monitoring')}"
                                                                       data-placement="left" class="badge badge-default">{client.outdatedExtensions}</span>
                                                             </f:if>
                                                         </td>
                                                         <td class="text-center">
                                                             <f:if condition="{client.extraDanger}">
                                                                 <span data-toggle="tooltip"
-                                                                      data-title="{f:translate(key:'client.extra.danger')}"
+                                                                      data-title="{f:translate(key:'client.extra.danger', extensionName: 't3monitoring')}"
                                                                       data-placement="left" class="badge badge-danger">{client.extraDangerAsArray -> f:count()}</span>
                                                             </f:if>
                                                         </td>
                                                         <td class="text-center">
                                                             <f:if condition="{client.extraWarning}">
                                                                 <span data-toggle="tooltip"
-                                                                      data-title="{f:translate(key:'client.extra.warning')}"
+                                                                      data-title="{f:translate(key:'client.extra.warning', extensionName: 't3monitoring')}"
                                                                       data-placement="left" class="badge badge-warning">{client.extraWarningAsArray -> f:count()}</span>
                                                             </f:if>
                                                         </td>
@@ -433,32 +429,32 @@
                                     </f:then>
                                     <f:else>
                                         <f:be.infobox>
-                                            <p>{f:translate(key:'clients.notFound')}</p>
+                                            <p>{f:translate(key:'clients.notFound', extensionName: 't3monitoring')}</p>
                                         </f:be.infobox>
                                     </f:else>
                                 </f:if>
                             </f:then>
                             <f:else>
-                                <f:be.infobox state="-1" title="{f:translate(key:'search')}">
-                                    <p>{f:translate(key:'search.introHelp')}</p>
+                                <f:be.infobox state="-1" title="{f:translate(key:'search', extensionName: 't3monitoring')}">
+                                    <p>{f:translate(key:'search.introHelp', extensionName: 't3monitoring')}</p>
                                     <button class="btn btn-info">
                                         {core:icon(identifier:'actions-system-list-open', alternativeMarkupIdentifier: 'inline')}
-                                        {f:translate(key:'clients.listAll')}
+                                        {f:translate(key:'clients.listAll', extensionName: 't3monitoring')}
                                     </button>
                                 </f:be.infobox>
 
-                                <h3>{f:translate(key:'lastImport.header')}</h3>
+                                <h3>{f:translate(key:'lastImport.header', extensionName: 't3monitoring')}</h3>
                                 <table class="table table-striped table-hover">
                                     <f:for each="{importTimes}" as="time" key="key">
                                         <tr>
-                                            <th style="width:15%;">{f:translate(key:'lastImport.{key}')}</th>
+                                            <th style="width:15%;">{f:translate(key:'lastImport.{key}', extensionName: 't3monitoring')}</th>
                                             <td>
                                                 <f:if condition="{time}">
                                                     <f:then>
                                                         <f:format.date date="{time}" format="{formats.dateAndTime}"/>
                                                     </f:then>
                                                     <f:else>
-                                                        <div class="text-danger">{f:translate(key:'lastImport.none')}
+                                                        <div class="text-danger">{f:translate(key:'lastImport.none', extensionName: 't3monitoring')}
                                                         </div>
                                                     </f:else>
                                                 </f:if>
@@ -473,8 +469,8 @@
             </f:form>
         </f:then>
         <f:else>
-            <f:be.infobox state="-1" title="{f:translate(key:'noClients.title')}">
-                <p>{f:translate(key:'noClients.description')}</p>
+            <f:be.infobox state="-1" title="{f:translate(key:'noClients.title', extensionName: 't3monitoring')}">
+                <p>{f:translate(key:'noClients.description', extensionName: 't3monitoring')}</p>
             </f:be.infobox>
         </f:else>
     </f:if>

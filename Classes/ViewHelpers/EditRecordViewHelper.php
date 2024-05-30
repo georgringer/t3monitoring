@@ -31,7 +31,7 @@ class EditRecordViewHelper extends AbstractViewHelper
 
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
-        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
+        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoutePath('/module/tools/t3monitoring', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
         ]);
 

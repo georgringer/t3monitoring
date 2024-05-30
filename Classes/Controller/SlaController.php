@@ -8,6 +8,7 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
 
 /**
@@ -32,10 +33,12 @@ class SlaController extends BaseController
     /**
      * action list
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         $slas = $this->slaRepository->findAll();
-        $this->view->assign('slas', $slas);
+        $this->moduleTemplate->assign('slas', $slas);
+
+        return $this->moduleTemplate->renderResponse('List');
     }
 
     /**
@@ -46,14 +49,17 @@ class SlaController extends BaseController
     public function showAction(Sla $sla = null)
     {
         if ($sla === null) {
-            $this->redirect('index', 'Statistic');
+            return $this->redirect('index', 'Statistic');
         }
 
         $demand = $this->getClientFilterDemand();
         $demand->setSla($sla->getUid());
-        $this->view->assignMultiple([
+        
+        $this->moduleTemplate->assignMultiple([
             'sla' => $sla,
             'clients' => $this->clientRepository->findByDemand($demand)
         ]);
+
+        return $this->moduleTemplate->renderResponse('Show');
     }
 }

@@ -8,6 +8,7 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Tag;
 use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
 
@@ -33,10 +34,12 @@ class TagController extends BaseController
     /**
      * action list
      */
-    public function listAction()
+    public function listAction():ResponseInterface
     {
         $tags = $this->tagRepository->findAll();
-        $this->view->assign('tags', $tags);
+        $this->moduleTemplate->assign('tags', $tags);
+
+        return $this->moduleTemplate->renderResponse('List');
     }
 
     /**
@@ -44,17 +47,19 @@ class TagController extends BaseController
      *
      * @param Tag $tag
      */
-    public function showAction(Tag $tag = null)
+    public function showAction(Tag $tag = null): ResponseInterface
     {
         if ($tag === null) {
-            $this->redirect('index', 'Statistic');
+            return $this->redirect('index', 'Statistic');
         }
 
         $demand = $this->getClientFilterDemand();
         $demand->setTag($tag->getUid());
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'tag' => $tag,
             'clients' => $this->clientRepository->findByDemand($demand)
         ]);
+
+        return $this->moduleTemplate->renderResponse('Show');
     }
 }

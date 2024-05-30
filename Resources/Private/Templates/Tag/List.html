@@ -1,20 +1,20 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-<f:layout name="Simple" />
+<f:layout name="Module" />
 
-<f:section name="content">
-	<h1>{f:translate(key:'tag.header')}</h1>
+<f:section name="Content">
+	<h1>{f:translate(key:'tag.header', extensionName: 't3monitoring')}</h1>
 	<f:if condition="{tags}">
 		<f:then>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					{f:translate(key:'tag.total', arguments:'{0:\'{tags -> f:count()}\'}')}
+					{f:translate(key:'tag.total', extensionName: 't3monitoring', arguments:'{0:\'{tags -> f:count()}\'}')}
 				</div>
 				<table class="table table-striped table-hover">
 					<thead>
 					<tr>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_tag.title')}</th>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_tag.description')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_tag.title', extensionName: 't3monitoring')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_tag.description', extensionName: 't3monitoring')}</th>
 					</tr>
 					</thead>
 					<f:for each="{tags}" as="tag">
@@ -36,7 +36,7 @@
 		</f:then>
 		<f:else>
 			<div class="alert alert-notice">
-				{f:translate(key:'tag.notFound')}
+				{f:translate(key:'tag.notFound', extensionName: 't3monitoring')}
 			</div>
 		</f:else>
 	</f:if>

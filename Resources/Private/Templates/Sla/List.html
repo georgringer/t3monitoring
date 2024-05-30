@@ -1,20 +1,20 @@
 <html data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
 
-<f:layout name="Simple" />
+<f:layout name="Module" />
 
-<f:section name="content">
-	<h1>{f:translate(key:'sla.header')}</h1>
+<f:section name="Content">
+	<h1>{f:translate(key:'sla.header', extensionName: 't3monitoring')}</h1>
 	<f:if condition="{slas}">
 		<f:then>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					{f:translate(key:'sla.total', arguments:'{0:\'{slas -> f:count()}\'}')}
+					{f:translate(key:'sla.total', extensionName: 't3monitoring', arguments:'{0:\'{slas -> f:count()}\'}')}
 				</div>
 				<table class="table table-striped table-hover">
 					<thead>
 					<tr>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_sla.title')}</th>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_sla.description')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_sla.title', extensionName: 't3monitoring')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_sla.description', extensionName: 't3monitoring')}</th>
 					</tr>
 					</thead>
 					<f:for each="{slas}" as="sla">
@@ -36,7 +36,7 @@
 		</f:then>
 		<f:else>
 			<div class="alert alert-notice">
-				{f:translate(key:'sla.notFound')}
+				{f:translate(key:'sla.notFound', extensionName: 't3monitoring')}
 			</div>
 		</f:else>
 	</f:if>

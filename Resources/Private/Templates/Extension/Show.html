@@ -2,13 +2,13 @@
 	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
 	  xmlns:monitor="http://typo3.org/ns/T3Monitor/T3monitoring/ViewHelpers">
 
-<f:layout name="Simple" />
+<f:layout name="Module" />
 
-<f:section name="content">
-	<h1>{f:translate(key:'tx_t3monitoring_domain_model_extension')} "{latest.title}" ({latest.name})</h1>
+<f:section name="Content">
+	<h1>{f:translate(key:'tx_t3monitoring_domain_model_extension', extensionName: 't3monitoring')} "{latest.title}" ({latest.name})</h1>
 	<p class="lead">{latest.description -> f:format.nl2br()}
 		<f:if condition="{latest.authorName}">
-			<br>{f:translate(key:'extension.by',arguments:'{0:latest.authorName}')}
+			<br>{f:translate(key:'extension.by', extensionName: 't3monitoring',arguments:'{0:latest.authorName}')}
 		</f:if>
 	</p>
 
@@ -21,11 +21,11 @@
 				<table class="table table-striped table-hover">
 					<thead>
 					<tr>
-						<th style="width:150px;">{f:translate(key:'tx_t3monitoring_domain_model_extension.version')}</th>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.last_updated')}</th>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.state')}</th>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.category')}</th>
-						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.update_comment')}</th>
+						<th style="width:150px;">{f:translate(key:'tx_t3monitoring_domain_model_extension.version', extensionName: 't3monitoring')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.last_updated', extensionName: 't3monitoring')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.state', extensionName: 't3monitoring')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.category', extensionName: 't3monitoring')}</th>
+						<th>{f:translate(key:'tx_t3monitoring_domain_model_extension.update_comment', extensionName: 't3monitoring')}</th>
 					</tr>
 					</thead>
 					<f:for each="{versions}" as="version">
@@ -42,7 +42,7 @@
 		</f:then>
 		<f:else>
 			<div class="alert alert-notice">
-				{f:translate(key:'no.versions.available')}
+				{f:translate(key:'no.versions.available', extensionName: 't3monitoring')}
 			</div>
 		</f:else>
 	</f:if>

@@ -35,7 +35,7 @@ class ClientRepository extends BaseRepository
 
         if (!empty($constraints)) {
             $query->matching(
-                $query->logicalAnd($constraints)
+                $query->logicalAnd(...$constraints)
             );
         }
 

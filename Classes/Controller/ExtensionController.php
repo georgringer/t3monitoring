@@ -8,6 +8,7 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -33,16 +34,18 @@ class ExtensionController extends BaseController
     /**
      * @param ExtensionFilterDemand $filter
      */
-    public function listAction(ExtensionFilterDemand $filter = null)
+    public function listAction(ExtensionFilterDemand $filter = null): ResponseInterface
     {
         if ($filter === null) {
             $filter = GeneralUtility::makeInstance(ExtensionFilterDemand::class);
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'filter' => $filter,
             'extensions' => $this->extensionRepository->findByDemand($filter)
         ]);
+
+        return $this->moduleTemplate->renderResponse('List');
     }
 
     /**
@@ -50,15 +53,18 @@ class ExtensionController extends BaseController
      *
      * @param string $extension
      */
-    public function showAction($extension = '')
+    public function showAction($extension = ''): ResponseInterface
     {
         if (empty($extension)) {
-            $this->redirect('list');
+            return $this->redirect('list');
         }
+
         $versions = $this->extensionRepository->findAllVersionsByName($extension);
-        $this->view->assignMultiple([
-             'versions' => $versions,
+        $this->moduleTemplate->assignMultiple([
+            'versions' => $versions,
             'latest' => $versions->getFirst(),
         ]);
+
+        return $this->moduleTemplate->renderResponse('Show');
     }
 }

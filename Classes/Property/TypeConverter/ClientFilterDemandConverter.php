@@ -1,6 +1,6 @@
 <?php
 
-namespace T3Monitor\T3monitoring\Domain\TypeConverter;
+namespace T3Monitor\T3monitoring\Property\TypeConverter;
 
 /*
  * This file is part of the t3monitoring extension for TYPO3 CMS.
@@ -9,7 +9,6 @@ namespace T3Monitor\T3monitoring\Domain\TypeConverter;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
@@ -19,21 +18,6 @@ use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
  */
 class ClientFilterDemandConverter extends AbstractTypeConverter
 {
-    /**
-     * @var array<string>
-     */
-    protected $sourceTypes = ['array', 'string'];
-
-    /**
-     * @var string
-     */
-    protected $targetType = ClientFilterDemand::class;
-
-    /**
-     * @var int
-     */
-    protected $priority = 10;
-
     /**
      * Actually convert from $source to $targetType, by doing a typecast.
      *
@@ -53,10 +37,10 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
         if (!$this->isAllowed()) {
             return null;
         }
-        $vars = GeneralUtility::_GET('tx_t3monitoring_tools_t3monitoringt3monitor');
-        $properties = $vars['filter'];
 
-        $object = GeneralUtility::makeInstance($this->targetType);
+        $properties = GeneralUtility::_GET('filter');
+
+        $object = GeneralUtility::makeInstance($targetType);
         foreach ($properties as $key => $value) {
             if (property_exists($object, $key)) {
                 $setter = 'set' . ucfirst($key);
@@ -76,7 +60,7 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
      */
     protected function isAllowed()
     {
-        $vars = GeneralUtility::_GET('tx_t3monitoring_tools_t3monitoringt3monitor');
-        return isset($vars['filter']) && is_array($vars['filter']);
+        $vars = GeneralUtility::_GET('filter');
+        return isset($vars) && is_array($vars);
     }
 }
