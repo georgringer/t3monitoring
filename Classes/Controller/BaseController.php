@@ -15,6 +15,7 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
@@ -35,6 +36,8 @@ class BaseController extends ActionController
 
     /** @var ModuleTemplateFactory */
     protected $moduleTemplateFactory;
+
+    protected ModuleTemplate $moduleTemplate;
 
     /** @var StatisticRepository */
     protected $statisticRepository;
