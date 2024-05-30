@@ -56,11 +56,11 @@ class ExtensionImport extends BaseImport
             ->from('tx_extensionmanager_domain_model_extension')
             ->where(
                 $queryBuilderCoreExtensions->expr()->gt('last_updated', $queryBuilderCoreExtensions->createNamedParameter(strtotime(self::MIN_DATE)))
-            )->execute();
+            )->executeQuery();
 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable($table);
-        while ($row = $res->fetch()) {
+        while ($row = $res->fetchAssociative()) {
             $versionSplit = explode('.', $row['version'], 3);
 
             $fields = [
@@ -91,7 +91,7 @@ class ExtensionImport extends BaseImport
                 ->where(
                     $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($row['version'])),
                     $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($row['extension_key']))
-                )->execute()->fetch();
+                )->executeQuery()->fetchAssociative();
 
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable($table);

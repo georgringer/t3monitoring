@@ -43,8 +43,8 @@ class CoreImport extends BaseImport
         $rows = $queryBuilder
             ->select('uid', 'version')
             ->from($table)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         $previousCoreVersions = [];
         foreach ($rows as $row) {
             $previousCoreVersions[$row['version']] = $row;

@@ -72,7 +72,7 @@ class ClientImport extends BaseImport
             );
         }
 
-        $clientRows = $query->execute()->fetchAll();
+        $clientRows = $query->executeQuery()->fetchAllAssociative();
 
         foreach ($clientRows as $client) {
             $this->importSingleClient($client);
@@ -266,8 +266,8 @@ class ClientImport extends BaseImport
             ->select('uid', 'version', 'name')
             ->from($table)
             ->where($queryBuilder->expr()->orX(...$whereClause))
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
 
         $relationsToBeAdded = [];
         foreach ($extensions as $key => $data) {
@@ -387,8 +387,8 @@ class ClientImport extends BaseImport
         $rows = $queryBuilder
             ->select('uid', 'version')
             ->from('tx_t3monitoring_domain_model_core')
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         $finalRows = [];
         foreach ($rows as $row) {
             $finalRows[$row['version']] = $row;

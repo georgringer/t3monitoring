@@ -42,7 +42,7 @@ class AdditionalExtensionDataViewHelper extends AbstractViewHelper
                 $queryBuilderCoreExtensions->expr()->eq('uid_foreign', $queryBuilderCoreExtensions->createNamedParameter($arguments['extension'], \PDO::PARAM_INT))
             )
             ->setMaxResults(1)
-            ->execute()->fetch();
+            ->executeQuery()->fetchAssociative();
 
         $renderingContext->getVariableProvider()->add($arguments['as'], $result);
         $output = $renderChildrenClosure();

@@ -101,7 +101,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
                 $queryBuilderCoreExtensions->expr()->eq('version', $queryBuilderCoreExtensions->createNamedParameter($version))
             )
             ->setMaxResults(1)
-            ->execute()->fetch();
+            ->executeQuery()->fetchAssociative();
 
         if ($row) {
             return $row;

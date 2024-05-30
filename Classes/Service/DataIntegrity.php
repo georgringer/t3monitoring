@@ -66,7 +66,7 @@ class DataIntegrity
                 $eb->eq('is_official', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
             )
             ->groupBy('name', 'major_version', 'minor_version')
-            ->execute();
+            ->executeQuery();
 
         $queryBuilder2 = $connection->createQueryBuilder();
         $eb2 = $queryBuilder2->expr();
@@ -81,8 +81,8 @@ class DataIntegrity
                 )
                 ->orderBy('version_integer', 'desc')
                 ->setMaxResults(1)
-                ->execute()
-                ->fetch();
+                ->executeQuery()
+                ->fetchAssociative();
 
             if (is_array($highestBugFixRelease)) {
                 $connection = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -109,7 +109,7 @@ class DataIntegrity
                 $queryBuilder->expr()->eq('is_official', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
             )
             ->groupBy('name', 'major_version')
-            ->execute();
+            ->executeQuery();
 
         $queryBuilder2 = $connection->createQueryBuilder();
         while ($row = $res->fetch()) {
@@ -122,8 +122,8 @@ class DataIntegrity
                 )
                 ->orderBy('version_integer', 'desc')
                 ->setMaxResults(1)
-                ->execute()
-                ->fetch();
+                ->executeQuery()
+                ->fetchAssociative();
 
             if (is_array($highestBugFixRelease)) {
                 $connection->update(
@@ -144,14 +144,14 @@ class DataIntegrity
             ->leftJoin('a', $table, 'b', 'a.name = b.name AND a.version_integer < b.version_integer')
             ->where($queryBuilder->expr()->isNull('b.name'))
             ->orderBy('a.uid')
-            ->execute();
+            ->executeQuery();
 
         $queryBuilder = $connection->createQueryBuilder();
         while ($row = $queryResult->fetch()) {
             $queryBuilder->update($table)
                 ->set('last_major_release', $row['version'])
                 ->where($queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($row['name'])))
-                ->execute();
+                ->executeStatement();
         }
 
         // set is_latest = 0 for extension versions that are not last_major_release
@@ -159,13 +159,13 @@ class DataIntegrity
         $queryBuilder->update($table)
             ->set('is_latest', 0)
             ->where('version != last_major_release')
-            ->execute();
+            ->executeStatement();
 
         $queryBuilder = $connection->createQueryBuilder();
         $queryBuilder->update($table)
             ->set('is_latest', 1)
             ->where('version=last_major_release')
-            ->execute();
+            ->executeStatement();
     }
 
     /**
@@ -180,8 +180,8 @@ class DataIntegrity
             ->select('uid', 'name', 'version_integer')
             ->from($table)
             ->where($queryBuilder->expr()->eq('insecure', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)))
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
 
         foreach ($insecureExtensions as $row) {
             $queryBuilder2 = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -195,8 +195,8 @@ class DataIntegrity
                     $queryBuilder->expr()->gt('version_integer', $queryBuilder2->createNamedParameter($row['version_integer'], \PDO::PARAM_INT))
                 )
                 ->setMaxResults(1)
-                ->execute()
-                ->fetch();
+                ->executeQuery()
+                ->fetchAssociative();
 
             if (is_array($nextSecureVersion)) {
                 $connection = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -222,8 +222,8 @@ class DataIntegrity
                 'tx_t3monitoring_domain_model_client',
                 $queryBuilder->expr()->eq('tx_t3monitoring_domain_model_core.uid', $queryBuilder->quoteIdentifier('tx_t3monitoring_domain_model_client.core'))
             )
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         $coreRows = [];
         foreach ($rows as $row) {
             $coreRows[$row['uid']] = $row;
@@ -233,11 +233,11 @@ class DataIntegrity
         $qb = $connection->createQueryBuilder();
         $qb->update($table)
             ->set('is_used', 0)
-            ->execute();
+            ->executeStatement();
         if (!empty($coreRows)) {
             foreach ($coreRows as $id => $row) {
                 $qb->where('uid = ' . $id);
-                $qb->set('is_used', 1)->execute();
+                $qb->set('is_used', 1)->executeStatement();
             }
         }
     }
@@ -253,8 +253,8 @@ class DataIntegrity
         $clients = $queryBuilder
             ->select('uid')
             ->from('tx_t3monitoring_domain_model_client')
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
 
         foreach ($clients as $client) {
             $queryBuilder = $connection->createQueryBuilder();
@@ -271,7 +271,7 @@ class DataIntegrity
                     $queryBuilder->expr()->eq('is_official', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
                     $queryBuilder->expr()->eq('insecure', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT)),
                     $queryBuilder->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder->createNamedParameter($client['uid'], \PDO::PARAM_INT))
-                )->execute()->fetchColumn(0);
+                )->executeQuery()->fetchFirstColumn();
 
             // count outdated extensions
             $queryBuilder2 = $connection->createQueryBuilder();
@@ -289,7 +289,7 @@ class DataIntegrity
                     $queryBuilder2->expr()->eq('insecure', $queryBuilder2->createNamedParameter(0, \PDO::PARAM_INT)),
                     $queryBuilder2->expr()->eq('is_latest', $queryBuilder2->createNamedParameter(0, \PDO::PARAM_INT)),
                     $queryBuilder2->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder2->createNamedParameter($client['uid'], \PDO::PARAM_INT))
-                )->execute()->fetchColumn(0);
+                )->executeQuery()->fetchFirstColumn();
 
             // update client
             $connection->update(
