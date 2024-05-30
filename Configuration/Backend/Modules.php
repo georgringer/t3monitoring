@@ -4,7 +4,7 @@ return [
     't3monitoringt3monitor' => [
         'parent'            => 'tools',
         'position'          => [ 'top' ],
-        'access'            => [ 'admin', 'group' ],
+        'access'            => 'admin',
         'path'              => '/module/tools/t3monitoring',
         'icon'              => 'EXT:t3monitoring/Resources/Public/Icons/module.svg',
         'labels'            => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang_t3monitor.xlf',
