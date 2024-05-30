@@ -49,7 +49,7 @@
 								</f:if>
 								<td>{versionName}</td>
 								<td>
-									<table class="table table-no-borders table-transparent" style="background-color: transparent">
+									<table class="table table-borderless table-transparent" style="background-color: transparent">
 										<f:for each="{v.clients}" as="client">
 											<tr class="{f:if(condition:client.insecure,then:'danger',else:'')}">
 												<td>
