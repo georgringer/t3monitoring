@@ -255,7 +255,7 @@ class ClientImport extends BaseImport
         $whereClause = [];
         foreach ($extensions as $key => $data) {
             if (!empty($data['version'])) {
-                $whereClause[] = $queryBuilder->expr()->andX(
+                $whereClause[] = $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($data['version'])),
                     $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($key))
                 );
@@ -265,7 +265,7 @@ class ClientImport extends BaseImport
         $existingExtensions = $queryBuilder
             ->select('uid', 'version', 'name')
             ->from($table)
-            ->where($queryBuilder->expr()->orX(...$whereClause))
+            ->where($queryBuilder->expr()->or(...$whereClause))
             ->executeQuery()
             ->fetchAllAssociative();
 
