@@ -10,6 +10,7 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
  */
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -28,11 +29,16 @@ class EditRecordViewHelper extends AbstractViewHelper
     public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
+        $request = $renderingContext->getRequest();
+
+        $filter = $request->getQueryParams()['filter'] ?? [];
+        if (isset( $request->getParsedBody()['filter'])) {
+            ArrayUtility::mergeRecursiveWithOverrule($filter, $request->getParsedBody()['filter']);
+        }
 
         $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoutePath('/module/tools/t3monitoring', [
-            'filter' => GeneralUtility::_GPmerged('filter')
+            'filter' => $filter
         ]);
 
         return $uriBuilder->buildUriFromRoute('record_edit', $parameters);

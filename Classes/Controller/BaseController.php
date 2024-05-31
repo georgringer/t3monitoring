@@ -22,6 +22,7 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -160,9 +161,14 @@ class BaseController extends ActionController
 
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
+        $filter = $this->request->getQueryParams()['filter'] ?? [];
+        if (isset( $this->request->getParsedBody()['filter'])) {
+            ArrayUtility::mergeRecursiveWithOverrule($filter, $this->request->getParsedBody()['filter']);
+        }
+
         // Buttons for new records
         $returnUrl = rawurlencode($uriBuilder->buildUriFromRoutePath('/module/tools/t3monitoring', [
-            'filter' => GeneralUtility::_GPmerged('filter')
+            'filter' => $filter
         ]));
         $pid = $this->emConfiguration->getPid();
 
