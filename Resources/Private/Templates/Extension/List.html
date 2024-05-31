@@ -7,22 +7,24 @@
 <f:section name="Content">
 	<h1>{f:translate(key:'view.usedExtensions', extensionName: 't3monitoring')}</h1>
 
-	<f:form name="filter" object="{filter}" class="form-inline">
+	<f:form action="list" name="filter" object="{filter}" class="row">
 
-		<div class="form-group">
+		<div class="form-group col-auto">
 			<label>{f:translate(key:'extensionFilter.name', extensionName: 't3monitoring')}</label>
 			<f:form.textfield property="name" class="form-control" />
 		</div>
 
-		<div class="form-group">
+		<div class="form-group col-auto">
 			<label>{f:translate(key:'extensionFilter.exactSearch', extensionName: 't3monitoring')}</label>
 			<div class="checkbox">
 				<f:form.checkbox property="exactSearch" value="1" />
 			</div>
 		</div>
-		<button class="btn btn-default">
-			{core:icon(identifier:'actions-search')} {f:translate(key:'search', extensionName: 't3monitoring')}
-		</button>
+		<div class="col-auto">
+			<button class="btn btn-default mt-3">
+				{core:icon(identifier:'actions-search')} {f:translate(key:'search', extensionName: 't3monitoring')}
+			</button>
+		</div>
 	</f:form>
 
 	<f:if condition="{extensions}">
