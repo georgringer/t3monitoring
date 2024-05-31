@@ -13,6 +13,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -60,7 +61,7 @@ class DataHandlerHook
             $this->getLanguageService()->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:client.domainNotPingAble'),
             $domain
         );
-        $this->addFlashMessage($message, FlashMessage::WARNING);
+        $this->addFlashMessage($message, ContextualFeedbackSeverity::WARNING);
     }
 
     /**
@@ -78,7 +79,7 @@ class DataHandlerHook
      * @param int $severity
      * @throws \InvalidArgumentException
      */
-    protected function addFlashMessage($message, $severity = FlashMessage::INFO)
+    protected function addFlashMessage($message, $severity = ContextualFeedbackSeverity::INFO)
     {
         /** @var FlashMessage $flashMessage */
         $flashMessage = GeneralUtility::makeInstance(
