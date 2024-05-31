@@ -42,11 +42,11 @@ class ReportClientCommand extends Command
         $clients = GeneralUtility::makeInstance(ClientRepository::class)->getAllForReport(true);
         if (count($clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
-            return 0;
+            return Command::SUCCESS;
         }
 
         GeneralUtility::makeInstance(EmailNotification::class)->sendClientEmail($clients);
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function getLabel(string $key): string

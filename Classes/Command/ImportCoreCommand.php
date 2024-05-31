@@ -39,6 +39,6 @@ class ImportCoreCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         GeneralUtility::makeInstance(CoreImport::class)->run();
-        return 0;
+        return Command::SUCCESS;
     }
 }

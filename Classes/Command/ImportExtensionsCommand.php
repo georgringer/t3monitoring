@@ -38,6 +38,6 @@ class ImportExtensionsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         GeneralUtility::makeInstance(ExtensionImport::class)->run();
-        return 0;
+        return Command::SUCCESS;
     }
 }
