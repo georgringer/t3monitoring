@@ -162,7 +162,7 @@ class BaseController extends ActionController
 
         // Buttons for new records
         $returnUrl = rawurlencode($uriBuilder->buildUriFromRoutePath('/module/tools/t3monitoring', [
-            'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
+            'filter' => GeneralUtility::_GPmerged('filter')
         ]));
         $pid = $this->emConfiguration->getPid();
 

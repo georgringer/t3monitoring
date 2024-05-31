@@ -21,10 +21,11 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
     /**
      * Actually convert from $source to $targetType, by doing a typecast.
      *
-     * @param mixed $source
-     * @param string $targetType
-     * @param array $convertedChildProperties
+     * @param mixed                                 $source
+     * @param string                                $targetType
+     * @param array                                 $convertedChildProperties
      * @param PropertyMappingConfigurationInterface $configuration
+     *
      * @return float|\TYPO3\CMS\Extbase\Error\Error
      * @api
      */
@@ -38,15 +39,18 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
             return null;
         }
 
-        $properties = GeneralUtility::_GET('filter');
+        $properties = $this->getFilterParams();
 
         $object = GeneralUtility::makeInstance($targetType);
-        foreach ($properties as $key => $value) {
-            if (property_exists($object, $key)) {
-                $setter = 'set' . ucfirst($key);
-                $object->$setter($value);
+        if (isset($properties)) {
+            foreach ($properties as $key => $value) {
+                if (property_exists($object, $key)) {
+                    $setter = 'set' . ucfirst($key);
+                    $object->$setter($value);
+                }
             }
         }
+
         return $object;
     }
 
@@ -60,7 +64,14 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
      */
     protected function isAllowed()
     {
-        $vars = GeneralUtility::_GET('filter');
+        $vars = $this->getFilterParams();
+
         return isset($vars) && is_array($vars);
+    }
+
+    protected function getFilterParams()
+    {
+        return $GLOBALS['TYPO3_REQUEST']->getQueryParams()['filter'] ?? $GLOBALS['TYPO3_REQUEST']->getParsedBody(
+        )['filter'] ?? null;
     }
 }
