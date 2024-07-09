@@ -39,7 +39,7 @@ class ImportAllCommand extends Command
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      * @throws \TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         GeneralUtility::makeInstance(CoreImport::class)->run();
         GeneralUtility::makeInstance(ExtensionImport::class)->run();

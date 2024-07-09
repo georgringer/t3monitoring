@@ -52,7 +52,7 @@ class ReportAdminCommand extends Command
      * @param OutputInterface $output
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (count($this->clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));

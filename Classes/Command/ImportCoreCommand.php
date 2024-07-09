@@ -36,7 +36,7 @@ class ImportCoreCommand extends Command
      * @throws \Doctrine\DBAL\ConnectionException
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         GeneralUtility::makeInstance(CoreImport::class)->run();
         return Command::SUCCESS;

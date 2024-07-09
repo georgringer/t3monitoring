@@ -37,7 +37,7 @@ class ReportClientCommand extends Command
      * @param OutputInterface $output
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $clients = GeneralUtility::makeInstance(ClientRepository::class)->getAllForReport(true);
         if (count($clients) === 0) {
