@@ -28,11 +28,13 @@ class EmMonitoringConfiguration implements SingletonInterface
     public function __construct()
     {
         $settings = (array)GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('t3monitoring');
-        foreach ($settings as $key => $value) {
-            if (property_exists(__CLASS__, $key)) {
-                $this->$key = $value;
-            }
-        }
+        $this->pid = (int)$settings['pid'];
+        $this->loadBulletins = (bool)$settings['loadBulletins'];
+        $this->emailForFailedClient = $settings['emailForFailedClient'];
+        $this->emailAllowedAmountOfFailures = (int)$settings['emailAllowedAmountOfFailures'];
+        $this->useGoogleCharts = (bool)$settings['useGoogleCharts'];
+        $this->presentationMode = (bool)$settings['presentationMode'];
+        $this->ipHint = $settings['ipHint'];
     }
 
     public function getPid(): int
