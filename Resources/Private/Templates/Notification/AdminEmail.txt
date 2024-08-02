@@ -1,5 +1,5 @@
 Monitoring report of your clients
-======================================
+=================================
 
 <f:for each="{clients}" as="client">
 {client.title}
