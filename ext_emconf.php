@@ -6,11 +6,12 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'be',
     'author' => 'Georg Ringer',
     'author_email' => '',
-    'state' => 'beta',
-    'version' => '2.0.0',
+    'state' => 'stable',
+    'version' => '3.0.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-11.5.99',
+            'php' => '8.2.0-8.4.99',
+            'typo3' => '11.5.0-12.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],
