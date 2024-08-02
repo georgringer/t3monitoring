@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Notification;
 
 /*
@@ -8,6 +11,8 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Notification;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use PHPUnit\Framework\Attributes\Test;
+use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -16,21 +21,17 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class EmailNotificationTest extends UnitTestCase
 {
-    protected $resetSingletonInstances = true;
+    protected bool $resetSingletonInstances = true;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sendAdminEmailThrowsExceptionForInvalidEmailAddress()
     {
         $this->expectException(\UnexpectedValueException::class);
         $notification = new EmailNotification();
-        $notification->sendAdminEmail('invalid', ['client']);
+        $notification->sendAdminEmail('invalid', [new Client()]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function sendAdminEmailThrowsExceptionForNoClients()
     {
         $this->expectException(\UnexpectedValueException::class);
@@ -38,9 +39,7 @@ class EmailNotificationTest extends UnitTestCase
         $notification->sendAdminEmail('john@doe.com', []);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function senderEmailNameIsCorrectlyReturned()
     {
         $notification = $this->getAccessibleMock(EmailNotification::class, ['dummy']);
@@ -52,9 +51,7 @@ class EmailNotificationTest extends UnitTestCase
         $this->assertEquals($example, $notification->_call('getSenderEmailName'));
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function senderEmailAddressIsCorrectlyReturned()
     {
         $notification = $this->getAccessibleMock(EmailNotification::class, ['dummy']);

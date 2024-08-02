@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Command;
 
 /*
@@ -8,7 +11,7 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Command;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use Prophecy\Prophecy\ObjectProphecy;
+use PHPUnit\Framework\Attributes\Test;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use T3Monitor\T3monitoring\Command\ReportAdminCommand;
@@ -22,9 +25,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ReportAdminCommandTest extends UnitTestCase
 {
-    /**
-     * @test
-     */
+    #[Test]
     public function executeWillTriggerEmailNotification()
     {
         $dummyClients = ['123', '456'];
@@ -34,15 +35,13 @@ class ReportAdminCommandTest extends UnitTestCase
         $mockedClientImport = $this->getAccessibleMock(ReportAdminCommand::class, ['dummy'], [], '', false);
         $mockedClientImport->_set('clients', $dummyClients);
 
-        /** @var EmailNotification|ObjectProphecy $emailNotification */
-        $emailNotification = $this->prophesize(EmailNotification::class);
-        $emailNotification->sendAdminEmail($emailAddress, $dummyClients)->shouldBeCalled();
-        GeneralUtility::addInstance(EmailNotification::class, $emailNotification->reveal());
+        $emailNotification = $this->createMock(EmailNotification::class);
+        $emailNotification->expects($this->any())->method('sendAdminEmail')->with($emailAddress, $dummyClients);
+        GeneralUtility::addInstance(EmailNotification::class, $emailNotification);
 
-        /** @var InputInterface|ObjectProphecy $input */
-        $input = $this->prophesize(InputInterface::class);
-        $input->getArgument('email')->willReturn($emailAddress);
+        $input = $this->createStub(InputInterface::class);
+        $input->method('getArgument')->willReturn($emailAddress);
 
-        $mockedClientImport->_call('execute', $input->reveal(), $this->prophesize(OutputInterface::class)->reveal());
+        $mockedClientImport->_call('execute', $input, GeneralUtility::makeInstance(OutputInterface::class));
     }
 }

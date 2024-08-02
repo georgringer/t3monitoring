@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 /*
@@ -8,19 +11,13 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use PHPUnit\Framework\Attributes\Test;
 use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * Class CoreFilterDemandTest
- */
 class CoreFilterDemandTest extends UnitTestCase
 {
-
-    /**
-     * @var CoreFilterDemand
-     */
-    protected $instance;
+    protected CoreFilterDemand $instance;
 
     /**
      * Set up
@@ -31,9 +28,7 @@ class CoreFilterDemandTest extends UnitTestCase
         $this->instance = new CoreFilterDemand();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function usageCanBeSet()
     {
         $subject = 123;

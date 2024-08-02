@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Service\Import;
 
 /*
@@ -8,31 +11,22 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Service\Import;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * Class ClientImportTest
- */
 class ClientImportTest extends UnitTestCase
 {
-
-    /**
-     * @param string $given
-     * @param string $expected
-     * @dataProvider domainIsCorrectlyUnifiedProvider
-     * @test
-     */
-    public function domainIsCorrectlyUnified($given, $expected)
+    #[Test]
+    #[DataProvider('domainIsCorrectlyUnifiedProvider')]
+    public function domainIsCorrectlyUnified(string $given, string $expected)
     {
         $mockedClientImport = $this->getAccessibleMock(ClientImport::class, ['dummy'], [], '', false);
         $this->assertEquals($expected, $mockedClientImport->_call('unifyDomain', $given));
     }
 
-    /**
-     * @return array
-     */
-    public function domainIsCorrectlyUnifiedProvider()
+    public static function domainIsCorrectlyUnifiedProvider(): array
     {
         return [
             'domainWithProtocolAndEndSlash' => [

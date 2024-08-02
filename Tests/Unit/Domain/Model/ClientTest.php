@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model;
 
 /*
@@ -8,20 +11,14 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use PHPUnit\Framework\Attributes\Test;
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * Class ClientTest
- */
 class ClientTest extends UnitTestCase
 {
-
-    /**
-     * @var Client
-     */
-    protected $instance;
+    protected Client $instance;
 
     /**
      * Set up
@@ -32,9 +29,7 @@ class ClientTest extends UnitTestCase
         $this->instance = new Client();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function emailCanBeSet()
     {
         $subject = 'entry@fo.tld';
@@ -42,9 +37,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getEmail());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function titleCanBeSet()
     {
         $subject = 'Label';
@@ -52,9 +45,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getTitle());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function domainCanBeSet()
     {
         $subject = 'www.typo3.org';
@@ -62,9 +53,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getDomain());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function secretCanBeSet()
     {
         $subject = '1234';
@@ -72,9 +61,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getSecret());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function phpVersionCanBeSet()
     {
         $subject = '5.2';
@@ -82,9 +69,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getPhpVersion());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function mysqlVersionCanBeSet()
     {
         $subject = '5.5';
@@ -92,19 +77,14 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getMysqlVersion());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function insecureCoreCanBeSet()
     {
-        $subject = true;
-        $this->instance->setInsecureCore($subject);
-        $this->assertEquals($subject, $this->instance->getInsecureCore());
+        $this->instance->setInsecureCore(true);
+        $this->assertTrue($this->instance->getInsecureCore());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function insecureExtensionsCanBeSet()
     {
         $subject = 123;
@@ -112,19 +92,14 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getInsecureExtensions());
     }
 
-    /**
-     * @test
-     */
-    public function ouddatedCoreCanBeSet()
+    #[Test]
+    public function outdatedCoreCanBeSet()
     {
-        $subject = true;
-        $this->instance->setOutdatedCore($subject);
-        $this->assertEquals($subject, $this->instance->getOutdatedCore());
+        $this->instance->setOutdatedCore(true);
+        $this->assertTrue($this->instance->getOutdatedCore());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function outdatedExtensionsCanBeSet()
     {
         $subject = 456;
@@ -132,9 +107,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getOutdatedExtensions());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function errorMessageCanBeSet()
     {
         $subject = 'error';
@@ -142,9 +115,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getErrorMessage());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function extraInfoCanBeSet()
     {
         $subject = 'info';
@@ -152,9 +123,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getExtraInfo());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function extraWarningCanBeSet()
     {
         $subject = 'warn';
@@ -162,9 +131,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getExtraWarning());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function extraDangerCanBeSet()
     {
         $subject = 'danger';
@@ -172,9 +139,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getExtraDanger());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function lastSuccessfulDateCanBeSet()
     {
         $subject = new \DateTime();
@@ -182,9 +147,7 @@ class ClientTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getLastSuccessfulImport());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function slaCanBeSet()
     {
         $subject = new Sla();

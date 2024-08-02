@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
 
 /*
@@ -8,32 +11,21 @@ namespace T3Monitor\T3monitoring\Tests\Unit\Domain\Model\Dto;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use PHPUnit\Framework\Attributes\Test;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
-/**
- * Class ExtensionFilterDemandTest
- */
 class ExtensionFilterDemandTest extends UnitTestCase
 {
+    protected ExtensionFilterDemand $instance;
 
-    /**
-     * @var ExtensionFilterDemand
-     */
-    protected $instance;
-
-    /**
-     * Set up
-     */
     protected function setUp(): void
     {
         parent::setUp();
         $this->instance = new ExtensionFilterDemand();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function nameCanBeSet()
     {
         $subject = 'MyExt';
@@ -41,13 +33,10 @@ class ExtensionFilterDemandTest extends UnitTestCase
         $this->assertEquals($subject, $this->instance->getName());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function exactSearchCanBeSet()
     {
-        $subject = true;
-        $this->instance->setExactSearch($subject);
-        $this->assertEquals($subject, $this->instance->isExactSearch());
+        $this->instance->setExactSearch(true);
+        $this->assertTrue($this->instance->isExactSearch());
     }
 }
