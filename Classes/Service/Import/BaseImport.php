@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -10,40 +13,26 @@ namespace T3Monitor\T3monitoring\Service\Import;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
-use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class BaseImport
- */
 class BaseImport
 {
-    /** @var EmMonitoringConfiguration */
-    protected $emConfiguration;
-
-    /** @var Registry */
-    protected $registry;
-
+    protected EmMonitoringConfiguration $emConfiguration;
+    protected Registry $registry;
     protected EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
         $this->registry = GeneralUtility::makeInstance(Registry::class);
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
-
     }
 
-    /**
-     * @param string $action
-     * @throws \InvalidArgumentException
-     */
-    protected function setImportTime($action)
+    protected function setImportTime(string $action): void
     {
-        $this->registry->set('t3monitoring', 'import' . ucfirst($action), $GLOBALS['EXEC_TIME']);
+        $now = GeneralUtility::makeInstance(Context::class)->getAspect('date')->get('timestamp');
+        $this->registry->set('t3monitoring', 'import' . ucfirst($action), $now);
     }
 }

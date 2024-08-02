@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -16,9 +18,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extensionmanager\Remote\RemoteRegistry;
 
-/**
- * Class ExtensionImport
- */
 class ExtensionImport extends BaseImport
 {
 
@@ -30,23 +29,16 @@ class ExtensionImport extends BaseImport
      *
      * @throws InvalidArgumentException
      */
-    public function run()
+    public function run(): void
     {
-        // $updateRequired = $this->updateExtensionList();
-        // always set $updateRequired = true, as $this->updateExtensionList() never returns true
-        $updateRequired = true;
-        if ($updateRequired) {
-            $this->insertExtensionsInCustomTable();
-        }
+        $this->updateExtensionList();
+        $this->insertExtensionsInCustomTable();
         $dataIntegrity = GeneralUtility::makeInstance(DataIntegrity::class);
         $dataIntegrity->invokeAfterExtensionImport();
         $this->setImportTime('extension');
     }
 
-    /**
-     * Insert Extension in custom table
-     */
-    protected function insertExtensionsInCustomTable()
+    protected function insertExtensionsInCustomTable(): void
     {
         $table = 'tx_t3monitoring_domain_model_extension';
         $queryBuilderCoreExtensions = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -56,11 +48,11 @@ class ExtensionImport extends BaseImport
             ->from('tx_extensionmanager_domain_model_extension')
             ->where(
                 $queryBuilderCoreExtensions->expr()->gt('last_updated', $queryBuilderCoreExtensions->createNamedParameter(strtotime(self::MIN_DATE)))
-            )->execute();
+            )->executeQuery();
 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable($table);
-        while ($row = $res->fetch()) {
+        while ($row = $res->fetchAssociative()) {
             $versionSplit = explode('.', $row['version'], 3);
 
             $fields = [
@@ -91,7 +83,7 @@ class ExtensionImport extends BaseImport
                 ->where(
                     $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($row['version'])),
                     $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($row['extension_key']))
-                )->execute()->fetch();
+                )->executeQuery()->fetchAssociative();
 
             $connection = GeneralUtility::makeInstance(ConnectionPool::class)
                 ->getConnectionForTable($table);
@@ -113,7 +105,7 @@ class ExtensionImport extends BaseImport
         }
     }
 
-    protected function addCoreDependenciesToFields(array &$fields)
+    protected function addCoreDependenciesToFields(array &$fields): void
     {
         $fields['typo3_min_version'] = 0;
         $fields['typo3_max_version'] = 0;
@@ -136,24 +128,12 @@ class ExtensionImport extends BaseImport
         $fields['typo3_max_version'] = VersionNumberUtility::convertVersionNumberToInteger($split[1]);
     }
 
-    /**
-     * @return bool TRUE if the extension list was successfully update, FALSE if no update necessary
-     */
-    protected function updateExtensionList(): bool
+    protected function updateExtensionList(): void
     {
-        $updated = false;
-
         $remoteRegistry = GeneralUtility::makeInstance(RemoteRegistry::class);
         foreach ($remoteRegistry->getListableRemotes() as $remote) {
-            // TYPO3 11.5.12: at least TYPO3\CMS\Extensionmanager\Remote\TerExtensionRemote::getAvailablePackages()
-            // returns void, so $updated will never become TRUE here...
-            $remoteUpdate = $remote->getAvailablePackages();
-            if ($remoteUpdate) {
-                $updated = true;
-            }
+            $remote->getAvailablePackages();
         }
-
-        return $updated;
     }
 
     /**
@@ -166,10 +146,10 @@ class ExtensionImport extends BaseImport
      * @param string $version A string with a version range.
      * @return array
      */
-    protected static function splitVersionRange($version)
+    protected static function splitVersionRange(string $version): array
     {
         $versionRange = [];
-        if (strpos($version, '-') !== false) {
+        if (str_contains($version, '-')) {
             $versionRange = explode('-', $version, 2);
         } else {
             $versionRange[0] = $version;

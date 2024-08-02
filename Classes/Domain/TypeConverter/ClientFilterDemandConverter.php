@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\TypeConverter;
 
 /*
@@ -10,13 +12,11 @@ namespace T3Monitor\T3monitoring\Domain\TypeConverter;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
-/**
- * Class ClientFilterDemandConverter
- */
 class ClientFilterDemandConverter extends AbstractTypeConverter
 {
     /**
@@ -40,7 +40,7 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
      * @param mixed $source
      * @param string $targetType
      * @param array $convertedChildProperties
-     * @param PropertyMappingConfigurationInterface $configuration
+     * @param PropertyMappingConfigurationInterface|null $configuration
      * @return float|\TYPO3\CMS\Extbase\Error\Error
      * @api
      */
@@ -50,11 +50,10 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
         array $convertedChildProperties = [],
         PropertyMappingConfigurationInterface $configuration = null
     ) {
-        if (!$this->isAllowed()) {
+        $properties = $this->getProperties();
+        if (!$properties) {
             return null;
         }
-        $vars = GeneralUtility::_GET('tx_t3monitoring_tools_t3monitoringt3monitor');
-        $properties = $vars['filter'];
 
         $object = GeneralUtility::makeInstance($this->targetType);
         foreach ($properties as $key => $value) {
@@ -68,15 +67,14 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
 
     public function canConvertFrom($source, string $targetType): bool
     {
-        return $this->isAllowed();
+        return $this->getProperties() !== [];
     }
 
-    /**
-     * @return bool
-     */
-    protected function isAllowed()
+    protected function getProperties(): array
     {
-        $vars = GeneralUtility::_GET('tx_t3monitoring_tools_t3monitoringt3monitor');
-        return isset($vars['filter']) && is_array($vars['filter']);
+        /** @var ServerRequest $request */
+        $request = $GLOBALS['TYPO3_REQUEST'];
+        $vars = $request->getQueryParams()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? [];
+        return is_array($vars['filter'] ?? false) ? $vars['filter'] : [];
     }
 }

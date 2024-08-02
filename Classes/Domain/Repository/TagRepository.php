@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -10,16 +13,9 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
-/**
- * The repository for Tags
- */
 class TagRepository extends BaseRepository
 {
-
-    /**
-     * Initialize object
-     */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $this->setDefaultOrderings(['sorting' => QueryInterface::ORDER_ASCENDING]);
     }

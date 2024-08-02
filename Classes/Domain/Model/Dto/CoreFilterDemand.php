@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -10,27 +13,16 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * Class CoreFilterDemand
- */
 class CoreFilterDemand extends AbstractEntity
 {
+    protected int $usage = 0;
 
-    /** @var int */
-    protected $usage;
-
-    /**
-     * @return int
-     */
-    public function getUsage()
+    public function getUsage(): int
     {
         return $this->usage;
     }
 
-    /**
-     * @param int $usage
-     */
-    public function setUsage($usage)
+    public function setUsage(int $usage): void
     {
         $this->usage = $usage;
     }

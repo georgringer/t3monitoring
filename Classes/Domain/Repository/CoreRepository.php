@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -8,72 +11,47 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use T3Monitor\T3monitoring\Domain\Model\Core;
 use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-/**
- * The repository for Cores
- */
 class CoreRepository extends BaseRepository
 {
     const USED_ALL = 0;
     const USED_ONLY = 1;
 
-    /**
-     * Initialize object
-     */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $this->setDefaultOrderings(['versionInteger' => QueryInterface::ORDER_DESCENDING]);
     }
 
-    /**
-     * @param CoreFilterDemand $demand
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     */
-    public function findByDemand(CoreFilterDemand $demand)
+    public function findByDemand(CoreFilterDemand $demand): QueryResultInterface|array
     {
         $query = $this->getQuery();
-
-        $constraints = [];
-
-        // used
-        $constraints[] = $query->equals('isUsed', $demand->getUsage());
-
-        if (!empty($constraints)) {
-            $query->matching(
-                $query->logicalAnd($constraints)
-            );
-        }
+        $query->matching(
+            $query->equals('isUsed', $demand->getUsage())
+        );
 
         return $query->execute();
     }
 
-    /**
-     * @param int $mode
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     */
-    public function findAllCoreVersions($mode = self::USED_ONLY)
+    public function findAllCoreVersions(int $mode = self::USED_ONLY): QueryResultInterface|array
     {
         $query = $this->getQuery();
         if ($mode > 0) {
-            $query->matching($query->logicalAnd(
+            $query->matching(
                 $query->equals('isUsed', ($mode === self::USED_ONLY ? 1 : 0))
-            ));
+            );
         }
         return $query->execute();
     }
 
-    /**
-     * @param string $version
-     * @return \T3Monitor\T3monitoring\Domain\Model\Core
-     */
-    public function findByVersionAsInteger($version)
+    public function findByVersionAsInteger(string $version): Core
     {
         $query = $this->getQuery();
         return $query->matching(
-            $query->logicalAnd(
-                $query->equals('versionInteger', $version)
-            ))->execute()->getFirst();
+            $query->equals('versionInteger', $version)
+        )->execute()->getFirst();
     }
 }

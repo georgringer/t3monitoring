@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Model;
 
 /*
@@ -8,20 +11,13 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use DateTime;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * Extension
- */
 class Extension extends AbstractEntity
 {
-
-    /**
-     * Contains default states.
-     *
-     * @var array
-     */
-    public static $defaultStates = [
+    public static array $defaultStates = [
         0 => 'alpha',
         1 => 'beta',
         2 => 'stable',
@@ -32,12 +28,7 @@ class Extension extends AbstractEntity
         999 => 'n/a'
     ];
 
-    /**
-     * Contains default categories.
-     *
-     * @var array
-     */
-    public static $defaultCategories = [
+    public static array $defaultCategories = [
         0 => 'be',
         1 => 'module',
         2 => 'fe',
@@ -50,611 +41,271 @@ class Extension extends AbstractEntity
         10 => 'distribution'
     ];
 
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $name = '';
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $name = '';
+    protected string $version = '';
+    protected bool $insecure = false;
+    protected string $nextSecureVersion = '';
+    protected string $title = '';
+    protected string $description = '';
+    protected ?DateTime $lastUpdated = null;
+    protected string $authorName = '';
+    protected string $updateComment = '';
+    protected int $state = 0;
+    protected int $category = 0;
+    protected int $versionInteger = 0;
+    protected bool $isUsed = false;
+    protected bool $isOfficial = false;
+    protected bool $isModified = false;
+    protected bool $isLatest = false;
+    protected string $lastBugfixRelease = '';
+    protected string $lastMinorRelease = '';
+    protected string $lastMajorRelease = '';
+    protected string $serializedDependencies = '';
+    protected int $typo3MinVersion = 0;
+    protected int $typo3MaxVersion = 0;
 
-    /**
-     * @var string
-     */
-    protected $version = '';
-
-    /**
-     * @var bool
-     */
-    protected $insecure = false;
-
-    /**
-     * @var string
-     */
-    protected $nextSecureVersion = '';
-
-    /**
-     * @var string
-     */
-    protected $title = '';
-
-    /**
-     * @var string
-     */
-    protected $description = '';
-
-    /**
-     * @var \DateTime
-     */
-    protected $lastUpdated = null;
-
-    /**
-     * @var string
-     */
-    protected $authorName = '';
-
-    /**
-     * @var string
-     */
-    protected $updateComment = '';
-
-    /**
-     * @var int
-     */
-    protected $state = 0;
-
-    /**
-     * @var int
-     */
-    protected $category = 0;
-
-    /**
-     * @var int
-     */
-    protected $versionInteger = 0;
-
-    /**
-     * @var bool
-     */
-    protected $isUsed = false;
-
-    /**
-     * @var bool
-     */
-    protected $isOfficial = false;
-
-    /**
-     * @var bool
-     */
-    protected $isModified = false;
-
-    /**
-     * @var bool
-     */
-    protected $isLatest = false;
-
-    /**
-     * @var string
-     */
-    protected $lastBugfixRelease = '';
-
-    /**
-     * @var string
-     */
-    protected $lastMinorRelease = '';
-
-    /**
-     * @var string
-     */
-    protected $lastMajorRelease = '';
-
-    /**
-     * @var string
-     */
-    protected $serializedDependencies = '';
-
-    /** @var int */
-    protected $typo3MinVersion = 0;
-
-    /** @var int */
-    protected $typo3MaxVersion = 0;
-
-    /**
-     * Returns the name
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Sets the name
-     *
-     * @param string $name
-     * @return void
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * Returns the version
-     *
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * Sets the version
-     *
-     * @param string $version
-     * @return void
-     */
-    public function setVersion($version)
+    public function setVersion(string $version): void
     {
         $this->version = $version;
     }
 
-    /**
-     * Returns the insecure
-     *
-     * @return bool
-     */
-    public function getInsecure()
+    public function getInsecure(): bool
     {
         return $this->insecure;
     }
 
-    /**
-     * Sets the insecure
-     *
-     * @param bool $insecure
-     * @return void
-     */
-    public function setInsecure($insecure)
+    public function setInsecure(bool $insecure): void
     {
         $this->insecure = $insecure;
     }
 
-    /**
-     * Returns the boolean state of insecure
-     *
-     * @return bool
-     */
-    public function isInsecure()
+    public function isInsecure(): bool
     {
         return $this->insecure;
     }
 
-    /**
-     * Returns the nextSecureVersion
-     *
-     * @return string
-     */
-    public function getNextSecureVersion()
+    public function getNextSecureVersion(): string
     {
         return $this->nextSecureVersion;
     }
 
-    /**
-     * Sets the nextSecureVersion
-     *
-     * @param string $nextSecureVersion
-     * @return void
-     */
-    public function setNextSecureVersion($nextSecureVersion)
+    public function setNextSecureVersion(string $nextSecureVersion): void
     {
         $this->nextSecureVersion = $nextSecureVersion;
     }
 
-    /**
-     * Returns the title
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * Returns the description
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    /**
-     * Sets the description
-     *
-     * @param string $description
-     * @return void
-     */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
-    /**
-     * Returns the lastUpdated
-     *
-     * @return \DateTime
-     */
-    public function getLastUpdated()
+    public function getLastUpdated(): ?DateTime
     {
         return $this->lastUpdated;
     }
 
-    /**
-     * Sets the lastUpdated
-     *
-     * @param \DateTime $lastUpdated
-     * @return void
-     */
-    public function setLastUpdated(\DateTime $lastUpdated)
+    public function setLastUpdated(DateTime $lastUpdated): void
     {
         $this->lastUpdated = $lastUpdated;
     }
 
-    /**
-     * Returns the authorName
-     *
-     * @return string
-     */
-    public function getAuthorName()
+    public function getAuthorName(): string
     {
         return $this->authorName;
     }
 
-    /**
-     * Sets the authorName
-     *
-     * @param string $authorName
-     * @return void
-     */
-    public function setAuthorName($authorName)
+    public function setAuthorName(string $authorName): void
     {
         $this->authorName = $authorName;
     }
 
-    /**
-     * Returns the updateComment
-     *
-     * @return string
-     */
-    public function getUpdateComment()
+    public function getUpdateComment(): string
     {
         return $this->updateComment;
     }
 
-    /**
-     * Sets the updateComment
-     *
-     * @param string $updateComment
-     * @return void
-     */
-    public function setUpdateComment($updateComment)
+    public function setUpdateComment(string $updateComment): void
     {
         $this->updateComment = $updateComment;
     }
 
-    /**
-     * Returns the state
-     *
-     * @return int
-     */
-    public function getState()
+    public function getState(): int
     {
         return $this->state;
     }
 
-    /**
-     * Sets the state
-     *
-     * @param int $state
-     * @return void
-     */
-    public function setState($state)
+    public function setState(int $state): void
     {
         $this->state = $state;
     }
 
-    /**
-     * Returns the category
-     *
-     * @return int
-     */
-    public function getCategory()
+    public function getCategory(): int
     {
         return $this->category;
     }
 
-    /**
-     * Sets the category
-     *
-     * @param int $category
-     * @return void
-     */
-    public function setCategory($category)
+    public function setCategory(int $category): void
     {
         $this->category = $category;
     }
 
-    /**
-     * Returns the versionInteger
-     *
-     * @return int
-     */
-    public function getVersionInteger()
+    public function getVersionInteger(): int
     {
         return $this->versionInteger;
     }
 
-    /**
-     * Sets the versionInteger
-     *
-     * @param int $versionInteger
-     * @return void
-     */
-    public function setVersionInteger($versionInteger)
+    public function setVersionInteger(int $versionInteger): void
     {
         $this->versionInteger = $versionInteger;
     }
 
-    /**
-     * Returns the isUsed
-     *
-     * @return bool
-     */
-    public function getIsUsed()
+    public function getIsUsed(): bool
     {
         return $this->isUsed;
     }
 
-    /**
-     * Sets the isUsed
-     *
-     * @param bool $isUsed
-     * @return void
-     */
-    public function setIsUsed($isUsed)
+    public function setIsUsed(bool $isUsed): void
     {
         $this->isUsed = $isUsed;
     }
 
-    /**
-     * Returns the boolean state of isUsed
-     *
-     * @return bool
-     */
-    public function isIsUsed()
+    public function isIsUsed(): bool
     {
         return $this->isUsed;
     }
 
-    /**
-     * Returns the isOfficial
-     *
-     * @return bool
-     */
-    public function getIsOfficial()
+    public function getIsOfficial(): bool
     {
         return $this->isOfficial;
     }
 
-    /**
-     * Sets the isOfficial
-     *
-     * @param bool $isOfficial
-     * @return void
-     */
-    public function setIsOfficial($isOfficial)
+    public function setIsOfficial(bool $isOfficial): void
     {
         $this->isOfficial = $isOfficial;
     }
 
-    /**
-     * Returns the boolean state of isOfficial
-     *
-     * @return bool
-     */
-    public function isIsOfficial()
+    public function isIsOfficial(): bool
     {
         return $this->isOfficial;
     }
 
-    /**
-     * Returns the isModified
-     *
-     * @return bool
-     */
-    public function getIsModified()
+    public function getIsModified(): bool
     {
         return $this->isModified;
     }
 
-    /**
-     * Sets the isModified
-     *
-     * @param bool $isModified
-     * @return void
-     */
-    public function setIsModified($isModified)
+    public function setIsModified(bool $isModified): void
     {
         $this->isModified = $isModified;
     }
 
-    /**
-     * Returns the boolean state of isModified
-     *
-     * @return bool
-     */
-    public function isIsModified()
+    public function isIsModified(): bool
     {
         return $this->isModified;
     }
 
-    /**
-     * Returns the isLatest
-     *
-     * @return bool
-     */
-    public function getIsLatest()
+    public function getIsLatest(): bool
     {
         return $this->isLatest;
     }
 
-    /**
-     * Sets the isLatest
-     *
-     * @param bool $isLatest
-     * @return void
-     */
-    public function setIsLatest($isLatest)
+    public function setIsLatest(bool $isLatest): void
     {
         $this->isLatest = $isLatest;
     }
 
-    /**
-     * Returns the boolean state of isLatest
-     *
-     * @return bool
-     */
-    public function isIsLatest()
+    public function isIsLatest(): bool
     {
         return $this->isLatest;
     }
 
-    /**
-     * Returns the lastBugfixRelease
-     *
-     * @return string
-     */
-    public function getLastBugfixRelease()
+    public function getLastBugfixRelease(): string
     {
         return $this->lastBugfixRelease;
     }
 
-    /**
-     * Sets the lastBugfixRelease
-     *
-     * @param string $lastBugfixRelease
-     * @return void
-     */
-    public function setLastBugfixRelease($lastBugfixRelease)
+    public function setLastBugfixRelease(string $lastBugfixRelease): void
     {
         $this->lastBugfixRelease = $lastBugfixRelease;
     }
 
-    /**
-     * Returns the lastMinorRelease
-     *
-     * @return string
-     */
-    public function getLastMinorRelease()
+    public function getLastMinorRelease(): string
     {
         return $this->lastMinorRelease;
     }
 
-    /**
-     * Sets the lastMinorRelease
-     *
-     * @param string $lastMinorRelease
-     * @return void
-     */
-    public function setLastMinorRelease($lastMinorRelease)
+    public function setLastMinorRelease(string $lastMinorRelease): void
     {
         $this->lastMinorRelease = $lastMinorRelease;
     }
 
-    /**
-     * Returns the lastMajorRelease
-     *
-     * @return string
-     */
-    public function getLastMajorRelease()
+    public function getLastMajorRelease(): string
     {
         return $this->lastMajorRelease;
     }
 
-    /**
-     * Sets the lastMajorRelease
-     *
-     * @param string $lastMajorRelease
-     * @return void
-     */
-    public function setLastMajorRelease($lastMajorRelease)
+    public function setLastMajorRelease(string $lastMajorRelease): void
     {
         $this->lastMajorRelease = $lastMajorRelease;
     }
 
-    /**
-     * Returns the serializedDependencies
-     *
-     * @return string
-     */
-    public function getSerializedDependencies()
+    public function getSerializedDependencies(): string
     {
         return $this->serializedDependencies;
     }
 
-    /**
-     * Sets the serializedDependencies
-     *
-     * @param string $serializedDependencies
-     * @return void
-     */
-    public function setSerializedDependencies($serializedDependencies)
+    public function setSerializedDependencies(string $serializedDependencies): void
     {
         $this->serializedDependencies = $serializedDependencies;
     }
 
-    /**
-     * @return int
-     */
-    public function getTypo3MinVersion()
+    public function getTypo3MinVersion(): int
     {
         return $this->typo3MinVersion;
     }
 
-    /**
-     * @param int $typo3MinVersion
-     */
-    public function setTypo3MinVersion($typo3MinVersion)
+    public function setTypo3MinVersion(int $typo3MinVersion): void
     {
         $this->typo3MinVersion = $typo3MinVersion;
     }
 
-    /**
-     * @return int
-     */
-    public function getTypo3MaxVersion()
+    public function getTypo3MaxVersion(): int
     {
         return $this->typo3MaxVersion;
     }
 
-    /**
-     * @param int $typo3MaxVersion
-     */
-    public function setTypo3MaxVersion($typo3MaxVersion)
+    public function setTypo3MaxVersion(int $typo3MaxVersion): void
     {
         $this->typo3MaxVersion = $typo3MaxVersion;
     }

@@ -6,16 +6,11 @@ namespace T3Monitor\T3monitoring\Event;
 
 final class ImportClientDataEvent
 {
-    private array $json;
-    private array $row;
-    private array $update;
-
-    public function __construct(array $json, array $row, array $update)
-    {
-        $this->json = $json;
-        $this->row = $row;
-        $this->update = $update;
-    }
+    public function __construct(
+        private readonly array $json,
+        private readonly array $row,
+        private array $update
+    ) {}
 
     public function getJson(): array
     {

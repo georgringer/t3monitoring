@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Notification;
 
 /*
@@ -17,9 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use UnexpectedValueException;
 
-/**
- * Class EmailNotification
- */
 class EmailNotification implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
@@ -29,11 +29,11 @@ class EmailNotification implements LoggerAwareInterface
 
     /**
      * @param string $email
-     * @param \T3Monitor\T3monitoring\Domain\Model\Client[] $clients
+     * @param Client[] $clients
      * @param string $subject
      * @throws UnexpectedValueException
      */
-    public function sendAdminEmail($email, $clients, $subject = 'Monitoring Report')
+    public function sendAdminEmail(string $email, array $clients, string $subject = 'Monitoring Report'): void
     {
         if (!GeneralUtility::validEmail($email)) {
             throw new UnexpectedValueException('The email address is not valid');
@@ -52,13 +52,12 @@ class EmailNotification implements LoggerAwareInterface
     }
 
     /**
-     * @param \T3Monitor\T3monitoring\Domain\Model\Client[] $clients
+     * @param Client[] $clients
      * @param string $subject
      */
-    public function sendClientEmail($clients, $subject = 'Monitoring Report')
+    public function sendClientEmail(array $clients, string $subject = 'Monitoring Report'): void
     {
         foreach ($clients as $client) {
-            /** @var Client $client */
             if (!GeneralUtility::validEmail($client->getEmail())) {
                 continue;
             }
@@ -70,7 +69,7 @@ class EmailNotification implements LoggerAwareInterface
         }
     }
 
-    public function sendClientFailedEmail(array $clients, string $emailAddress, $subject = 'Monitoring Client Connection Failure')
+    public function sendClientFailedEmail(array $clients, string $emailAddress, $subject = 'Monitoring Client Connection Failure'): void
     {
         if (empty($emailAddress)) {
             return;
@@ -86,14 +85,7 @@ class EmailNotification implements LoggerAwareInterface
         $this->sendMail($emailAddress, $subject, $template);
     }
 
-    /**
-     * @param string $to
-     * @param string $subject
-     * @param string $plainContent
-     * @param string $htmlContent
-     * @return int
-     */
-    protected function sendMail(string $to, string $subject, string $plainContent, string $htmlContent = '')
+    protected function sendMail(string $to, string $subject, string $plainContent, string $htmlContent = ''): bool
     {
         /** @var MailMessage $mailMessage */
         $mailMessage = GeneralUtility::makeInstance(MailMessage::class);
@@ -117,7 +109,7 @@ class EmailNotification implements LoggerAwareInterface
      * @param string $format
      * @return string
      */
-    protected function getFluidTemplate(array $arguments, $file, $format = 'html')
+    protected function getFluidTemplate(array $arguments, string $file, string $format = 'html'): string
     {
         /** @var StandaloneView $renderer */
         $renderer = GeneralUtility::makeInstance(StandaloneView::class);
@@ -136,7 +128,7 @@ class EmailNotification implements LoggerAwareInterface
      *
      * @return string
      */
-    protected function getSenderEmailName()
+    protected function getSenderEmailName(): string
     {
         return !empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'])
             ? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']
@@ -150,7 +142,7 @@ class EmailNotification implements LoggerAwareInterface
      *
      * @return string
      */
-    protected function getSenderEmailAddress()
+    protected function getSenderEmailAddress(): string
     {
         return !empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'])
             ? $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']

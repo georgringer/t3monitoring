@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -10,6 +12,7 @@ namespace T3Monitor\T3monitoring\Service\Import;
  */
 
 use Exception;
+use RuntimeException;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use T3Monitor\T3monitoring\Event\ImportClientDataEvent;
 use T3Monitor\T3monitoring\Notification\EmailNotification;
@@ -21,28 +24,15 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
-/**
- * Class ClientImport
- */
 class ClientImport extends BaseImport
 {
     const TABLE = 'tx_t3monitoring_domain_model_client';
 
-    /** @var array */
-    protected $coreVersions = [];
+    protected array $coreVersions = [];
+    protected array $responseCount = ['error' => 0, 'success' => 0];
+    protected array $failedClients = [];
+    protected EmailNotification $emailNotification;
 
-    /** @var array */
-    protected $responseCount = ['error' => 0, 'success' => 0];
-
-    /** @var array */
-    protected $failedClients = [];
-
-    /** @var  EmailNotification */
-    protected $emailNotification;
-
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->coreVersions = $this->getAllCoreVersions();
@@ -50,12 +40,7 @@ class ClientImport extends BaseImport
         parent::__construct();
     }
 
-    /**
-     * @param int $clientId
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
-    public function run(int $clientId = 0)
+    public function run(int $clientId = 0): void
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable(self::TABLE);
@@ -64,15 +49,15 @@ class ClientImport extends BaseImport
             ->from(self::TABLE);
         if ($clientId > 0) {
             $query->where(
-                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($clientId, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($clientId, Connection::PARAM_INT))
             );
         } else {
             $query->where(
-                $queryBuilder->expr()->eq('exclude_from_import', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('exclude_from_import', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT))
             );
         }
 
-        $clientRows = $query->execute()->fetchAll();
+        $clientRows = $query->executeQuery()->fetchAllAssociative();
 
         foreach ($clientRows as $client) {
             $this->importSingleClient($client);
@@ -90,28 +75,21 @@ class ClientImport extends BaseImport
         $this->setImportTime('client');
     }
 
-    /**
-     * @return array
-     */
-    public function getResponseCount()
+    public function getResponseCount(): array
     {
         return $this->responseCount;
     }
 
-    /**
-     * @param array $row
-     * @throws \RuntimeException
-     */
-    protected function importSingleClient(array $row)
+    protected function importSingleClient(array $row): void
     {
         try {
             $response = $this->requestClientData($row);
             if (empty($response)) {
-                throw new \RuntimeException('Empty response from client ' . $row['title']);
+                throw new RuntimeException('Empty response from client ' . $row['title']);
             }
             $json = json_decode($response, true);
             if (!is_array($json)) {
-                throw new \RuntimeException('Invalid response from client ' . $row['title']);
+                throw new RuntimeException('Invalid response from client ' . $row['title']);
             }
 
             $update = [
@@ -153,7 +131,7 @@ class ClientImport extends BaseImport
      * @param array $update
      * @param string $field
      */
-    protected function addExtraData(array $json, array &$update, $field)
+    protected function addExtraData(array $json, array &$update, string $field): void
     {
         $dbField = 'extra_' . $field;
         if (is_array($json['extra'][$field] ?? false)) {
@@ -163,11 +141,7 @@ class ClientImport extends BaseImport
         }
     }
 
-    /**
-     * @param array $client
-     * @param Exception $error
-     */
-    protected function handleError(array $client, Exception $error)
+    protected function handleError(array $client, Exception $error): void
     {
         $this->responseCount['error']++;
         $this->failedClients[] = $client;
@@ -185,13 +159,6 @@ class ClientImport extends BaseImport
         );
     }
 
-    /**
-     * @param array $row
-     *
-     * @return mixed
-     * @throws \InvalidArgumentException
-     * @throws \RuntimeException
-     */
     protected function requestClientData(array $row)
     {
         $domain = $this->unifyDomain($row['domain']);
@@ -207,7 +174,7 @@ class ClientImport extends BaseImport
         $additionalOptions = [
             'headers' => $headers,
             'allow_redirects' => true,
-            'verify' => (bool)!$row['ignore_cert_errors'],
+            'verify' => !$row['ignore_cert_errors'],
         ];
         if (!empty($row['basic_auth_username']) && !empty($row['basic_auth_password'])) {
             $additionalOptions['auth'] = [ $row['basic_auth_username'], $row['basic_auth_password'] ];
@@ -217,7 +184,7 @@ class ClientImport extends BaseImport
         }
         $response = $requestFactory->request($url, 'GET', $additionalOptions);
         if (!empty($response->getReasonPhrase()) && $response->getReasonPhrase() !== 'OK') {
-            throw new \RuntimeException($response->getReasonPhrase());
+            throw new RuntimeException($response->getReasonPhrase());
         }
         if (in_array($response->getStatusCode(), [ 200, 301, 302 ], true)) {
             $response = $response->getBody()->getContents();
@@ -226,12 +193,7 @@ class ClientImport extends BaseImport
         return $response;
     }
 
-    /**
-     * @param string $domain
-     * @return string
-     * @throws \InvalidArgumentException
-     */
-    protected function unifyDomain($domain)
+    protected function unifyDomain(string $domain): string
     {
         $domain = rtrim($domain, '/');
         if (!str_starts_with($domain, 'http://') && !str_starts_with($domain, 'https://')) {
@@ -241,12 +203,7 @@ class ClientImport extends BaseImport
         return $domain;
     }
 
-    /**
-     * @param int $client client uid
-     * @param array $extensions list of extensions
-     * @return int count of used extensions
-     */
-    protected function handleExtensionRelations($client, array $extensions = [])
+    protected function handleExtensionRelations(int $client, array $extensions = []): int
     {
         $table = 'tx_t3monitoring_domain_model_extension';
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -255,7 +212,7 @@ class ClientImport extends BaseImport
         $whereClause = [];
         foreach ($extensions as $key => $data) {
             if (!empty($data['version'])) {
-                $whereClause[] = $queryBuilder->expr()->andX(
+                $whereClause[] = $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('version', $queryBuilder->createNamedParameter($data['version'])),
                     $queryBuilder->expr()->eq('name', $queryBuilder->createNamedParameter($key))
                 );
@@ -265,9 +222,9 @@ class ClientImport extends BaseImport
         $existingExtensions = $queryBuilder
             ->select('uid', 'version', 'name')
             ->from($table)
-            ->where($queryBuilder->expr()->orX(...$whereClause))
-            ->execute()
-            ->fetchAll();
+            ->where($queryBuilder->expr()->or(...$whereClause))
+            ->executeQuery()
+            ->fetchAllAssociative();
 
         $relationsToBeAdded = [];
         foreach ($extensions as $key => $data) {
@@ -327,7 +284,7 @@ class ClientImport extends BaseImport
 
             $mmTable = 'tx_t3monitoring_client_extension_mm';
             $mmConnection = $this->getConnectionTableFor($mmTable);
-            $mmConnection->delete($mmTable, ['uid_local' => (int)$client]);
+            $mmConnection->delete($mmTable, ['uid_local' => $client]);
             $mmConnection = $this->getConnectionTableFor($mmTable);
             $mmConnection->bulkInsert($mmTable, $relationsToBeAdded, $fields);
         }
@@ -335,11 +292,7 @@ class ClientImport extends BaseImport
         return count($extensions);
     }
 
-    /**
-     * @param array $constraints
-     * @return string|null
-     */
-    protected function serializeDependencies(array $constraints)
+    protected function serializeDependencies(array $constraints): ?string
     {
         foreach ($constraints as $key => $constraint) {
             if (!is_array($constraint) || $constraint === []) {
@@ -349,10 +302,6 @@ class ClientImport extends BaseImport
         return $constraints !== [] ? serialize($constraints) : null;
     }
 
-    /**
-     * @param string $version
-     * @return int
-     */
     protected function getUsedCore(string $version): int
     {
         if (isset($this->coreVersions[$version])) {
@@ -371,15 +320,12 @@ class ClientImport extends BaseImport
         ];
 
         $connection->insert('tx_t3monitoring_domain_model_core', $insert);
-        $newId = $connection->lastInsertId('tx_t3monitoring_domain_model_core');
+        $newId = (int)$connection->lastInsertId('tx_t3monitoring_domain_model_core');
         $this->coreVersions[$version] = ['uid' => $newId, 'version' => $version];
 
         return $newId;
     }
 
-    /**
-     * @return array
-     */
     protected function getAllCoreVersions(): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -387,8 +333,8 @@ class ClientImport extends BaseImport
         $rows = $queryBuilder
             ->select('uid', 'version')
             ->from('tx_t3monitoring_domain_model_core')
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         $finalRows = [];
         foreach ($rows as $row) {
             $finalRows[$row['version']] = $row;

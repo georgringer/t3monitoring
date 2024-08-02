@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Service\Import;
 
 /*
@@ -15,9 +17,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use UnexpectedValueException;
 
-/**
- * Class CoreImport
- */
 class CoreImport extends BaseImport
 {
     const TYPE_REGULAR = 0;
@@ -28,13 +27,7 @@ class CoreImport extends BaseImport
     const URL = 'https://get.typo3.org/json';
     const MINIMAL_TYPO3_VERSION = '4.5.0';
 
-    /**
-     * Run core import
-     *
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \Exception
-     */
-    public function run()
+    public function run(): void
     {
         $table = 'tx_t3monitoring_domain_model_core';
         $data = $this->getSimplifiedData();
@@ -43,8 +36,8 @@ class CoreImport extends BaseImport
         $rows = $queryBuilder
             ->select('uid', 'version')
             ->from($table)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         $previousCoreVersions = [];
         foreach ($rows as $row) {
             $previousCoreVersions[$row['version']] = $row;
@@ -79,7 +72,7 @@ class CoreImport extends BaseImport
                 }
             }
             $connection->commit();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $connection->rollBack();
             throw $e;
         }
@@ -139,7 +132,7 @@ class CoreImport extends BaseImport
      *
      * @param array $releases
      */
-    protected function addInsecureFlag(array &$releases)
+    protected function addInsecureFlag(array &$releases): void
     {
         // mark all as insecure which are not maintained
         foreach ($releases as &$release) {
@@ -148,6 +141,7 @@ class CoreImport extends BaseImport
                 $release['next_secure_version'] = ''; // @todo: next major?
             }
         }
+        unset($release);
 
         $listOfInsecureAndActiveVersions = [];
         foreach ($releases as $version => $release) {
@@ -169,40 +163,21 @@ class CoreImport extends BaseImport
         }
     }
 
-    /**
-     * @param string $date
-     * @return string
-     */
-    protected function getReleaseDate($date): string
+    protected function getReleaseDate(string $date): string
     {
         $converted = new \DateTime($date);
         return $converted->format('Y-m-d H:i:s');
     }
 
-    /**
-     * @param string $type
-     * @return int
-     * @throws UnexpectedValueException
-     */
-    protected function getType($type): int
+    protected function getType(string $type): int
     {
-        switch ($type) {
-            case 'regular':
-                $id = self::TYPE_REGULAR;
-                break;
-            case 'release':
-                $id = self::TYPE_RELEASE;
-                break;
-            case 'security':
-                $id = self::TYPE_SECURITY;
-                break;
-            case 'development':
-                $id = self::TYPE_DEVELOPMENT;
-                break;
-            default:
-                throw new UnexpectedValueException(sprintf('Not known type "%s" found', $type));
-        }
-        return $id;
+        return match ($type) {
+            'regular' => self::TYPE_REGULAR,
+            'release' => self::TYPE_RELEASE,
+            'security' => self::TYPE_SECURITY,
+            'development' => self::TYPE_DEVELOPMENT,
+            default => throw new UnexpectedValueException(sprintf('Not known type "%s" found', $type)),
+        };
     }
 
     /**

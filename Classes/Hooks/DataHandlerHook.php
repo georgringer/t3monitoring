@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Hooks;
 
 /*
@@ -11,37 +14,28 @@ namespace T3Monitor\T3monitoring\Hooks;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class DataHandlerHook
- */
 class DataHandlerHook
 {
-
-    /**
-     * @param string $status
-     * @param string $table
-     * @param string $recordUid
-     * @param array $fields
-     * @param DataHandler $parentObject
-     * @throws \InvalidArgumentException
-     */
     public function processDatamap_afterDatabaseOperations(
-        $status,
-        $table,
-        $recordUid,
+        string $status,
+        string $table,
+        string|int $recordUid,
         array $fields,
         DataHandler $parentObject
-    ) {
+    ): void {
         if ($table === 'tx_t3monitoring_domain_model_client') {
             if (is_string($recordUid) && str_starts_with($recordUid, 'NEW')) {
                 $recordUid = $parentObject->substNEWwithIDs[$recordUid];
             }
 
-            $clientRow = BackendUtility::getRecord($table, (int)$recordUid);
+            $recordUid = (int)$recordUid;
+            $clientRow = BackendUtility::getRecord($table, $recordUid);
             if ($clientRow && $clientRow['exclude_from_import'] !== 1) {
                 $this->checkDomain($clientRow['domain']);
                 $this->importClient($recordUid);
@@ -53,50 +47,36 @@ class DataHandlerHook
      * @todo implement
      * @param string $domain
      */
-    protected function checkDomain($domain)
+    protected function checkDomain(string $domain): void
     {
         return;
         $message = sprintf(
             $this->getLanguageService()->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:client.domainNotPingAble'),
             $domain
         );
-        $this->addFlashMessage($message, FlashMessage::WARNING);
+        $this->addFlashMessage($message, AbstractMessage::WARNING);
     }
 
-    /**
-     * @param int $recordUid
-     */
-    protected function importClient($recordUid)
+    protected function importClient(int $recordUid): void
     {
         /** @var ClientImport $clientImport */
         $clientImport = GeneralUtility::makeInstance(ClientImport::class);
         $clientImport->run($recordUid);
     }
 
-    /**
-     * @param string $message
-     * @param int $severity
-     * @throws \InvalidArgumentException
-     */
-    protected function addFlashMessage($message, $severity = FlashMessage::INFO)
+    protected function addFlashMessage(string $message, int $severity = AbstractMessage::INFO): void
     {
-        /** @var FlashMessage $flashMessage */
         $flashMessage = GeneralUtility::makeInstance(
             FlashMessage::class,
             $message,
             '',
-            $severity);
-        /** @var $flashMessageService FlashMessageService */
+            $severity
+        );
         $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
         $flashMessageService->getMessageQueueByIdentifier()->addMessage($flashMessage);
     }
 
-    /**
-     * Returns LanguageService
-     *
-     * @return \TYPO3\CMS\Core\Localization\LanguageService
-     */
-    protected function getLanguageService()
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }

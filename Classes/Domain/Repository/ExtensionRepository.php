@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -11,45 +13,30 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Expression\ExpressionBuilder;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
-/**
- * The repository for Extensions
- */
 class ExtensionRepository extends BaseRepository
 {
-
-    /**
-     * Initialize object
-     */
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $this->setDefaultOrderings(['name' => QueryInterface::ORDER_ASCENDING]);
     }
 
-    /**
-     * @param string $name
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
-     */
-    public function findAllVersionsByName($name)
+    public function findAllVersionsByName(string $name): QueryResultInterface|array
     {
         $query = $this->getQuery();
         $query->setOrderings(['versionInteger' => QueryInterface::ORDER_DESCENDING]);
         $query->matching(
-            $query->logicalAnd($query->equals('name', $name))
+            $query->equals('name', $name)
         );
 
         return $query->execute();
     }
 
-    /**
-     * @param ExtensionFilterDemand $demand
-     * @return array
-     */
-    public function findByDemand(ExtensionFilterDemand $demand)
+    public function findByDemand(ExtensionFilterDemand $demand): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_t3monitoring_domain_model_extension');
         $expressionBuilder = $queryBuilder->expr();
@@ -64,10 +51,10 @@ class ExtensionRepository extends BaseRepository
             ->orderBy('ext.name', 'ASC')
             ->orderBy('ext.version_integer', 'DESC')
             ->orderBy('client.title', 'ASC');
-        $this->extendWhereClause($demand, $queryBuilder, $expressionBuilder);
+        $this->extendWhereClause($demand, $queryBuilder);
 
         $result = [];
-        foreach ($queryBuilder->execute()->fetchAll() as $row) {
+        while ($row = $queryBuilder->executeQuery()->fetchAssociative()) {
             $result[$row['name']][$row['version']]['insecure'] = $row['insecure'];
             $result[$row['name']][$row['version']]['clients'][] = $row;
         }
@@ -75,19 +62,17 @@ class ExtensionRepository extends BaseRepository
         return $result;
     }
 
-    /**
-     * @param ExtensionFilterDemand $demand
-     * @param QueryBuilder          $queryBuilder
-     * @param ExpressionBuilder     $expressionBuilder
-     */
-    protected function extendWhereClause(ExtensionFilterDemand $demand, QueryBuilder &$queryBuilder, ExpressionBuilder $expressionBuilder)
+    protected function extendWhereClause(ExtensionFilterDemand $demand, QueryBuilder $qb): void
     {
-        if ($demand->getName()) {
-            if ($demand->isExactSearch()) {
-                $queryBuilder->andWhere($expressionBuilder->eq('ext.name', $queryBuilder->createNamedParameter($demand->getName())));
-            } else {
-                $queryBuilder->andWhere($expressionBuilder->like('ext.name', $queryBuilder->createNamedParameter('%' . $demand->getName() . '%')));
-            }
+        if (!$demand->getName()) {
+            return;
         }
+        if ($demand->isExactSearch()) {
+            $condition = $qb->expr()->eq('ext.name', $qb->createNamedParameter($demand->getName()));
+        } else {
+            $condition = $qb->expr()->like('ext.name',
+                $qb->createNamedParameter('%' . $qb->escapeLikeWildcards($demand->getName()) . '%'));
+        }
+        $qb->andWhere($condition);
     }
 }

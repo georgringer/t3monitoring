@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Repository;
 
 /*
@@ -9,18 +11,12 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * The repository for statistics
- */
 class StatisticRepository extends BaseRepository
 {
-
-    /**
-     * @return array
-     */
     public function getUsedCoreVersionCount(): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
@@ -32,7 +28,7 @@ class StatisticRepository extends BaseRepository
             ,tx_t3monitoring_domain_model_core.is_stable,tx_t3monitoring_domain_model_core.is_active,tx_t3monitoring_domain_model_core.is_latest')
             ->from('tx_t3monitoring_domain_model_core')
             ->where(
-                $queryBuilder->expr()->eq('hidden', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('hidden', $queryBuilder->createNamedParameter(0, Connection::PARAM_INT))
             )
             ->leftJoin(
                 'tx_t3monitoring_domain_model_core',
@@ -42,12 +38,9 @@ class StatisticRepository extends BaseRepository
             )
             ->orderBy('tx_t3monitoring_domain_model_core.version_integer')
             ->groupBy('tx_t3monitoring_domain_model_core.version', 'version_integer', 'insecure', 'is_stable', 'is_latest', 'is_active')
-            ->execute()->fetchAll();
+            ->executeQuery()->fetchAllAssociative();
     }
 
-    /**
-     * @return string
-     */
     public function getUsedCoreVersionCountJson(): string
     {
         $data = $this->getUsedCoreVersionCount();

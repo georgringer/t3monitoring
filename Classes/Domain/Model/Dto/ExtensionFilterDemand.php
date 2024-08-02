@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -10,46 +13,27 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * Class ExtensionFilterDemand
- */
 class ExtensionFilterDemand extends AbstractEntity
 {
+    protected string $name;
+    protected bool $exactSearch;
 
-    /** @var string */
-    protected $name;
-
-    /** @var bool */
-    protected $exactSearch;
-
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param string $name
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
-    /**
-     * @return bool
-     */
-    public function isExactSearch()
+    public function isExactSearch(): bool
     {
         return $this->exactSearch;
     }
 
-    /**
-     * @param bool $exactSearch
-     */
-    public function setExactSearch($exactSearch)
+    public function setExactSearch(bool $exactSearch): void
     {
         $this->exactSearch = $exactSearch;
     }

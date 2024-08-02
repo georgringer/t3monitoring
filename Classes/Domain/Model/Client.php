@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Model;
 
 /*
@@ -8,166 +11,60 @@ namespace T3Monitor\T3monitoring\Domain\Model;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use DateTime;
+use TYPO3\CMS\Extbase\Annotation\ORM\Lazy;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
-/**
- * Client
- */
 class Client extends AbstractEntity
 {
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $title = '';
+
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $domain = '';
+    protected string $comment = '';
+    protected string $hostHeader = '';
+    protected bool $ignoreCertErrors = false;
+    protected bool $excludeFromImport = false;
+    protected string $forceIpResolve = '';
+    protected string $basicAuthUsername = '';
+    protected string $basicAuthPassword = '';
+
+    #[Validate(['validator' => 'NotEmpty'])]
+    protected string $secret = '';
+    protected string $email = '';
+    protected string $phpVersion = '';
+    protected string $mysqlVersion = '';
+    protected int $diskTotalSpace = 0;
+    protected int $diskFreeSpace = 0;
+    protected bool $insecureCore = false;
+    protected bool $outdatedCore = false;
+    protected int $insecureExtensions = 0;
+    protected int $outdatedExtensions = 0;
+    protected string $errorMessage = '';
+    protected string $extraInfo = '';
+    protected string $extraWarning = '';
+    protected string $extraDanger = '';
+    protected ?DateTime $lastSuccessfulImport = null;
 
     /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @var LazyLoadingProxy|ObjectStorage<Extension>
      */
-    protected $title = '';
+    #[Lazy]
+    protected ObjectStorage|LazyLoadingProxy $extensions;
 
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $domain = '';
+    #[Lazy]
+    protected Core|LazyLoadingProxy|null $core = null;
 
-    /**
-     * @var string
-     */
-    protected $comment = '';
+    #[Lazy]
+    protected Sla|LazyLoadingProxy|null $sla = null;
 
-    /**
-     * @var string
-     */
-    protected $hostHeader = '';
+    #[Lazy]
+    protected Tag|LazyLoadingProxy|null $tag = null;
 
-    /**
-     * @var bool
-     */
-    protected $ignoreCertErrors = false;
-
-    /**
-     * @var bool
-     */
-    protected $excludeFromImport = false;
-
-    /**
-     * @var string
-     */
-    protected $forceIpResolve = '';
-
-    /**
-     * @var string
-     */
-    protected $basicAuthUsername = '';
-
-    /**
-     * @var string
-     */
-    protected $basicAuthPassword = '';
-
-    /**
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $secret = '';
-
-    /**
-     * @var string
-     */
-    protected $email = '';
-
-    /**
-     * @var string
-     */
-    protected $phpVersion = '';
-
-    /**
-     * @var string
-     */
-    protected $mysqlVersion = '';
-
-    /**
-     * @var int
-     */
-    protected $diskTotalSpace = 0;
-
-    /**
-     * @var int
-     */
-    protected $diskFreeSpace = 0;
-
-    /**
-     * @var bool
-     */
-    protected $insecureCore = false;
-
-    /**
-     * @var bool
-     */
-    protected $outdatedCore = false;
-
-    /**
-     * @var int
-     */
-    protected $insecureExtensions = 0;
-
-    /**
-     * @var int
-     */
-    protected $outdatedExtensions = 0;
-
-    /**
-     * @var string
-     */
-    protected $errorMessage = '';
-
-    /**
-     * @var string
-     */
-    protected $extraInfo = '';
-
-    /**
-     * @var string
-     */
-    protected $extraWarning = '';
-
-    /**
-     * @var string
-     */
-    protected $extraDanger = '';
-
-    /**
-     * @var \DateTime
-     */
-    protected $lastSuccessfulImport = null;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     */
-    protected $extensions = null;
-
-    /**
-     * @var \T3Monitor\T3monitoring\Domain\Model\Core
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     */
-    protected $core = null;
-
-    /**
-     * @var \T3Monitor\T3monitoring\Domain\Model\Sla
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     */
-    protected $sla = null;
-
-    /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Tag>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
-     */
-    protected $tag = null;
-
-    /**
-     * __construct
-     */
     public function __construct()
     {
         // Do not remove the next line: It would break the functionality
@@ -182,523 +79,267 @@ class Client extends AbstractEntity
      *
      * @return void
      */
-    protected function initStorageObjects()
+    protected function initStorageObjects(): void
     {
         $this->extensions = new ObjectStorage();
     }
 
-    /**
-     * Returns the title
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * Sets the title
-     *
-     * @param string $title
-     * @return void
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * Returns the domain
-     *
-     * @return string
-     */
-    public function getDomain()
+    public function getDomain(): string
     {
         return $this->domain;
     }
 
-    /**
-     * Sets the domain
-     *
-     * @param string $domain
-     * @return void
-     */
-    public function setDomain($domain)
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
     }
 
-    /**
-     * Returns the comment
-     *
-     * @return string
-     */
-    public function getComment()
+    public function getComment(): string
     {
         return $this->comment;
     }
 
-    /**
-     * Sets the comment
-     *
-     * @param string $comment
-     * @return void
-     */
-    public function setComment($comment)
+    public function setComment(string $comment): void
     {
         $this->comment = $comment;
     }
 
-    /**
-     * @return string
-     */
-    public function getBasicAuthUsername()
+    public function getBasicAuthUsername(): string
     {
         return $this->basicAuthUsername;
     }
 
-    /**
-     * @param string $basicAuthUsername
-     */
-    public function setBasicAuthUsername($basicAuthUsername)
+    public function setBasicAuthUsername(string $basicAuthUsername): void
     {
         $this->basicAuthUsername = $basicAuthUsername;
     }
 
-    /**
-     * @return string
-     */
-    public function getBasicAuthPassword()
+    public function getBasicAuthPassword(): string
     {
         return $this->basicAuthPassword;
     }
 
-    /**
-     * @param string $basicAuthPassword
-     */
-    public function setBasicAuthPassword($basicAuthPassword)
+    public function setBasicAuthPassword(string $basicAuthPassword): void
     {
         $this->basicAuthPassword = $basicAuthPassword;
     }
 
-    /**
-     * @return string
-     */
-    public function getHostHeader()
+    public function getHostHeader(): string
     {
         return $this->hostHeader;
     }
 
-    /**
-     * @param string $hostHeader
-     */
-    public function setHostHeader(string $hostHeader)
+    public function setHostHeader(string $hostHeader): void
     {
         $this->hostHeader = $hostHeader;
     }
 
-    /**
-     * @return bool
-     */
-    public function isIgnoreCertErrors()
+    public function isIgnoreCertErrors(): bool
     {
         return $this->ignoreCertErrors;
     }
 
-    /**
-     * @param bool $ignoreCertErrors
-     */
-    public function setIgnoreCertErrors(bool $ignoreCertErrors)
+    public function setIgnoreCertErrors(bool $ignoreCertErrors): void
     {
         $this->ignoreCertErrors = $ignoreCertErrors;
     }
 
-    /**
-     * @return bool
-     */
-    public function isExcludeFromImport()
+    public function isExcludeFromImport(): bool
     {
         return $this->excludeFromImport;
     }
 
-    /**
-     * @param bool $ignoreCertErrors
-     */
-    public function setExcludeFromImport(bool $excludeFromImport)
+    public function setExcludeFromImport(bool $excludeFromImport): void
     {
         $this->excludeFromImport = $excludeFromImport;
     }
 
-    /**
-     * @return string
-     */
-    public function getForceIpResolve()
+    public function getForceIpResolve(): string
     {
         return $this->forceIpResolve;
     }
 
-    /**
-     * @param string $forceIpResolve
-     */
-    public function setForceIpResolve(string $forceIpResolve)
+    public function setForceIpResolve(string $forceIpResolve): void
     {
         $this->forceIpResolve = $forceIpResolve;
     }
 
-    /**
-     * Returns the secret
-     *
-     * @return string
-     */
-    public function getSecret()
+    public function getSecret(): string
     {
         return $this->secret;
     }
 
-    /**
-     * Sets the secret
-     *
-     * @param string $secret
-     * @return void
-     */
-    public function setSecret($secret)
+    public function setSecret(string $secret): void
     {
         $this->secret = $secret;
     }
 
-    /**
-     * Returns the email
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    /**
-     * Sets the email
-     *
-     * @param string $email
-     * @return void
-     */
-    public function setEmail($email)
+    public function setEmail(string $email): void
     {
         $this->email = $email;
     }
 
-    /**
-     * Returns the phpVersion
-     *
-     * @return string
-     */
-    public function getPhpVersion()
+    public function getPhpVersion(): string
     {
         return $this->phpVersion;
     }
 
-    /**
-     * Sets the phpVersion
-     *
-     * @param string $phpVersion
-     * @return void
-     */
-    public function setPhpVersion($phpVersion)
+    public function setPhpVersion(string $phpVersion): void
     {
         $this->phpVersion = $phpVersion;
     }
 
-    /**
-     * Returns the mysqlVersion
-     *
-     * @return string
-     */
-    public function getMysqlVersion()
+    public function getMysqlVersion(): string
     {
         return $this->mysqlVersion;
     }
 
-    /**
-     * Sets the mysqlVersion
-     *
-     * @param string $mysqlVersion
-     * @return void
-     */
-    public function setMysqlVersion($mysqlVersion)
+    public function setMysqlVersion(string $mysqlVersion): void
     {
         $this->mysqlVersion = $mysqlVersion;
     }
 
-    /**
-     * Returns the diskFreeSpace
-     *
-     * @return int
-     */
-    public function getDiskFreeSpace()
+    public function getDiskFreeSpace(): int
     {
         return $this->diskFreeSpace;
     }
 
-    /**
-     * Sets the diskFreeSpace
-     *
-     * @param int $diskFreeSpace
-     * @return void
-     */
-    public function setDiskFreeSpace($diskFreeSpace)
+    public function setDiskFreeSpace(int $diskFreeSpace): void
     {
         $this->diskFreeSpace = $diskFreeSpace;
     }
 
-    /**
-     * Returns the diskTotalSpace
-     *
-     * @return int
-     */
-    public function getDiskTotalSpace()
+    public function getDiskTotalSpace(): int
     {
         return $this->diskTotalSpace;
     }
 
-    /**
-     * Sets the diskTotalSpace
-     *
-     * @param int $diskTotalSpace
-     * @return void
-     */
-    public function setDiskTotalSpace($diskTotalSpace)
+    public function setDiskTotalSpace(int $diskTotalSpace): void
     {
         $this->diskTotalSpace = $diskTotalSpace;
     }
 
-    /**
-     * Returns the insecureCore
-     *
-     * @return bool
-     */
-    public function getInsecureCore()
+    public function getInsecureCore(): bool
     {
         return $this->insecureCore;
     }
 
-    /**
-     * Sets the insecureCore
-     *
-     * @param bool $insecureCore
-     * @return void
-     */
-    public function setInsecureCore($insecureCore)
+    public function setInsecureCore(bool $insecureCore): void
     {
         $this->insecureCore = $insecureCore;
     }
 
-    /**
-     * Returns the boolean state of insecureCore
-     *
-     * @return bool
-     */
-    public function isInsecureCore()
+    public function isInsecureCore(): bool
     {
         return $this->insecureCore;
     }
 
-    /**
-     * Returns the outdatedCore
-     *
-     * @return bool
-     */
-    public function getOutdatedCore()
+    public function getOutdatedCore(): bool
     {
         return $this->outdatedCore;
     }
 
-    /**
-     * Sets the outdatedCore
-     *
-     * @param bool $outdatedCore
-     * @return void
-     */
-    public function setOutdatedCore($outdatedCore)
+    public function setOutdatedCore(bool $outdatedCore): void
     {
         $this->outdatedCore = $outdatedCore;
     }
 
-    /**
-     * Returns the boolean state of outdatedCore
-     *
-     * @return bool
-     */
-    public function isOutdatedCore()
+    public function isOutdatedCore(): bool
     {
         return $this->outdatedCore;
     }
 
-    /**
-     * Returns the insecureExtensions
-     *
-     * @return int
-     */
-    public function getInsecureExtensions()
+    public function getInsecureExtensions(): int
     {
         return $this->insecureExtensions;
     }
 
-    /**
-     * Sets the insecureExtensions
-     *
-     * @param int $insecureExtensions
-     * @return void
-     */
-    public function setInsecureExtensions($insecureExtensions)
+    public function setInsecureExtensions(int $insecureExtensions): void
     {
         $this->insecureExtensions = $insecureExtensions;
     }
 
-    /**
-     * Returns the outdatedExtensions
-     *
-     * @return int
-     */
-    public function getOutdatedExtensions()
+    public function getOutdatedExtensions(): int
     {
         return $this->outdatedExtensions;
     }
 
-    /**
-     * Sets the outdatedExtensions
-     *
-     * @param int $outdatedExtensions
-     * @return void
-     */
-    public function setOutdatedExtensions($outdatedExtensions)
+    public function setOutdatedExtensions(int $outdatedExtensions): void
     {
         $this->outdatedExtensions = $outdatedExtensions;
     }
 
-    /**
-     * Returns the errorMessage
-     *
-     * @return string
-     */
-    public function getErrorMessage()
+    public function getErrorMessage(): string
     {
         return $this->errorMessage;
     }
 
-    /**
-     * Sets the errorMessage
-     *
-     * @param string $errorMessage
-     * @return void
-     */
-    public function setErrorMessage($errorMessage)
+    public function setErrorMessage(string $errorMessage): void
     {
         $this->errorMessage = $errorMessage;
     }
 
-    /**
-     * Returns the extraInfo
-     *
-     * @return string
-     */
-    public function getExtraInfo()
+    public function getExtraInfo(): string
     {
         return $this->extraInfo;
     }
 
-    /**
-     * Sets the extraInfo
-     *
-     * @param string $extraInfo
-     * @return void
-     */
-    public function setExtraInfo($extraInfo)
+    public function setExtraInfo(string $extraInfo): void
     {
         $this->extraInfo = $extraInfo;
     }
 
-    /**
-     * Returns the extraWarning
-     *
-     * @return string
-     */
-    public function getExtraWarning()
+    public function getExtraWarning(): string
     {
         return $this->extraWarning;
     }
 
-    /**
-     * Sets the extraWarning
-     *
-     * @param string $extraWarning
-     * @return void
-     */
-    public function setExtraWarning($extraWarning)
+    public function setExtraWarning(string $extraWarning): void
     {
         $this->extraWarning = $extraWarning;
     }
 
-    /**
-     * Returns the extraDanger
-     *
-     * @return string
-     */
-    public function getExtraDanger()
+    public function getExtraDanger(): string
     {
         return $this->extraDanger;
     }
 
-    /**
-     * Sets the extraDanger
-     *
-     * @param string $extraDanger
-     * @return void
-     */
-    public function setExtraDanger($extraDanger)
+    public function setExtraDanger(string $extraDanger): void
     {
         $this->extraDanger = $extraDanger;
     }
 
-    /**
-     * Returns the lastSuccessfulImport
-     *
-     * @return \DateTime
-     */
-    public function getLastSuccessfulImport()
+    public function getLastSuccessfulImport(): ?DateTime
     {
         return $this->lastSuccessfulImport;
     }
 
-    /**
-     * Sets the lastSuccessfulImport
-     *
-     * @param \DateTime $lastSuccessfulImport
-     * @return void
-     */
-    public function setLastSuccessfulImport(\DateTime $lastSuccessfulImport)
+    public function setLastSuccessfulImport(DateTime $lastSuccessfulImport): void
     {
         $this->lastSuccessfulImport = $lastSuccessfulImport;
     }
 
-    /**
-     * Adds a Extension
-     *
-     * @param \T3Monitor\T3monitoring\Domain\Model\Extension $extension
-     * @return void
-     */
-    public function addExtension(Extension $extension)
+    public function addExtension(Extension $extension): void
     {
         $this->extensions->attach($extension);
     }
 
-    /**
-     * Removes a Extension
-     *
-     * @param \T3Monitor\T3monitoring\Domain\Model\Extension $extensionToRemove The Extension to be removed
-     * @return void
-     */
-    public function removeExtension(Extension $extensionToRemove)
+    public function removeExtension(Extension $extensionToRemove): void
     {
         $this->extensions->detach($extensionToRemove);
     }
@@ -706,9 +347,9 @@ class Client extends AbstractEntity
     /**
      * Returns the extensions
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension>
+     * @return ObjectStorage<Extension>
      */
-    public function getExtensions()
+    public function getExtensions(): ObjectStorage
     {
         return $this->extensions instanceof LazyLoadingProxy ? $this->extensions->_loadRealInstance() : $this->extensions;
     }
@@ -716,81 +357,45 @@ class Client extends AbstractEntity
     /**
      * Sets the extensions
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\T3Monitor\T3monitoring\Domain\Model\Extension> $extensions
+     * @param ObjectStorage<Extension> $extensions
      * @return void
      */
-    public function setExtensions(ObjectStorage $extensions)
+    public function setExtensions(ObjectStorage $extensions): void
     {
         $this->extensions = $extensions;
     }
 
-    /**
-     * Returns the core
-     *
-     * @return \T3Monitor\T3monitoring\Domain\Model\Core
-     */
-    public function getCore()
+    public function getCore(): ?Core
     {
         return $this->core instanceof LazyLoadingProxy ? $this->core->_loadRealInstance() : $this->core;
     }
 
-    /**
-     * Sets the core
-     *
-     * @param \T3Monitor\T3monitoring\Domain\Model\Core $core
-     * @return void
-     */
-    public function setCore(Core $core)
+    public function setCore(Core $core): void
     {
         $this->core = $core;
     }
 
-    /**
-     * Returns the sla
-     *
-     * @return \T3Monitor\T3monitoring\Domain\Model\Sla
-     */
-    public function getSla()
+    public function getSla(): ?Sla
     {
         return $this->sla instanceof LazyLoadingProxy ? $this->sla->_loadRealInstance() : $this->sla;
     }
 
-    /**
-     * Sets the sla
-     *
-     * @param \T3Monitor\T3monitoring\Domain\Model\Sla $sla
-     * @return void
-     */
-    public function setSla(Sla $sla)
+    public function setSla(Sla $sla): void
     {
         $this->sla = $sla;
     }
 
-    /**
-     * Returns the tag
-     *
-     * @return \T3Monitor\T3monitoring\Domain\Model\Tag
-     */
-    public function getTag()
+    public function getTag(): ?Tag
     {
         return $this->tag instanceof LazyLoadingProxy ? $this->tag->_loadRealInstance() : $this->tag;
     }
 
-    /**
-     * Sets the tag
-     *
-     * @param \T3Monitor\T3monitoring\Domain\Model\Tag $tag
-     * @return void
-     */
-    public function setTag(Tag $tag)
+    public function setTag(Tag $tag): void
     {
         $this->tag = $tag;
     }
 
-    /**
-     * @return array
-     */
-    public function getExtraInfoAsArray()
+    public function getExtraInfoAsArray(): array
     {
         if (!empty($this->extraInfo)) {
             return json_decode($this->extraInfo, true);
@@ -798,10 +403,7 @@ class Client extends AbstractEntity
         return [];
     }
 
-    /**
-     * @return array
-     */
-    public function getExtraWarningAsArray()
+    public function getExtraWarningAsArray(): array
     {
         if (!empty($this->extraWarning)) {
             return json_decode($this->extraWarning, true);
@@ -809,10 +411,7 @@ class Client extends AbstractEntity
         return [];
     }
 
-    /**
-     * @return array
-     */
-    public function getExtraDangerAsArray()
+    public function getExtraDangerAsArray(): array
     {
         if (!empty($this->extraDanger)) {
             return json_decode($this->extraDanger, true);

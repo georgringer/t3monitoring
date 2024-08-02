@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 /*
@@ -10,280 +13,160 @@ namespace T3Monitor\T3monitoring\Domain\Model\Dto;
 
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
-/**
- * Class ClientFilterDemand
- */
 class ClientFilterDemand extends AbstractEntity
 {
+    protected string $version = '';
+    protected int $sla = 0;
+    protected int $tag = 0;
+    protected string $searchWord = '';
+    protected bool $withErrorMessage = false;
+    protected bool $withInsecureExtensions = false;
+    protected bool $withInsecureCore = false;
+    protected bool $withOutdatedCore = false;
+    protected bool $withOutdatedExtensions = false;
+    protected bool $withExtraInfo = false;
+    protected bool $withExtraWarning = false;
+    protected bool $withExtraDanger = false;
+    protected bool $withEmailAddress = false;
 
-    /** @var string */
-    protected $version;
-
-    /** @var int */
-    protected $sla;
-
-    /** @var int */
-    protected $tag;
-
-    /** @var string */
-    protected $searchWord;
-
-    /** @var bool */
-    protected $withErrorMessage;
-
-    /** @var bool */
-    protected $withInsecureExtensions;
-
-    /** @var bool */
-    protected $withInsecureCore;
-
-    /** @var bool */
-    protected $withOutdatedCore;
-
-    /** @var bool */
-    protected $withOutdatedExtensions;
-
-    /** @var bool */
-    protected $withExtraInfo;
-
-    /** @var bool */
-    protected $withExtraWarning;
-
-    /** @var bool */
-    protected $withExtraDanger;
-
-    /** @var bool */
-    protected $withEmailAddress;
-
-    /**
-     * @return string
-     */
-    public function getVersion()
+    public function getVersion(): string
     {
         return $this->version;
     }
 
-    /**
-     * @param string $version
-     * @return $this
-     */
-    public function setVersion($version)
+    public function setVersion(string $version): static
     {
         $this->version = $version;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getSla()
+    public function getSla(): int
     {
         return $this->sla;
     }
 
-    /**
-     * @param int $sla
-     * @return $this
-     */
-    public function setSla($sla)
+    public function setSla(int $sla): static
     {
         $this->sla = $sla;
         return $this;
     }
 
-    /**
-     * @return int
-     */
-    public function getTag()
+    public function getTag(): int
     {
         return $this->tag;
     }
 
-    /**
-     * @param int $tag
-     * @return $this
-     */
-    public function setTag($tag)
+    public function setTag(int $tag): static
     {
         $this->tag = $tag;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSearchWord()
+    public function getSearchWord(): string
     {
         return $this->searchWord;
     }
 
-    /**
-     * @param string $searchWord
-     * @return $this
-     */
-    public function setSearchWord($searchWord)
+    public function setSearchWord(string $searchWord): static
     {
         $this->searchWord = $searchWord;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithErrorMessage()
+    public function isWithErrorMessage(): bool
     {
         return $this->withErrorMessage;
     }
 
-    /**
-     * @param bool $withErrorMessage
-     * @return $this
-     */
-    public function setWithErrorMessage($withErrorMessage)
+    public function setWithErrorMessage(bool $withErrorMessage): static
     {
         $this->withErrorMessage = $withErrorMessage;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithInsecureExtensions()
+    public function isWithInsecureExtensions(): bool
     {
         return $this->withInsecureExtensions;
     }
 
-    /**
-     * @param bool $withInsecureExtensions
-     * @return $this
-     */
-    public function setWithInsecureExtensions($withInsecureExtensions)
+    public function setWithInsecureExtensions(bool $withInsecureExtensions): static
     {
         $this->withInsecureExtensions = $withInsecureExtensions;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithInsecureCore()
+    public function isWithInsecureCore(): bool
     {
         return $this->withInsecureCore;
     }
 
-    /**
-     * @param bool $withInsecureCore
-     * @return $this
-     */
-    public function setWithInsecureCore($withInsecureCore)
+    public function setWithInsecureCore(bool $withInsecureCore): static
     {
         $this->withInsecureCore = $withInsecureCore;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithOutdatedCore()
+    public function isWithOutdatedCore(): bool
     {
         return $this->withOutdatedCore;
     }
 
-    /**
-     * @param bool $withOutdatedCore
-     * @return $this
-     */
-    public function setWithOutdatedCore($withOutdatedCore)
+    public function setWithOutdatedCore(bool $withOutdatedCore): static
     {
         $this->withOutdatedCore = $withOutdatedCore;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithOutdatedExtensions()
+    public function isWithOutdatedExtensions(): bool
     {
         return $this->withOutdatedExtensions;
     }
 
-    /**
-     * @param bool $withOutdatedExtensions
-     * @return $this
-     */
-    public function setWithOutdatedExtensions($withOutdatedExtensions)
+    public function setWithOutdatedExtensions(bool $withOutdatedExtensions): static
     {
         $this->withOutdatedExtensions = $withOutdatedExtensions;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithExtraInfo()
+    public function isWithExtraInfo(): bool
     {
         return $this->withExtraInfo;
     }
 
-    /**
-     * @param bool $withExtraInfo
-     * @return $this
-     */
-    public function setWithExtraInfo($withExtraInfo)
+    public function setWithExtraInfo(bool $withExtraInfo): static
     {
         $this->withExtraInfo = $withExtraInfo;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithExtraWarning()
+    public function isWithExtraWarning(): bool
     {
         return $this->withExtraWarning;
     }
 
-    /**
-     * @param bool $withExtraWarning
-     * @return $this
-     */
-    public function setWithExtraWarning($withExtraWarning)
+    public function setWithExtraWarning(bool $withExtraWarning): static
     {
         $this->withExtraWarning = $withExtraWarning;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithExtraDanger()
+    public function isWithExtraDanger(): bool
     {
         return $this->withExtraDanger;
     }
 
-    /**
-     * @param bool $withExtraDanger
-     * @return $this
-     */
-    public function setWithExtraDanger($withExtraDanger)
+    public function setWithExtraDanger(bool $withExtraDanger): static
     {
         $this->withExtraDanger = $withExtraDanger;
         return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isWithEmailAddress()
+    public function isWithEmailAddress(): bool
     {
         return $this->withEmailAddress;
     }
 
-    /**
-     * @param bool $withEmailAddress
-     * @return $this
-     */
-    public function setWithEmailAddress($withEmailAddress)
+    public function setWithEmailAddress(bool $withEmailAddress): static
     {
         $this->withEmailAddress = $withEmailAddress;
         return $this;

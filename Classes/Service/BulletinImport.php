@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Service;
 
 /*
@@ -11,31 +14,11 @@ namespace T3Monitor\T3monitoring\Service;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Class BulletinImport
- */
 class BulletinImport
 {
-    /** @var string */
-    protected $url;
+    public function __construct(protected string $url, protected int $limit = 10) {}
 
-    /** @var int */
-    protected $limit;
-
-    /**
-     * @param string $url
-     * @param int $limit
-     */
-    public function __construct($url, $limit = 10)
-    {
-        $this->url = $url;
-        $this->limit = $limit;
-    }
-
-    /**
-     * @return array
-     */
-    public function start()
+    public function start(): array
     {
         $feed = [];
         try {
@@ -56,7 +39,7 @@ class BulletinImport
                     ];
                 }
             }
-        } catch (\Throwable $e) {
+        } catch (\Throwable) {
             // do nothing
         }
 
