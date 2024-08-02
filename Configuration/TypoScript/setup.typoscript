@@ -11,7 +11,7 @@ plugin.tx_t3monitoring_t3monitor {
 }
 
 # Module configuration
-module.tx_t3monitoring_tools_t3monitoringt3monitor {
+module.tx_t3monitoring_t3monitoring {
   persistence {
     storagePid = {$module.tx_t3monitoring_t3monitor.persistence.storagePid}
   }
