@@ -139,7 +139,7 @@ class BaseController extends ActionController
             $this->request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
         );
         // Buttons for new records
-        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
+        $returnUrl = rawurlencode((string)$uriBuilder->build('t3monitoring', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams,
         ]));
         $pid = $this->emConfiguration->getPid();

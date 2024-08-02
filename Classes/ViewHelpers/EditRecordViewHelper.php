@@ -40,7 +40,7 @@ class EditRecordViewHelper extends AbstractViewHelper
             $request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
         );
 
-        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
+        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('t3monitoring', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams
         ]);
 
