@@ -15,8 +15,8 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 class ExtensionFilterDemand extends AbstractEntity
 {
-    protected string $name;
-    protected bool $exactSearch;
+    protected string $name = '';
+    protected bool $exactSearch = false;
 
     public function getName(): string
     {
