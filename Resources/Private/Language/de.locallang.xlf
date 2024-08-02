@@ -1,591 +1,583 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2016-05-20T17:08:29Z" product-name="t3monitoring">
-		<header/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" original="messages" datatype="plaintext" product-name="t3monitoring" date="2024-08-02T14:46:11+02:00">
+		<header></header>
 		<body>
-			<trans-unit id="tx_t3monitoring_domain_model_client">
-				<source>Client</source>
-				<target>Client</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.title">
-				<source>Title</source>
-				<target>Titel</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.domain">
-				<source>Domain</source>
-				<target>Domain</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.secret">
-				<source>Secret</source>
-				<target>Secret</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.email">
-				<source>Email</source>
-				<target>E-Mail</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.php_version">
-				<source>Php Version</source>
-				<target>Php Version</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version">
-				<source>Mysql Version</source>
-				<target>Datenbank Version</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space">
-				<source>Disk Total Space</source>
-				<target>Disk Total Space</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.disk_free_space">
-				<source>Disk Free Space</source>
-				<target>Disk Free Space</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core">
-				<source>Insecure Core</source>
-				<target>Unsicherer Core</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_core">
-				<source>Outdated Core</source>
-				<target>Veralteter Core</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_extensions">
-				<source>Insecure Extensions</source>
-				<target>Unsichere Extensions</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_extensions">
-				<source>Outdated Extensions</source>
-				<target>Veraltete Extensions</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.error_message">
-				<source>Error Message</source>
-				<target>Fehlermeldung</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extra_info">
-				<source>Extra Info</source>
-				<target>Zusätzliche Infos</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extra_warning">
-				<source>Extra Warning</source>
-				<target>Zusätzliche Warnungen</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extra_danger">
-				<source>Extra Danger</source>
-				<target>Zusätzliche Gefahren</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.last_successful_import">
-				<source>Last Successful Import</source>
-				<target>Letzter erfolgreicher Import</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.extensions">
-				<source>Extensions</source>
-				<target>Extension</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.core">
-				<source>Core</source>
-				<target>Core</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_client.sla">
-				<source>Sla</source>
-				<target>Sla</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension">
-				<source>Extension</source>
-				<target>Extension</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.name">
-				<source>Name</source>
-				<target>Name</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.version">
-				<source>Version</source>
-				<target>Version</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.insecure">
-				<source>Insecure</source>
-				<target>Unsicher</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.next_secure_version">
-				<source>Next Secure Version</source>
-				<target>Nächste sichere Version</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.title">
-				<source>Title</source>
-				<target>Titel</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.description">
-				<source>Description</source>
-				<target>Beschreibung</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_updated">
-				<source>Last Updated</source>
-				<target>Letztes Update</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.author_name">
-				<source>Author Name</source>
-				<target>Name des Autors</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.update_comment">
-				<source>Update Comment</source>
-				<target>Updatebeschreibung</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.state">
-				<source>State</source>
-				<target>Status</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.category">
-				<source>Category</source>
-				<target>Kategorie</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.version_integer">
-				<source>Version Integer</source>
-				<target>Version Integer</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_used">
-				<source>Is Used</source>
-				<target>Verwendet</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_official">
-				<source>Is Official</source>
-				<target>Offiziell</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_modified">
-				<source>Is Modified</source>
-				<target>Verändert</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.is_latest">
-				<source>Is Latest</source>
-				<target>Aktuell</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_bugfix_release">
-				<source>Last Bugfix Release</source>
-				<target>Letztes Bugfix-Release</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_minor_release">
-				<source>Last Minor Release</source>
-				<target>Letztes Minor-Release</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.last_major_release">
-				<source>Last Major Release</source>
-				<target>Letztes Major-Release</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_extension.serialized_dependencies">
-				<source>Serialized Dependencies</source>
-				<target>Serialisierte Abhängigkeiten</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core">
-				<source>Core</source>
-				<target>Core</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.version">
-				<source>Version</source>
-				<target>Version</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.insecure">
-				<source>Insecure</source>
-				<target>Unsicher</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.next_secure_version">
-				<source>Next Secure Version</source>
-				<target>Nächste sichere Version</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.type">
-				<source>Type</source>
-				<target>Typ</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.release_date">
-				<source>Release Date</source>
-				<target>Veröffentlichungsdatum</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.latest">
-				<source>Latest</source>
-				<target>Letzter</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.stable">
-				<source>Stable</source>
-				<target>Stabiler</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_stable">
-				<source>Is Stable</source>
-				<target>Stabil</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_active">
-				<source>Is Active</source>
-				<target>Aktiv</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_latest">
-				<source>Is Latest</source>
-				<target>Letzter</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.version_integer">
-				<source>Version Integer</source>
-				<target>Version Integer</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_used">
-				<source>Is Used</source>
-				<target>Benutzt</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_core.is_official">
-				<source>Is Official</source>
-				<target>Offiziell</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_sla">
-				<source>Sla</source>
-				<target>Sla</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_tag">
-				<source>Tag</source>
-				<target>Tag</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_sla.title">
-				<source>Title</source>
-				<target>Titel</target>
-			</trans-unit>
-			<trans-unit id="tx_t3monitoring_domain_model_sla.description">
-				<source>Description</source>
-				<target>Beschreibung</target>
-			</trans-unit>
-			<trans-unit id="update.available">
-				<source>Update available</source>
-				<target>Update verfügbar</target>
-			</trans-unit>
-			<trans-unit id="secure">
-				<source>Secure</source>
-				<target>Sicher</target>
-			</trans-unit>
-			<trans-unit id="loaded">
-				<source>Loaded</source>
-				<target>Geladen</target>
-			</trans-unit>
-			<trans-unit id="found.in.ter">
-				<source>Found in TER</source>
-				<target>Im TER gefunden</target>
-			</trans-unit>
-			<trans-unit id="next.secure.version">
-				<source>Next secure version:</source>
-				<target>Nächste sichere Version:</target>
-			</trans-unit>
-			<trans-unit id="no.official.update">
-				<source>No official update available</source>
-				<target>Kein offizielles Update verfügbar</target>
-			</trans-unit>
-			<trans-unit id="yes">
-				<source>yes</source>
-				<target>ja</target>
-			</trans-unit>
-			<trans-unit id="no">
-				<source>no</source>
-				<target>nein</target>
-			</trans-unit>
-			<trans-unit id="unknown">
-				<source>unknown</source>
-				<target>unbekannt</target>
-			</trans-unit>
-			<trans-unit id="no.cores.imported">
-				<source>No cores yet imported</source>
-				<target>Noch keine Core-Versionen importiert</target>
-			</trans-unit>
-			<trans-unit id="no.versions.available">
-				<source>No versions available</source>
-				<target>Keine Versionen verfügbar</target>
-			</trans-unit>
-			<trans-unit id="view.administration">
+			<trans-unit id="administration" resname="administration">
 				<source>Administration</source>
 				<target>Administration</target>
 			</trans-unit>
-			<trans-unit id="view.usedExtensions">
-				<source>Used extensions</source>
-				<target>Verwendete Extensions</target>
-			</trans-unit>
-			<trans-unit id="view.core">
-				<source>Used core versions</source>
-				<target>Verwendete Core-Versionen</target>
-			</trans-unit>
-			<trans-unit id="administration.import.headline">
-				<source>Start an import</source>
-				<target>Import starten</target>
-			</trans-unit>
-			<trans-unit id="administration.import.success">
-				<source>The import was successful!</source>
-				<target>Der Import war erfolgreich!</target>
-			</trans-unit>
-			<trans-unit id="administration.import.description">
+			<trans-unit id="administration.import.description" resname="administration.import.description">
 				<source>Be aware that the imports can take a while. If a timeout occurs, use CLI!</source>
 				<target>Beachten sie, dass der Import etwas dauern kann. Bei einem Timeout die Kommandozeile benutzen!</target>
 			</trans-unit>
-			<trans-unit id="createNew.client">
-				<source>Create new client</source>
-				<target>Neuen Client anlegen</target>
+			<trans-unit id="administration.import.headline" resname="administration.import.headline">
+				<source>Start an import</source>
+				<target>Import starten</target>
 			</trans-unit>
-			<trans-unit id="edit.client">
-				<source>Edit client</source>
-				<target>Client bearbeiten</target>
+			<trans-unit id="administration.import.success" resname="administration.import.success">
+				<source>The import was successful!</source>
+				<target>Der Import war erfolgreich!</target>
 			</trans-unit>
-			<trans-unit id="home">
-				<source>Home</source>
-				<target>Home</target>
+			<trans-unit id="administration.ipHint" resname="administration.ipHint">
+				<source>&#xA;&#x9;&#x9;&#x9;&#x9;Set the allowed IP(s) for the client to &lt;code&gt;%s&lt;/code&gt;.&#xA;&#x9;&#x9;&#x9;&#x9;</source>
+				<target>&#xA;&#x9;&#x9;&#x9;&#x9;Die erlaubten IP(s) für den Client auf &lt;code&gt;%s&lt;/code&gt; setzen.&#xA;&#x9;&#x9;&#x9;&#x9;</target>
 			</trans-unit>
-			<trans-unit id="extensionList">
-				<source>Extension List</source>
-				<target>Liste der Extensions</target>
-			</trans-unit>
-			<trans-unit id="coreVersions">
-				<source>Core Versions</source>
-				<target>Core-Versionen</target>
-			</trans-unit>
-			<trans-unit id="sla">
-				<source>SLA</source>
-				<target>SLA</target>
-			</trans-unit>
-			<trans-unit id="administration">
-				<source>Administration</source>
-				<target>Administration</target>
-			</trans-unit>
-			<trans-unit id="available.extensions">
-				<source>Available extensions</source>
-				<target>Vorhandene Extensions</target>
-			</trans-unit>
-			<trans-unit id="count">
-				<source>Count</source>
-				<target>Anzahl</target>
-			</trans-unit>
-			<trans-unit id="search">
-				<source>Search</source>
-				<target>Suche</target>
-			</trans-unit>
-			<trans-unit id="search.introHelp">
-				<source>Use the search on the left to filter the clients for specific properties.</source>
-				<target>Die Suche auf der linken Seite benutzen um die Clients nach spezifischen Eigenschaften zu filtern.</target>
-			</trans-unit>
-			<trans-unit id="bulletins.headline">
-				<source>Latest security bulletins</source>
-				<target>Neueste Security Bulletins</target>
-			</trans-unit>
-			<trans-unit id="bulletins.errorFetch">
-				<source>Sorry, the bulletins could not be fetched!</source>
-				<target>Die Bulletins konnten leider nicht geladen werden!</target>
-			</trans-unit>
-			<trans-unit id="bulletins.disabled">
-				<source>Loading the bulletins is disabled.</source>
-				<target>Das Laden der Bulletins ist deaktiviert.</target>
-			</trans-unit>
-			<trans-unit id="bulletins.all">
-				<source>All bulletins</source>
-				<target>Alle Bulletins</target>
-			</trans-unit>
-			<trans-unit id="clients.total">
-				<source>Clients (%s)</source>
-				<target>Clients (%s)</target>
-			</trans-unit>
-			<trans-unit id="clients.listAll">
-				<source>List all</source>
-				<target>Alle anzeigen</target>
-			</trans-unit>
-			<trans-unit id="clients.notFound">
-				<source>No clients found</source>
-				<target>Keine Clients gefunden</target>
-			</trans-unit>
-			<trans-unit id="coreVersions.header">
-				<source>Core versions</source>
-				<target>Core-Versionen</target>
-			</trans-unit>
-			<trans-unit id="sla.header">
-				<source>Service level agreements</source>
-				<target>Service Level Agreements</target>
-			</trans-unit>
-			<trans-unit id="tag.header">
-				<source>Tags</source>
-				<target>Tags</target>
-			</trans-unit>
-			<trans-unit id="total">
-				<source>total</source>
-				<target>insgesamt</target>
-			</trans-unit>
-			<trans-unit id="core.totalUsed">
-				<source>Used core versions (%s)</source>
-				<target>Verwendete Core-Versionen (%s)</target>
-			</trans-unit>
-			<trans-unit id="clients.notReachable">
-				<source>Not reachable</source>
-				<target>Nicht erreichbar</target>
-			</trans-unit>
-			<trans-unit id="clients.numberOfExtensions">
-				<source>Number of extensions</source>
-				<target>Anzahl Extensions</target>
-			</trans-unit>
-			<trans-unit id="client.facts">
-				<source>Facts</source>
-				<target>Fakten</target>
-			</trans-unit>
-			<trans-unit id="client.noSuccessfulImport">
-				<source>No successful import until now!</source>
-				<target>Bisher kein erfolgreicher Import!</target>
-			</trans-unit>
-			<trans-unit id="client.extra">
-				<source>Extra</source>
-				<target>Extras</target>
-			</trans-unit>
-			<trans-unit id="client.extra.warning">
-				<source>Additional warnings</source>
-				<target>Zusätzliche Warnungen</target>
-			</trans-unit>
-			<trans-unit id="client.extra.danger">
-				<source>Additional error messages</source>
-				<target>Zusätzliche Fehlermeldungen</target>
-			</trans-unit>
-			<trans-unit id="filter.connectionErrors">
-				<source>Connection errors</source>
-				<target>Verbindungsfehler</target>
-			</trans-unit>
-			<trans-unit id="client.domainNotPingAble">
-				<source>The domain "%s" could not not be contacted (maybe invalid or not reachable)!</source>
-				<target>Die Domain "%s" konnte nicht erreicht werden (ungültig oder nicht erreichbar)!</target>
-			</trans-unit>
-			<trans-unit id="filter.withExtraWarning">
-				<source>Additional warnings</source>
-				<target>Zusätzliche Warnungen</target>
-			</trans-unit>
-			<trans-unit id="filter.withExtraDanger">
-				<source>Additional errors</source>
-				<target>Zusätzliche Fehler</target>
-			</trans-unit>
-			<trans-unit id="filter.fieldset.core">
-				<source>Core</source>
-				<target>Core</target>
-			</trans-unit>
-			<trans-unit id="filter.fieldset.extensions">
-				<source>Extensions</source>
-				<target>Extensions</target>
-			</trans-unit>
-			<trans-unit id="filter.fieldset.misc">
-				<source>Misc</source>
-				<target>Diverses</target>
-			</trans-unit>
-			<trans-unit id="lastImport.header">
-				<source>Last imports</source>
-				<target>Letzter Import</target>
-			</trans-unit>
-			<trans-unit id="lastImport.client">
-				<source>Import clients</source>
-				<target>Clients importiert</target>
-			</trans-unit>
-			<trans-unit id="lastImport.core">
-				<source>Import core</source>
-				<target>Core importiert</target>
-			</trans-unit>
-			<trans-unit id="lastImport.extension">
-				<source>Import extensions</source>
-				<target>Extensions importiert</target>
-			</trans-unit>
-			<trans-unit id="lastImport.none">
-				<source>No import yet!</source>
-				<target>Bisher kein Import!</target>
-			</trans-unit>
-			<trans-unit id="sla.total">
-				<source>SLA (%s)</source>
-				<target>SLA (%s)</target>
-			</trans-unit>
-			<trans-unit id="sla.notFound">
-				<source>No SLA records found!</source>
-				<target>Keine SLA Einträge gefunden!</target>
-			</trans-unit>
-			<trans-unit id="sla.clients">
-				<source>List all clients with this SLA</source>
-				<target>Alle Clients mit dieser SLA anzeigen</target>
-			</trans-unit>
-			<trans-unit id="sla.noClients">
-				<source>This SLA is not used by any client!</source>
-				<target>Diese SLA wir von keinem Client benutzt!</target>
-			</trans-unit>
-			<trans-unit id="tag.total">
-				<source>Tags (%s)</source>
-				<target>Tags (%s)</target>
-			</trans-unit>
-			<trans-unit id="sla.notFound">
-				<source>No Tag records found!</source>
-				<target>Keine Tag Einträge gefunden!</target>
-			</trans-unit>
-			<trans-unit id="tag.clients">
-				<source>List all clients with this tag</source>
-				<target>Alle Clients mit diesem Tag anzeigen</target>
-			</trans-unit>
-			<trans-unit id="tag.noClients">
-				<source>This Tag is not used by any client!</source>
-				<target>Diese Tag wir von keinem Client benutzt!</target>
-			</trans-unit>
-			<trans-unit id="extension.total">
-				<source>Extensions (%s)</source>
-				<target>Extensions (%s)</target>
-			</trans-unit>
-			<trans-unit id="extension.notFound">
-				<source>No extensions found</source>
-				<target>Keine Extensions gefunden</target>
-			</trans-unit>
-			<trans-unit id="extensionFilter.name">
-				<source>Name</source>
-				<target>Name</target>
-			</trans-unit>
-			<trans-unit id="extensionFilter.exactSearch">
-				<source>Exact search</source>
-				<target>Exakte Suche</target>
-			</trans-unit>
-			<trans-unit id="extension.by">
-				<source>by %s</source>
-				<target>von %s</target>
-			</trans-unit>
-			<trans-unit id="coreFilter.usage">
-				<source>Usage</source>
-				<target>Verwendung</target>
-			</trans-unit>
-			<trans-unit id="coreFilter.usage.1">
-				<source>Used</source>
-				<target>verwendet</target>
-			</trans-unit>
-			<trans-unit id="coreFilter.usage.0">
-				<source>All</source>
-				<target>Alle</target>
-			</trans-unit>
-			<trans-unit id="administration.sponsors.headline">
-				<source>Sponsors</source>
-				<target>Sponsoren</target>
-			</trans-unit>
-			<trans-unit id="administration.sponsors.description">
+			<trans-unit id="administration.sponsors.description" resname="administration.sponsors.description">
 				<source>This extension has been sponsored by</source>
 				<target>Diese Extension wurde gesponsert von</target>
 			</trans-unit>
-			<trans-unit id="administration.ipHint">
-				<source><![CDATA[
-				Set the allowed IP(s) for the client to <code>%s</code>.
-				]]></source>
-				<target><![CDATA[
-				Die erlaubten IP(s) für den Client auf <code>%s</code> setzen.
-				]]></target>
+			<trans-unit id="administration.sponsors.headline" resname="administration.sponsors.headline">
+				<source>Sponsors</source>
+				<target>Sponsoren</target>
 			</trans-unit>
-			<trans-unit id="noClients.title">
-				<source>No clients created!</source>
-				<target>Keine Clients angelegt!</target>
+			<trans-unit id="available.extensions" resname="available.extensions">
+				<source>Available extensions</source>
+				<target>Vorhandene Extensions</target>
 			</trans-unit>
-			<trans-unit id="noClients.description">
-				<source>Great that you want to try t3monitoring! To start, create a new client by using the + icon above!</source>
-				<target>Schön, dass Sie t3monitoring ausprobieren wollen! Um zu beginnen, erstellen Sie einen Client mit dem + Icon oben!</target>
+			<trans-unit id="bulletins.all" resname="bulletins.all">
+				<source>All bulletins</source>
+				<target>Alle Bulletins</target>
 			</trans-unit>
-			<trans-unit id="presentationMode.client.title">
-				<source>Client with uid %s</source>
-				<target>Client mit der uid %s</target>
+			<trans-unit id="bulletins.disabled" resname="bulletins.disabled">
+				<source>Loading the bulletins is disabled.</source>
+				<target>Das Laden der Bulletins ist deaktiviert.</target>
 			</trans-unit>
-			<trans-unit id="presentationMode.client.domain">
-				<source>http://*********.***</source>
-				<target>http://*********.***</target>
+			<trans-unit id="bulletins.errorFetch" resname="bulletins.errorFetch">
+				<source>Sorry, the bulletins could not be fetched!</source>
+				<target>Die Bulletins konnten leider nicht geladen werden!</target>
 			</trans-unit>
-			<trans-unit id="noInsecureClients">
-				<source>No insecure clients found!</source>
-				<target>Keine unsicheren Clients gefunden!</target>
+			<trans-unit id="bulletins.headline" resname="bulletins.headline">
+				<source>Latest security bulletins</source>
+				<target>Neueste Security Bulletins</target>
 			</trans-unit>
-			<trans-unit id="fetchClient.link">
+			<trans-unit id="client.domainNotPingAble" resname="client.domainNotPingAble">
+				<source>The domain &#34;%s&#34; could not not be contacted (maybe invalid or not reachable)!</source>
+				<target>Die Domain &#34;%s&#34; konnte nicht erreicht werden (ungültig oder nicht erreichbar)!</target>
+			</trans-unit>
+			<trans-unit id="client.extra" resname="client.extra">
+				<source>Extra</source>
+				<target>Extras</target>
+			</trans-unit>
+			<trans-unit id="client.extra.danger" resname="client.extra.danger">
+				<source>Additional error messages</source>
+				<target>Zusätzliche Fehlermeldungen</target>
+			</trans-unit>
+			<trans-unit id="client.extra.warning" resname="client.extra.warning">
+				<source>Additional warnings</source>
+				<target>Zusätzliche Warnungen</target>
+			</trans-unit>
+			<trans-unit id="client.facts" resname="client.facts">
+				<source>Facts</source>
+				<target>Fakten</target>
+			</trans-unit>
+			<trans-unit id="client.noSuccessfulImport" resname="client.noSuccessfulImport">
+				<source>No successful import until now!</source>
+				<target>Bisher kein erfolgreicher Import!</target>
+			</trans-unit>
+			<trans-unit id="clients.listAll" resname="clients.listAll">
+				<source>List all</source>
+				<target>Alle anzeigen</target>
+			</trans-unit>
+			<trans-unit id="clients.notFound" resname="clients.notFound">
+				<source>No clients found</source>
+				<target>Keine Clients gefunden</target>
+			</trans-unit>
+			<trans-unit id="clients.notReachable" resname="clients.notReachable">
+				<source>Not reachable</source>
+				<target>Nicht erreichbar</target>
+			</trans-unit>
+			<trans-unit id="clients.numberOfExtensions" resname="clients.numberOfExtensions">
+				<source>Number of extensions</source>
+				<target>Anzahl Extensions</target>
+			</trans-unit>
+			<trans-unit id="clients.total" resname="clients.total">
+				<source>Clients (%s)</source>
+				<target>Clients (%s)</target>
+			</trans-unit>
+			<trans-unit id="core.totalUsed" resname="core.totalUsed">
+				<source>Used core versions (%s)</source>
+				<target>Verwendete Core-Versionen (%s)</target>
+			</trans-unit>
+			<trans-unit id="coreFilter.usage" resname="coreFilter.usage">
+				<source>Usage</source>
+				<target>Verwendung</target>
+			</trans-unit>
+			<trans-unit id="coreFilter.usage.0" resname="coreFilter.usage.0">
+				<source>All</source>
+				<target>Alle</target>
+			</trans-unit>
+			<trans-unit id="coreFilter.usage.1" resname="coreFilter.usage.1">
+				<source>Used</source>
+				<target>verwendet</target>
+			</trans-unit>
+			<trans-unit id="coreVersions" resname="coreVersions">
+				<source>Core Versions</source>
+				<target>Core-Versionen</target>
+			</trans-unit>
+			<trans-unit id="coreVersions.header" resname="coreVersions.header">
+				<source>Core versions</source>
+				<target>Core-Versionen</target>
+			</trans-unit>
+			<trans-unit id="count" resname="count">
+				<source>Count</source>
+				<target>Anzahl</target>
+			</trans-unit>
+			<trans-unit id="createNew.client" resname="createNew.client">
+				<source>Create new client</source>
+				<target>Neuen Client anlegen</target>
+			</trans-unit>
+			<trans-unit id="edit.client" resname="edit.client">
+				<source>Edit client</source>
+				<target>Client bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="extension.by" resname="extension.by">
+				<source>by %s</source>
+				<target>von %s</target>
+			</trans-unit>
+			<trans-unit id="extension.notFound" resname="extension.notFound">
+				<source>No extensions found</source>
+				<target>Keine Extensions gefunden</target>
+			</trans-unit>
+			<trans-unit id="extension.total" resname="extension.total">
+				<source>Extensions (%s)</source>
+				<target>Extensions (%s)</target>
+			</trans-unit>
+			<trans-unit id="extensionFilter.exactSearch" resname="extensionFilter.exactSearch">
+				<source>Exact search</source>
+				<target>Exakte Suche</target>
+			</trans-unit>
+			<trans-unit id="extensionFilter.name" resname="extensionFilter.name">
+				<source>Name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="extensionList" resname="extensionList">
+				<source>Extension List</source>
+				<target>Liste der Extensions</target>
+			</trans-unit>
+			<trans-unit id="fetchClient.link" resname="fetchClient.link">
 				<source>Fetch single client</source>
 				<target>Einzelnen Client abrufen</target>
 			</trans-unit>
-			<trans-unit id="fetchClient.success">
+			<trans-unit id="fetchClient.success" resname="fetchClient.success">
 				<source>The data of the client has been successfully fetched!</source>
 				<target>Die Daten des Clients wurden erfolgreich abgerufen!</target>
+			</trans-unit>
+			<trans-unit id="filter.connectionErrors" resname="filter.connectionErrors">
+				<source>Connection errors</source>
+				<target>Verbindungsfehler</target>
+			</trans-unit>
+			<trans-unit id="filter.fieldset.core" resname="filter.fieldset.core">
+				<source>Core</source>
+				<target>Core</target>
+			</trans-unit>
+			<trans-unit id="filter.fieldset.extensions" resname="filter.fieldset.extensions">
+				<source>Extensions</source>
+				<target>Extensions</target>
+			</trans-unit>
+			<trans-unit id="filter.fieldset.misc" resname="filter.fieldset.misc">
+				<source>Misc</source>
+				<target>Diverses</target>
+			</trans-unit>
+			<trans-unit id="filter.withExtraDanger" resname="filter.withExtraDanger">
+				<source>Additional errors</source>
+				<target>Zusätzliche Fehler</target>
+			</trans-unit>
+			<trans-unit id="filter.withExtraWarning" resname="filter.withExtraWarning">
+				<source>Additional warnings</source>
+				<target>Zusätzliche Warnungen</target>
+			</trans-unit>
+			<trans-unit id="found.in.ter" resname="found.in.ter">
+				<source>Found in TER</source>
+				<target>Im TER gefunden</target>
+			</trans-unit>
+			<trans-unit id="home" resname="home">
+				<source>Home</source>
+				<target>Home</target>
+			</trans-unit>
+			<trans-unit id="lastImport.client" resname="lastImport.client">
+				<source>Import clients</source>
+				<target>Clients importiert</target>
+			</trans-unit>
+			<trans-unit id="lastImport.core" resname="lastImport.core">
+				<source>Import core</source>
+				<target>Core importiert</target>
+			</trans-unit>
+			<trans-unit id="lastImport.extension" resname="lastImport.extension">
+				<source>Import extensions</source>
+				<target>Extensions importiert</target>
+			</trans-unit>
+			<trans-unit id="lastImport.header" resname="lastImport.header">
+				<source>Last imports</source>
+				<target>Letzter Import</target>
+			</trans-unit>
+			<trans-unit id="lastImport.none" resname="lastImport.none">
+				<source>No import yet!</source>
+				<target>Bisher kein Import!</target>
+			</trans-unit>
+			<trans-unit id="loaded" resname="loaded">
+				<source>Loaded</source>
+				<target>Geladen</target>
+			</trans-unit>
+			<trans-unit id="next.secure.version" resname="next.secure.version">
+				<source>Next secure version:</source>
+				<target>Nächste sichere Version:</target>
+			</trans-unit>
+			<trans-unit id="no" resname="no">
+				<source>no</source>
+				<target>nein</target>
+			</trans-unit>
+			<trans-unit id="no.cores.imported" resname="no.cores.imported">
+				<source>No cores yet imported</source>
+				<target>Noch keine Core-Versionen importiert</target>
+			</trans-unit>
+			<trans-unit id="no.official.update" resname="no.official.update">
+				<source>No official update available</source>
+				<target>Kein offizielles Update verfügbar</target>
+			</trans-unit>
+			<trans-unit id="no.versions.available" resname="no.versions.available">
+				<source>No versions available</source>
+				<target>Keine Versionen verfügbar</target>
+			</trans-unit>
+			<trans-unit id="noClients.description" resname="noClients.description">
+				<source>Great that you want to try t3monitoring! To start, create a new client by using the + icon above!</source>
+				<target>Schön, dass Sie t3monitoring ausprobieren wollen! Um zu beginnen, erstellen Sie einen Client mit dem + Icon oben!</target>
+			</trans-unit>
+			<trans-unit id="noClients.title" resname="noClients.title">
+				<source>No clients created!</source>
+				<target>Keine Clients angelegt!</target>
+			</trans-unit>
+			<trans-unit id="noInsecureClients" resname="noInsecureClients">
+				<source>No insecure clients found!</source>
+				<target>Keine unsicheren Clients gefunden!</target>
+			</trans-unit>
+			<trans-unit id="presentationMode.client.domain" resname="presentationMode.client.domain">
+				<source>http://*********.***</source>
+				<target>http://*********.***</target>
+			</trans-unit>
+			<trans-unit id="presentationMode.client.title" resname="presentationMode.client.title">
+				<source>Client with uid %s</source>
+				<target>Client mit der uid %s</target>
+			</trans-unit>
+			<trans-unit id="search" resname="search">
+				<source>Search</source>
+				<target>Suche</target>
+			</trans-unit>
+			<trans-unit id="search.introHelp" resname="search.introHelp">
+				<source>Use the search on the left to filter the clients for specific properties.</source>
+				<target>Die Suche auf der linken Seite benutzen um die Clients nach spezifischen Eigenschaften zu filtern.</target>
+			</trans-unit>
+			<trans-unit id="secure" resname="secure">
+				<source>Secure</source>
+				<target>Sicher</target>
+			</trans-unit>
+			<trans-unit id="sla" resname="sla">
+				<source>SLA</source>
+				<target>SLA</target>
+			</trans-unit>
+			<trans-unit id="sla.clients" resname="sla.clients">
+				<source>List all clients with this SLA</source>
+				<target>Alle Clients mit dieser SLA anzeigen</target>
+			</trans-unit>
+			<trans-unit id="sla.header" resname="sla.header">
+				<source>Service level agreements</source>
+				<target>Service Level Agreements</target>
+			</trans-unit>
+			<trans-unit id="sla.noClients" resname="sla.noClients">
+				<source>This SLA is not used by any client!</source>
+				<target>Diese SLA wir von keinem Client benutzt!</target>
+			</trans-unit>
+			<trans-unit id="sla.notFound" resname="sla.notFound">
+				<source>No Tag records found!</source>
+				<target>Keine Tag Einträge gefunden!</target>
+			</trans-unit>
+			<trans-unit id="sla.total" resname="sla.total">
+				<source>SLA (%s)</source>
+				<target>SLA (%s)</target>
+			</trans-unit>
+			<trans-unit id="tag.clients" resname="tag.clients">
+				<source>List all clients with this tag</source>
+				<target>Alle Clients mit diesem Tag anzeigen</target>
+			</trans-unit>
+			<trans-unit id="tag.header" resname="tag.header">
+				<source>Tags</source>
+				<target>Tags</target>
+			</trans-unit>
+			<trans-unit id="tag.noClients" resname="tag.noClients">
+				<source>This Tag is not used by any client!</source>
+				<target>Diese Tag wir von keinem Client benutzt!</target>
+			</trans-unit>
+			<trans-unit id="tag.total" resname="tag.total">
+				<source>Tags (%s)</source>
+				<target>Tags (%s)</target>
+			</trans-unit>
+			<trans-unit id="total" resname="total">
+				<source>total</source>
+				<target>insgesamt</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client" resname="tx_t3monitoring_domain_model_client">
+				<source>Client</source>
+				<target>Client</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.core" resname="tx_t3monitoring_domain_model_client.core">
+				<source>Core</source>
+				<target>Core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_free_space" resname="tx_t3monitoring_domain_model_client.disk_free_space">
+				<source>Disk Free Space</source>
+				<target>Disk Free Space</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.disk_total_space" resname="tx_t3monitoring_domain_model_client.disk_total_space">
+				<source>Disk Total Space</source>
+				<target>Disk Total Space</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.domain" resname="tx_t3monitoring_domain_model_client.domain">
+				<source>Domain</source>
+				<target>Domain</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.email" resname="tx_t3monitoring_domain_model_client.email">
+				<source>Email</source>
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.error_message" resname="tx_t3monitoring_domain_model_client.error_message">
+				<source>Error Message</source>
+				<target>Fehlermeldung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extensions" resname="tx_t3monitoring_domain_model_client.extensions">
+				<source>Extensions</source>
+				<target>Extension</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extra_danger" resname="tx_t3monitoring_domain_model_client.extra_danger">
+				<source>Extra Danger</source>
+				<target>Zusätzliche Gefahren</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extra_info" resname="tx_t3monitoring_domain_model_client.extra_info">
+				<source>Extra Info</source>
+				<target>Zusätzliche Infos</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.extra_warning" resname="tx_t3monitoring_domain_model_client.extra_warning">
+				<source>Extra Warning</source>
+				<target>Zusätzliche Warnungen</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_core" resname="tx_t3monitoring_domain_model_client.insecure_core">
+				<source>Insecure Core</source>
+				<target>Unsicherer Core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.insecure_extensions" resname="tx_t3monitoring_domain_model_client.insecure_extensions">
+				<source>Insecure Extensions</source>
+				<target>Unsichere Extensions</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.last_successful_import" resname="tx_t3monitoring_domain_model_client.last_successful_import">
+				<source>Last Successful Import</source>
+				<target>Letzter erfolgreicher Import</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.mysql_version" resname="tx_t3monitoring_domain_model_client.mysql_version">
+				<source>Database Version</source>
+				<target>Datenbank Version</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_core" resname="tx_t3monitoring_domain_model_client.outdated_core">
+				<source>Outdated Core</source>
+				<target>Veralteter Core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.outdated_extensions" resname="tx_t3monitoring_domain_model_client.outdated_extensions">
+				<source>Outdated Extensions</source>
+				<target>Veraltete Extensions</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.php_version" resname="tx_t3monitoring_domain_model_client.php_version">
+				<source>Php Version</source>
+				<target>Php Version</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.secret" resname="tx_t3monitoring_domain_model_client.secret">
+				<source>Secret</source>
+				<target>Secret</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.sla" resname="tx_t3monitoring_domain_model_client.sla">
+				<source>Sla</source>
+				<target>Sla</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_client.title" resname="tx_t3monitoring_domain_model_client.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core" resname="tx_t3monitoring_domain_model_core">
+				<source>Core</source>
+				<target>Core</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.insecure" resname="tx_t3monitoring_domain_model_core.insecure">
+				<source>Insecure</source>
+				<target>Unsicher</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_active" resname="tx_t3monitoring_domain_model_core.is_active">
+				<source>Is Active</source>
+				<target>Aktiv</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_latest" resname="tx_t3monitoring_domain_model_core.is_latest">
+				<source>Is Latest</source>
+				<target>Letzter</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_official" resname="tx_t3monitoring_domain_model_core.is_official">
+				<source>Is Official</source>
+				<target>Offiziell</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_stable" resname="tx_t3monitoring_domain_model_core.is_stable">
+				<source>Is Stable</source>
+				<target>Stabil</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.is_used" resname="tx_t3monitoring_domain_model_core.is_used">
+				<source>Is Used</source>
+				<target>Benutzt</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.latest" resname="tx_t3monitoring_domain_model_core.latest">
+				<source>Latest</source>
+				<target>Letzter</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.next_secure_version" resname="tx_t3monitoring_domain_model_core.next_secure_version">
+				<source>Next Secure Version</source>
+				<target>Nächste sichere Version</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.release_date" resname="tx_t3monitoring_domain_model_core.release_date">
+				<source>Release Date</source>
+				<target>Veröffentlichungsdatum</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.stable" resname="tx_t3monitoring_domain_model_core.stable">
+				<source>Stable</source>
+				<target>Stabiler</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.type" resname="tx_t3monitoring_domain_model_core.type">
+				<source>Type</source>
+				<target>Typ</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.version" resname="tx_t3monitoring_domain_model_core.version">
+				<source>Version</source>
+				<target>Version</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_core.version_integer" resname="tx_t3monitoring_domain_model_core.version_integer">
+				<source>Version Integer</source>
+				<target>Version Integer</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension" resname="tx_t3monitoring_domain_model_extension">
+				<source>Extension</source>
+				<target>Extension</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.author_name" resname="tx_t3monitoring_domain_model_extension.author_name">
+				<source>Author Name</source>
+				<target>Name des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.category" resname="tx_t3monitoring_domain_model_extension.category">
+				<source>Category</source>
+				<target>Kategorie</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.description" resname="tx_t3monitoring_domain_model_extension.description">
+				<source>Description</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.insecure" resname="tx_t3monitoring_domain_model_extension.insecure">
+				<source>Insecure</source>
+				<target>Unsicher</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_latest" resname="tx_t3monitoring_domain_model_extension.is_latest">
+				<source>Is Latest</source>
+				<target>Aktuell</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_modified" resname="tx_t3monitoring_domain_model_extension.is_modified">
+				<source>Is Modified</source>
+				<target>Verändert</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_official" resname="tx_t3monitoring_domain_model_extension.is_official">
+				<source>Is Official</source>
+				<target>Offiziell</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.is_used" resname="tx_t3monitoring_domain_model_extension.is_used">
+				<source>Is Used</source>
+				<target>Verwendet</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_bugfix_release" resname="tx_t3monitoring_domain_model_extension.last_bugfix_release">
+				<source>Last Bugfix Release</source>
+				<target>Letztes Bugfix-Release</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_major_release" resname="tx_t3monitoring_domain_model_extension.last_major_release">
+				<source>Last Major Release</source>
+				<target>Letztes Major-Release</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_minor_release" resname="tx_t3monitoring_domain_model_extension.last_minor_release">
+				<source>Last Minor Release</source>
+				<target>Letztes Minor-Release</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.last_updated" resname="tx_t3monitoring_domain_model_extension.last_updated">
+				<source>Last Updated</source>
+				<target>Letztes Update</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.name" resname="tx_t3monitoring_domain_model_extension.name">
+				<source>Name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.next_secure_version" resname="tx_t3monitoring_domain_model_extension.next_secure_version">
+				<source>Next Secure Version</source>
+				<target>Nächste sichere Version</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.serialized_dependencies" resname="tx_t3monitoring_domain_model_extension.serialized_dependencies">
+				<source>Serialized Dependencies</source>
+				<target>Serialisierte Abhängigkeiten</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.state" resname="tx_t3monitoring_domain_model_extension.state">
+				<source>State</source>
+				<target>Status</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.title" resname="tx_t3monitoring_domain_model_extension.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.update_comment" resname="tx_t3monitoring_domain_model_extension.update_comment">
+				<source>Update Comment</source>
+				<target>Updatebeschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.version" resname="tx_t3monitoring_domain_model_extension.version">
+				<source>Version</source>
+				<target>Version</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_extension.version_integer" resname="tx_t3monitoring_domain_model_extension.version_integer">
+				<source>Version Integer</source>
+				<target>Version Integer</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_sla" resname="tx_t3monitoring_domain_model_sla">
+				<source>Sla</source>
+				<target>Sla</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_sla.description" resname="tx_t3monitoring_domain_model_sla.description">
+				<source>Description</source>
+				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_sla.title" resname="tx_t3monitoring_domain_model_sla.title">
+				<source>Title</source>
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_t3monitoring_domain_model_tag" resname="tx_t3monitoring_domain_model_tag">
+				<source>Tags</source>
+				<target>Tag</target>
+			</trans-unit>
+			<trans-unit id="unknown" resname="unknown">
+				<source>unknown</source>
+				<target>unbekannt</target>
+			</trans-unit>
+			<trans-unit id="update.available" resname="update.available">
+				<source>Update available</source>
+				<target>Update verfügbar</target>
+			</trans-unit>
+			<trans-unit id="view.administration" resname="view.administration">
+				<source>Administration</source>
+				<target>Administration</target>
+			</trans-unit>
+			<trans-unit id="view.core" resname="view.core">
+				<source>Used core versions</source>
+				<target>Verwendete Core-Versionen</target>
+			</trans-unit>
+			<trans-unit id="view.usedExtensions" resname="view.usedExtensions">
+				<source>Used extensions</source>
+				<target>Verwendete Extensions</target>
+			</trans-unit>
+			<trans-unit id="yes" resname="yes">
+				<source>yes</source>
+				<target>ja</target>
 			</trans-unit>
 		</body>
 	</file>
