@@ -14,7 +14,9 @@ namespace T3Monitor\T3monitoring\Controller;
 use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
+use TYPO3\CMS\Backend\Attribute\AsController;
 
+#[AsController]
 class CoreController extends BaseController
 {
     public function listAction(?CoreFilterDemand $filter = null): ResponseInterface

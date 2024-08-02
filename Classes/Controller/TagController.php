@@ -14,7 +14,9 @@ namespace T3Monitor\T3monitoring\Controller;
 use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Tag;
 use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
+use TYPO3\CMS\Backend\Attribute\AsController;
 
+#[AsController]
 class TagController extends BaseController
 {
     protected TagRepository $tagRepository;

@@ -14,7 +14,9 @@ namespace T3Monitor\T3monitoring\Controller;
 use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
 use T3Monitor\T3monitoring\Domain\Repository\SlaRepository;
+use TYPO3\CMS\Backend\Attribute\AsController;
 
+#[AsController]
 class SlaController extends BaseController
 {
     protected SlaRepository $slaRepository;

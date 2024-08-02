@@ -11,6 +11,7 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
@@ -32,7 +33,8 @@ use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class BaseController extends ActionController
 {
-    protected ModuleTemplate $moduleTemplate;
+    /** @var ModuleTemplate */
+    protected $view;
 
     public function __construct(
         private readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -48,10 +50,6 @@ class BaseController extends ActionController
     {
         parent::initializeAction();
 
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $this->moduleTemplate->getDocHeaderComponent()->setMetaInformation([]);
-        $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
-
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript';
         $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
@@ -65,13 +63,14 @@ class BaseController extends ActionController
 
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/T3monitoring/Main');
         $pageRenderer->addCssFile('EXT:t3monitoring/Resources/Public/Css/t3monitoring.css');
-
-        $this->createMenu();
-        $this->getButtons();
     }
 
     protected function initializeView(ViewInterface $view)
     {
+        $this->view = $this->moduleTemplateFactory->create($this->request);
+        $this->view->getDocHeaderComponent()->setMetaInformation([]);
+        $this->view->setFlashMessageQueue($this->getFlashMessageQueue());
+
         $view->assignMultiple([
             'emConfiguration' => $this->emConfiguration,
             'formats' => [
@@ -80,11 +79,14 @@ class BaseController extends ActionController
                 'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
             ],
         ]);
+
+        $this->createMenu();
+        $this->getButtons();
     }
 
     protected function createMenu(): void
     {
-        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $this->view->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier('t3monitoring');
 
         $actions = [
@@ -110,7 +112,7 @@ class BaseController extends ActionController
             $menu->addMenuItem($item);
         }
 
-        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $this->view->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
@@ -118,7 +120,7 @@ class BaseController extends ActionController
      */
     protected function getButtons(): void
     {
-        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $buttonBar = $this->view->getDocHeaderComponent()->getButtonBar();
 
         // Home
         if (($this->request->getControllerName() !== 'Statistic'
@@ -139,7 +141,7 @@ class BaseController extends ActionController
             $this->request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
         );
         // Buttons for new records
-        $returnUrl = rawurlencode((string)$uriBuilder->build('t3monitoring', [
+        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', [
             'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams,
         ]));
         $pid = $this->emConfiguration->getPid();
@@ -199,5 +201,13 @@ class BaseController extends ActionController
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
+    }
+
+    protected function htmlResponse(?string $html = null): ResponseInterface
+    {
+        if ($html !== null) {
+            return parent::htmlResponse($html);
+        }
+        return $this->view->renderResponse($this->request->getControllerActionName());
     }
 }

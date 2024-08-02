@@ -14,7 +14,9 @@ namespace T3Monitor\T3monitoring\Controller;
 use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository;
+use TYPO3\CMS\Backend\Attribute\AsController;
 
+#[AsController]
 class ExtensionController extends BaseController
 {
     protected ExtensionRepository $extensionRepository;

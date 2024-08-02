@@ -20,9 +20,11 @@ use T3Monitor\T3monitoring\Service\BulletinImport;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use T3Monitor\T3monitoring\Service\Import\CoreImport;
 use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
+use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
+#[AsController]
 class StatisticController extends BaseController
 {
     const RSS_URL = 'https://typo3.org/?type=101';

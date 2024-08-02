@@ -14,8 +14,10 @@ namespace T3Monitor\T3monitoring\Controller;
 use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Client;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
+use TYPO3\CMS\Backend\Attribute\AsController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+#[AsController]
 class ClientController extends BaseController
 {
 
