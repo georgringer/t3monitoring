@@ -5,7 +5,6 @@ return [
         'label' => 'version',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'security' => [
             'ignorePageTypeRestriction' => true,
         ],

@@ -8,7 +8,6 @@ return [
         'hideTable' => true,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'security' => [
             'ignorePageTypeRestriction' => true,
         ],
