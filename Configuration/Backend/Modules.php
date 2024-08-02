@@ -6,7 +6,7 @@ return [
         'access' => 'user,group',
         'icon' => 'EXT:t3monitoring/Resources/Public/Icons/module.svg',
         'labels' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang_t3monitor.xlf',
-        'extensionName' => 't3monitor',
+        'extensionName' => 't3monitoring',
         'controllerActions' => [
             \T3Monitor\T3monitoring\Controller\StatisticController::class => ['index', 'administration'],
             \T3Monitor\T3monitoring\Controller\CoreController::class => ['list'],
