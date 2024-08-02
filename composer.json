@@ -8,10 +8,11 @@
 	"require": {
 		"php": "^8.2",
 		"ext-json": "*",
-		"typo3/cms-core": "^11 || ^12",
-		"typo3/cms-backend": "^11 || ^12",
-		"typo3/cms-extbase": "^11 || ^12",
-		"typo3/cms-extensionmanager": "^11 || ^12"
+		"ext-dom": "*",
+		"typo3/cms-core": "^12",
+		"typo3/cms-backend": "^12",
+		"typo3/cms-extbase": "^12",
+		"typo3/cms-extensionmanager": "^12"
 	},
 	"require-dev": {
 		"typo3/minimal": "^12",
@@ -24,9 +25,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"T3Monitor\\T3monitoring\\Tests\\": "Tests",
-			"TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
-			"TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+			"T3Monitor\\T3monitoring\\Tests\\": "Tests"
 		}
 	},
 	"config": {
@@ -39,7 +38,7 @@
 	},
 	"extra": {
 		"typo3/cms": {
-			"web-dir": ".Build/Web",
+			"web-dir": ".Build/web",
 			"extension-key": "t3monitoring"
 		}
 	}

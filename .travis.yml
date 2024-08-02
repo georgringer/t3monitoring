@@ -21,7 +21,7 @@ before_install:
   - composer --version
 
 before_script:
-  - export TYPO3_PATH_WEB=$PWD/.Build/Web
+  - export TYPO3_PATH_WEB=$PWD/.Build/web
   - composer install
 
 script:
