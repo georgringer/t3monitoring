@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Command;
 
 /*
@@ -21,42 +23,29 @@ use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Report command controller
- */
 class ReportAdminCommand extends Command
 {
     /** @var Client[] */
-    protected $clients = [];
+    protected array $clients = [];
 
-    /**
-     * Configure the command by defining the name, options and arguments
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this->addArgument('email', InputArgument::OPTIONAL, 'Email address to send report to', '');
         $this->setDescription('Generate collective report for all insecure clients (core or extensions)');
     }
 
-    protected function initialize(InputInterface $input, OutputInterface $output)
+    protected function initialize(InputInterface $input, OutputInterface $output): void
     {
         parent::initialize($input, $output);
 
         $this->clients = GeneralUtility::makeInstance(ClientRepository::class)->getAllForReport();
     }
 
-    /**
-     * Executes the command for adding the lock file
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (count($this->clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
-            return 0;
+            return Command::SUCCESS;
         }
 
         $email = $input->getArgument('email');
@@ -96,7 +85,7 @@ class ReportAdminCommand extends Command
             $style = new SymfonyStyle($input, $output);
             $style->table($header, $collectedClientData);
         }
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function getLabel(string $key): string

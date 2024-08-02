@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -9,11 +11,10 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
+use T3Monitor\T3monitoring\Domain\Model\Core;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
-use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
-use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\SlaRepository;
-use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use T3Monitor\T3monitoring\Domain\Repository\TagRepository;
 use T3Monitor\T3monitoring\Service\BulletinImport;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
@@ -22,43 +23,24 @@ use T3Monitor\T3monitoring\Service\Import\ExtensionImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
-/**
- * Class StatisticController
- */
 class StatisticController extends BaseController
 {
+    const RSS_URL = 'https://typo3.org/?type=101';
 
-    /**
-     * @var \T3Monitor\T3monitoring\Domain\Repository\SlaRepository
-     */
-    protected $slaRepository = null;
+    protected SlaRepository $slaRepository;
+    protected TagRepository $tagRepository;
 
-    /**
-     * @var \T3Monitor\T3monitoring\Domain\Repository\TagRepository
-     */
-    protected $tagRepository = null;
-
-    /**
-     * Initialize action
-     */
-    public function initializeAction()
+    public function injectSlaRepository(SlaRepository $slaRepository): void
     {
-        $this->statisticRepository = GeneralUtility::makeInstance(StatisticRepository::class);
-        $this->filterDemand = GeneralUtility::makeInstance(ClientFilterDemand::class);
-        $this->clientRepository = GeneralUtility::makeInstance(ClientRepository::class);
-        $this->coreRepository = GeneralUtility::makeInstance(CoreRepository::class);
-        $this->slaRepository = GeneralUtility::makeInstance(SlaRepository::class);
-        $this->tagRepository = GeneralUtility::makeInstance(TagRepository::class);
-
-        parent::initializeAction();
+        $this->slaRepository = $slaRepository;
     }
 
-    /**
-     * Index action
-     *
-     * @param ClientFilterDemand|null $filter
-     */
-    public function indexAction(ClientFilterDemand $filter = null)
+    public function injectTagRepository(TagRepository $tagRepository): void
+    {
+        $this->tagRepository = $tagRepository;
+    }
+
+    public function indexAction(?ClientFilterDemand $filter = null): ResponseInterface
     {
         if (null === $filter) {
             $filter = $this->getClientFilterDemand();
@@ -79,7 +61,7 @@ class StatisticController extends BaseController
         $feedItems = null;
         if ($this->emConfiguration->getLoadBulletins()) {
             /** @var BulletinImport $bulletinImport */
-            $bulletinImport = GeneralUtility::makeInstance(BulletinImport::class, 'https://typo3.org/?type=101', 5);
+            $bulletinImport = GeneralUtility::makeInstance(BulletinImport::class, self::RSS_URL, 5);
             $feedItems = $bulletinImport->start();
         }
 
@@ -107,14 +89,11 @@ class StatisticController extends BaseController
                 'extension' => $this->registry->get('t3monitoring', 'importExtension'),
             ],
         ]);
+
+        return $this->htmlResponse();
     }
 
-    /**
-     * Administrator action
-     *
-     * @param string $import
-     */
-    public function administrationAction($import = '')
+    public function administrationAction(string $import = ''): ResponseInterface
     {
         $success = $error = false;
 
@@ -140,21 +119,18 @@ class StatisticController extends BaseController
 
         $this->view->assignMultiple([
             'success' => $success,
-            'error' => $error
+            'error' => $error,
         ]);
+
+        return $this->htmlResponse();
     }
 
-    /**
-     * Get all core versions
-     *
-     * @return array
-     */
-    protected function getAllCoreVersions()
+    protected function getAllCoreVersions(): array
     {
         $result = $used = [];
-        $versions = $this->coreRepository->findAllCoreVersions(CoreRepository::USED_ONLY);
+        $versions = $this->coreRepository->findAllCoreVersions();
         foreach ($versions as $version) {
-            /** @var \T3Monitor\T3monitoring\Domain\Model\Core $version */
+            /** @var Core $version */
             $info = VersionNumberUtility::convertVersionStringToArray($version->getVersion());
             $branchVersion = $info['version_main'] . '.' . $info['version_sub'];
             if (!isset($used[$branchVersion])) {

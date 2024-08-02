@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -15,7 +17,8 @@ use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Backend\View\BackendTemplateView;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -24,56 +27,31 @@ use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
-/**
- * Class BaseController
- */
 class BaseController extends ActionController
 {
+    protected ModuleTemplate $moduleTemplate;
 
-    /** @var BackendTemplateView */
-    protected $view;
+    public function __construct(
+        private readonly ModuleTemplateFactory $moduleTemplateFactory,
+        protected StatisticRepository $statisticRepository,
+        protected ClientRepository $clientRepository,
+        protected CoreRepository $coreRepository,
+        protected IconFactory $iconFactory,
+        protected Registry $registry,
+        protected ClientFilterDemand $filterDemand,
+        protected EmMonitoringConfiguration $emConfiguration
+    ) {}
 
-    /** @var StatisticRepository */
-    protected $statisticRepository;
-
-    /** @var ClientRepository */
-    protected $clientRepository;
-
-    /** @var CoreRepository */
-    protected $coreRepository;
-
-    /** @var ClientFilterDemand */
-    protected $filterDemand;
-
-    /** @var BackendTemplateView */
-    protected $defaultViewObjectName = BackendTemplateView::class;
-
-    /** @var IconFactory */
-    protected $iconFactory;
-
-    /** @var Registry */
-    protected $registry;
-
-    /** @var EmMonitoringConfiguration */
-    protected $emConfiguration;
-
-    /**
-     * Initialize action
-     */
-    public function initializeAction()
+    public function initializeAction(): void
     {
-        $this->statisticRepository = GeneralUtility::makeInstance(StatisticRepository::class);
-        $this->filterDemand = GeneralUtility::makeInstance(ClientFilterDemand::class);
-        $this->clientRepository = GeneralUtility::makeInstance(ClientRepository::class);
-        $this->coreRepository = GeneralUtility::makeInstance(CoreRepository::class);
-        $this->iconFactory = GeneralUtility::makeInstance(IconFactory::class);
-        $this->registry = GeneralUtility::makeInstance(Registry::class);
-        $this->emConfiguration = GeneralUtility::makeInstance(EmMonitoringConfiguration::class);
-
         parent::initializeAction();
+
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->moduleTemplate->getDocHeaderComponent()->setMetaInformation([]);
+        $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
 
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript';
@@ -83,32 +61,9 @@ class BaseController extends ActionController
             'paths' => [
                 'datatables' => $fullJsPath . '/jquery.dataTables.min',
                 'datatablesBootstrap' => $fullJsPath . '/dataTables.bootstrap.min',
-            ]
-        ]);
-    }
-
-    /**
-     * Set up the doc header properly here
-     *
-     * @param ViewInterface $view
-     * @throws \InvalidArgumentException
-     */
-    protected function initializeView(ViewInterface $view)
-    {
-        /** @var BackendTemplateView $view */
-        parent::initializeView($view);
-        $view->getModuleTemplate()->getDocHeaderComponent()->setMetaInformation([]);
-        $view->assignMultiple([
-            'emConfiguration' => $this->emConfiguration,
-            'formats' => [
-                'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
-                'time' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-                'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
-            ]
+            ],
         ]);
 
-        /** @var PageRenderer $pageRenderer */
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
         $pageRenderer->loadRequireJsModule('TYPO3/CMS/T3monitoring/Main');
         $pageRenderer->addCssFile('EXT:t3monitoring/Resources/Public/Css/t3monitoring.css');
 
@@ -116,13 +71,21 @@ class BaseController extends ActionController
         $this->getButtons();
     }
 
-    /**
-     * Create menu
-     * @throws \InvalidArgumentException
-     */
-    protected function createMenu()
+    protected function initializeView(ViewInterface $view)
     {
-        $menu = $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $view->assignMultiple([
+            'emConfiguration' => $this->emConfiguration,
+            'formats' => [
+                'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
+                'time' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+                'dateAndTime' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'] . ' ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['hhmm'],
+            ],
+        ]);
+    }
+
+    protected function createMenu(): void
+    {
+        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier('t3monitoring');
 
         $actions = [
@@ -135,14 +98,11 @@ class BaseController extends ActionController
         ];
 
         foreach ($actions as $action) {
-            switch ($action['controller']) {
-                case 'Statistic':
-                    $isActive = $this->request->getControllerName() === $action['controller']
-                        && $this->request->getControllerActionName() === $action['action'];
-                    break;
-                default:
-                    $isActive = $this->request->getControllerName() === $action['controller'];
-            }
+            $isActive = match ($action['controller']) {
+                'Statistic' => $this->request->getControllerName() === $action['controller']
+                    && $this->request->getControllerActionName() === $action['action'],
+                default => $this->request->getControllerName() === $action['controller'],
+            };
 
             $item = $menu->makeMenuItem()
                 ->setTitle($action['label'])
@@ -151,16 +111,15 @@ class BaseController extends ActionController
             $menu->addMenuItem($item);
         }
 
-        $this->view->getModuleTemplate()->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
      * Create the panel of buttons for submitting the form or otherwise perform operations.
-     * @throws \InvalidArgumentException
      */
-    protected function getButtons()
+    protected function getButtons(): void
     {
-        $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         // Home
         if (($this->request->getControllerName() !== 'Statistic'
@@ -176,9 +135,13 @@ class BaseController extends ActionController
 
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
+        $queryParams = array_merge(
+            $this->request->getQueryParams()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? [],
+            $this->request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
+        );
         // Buttons for new records
-        $returnUrl = rawurlencode($uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
-            'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
+        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
+            'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams,
         ]));
         $pid = $this->emConfiguration->getPid();
 
@@ -216,18 +179,11 @@ class BaseController extends ActionController
         }
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    protected function getLabel($key): string
+    protected function getLabel(string $key): string
     {
         return $this->getLanguageService()->sL('LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:' . $key);
     }
 
-    /**
-     * @return UriBuilder
-     */
     protected function getUriBuilder(): UriBuilder
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
@@ -236,19 +192,11 @@ class BaseController extends ActionController
         return $uriBuilder;
     }
 
-    /**
-     * @return ClientFilterDemand
-     */
     protected function getClientFilterDemand(): ClientFilterDemand
     {
-        return GeneralUtility::makeInstance(ClientFilterDemand::class);
+        return new ClientFilterDemand();
     }
 
-    /**
-     * Returns the LanguageService
-     *
-     * @return LanguageService
-     */
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];

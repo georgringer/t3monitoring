@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Command;
 
 /*
@@ -14,30 +17,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 use T3Monitor\T3monitoring\Service\Import\ClientImport;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Monitoring command controller
- */
 class ImportClientsCommand extends Command
 {
-
-    /**
-     * Configure the command by defining the name, options and arguments
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Import clients');
     }
 
-    /**
-     * Executes the command for adding the lock file
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @throws \Doctrine\DBAL\ConnectionException
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
-     * @throws \TYPO3\CMS\Extensionmanager\Exception\ExtensionManagerException
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $import = GeneralUtility::makeInstance(ClientImport::class);
         $import->run();
@@ -46,6 +33,6 @@ class ImportClientsCommand extends Command
         foreach ($result as $label => $count) {
             $output->writeln(sprintf('%s: %s', $label, $count));
         }
-        return 0;
+        return Command::SUCCESS;
     }
 }

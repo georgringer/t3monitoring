@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -8,23 +11,16 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * CoreController
- */
 class CoreController extends BaseController
 {
-
-    /**
-     * @param CoreFilterDemand|null $filter
-     */
-    public function listAction(CoreFilterDemand $filter = null)
+    public function listAction(?CoreFilterDemand $filter = null): ResponseInterface
     {
         if ($filter === null) {
-            $filter = GeneralUtility::makeInstance(CoreFilterDemand::class);
+            $filter = new CoreFilterDemand();
             $filter->setUsage(CoreRepository::USED_ONLY);
         }
 
@@ -32,5 +28,7 @@ class CoreController extends BaseController
             'filter' => $filter,
             'cores' => $this->coreRepository->findByDemand($filter)
         ]);
+
+        return $this->htmlResponse();
     }
 }

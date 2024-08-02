@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Command;
 
 /*
@@ -17,36 +19,23 @@ use T3Monitor\T3monitoring\Notification\EmailNotification;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Report command controller
- */
 class ReportClientCommand extends Command
 {
-    /**
-     * Configure the command by defining the name, options and arguments
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Report clients');
     }
 
-    /**
-     * Executes the command for adding the lock file
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @throws \TYPO3\CMS\Extbase\Object\Exception
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $clients = GeneralUtility::makeInstance(ClientRepository::class)->getAllForReport(true);
         if (count($clients) === 0) {
             $output->writeln($this->getLabel('noInsecureClients'));
-            return 0;
+            return Command::SUCCESS;
         }
 
         GeneralUtility::makeInstance(EmailNotification::class)->sendClientEmail($clients);
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function getLabel(string $key): string

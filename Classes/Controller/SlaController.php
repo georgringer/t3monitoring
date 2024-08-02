@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -8,45 +11,30 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Sla;
+use T3Monitor\T3monitoring\Domain\Repository\SlaRepository;
 
-/**
- * SlaController
- */
 class SlaController extends BaseController
 {
+    protected SlaRepository $slaRepository;
 
-    /**
-     * @var \T3Monitor\T3monitoring\Domain\Repository\SlaRepository
-     */
-    protected $slaRepository = null;
-
-    /**
-     * @param \T3Monitor\T3monitoring\Domain\Repository\SlaRepository $slaRepository
-     */
-    public function injectSlaRepository(\T3Monitor\T3monitoring\Domain\Repository\SlaRepository $slaRepository)
+    public function injectSlaRepository(SlaRepository $slaRepository): void
     {
         $this->slaRepository = $slaRepository;
     }
 
-    /**
-     * action list
-     */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         $slas = $this->slaRepository->findAll();
         $this->view->assign('slas', $slas);
+        return $this->htmlResponse();
     }
 
-    /**
-     * action show
-     *
-     * @param Sla $sla
-     */
-    public function showAction(Sla $sla = null)
+    public function showAction(?Sla $sla = null): ResponseInterface
     {
         if ($sla === null) {
-            $this->redirect('index', 'Statistic');
+            return $this->redirect('index', 'Statistic');
         }
 
         $demand = $this->getClientFilterDemand();
@@ -55,5 +43,7 @@ class SlaController extends BaseController
             'sla' => $sla,
             'clients' => $this->clientRepository->findByDemand($demand)
         ]);
+
+        return $this->htmlResponse();
     }
 }

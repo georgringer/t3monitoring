@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\Controller;
 
 /*
@@ -8,57 +11,43 @@ namespace T3Monitor\T3monitoring\Controller;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Psr\Http\Message\ResponseInterface;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository;
 
-/**
- * ExtensionController
- */
 class ExtensionController extends BaseController
 {
+    protected ExtensionRepository $extensionRepository;
 
-    /**
-     * @var \T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository
-     */
-    protected $extensionRepository = null;
-
-    /**
-     * @param \T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository $extensionRepository
-     */
-    public function injectExtensionRepository(\T3Monitor\T3monitoring\Domain\Repository\ExtensionRepository $extensionRepository)
+    public function injectExtensionRepository(ExtensionRepository $extensionRepository): void
     {
         $this->extensionRepository = $extensionRepository;
     }
 
-    /**
-     * @param ExtensionFilterDemand $filter
-     */
-    public function listAction(ExtensionFilterDemand $filter = null)
+    public function listAction(?ExtensionFilterDemand $filter = null): ResponseInterface
     {
         if ($filter === null) {
-            $filter = GeneralUtility::makeInstance(ExtensionFilterDemand::class);
+            $filter = new ExtensionFilterDemand();
         }
 
         $this->view->assignMultiple([
             'filter' => $filter,
-            'extensions' => $this->extensionRepository->findByDemand($filter)
+            'extensions' => $this->extensionRepository->findByDemand($filter),
         ]);
+
+        return $this->htmlResponse();
     }
 
-    /**
-     * action show
-     *
-     * @param string $extension
-     */
-    public function showAction($extension = '')
+    public function showAction(string $extension = ''): ResponseInterface
     {
         if (empty($extension)) {
-            $this->redirect('list');
+            return $this->redirect('list');
         }
         $versions = $this->extensionRepository->findAllVersionsByName($extension);
         $this->view->assignMultiple([
              'versions' => $versions,
             'latest' => $versions->getFirst(),
         ]);
+        return $this->htmlResponse();
     }
 }
