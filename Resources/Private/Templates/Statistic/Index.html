@@ -2,9 +2,13 @@
       xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
       xmlns:monitor="http://typo3.org/ns/T3Monitor/T3monitoring/ViewHelpers">
 
-<f:layout name="Simple"/>
+<f:layout name="Module" />
 
-<f:section name="content">
+<f:if condition="{emConfiguration.useGoogleCharts}">
+    <f:asset.script identifier="googlecharts" src="https://www.gstatic.com/charts/loader.js"  />
+</f:if>
+
+<f:section name="Content">
     <f:if condition="{fullClientCount}">
         <f:then>
             <f:if condition="{showIntro}">
