@@ -10,6 +10,9 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'searchFields' => 'title,domain,comment,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
     ],
