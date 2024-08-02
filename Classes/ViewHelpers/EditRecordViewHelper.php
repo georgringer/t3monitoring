@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
@@ -10,6 +11,7 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
  */
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
@@ -19,7 +21,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class EditRecordViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('parameters', 'string', 'parameters', true);
@@ -31,8 +33,15 @@ class EditRecordViewHelper extends AbstractViewHelper
 
         $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
 
+        /** @var ServerRequest $request */
+        $request = $GLOBALS['TYPO3_REQUEST'];
+        $queryParams = array_merge(
+            $request->getQueryParams()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? [],
+            $request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
+        );
+
         $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('tools_T3monitoringT3monitor', [
-            'tx_t3monitoring_tools_t3monitoringt3monitor' => GeneralUtility::_GPmerged('tx_t3monitoring_tools_t3monitoringt3monitor')
+            'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams
         ]);
 
         return $uriBuilder->buildUriFromRoute('record_edit', $parameters);

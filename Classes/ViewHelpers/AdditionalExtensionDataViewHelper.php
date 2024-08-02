@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -9,20 +11,17 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class AdditionalExtensionDataViewHelper
- */
 class AdditionalExtensionDataViewHelper extends AbstractViewHelper
 {
-    /** @var bool */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('client', 'int', 'Client', true);
@@ -38,11 +37,11 @@ class AdditionalExtensionDataViewHelper extends AbstractViewHelper
             ->select('is_loaded', 'state', 'title')
             ->from('tx_t3monitoring_client_extension_mm')
             ->where(
-                $queryBuilderCoreExtensions->expr()->eq('uid_local', $queryBuilderCoreExtensions->createNamedParameter($arguments['client'], \PDO::PARAM_INT)),
-                $queryBuilderCoreExtensions->expr()->eq('uid_foreign', $queryBuilderCoreExtensions->createNamedParameter($arguments['extension'], \PDO::PARAM_INT))
+                $queryBuilderCoreExtensions->expr()->eq('uid_local', $queryBuilderCoreExtensions->createNamedParameter($arguments['client'], Connection::PARAM_INT)),
+                $queryBuilderCoreExtensions->expr()->eq('uid_foreign', $queryBuilderCoreExtensions->createNamedParameter($arguments['extension'], Connection::PARAM_INT))
             )
             ->setMaxResults(1)
-            ->execute()->fetch();
+            ->executeQuery()->fetchAssociative();
 
         $renderingContext->getVariableProvider()->add($arguments['as'], $result);
         $output = $renderChildrenClosure();

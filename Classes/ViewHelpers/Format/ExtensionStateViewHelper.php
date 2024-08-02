@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -13,12 +15,9 @@ use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class ExtensionStateViewHelper
- */
 class ExtensionStateViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('state', 'int', 'state', false, 0);

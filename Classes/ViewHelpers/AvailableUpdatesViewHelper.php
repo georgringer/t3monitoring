@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\ViewHelpers;
 
 /*
@@ -16,15 +18,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class AvailableUpdatesViewHelper
- */
 class AvailableUpdatesViewHelper extends AbstractViewHelper
 {
-    /** @var bool */
     protected $escapeOutput = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('extension', Extension::class, 'Extension', true);
@@ -82,11 +80,6 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
         return 0;
     }
 
-    /**
-     * @param string $name
-     * @param string $version
-     * @return array
-     */
     protected static function getExtDetails(string $name, string $version): array
     {
         $table = 'tx_t3monitoring_domain_model_extension';
@@ -101,7 +94,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
                 $queryBuilderCoreExtensions->expr()->eq('version', $queryBuilderCoreExtensions->createNamedParameter($version))
             )
             ->setMaxResults(1)
-            ->execute()->fetch();
+            ->executeQuery()->fetchAssociative();
 
         if ($row) {
             return $row;

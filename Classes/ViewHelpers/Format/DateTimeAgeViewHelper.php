@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
@@ -13,12 +14,9 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class DateTimeAgeViewHelper
- */
 class DateTimeAgeViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('date', \DateTime::class, 'date', true);

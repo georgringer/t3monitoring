@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 
 /*
@@ -12,9 +14,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
-/**
- * Class DependenciesViewHelper
- */
 class DependenciesViewHelper extends AbstractViewHelper
 {
     /** @var bool */
@@ -23,13 +22,13 @@ class DependenciesViewHelper extends AbstractViewHelper
     /** @var bool */
     protected $escapeChildren = false;
 
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('dependencies', 'string', 'dependencies');
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
     {
         $dependencies = $arguments['dependencies'] ?: $renderChildrenClosure();
 
