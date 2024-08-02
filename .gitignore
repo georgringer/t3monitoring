@@ -1,2 +1,4 @@
 .DS_Store
-.Build
+/.Build
+/composer.lock
+/docker-compose.yaml
