@@ -41,7 +41,6 @@ class BaseController extends ActionController
         protected CoreRepository $coreRepository,
         protected IconFactory $iconFactory,
         protected Registry $registry,
-        protected ClientFilterDemand $filterDemand,
         protected EmMonitoringConfiguration $emConfiguration
     ) {}
 

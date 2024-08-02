@@ -8,6 +8,9 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
 
+  T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration:
+    public: true
+
   T3Monitor\T3monitoring\Command\ImportCoreCommand:
     tags:
       - name: 'console.command'
