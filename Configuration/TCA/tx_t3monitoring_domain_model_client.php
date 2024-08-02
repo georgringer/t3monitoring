@@ -125,9 +125,9 @@ return [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', ''],
-                    ['IPv4', 'v4'],
-                    ['IPv6', 'v6'],
+                    ['label' => '', 'value' => ''],
+                    ['label' => 'IPv4', 'value' => 'v4'],
+                    ['label' => 'IPv6', 'value' => 'v6'],
                 ],
                 'default' => '',
             ],
@@ -150,7 +150,7 @@ return [
                 'minitems' => 0,
                 'default' => 0,
                 'items' => [
-                    ['', 0]
+                    ['label' => '', 'value' => 0]
                 ]
             ],
         ],
