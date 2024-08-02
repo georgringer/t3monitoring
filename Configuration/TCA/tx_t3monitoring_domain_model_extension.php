@@ -24,7 +24,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'version' => [
@@ -70,10 +71,8 @@ return [
         'last_updated' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.last_updated',
             'config' => [
-                'type' => 'input',
+                'type' => 'datetime',
                 'dbType' => 'datetime',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
             ],
         ],
         'author_name' => [
@@ -116,9 +115,8 @@ return [
         'version_integer' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.version_integer',
             'config' => [
-                'type' => 'input',
+                'type' => 'number',
                 'size' => 4,
-                'eval' => 'int'
             ],
         ],
         'is_used' => [
