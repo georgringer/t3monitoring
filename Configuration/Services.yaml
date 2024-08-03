@@ -11,7 +11,7 @@ services:
   T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration:
     public: true
 
-  T3Monitor\T3monitoring\Property\TypeConverter\ClientFilterDemandConverter:
+  T3Monitor\T3monitoring\Domain\TypeConverter\ClientFilterDemandConverter:
     tags:
       - name: extbase.type_converter
         priority: 10
