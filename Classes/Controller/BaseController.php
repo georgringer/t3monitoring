@@ -71,7 +71,7 @@ class BaseController extends ActionController
         $this->view->getDocHeaderComponent()->setMetaInformation([]);
         $this->view->setFlashMessageQueue($this->getFlashMessageQueue());
 
-        $view->assignMultiple([
+        $this->view->assignMultiple([
             'emConfiguration' => $this->emConfiguration,
             'formats' => [
                 'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
