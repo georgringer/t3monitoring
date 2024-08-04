@@ -35,14 +35,9 @@ class EditRecordViewHelper extends AbstractViewHelper
 
         /** @var ServerRequest $request */
         $request = $GLOBALS['TYPO3_REQUEST'];
-        $queryParams = array_merge(
-            $request->getQueryParams()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? [],
-            $request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
-        );
+        $queryParams = $request->getQueryParams() ?? [];
 
-        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('t3monitoring', [
-            'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams
-        ]);
+        $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('t3monitoring', $queryParams);
 
         return $uriBuilder->buildUriFromRoute('record_edit', $parameters);
     }

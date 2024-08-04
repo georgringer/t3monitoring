@@ -136,14 +136,10 @@ class BaseController extends ActionController
 
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
-        $queryParams = array_merge(
-            $this->request->getQueryParams()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? [],
-            $this->request->getParsedBody()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? []
-        );
+        $queryParams = $this->request->getQueryParams() ?? [];
+
         // Buttons for new records
-        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', [
-            'tx_t3monitoring_tools_t3monitoringt3monitor' => $queryParams,
-        ]));
+        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', $queryParams));
         $pid = $this->emConfiguration->getPid();
 
         // new client

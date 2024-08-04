@@ -74,7 +74,6 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
     {
         /** @var ServerRequest $request */
         $request = $GLOBALS['TYPO3_REQUEST'];
-        $vars = $request->getQueryParams()['tx_t3monitoring_tools_t3monitoringt3monitor'] ?? [];
-        return is_array($vars['filter'] ?? false) ? $vars['filter'] : [];
+        return $request->getQueryParams()['filter'] ?? [];
     }
 }
