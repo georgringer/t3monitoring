@@ -45,9 +45,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->sla;
     }
 
-    public function setSla(int $sla): static
+    public function setSla($sla): static
     {
-        $this->sla = $sla;
+        $this->sla = (int)$sla;
         return $this;
     }
 
@@ -56,9 +56,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->tag;
     }
 
-    public function setTag(int $tag): static
+    public function setTag($tag): static
     {
-        $this->tag = $tag;
+        $this->tag = (int)$tag;
         return $this;
     }
 
@@ -78,9 +78,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withErrorMessage;
     }
 
-    public function setWithErrorMessage(bool $withErrorMessage): static
+    public function setWithErrorMessage($withErrorMessage): static
     {
-        $this->withErrorMessage = $withErrorMessage;
+        $this->withErrorMessage = (bool)$withErrorMessage;
         return $this;
     }
 
@@ -89,9 +89,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withInsecureExtensions;
     }
 
-    public function setWithInsecureExtensions(bool $withInsecureExtensions): static
+    public function setWithInsecureExtensions($withInsecureExtensions): static
     {
-        $this->withInsecureExtensions = $withInsecureExtensions;
+        $this->withInsecureExtensions = (bool)$withInsecureExtensions;
         return $this;
     }
 
@@ -100,9 +100,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withInsecureCore;
     }
 
-    public function setWithInsecureCore(bool $withInsecureCore): static
+    public function setWithInsecureCore($withInsecureCore): static
     {
-        $this->withInsecureCore = $withInsecureCore;
+        $this->withInsecureCore = (bool)$withInsecureCore;
         return $this;
     }
 
@@ -111,9 +111,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withOutdatedCore;
     }
 
-    public function setWithOutdatedCore(bool $withOutdatedCore): static
+    public function setWithOutdatedCore($withOutdatedCore): static
     {
-        $this->withOutdatedCore = $withOutdatedCore;
+        $this->withOutdatedCore = (bool)$withOutdatedCore;
         return $this;
     }
 
@@ -122,9 +122,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withOutdatedExtensions;
     }
 
-    public function setWithOutdatedExtensions(bool $withOutdatedExtensions): static
+    public function setWithOutdatedExtensions($withOutdatedExtensions): static
     {
-        $this->withOutdatedExtensions = $withOutdatedExtensions;
+        $this->withOutdatedExtensions = (bool)$withOutdatedExtensions;
         return $this;
     }
 
@@ -133,9 +133,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withExtraInfo;
     }
 
-    public function setWithExtraInfo(bool $withExtraInfo): static
+    public function setWithExtraInfo($withExtraInfo): static
     {
-        $this->withExtraInfo = $withExtraInfo;
+        $this->withExtraInfo = (bool)$withExtraInfo;
         return $this;
     }
 
@@ -144,9 +144,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withExtraWarning;
     }
 
-    public function setWithExtraWarning(bool $withExtraWarning): static
+    public function setWithExtraWarning($withExtraWarning): static
     {
-        $this->withExtraWarning = $withExtraWarning;
+        $this->withExtraWarning = (bool)$withExtraWarning;
         return $this;
     }
 
@@ -155,9 +155,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withExtraDanger;
     }
 
-    public function setWithExtraDanger(bool $withExtraDanger): static
+    public function setWithExtraDanger($withExtraDanger): static
     {
-        $this->withExtraDanger = $withExtraDanger;
+        $this->withExtraDanger = (bool)$withExtraDanger;
         return $this;
     }
 
@@ -166,9 +166,9 @@ class ClientFilterDemand extends AbstractEntity
         return $this->withEmailAddress;
     }
 
-    public function setWithEmailAddress(bool $withEmailAddress): static
+    public function setWithEmailAddress($withEmailAddress): static
     {
-        $this->withEmailAddress = $withEmailAddress;
+        $this->withEmailAddress = (bool)$withEmailAddress;
         return $this;
     }
 }
