@@ -73,7 +73,7 @@ class ClientRepository extends BaseRepository
             $query->logicalAnd(...$constraints)
         );
 
-        return $query->execute();
+        return $query->execute()->toArray();
     }
 
     protected function getConstraints(ClientFilterDemand $demand, QueryInterface $query): array
