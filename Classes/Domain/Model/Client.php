@@ -63,7 +63,7 @@ class Client extends AbstractEntity
     protected Sla|LazyLoadingProxy|null $sla = null;
 
     #[Lazy]
-    protected Tag|LazyLoadingProxy|null $tag = null;
+    protected ObjectStorage|LazyLoadingProxy $tag;
 
     public function __construct()
     {
@@ -82,6 +82,7 @@ class Client extends AbstractEntity
     protected function initStorageObjects(): void
     {
         $this->extensions = new ObjectStorage();
+        $this->tag = new ObjectStorage();
     }
 
     public function getTitle(): string
@@ -385,12 +386,23 @@ class Client extends AbstractEntity
         $this->sla = $sla;
     }
 
-    public function getTag(): ?Tag
+    /**
+     * Returns the tags
+     *
+     * @return ObjectStorage<Tag>
+     */
+    public function getTag(): ObjectStorage
     {
         return $this->tag instanceof LazyLoadingProxy ? $this->tag->_loadRealInstance() : $this->tag;
     }
 
-    public function setTag(Tag $tag): void
+    /**
+     * Sets the tags
+     *
+     * @param ObjectStorage<Tag> $tag
+     * @return void
+     */
+    public function setTag(ObjectStorage $tag): void
     {
         $this->tag = $tag;
     }
