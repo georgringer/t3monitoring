@@ -11,6 +11,7 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
  * LICENSE.txt file that was distributed with this source code.
  */
 
+use Doctrine\DBAL\Exception;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -25,6 +26,10 @@ class ExtensionRepository extends BaseRepository
         $this->setDefaultOrderings(['name' => QueryInterface::ORDER_ASCENDING]);
     }
 
+    /**
+     * @param string $name
+     * @return QueryResultInterface|array
+     */
     public function findAllVersionsByName(string $name): QueryResultInterface|array
     {
         $query = $this->getQuery();
@@ -36,6 +41,11 @@ class ExtensionRepository extends BaseRepository
         return $query->execute();
     }
 
+    /**
+     * @param ExtensionFilterDemand $demand
+     * @return array
+     * @throws Exception
+     */
     public function findByDemand(ExtensionFilterDemand $demand): array
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_t3monitoring_domain_model_extension');
@@ -52,9 +62,9 @@ class ExtensionRepository extends BaseRepository
             ->orderBy('ext.version_integer', 'DESC')
             ->orderBy('client.title', 'ASC');
         $this->extendWhereClause($demand, $queryBuilder);
-
+        $statement = $queryBuilder->executeQuery();
         $result = [];
-        while ($row = $queryBuilder->executeQuery()->fetchAssociative()) {
+        while ($row = $statement->fetchAssociative()) {
             $result[$row['name']][$row['version']]['insecure'] = $row['insecure'];
             $result[$row['name']][$row['version']]['clients'][] = $row;
         }
@@ -62,6 +72,10 @@ class ExtensionRepository extends BaseRepository
         return $result;
     }
 
+    /**
+     * @param ExtensionFilterDemand $demand
+     * @param QueryBuilder $qb
+     */
     protected function extendWhereClause(ExtensionFilterDemand $demand, QueryBuilder $qb): void
     {
         if (!$demand->getName()) {
@@ -70,8 +84,10 @@ class ExtensionRepository extends BaseRepository
         if ($demand->isExactSearch()) {
             $condition = $qb->expr()->eq('ext.name', $qb->createNamedParameter($demand->getName()));
         } else {
-            $condition = $qb->expr()->like('ext.name',
-                $qb->createNamedParameter('%' . $qb->escapeLikeWildcards($demand->getName()) . '%'));
+            $condition = $qb->expr()->like(
+                'ext.name',
+                $qb->createNamedParameter('%' . $qb->escapeLikeWildcards($demand->getName()) . '%')
+            );
         }
         $qb->andWhere($condition);
     }
