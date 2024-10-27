@@ -9,17 +9,19 @@
 
 	<f:form action="list" name="filter" object="{filter}" class="form-inline mb-3">
 
-		<div class="form-group">
-			<label>{f:translate(key:'extensionFilter.name')}</label>
-			<f:form.textfield property="name" class="form-control" />
-		</div>
+        <div class="row">
+            <div class="col form-group">
+                <label for="form-name" class="form-label">{f:translate(key:'extensionFilter.name')}</label>
+                <f:form.textfield property="name" id="form-name" class="form-control" />
+            </div>
 
-		<div class="form-group">
-			<label>{f:translate(key:'extensionFilter.exactSearch')}</label>
-			<div class="checkbox">
-				<f:form.checkbox property="exactSearch" value="1" />
-			</div>
-		</div>
+            <div class="col form-group">
+                <label for="form-exactSearch" class="form-label">{f:translate(key:'extensionFilter.exactSearch')}</label>
+                <div class="form-check">
+                    <f:form.checkbox property="exactSearch" id="form-exactSearch" class="form-check-input" value="1" />
+                </div>
+            </div>
+        </div>
 		<button class="btn btn-default">
 			{core:icon(identifier:'actions-search')} {f:translate(key:'search')}
 		</button>

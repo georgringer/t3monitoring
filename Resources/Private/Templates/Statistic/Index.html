@@ -237,40 +237,41 @@
 
 <f:section name="searchfilter">
     <div class="form-group">
-        <label for="form-client">{f:translate(key:'tx_t3monitoring_domain_model_client')}</label>
+        <label for="form-client" class="form-label">{f:translate(key:'tx_t3monitoring_domain_model_client')}</label>
         <f:form.textfield property="searchWord" id="form-client" class="form-control"/>
     </div>
 
     <div class="form-group">
-        <label for="form-core">Core</label>
+        <label for="form-core" class="form-label">Core</label>
         <f:form.select property="version" id="form-core" options="{coreVersions}"
-                       class="form-control" prependOptionLabel="" prependOptionValue=""/>
+                       class="form-select" prependOptionLabel="" prependOptionValue=""/>
     </div>
 
     <f:if condition="{slaVersions}">
         <div class="form-group">
-            <label for="form-sla">{f:translate(key:'tx_t3monitoring_domain_model_sla')}</label>
+            <label for="form-sla" class="form-label">{f:translate(key:'tx_t3monitoring_domain_model_sla')}</label>
             <f:form.select property="sla" id="form-sla" options="{slaVersions}"
-                           optionValueField="uid" optionLabelField="title" class="form-control"
+                           optionValueField="uid" optionLabelField="title" class="form-select"
                            prependOptionLabel="" prependOptionValue=""/>
         </div>
     </f:if>
 
     <f:if condition="{tagVersions}">
         <div class="form-group">
-            <label for="form-tag">{f:translate(key:'tag')}</label>
+            <label for="form-tag" class="form-label">{f:translate(key:'tag')}</label>
             <f:form.select property="tag" id="form-tag" options="{tagVersions}"
-                           optionValueField="uid" optionLabelField="title" class="form-control"
+                           optionValueField="uid" optionLabelField="title" class="form-select"
                            prependOptionLabel="" prependOptionValue=""/>
         </div>
     </f:if>
 
     <fieldset>
-        <legend class="legend">{f:translate(key:'filter.fieldset.core')}</legend>
+        <legend class="form-legend">{f:translate(key:'filter.fieldset.core')}</legend>
         <div class="checkbox">
             <label>
                 <f:form.checkbox property="withInsecureCore" value="1"/>
-                {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_core')}</label>
+                {f:translate(key:'tx_t3monitoring_domain_model_client.insecure_core')}
+            </label>
         </div>
 
         <div class="checkbox">
@@ -280,7 +281,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <legend class="legend">{f:translate(key:'filter.fieldset.extensions')}</legend>
+        <legend class="form-legend">{f:translate(key:'filter.fieldset.extensions')}</legend>
         <div class="checkbox">
             <label>
                 <f:form.checkbox property="withOutdatedExtensions" value="1"/>
@@ -294,7 +295,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <legend class="legend">{f:translate(key:'filter.fieldset.misc')}</legend>
+        <legend class="form-legend">{f:translate(key:'filter.fieldset.misc')}</legend>
         <div class="checkbox">
             <label>
                 <f:form.checkbox property="withErrorMessage" value="1"/>
