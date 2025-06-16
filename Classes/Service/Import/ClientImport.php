@@ -88,7 +88,7 @@ class ClientImport extends BaseImport
                 throw new RuntimeException('Empty response from client ' . $row['title']);
             }
             $json = json_decode($response, true);
-            if (!is_array($json)) {
+            if (!is_array($json) || !array_key_exists('core', $json) || !is_array($json['core']) || !array_key_exists('typo3Version', $json['core'])) {
                 throw new RuntimeException('Invalid response from client ' . $row['title']);
             }
 
