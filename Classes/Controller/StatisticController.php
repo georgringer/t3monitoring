@@ -27,6 +27,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 #[AsController]
 class StatisticController extends BaseController
 {
+    /** @var string TYPO3 Security RSS Feed */
     const RSS_URL = 'https://typo3.org/?type=101';
 
     protected SlaRepository $slaRepository;
@@ -72,7 +73,6 @@ class StatisticController extends BaseController
             'clients' => $this->clientRepository->findByDemand($filter),
             'coreVersions' => $this->getAllCoreVersions(),
             'coreVersionUsage' => $this->statisticRepository->getUsedCoreVersionCount(),
-            'coreVersionUsageJson' => $this->statisticRepository->getUsedCoreVersionCountJson(),
             'fullClientCount' => $this->clientRepository->countByDemand($emptyClientDemand),
             'clientsWithErrorMessages' => $this->clientRepository->countByDemand($errorMessageDemand),
             'clientsWithInsecureExtensions' => $this->clientRepository->countByDemand($insecureExtensionsDemand),

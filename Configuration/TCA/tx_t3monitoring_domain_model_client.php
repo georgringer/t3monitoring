@@ -16,7 +16,7 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
     ],
     'types' => [
-        1 => [
+        0 => [
             'showitem' => '
         --div--;General,--palette--;;paletteTitle, --palette--;;paletteDomain,email,sla,tag,comment,
         --div--;Readonly information,last_successful_import,error_message,--palette--;;paletteCore, --palette--;;paletteExtensions, --palette--;;paletteVersions, --palette--;;paletteDiskSpace,

@@ -12,7 +12,7 @@ return [
         'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_core.svg'
     ],
     'types' => [
-        '1' => ['showitem' => '
+        0 => ['showitem' => '
          --div--;General,version,--palette--;;paletteVersion, next_secure_version, latest, stable'],
     ],
     'palettes' => [

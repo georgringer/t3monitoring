@@ -40,14 +40,4 @@ class StatisticRepository extends BaseRepository
             ->groupBy('tx_t3monitoring_domain_model_core.version', 'version_integer', 'insecure', 'is_stable', 'is_latest', 'is_active')
             ->executeQuery()->fetchAllAssociative();
     }
-
-    public function getUsedCoreVersionCountJson(): string
-    {
-        $data = $this->getUsedCoreVersionCount();
-        $result = [];
-        foreach ($data as $row) {
-            $result[] = [$row['version'], (int)$row['count']];
-        }
-        return json_encode($result);
-    }
 }

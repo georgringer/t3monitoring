@@ -13,7 +13,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -27,11 +26,11 @@ class EditRecordViewHelper extends AbstractViewHelper
         $this->registerArgument('parameters', 'string', 'parameters', true);
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
-        $parameters = GeneralUtility::explodeUrl2Array($arguments['parameters']);
+        $parameters = GeneralUtility::explodeUrl2Array($this->arguments['parameters']);
 
         /** @var ServerRequest $request */
         $request = $GLOBALS['TYPO3_REQUEST'];
@@ -39,6 +38,6 @@ class EditRecordViewHelper extends AbstractViewHelper
 
         $parameters['returnUrl'] = (string)$uriBuilder->buildUriFromRoute('t3monitoring', $queryParams);
 
-        return $uriBuilder->buildUriFromRoute('record_edit', $parameters);
+        return (string)$uriBuilder->buildUriFromRoute('record_edit', $parameters);
     }
 }

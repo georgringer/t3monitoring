@@ -13,12 +13,16 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 
 use Doctrine\DBAL\Exception;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ExtensionFilterDemand;
+use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
+/**
+ * @extends BaseRepository<Extension>
+ */
 class ExtensionRepository extends BaseRepository
 {
     public function initializeObject(): void
@@ -27,10 +31,9 @@ class ExtensionRepository extends BaseRepository
     }
 
     /**
-     * @param string $name
-     * @return QueryResultInterface|array
+     * @return QueryResultInterface<int, Extension>
      */
-    public function findAllVersionsByName(string $name): QueryResultInterface|array
+    public function findAllVersionsByName(string $name): QueryResultInterface
     {
         $query = $this->getQuery();
         $query->setOrderings(['versionInteger' => QueryInterface::ORDER_DESCENDING]);

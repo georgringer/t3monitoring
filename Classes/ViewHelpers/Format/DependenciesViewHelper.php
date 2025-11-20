@@ -11,7 +11,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  * LICENSE.txt file that was distributed with this source code.
  */
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class DependenciesViewHelper extends AbstractViewHelper
@@ -28,9 +27,9 @@ class DependenciesViewHelper extends AbstractViewHelper
         $this->registerArgument('dependencies', 'string', 'dependencies');
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext): string
+    public function render(): string
     {
-        $dependencies = $arguments['dependencies'] ?: $renderChildrenClosure();
+        $dependencies = $this->arguments['dependencies'] ?: $this->renderChildren();
 
         if (empty($dependencies)) {
             return '';

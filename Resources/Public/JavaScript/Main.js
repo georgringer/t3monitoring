@@ -5,51 +5,38 @@
  * LICENSE.txt file that was distributed with this source code.
  */
 
-define([
-    'jquery',
-    'TYPO3/CMS/Backend/Modal',
-    'TYPO3/CMS/Backend/Tooltip',
-    'datatables'
-], function ($, Modal, Tooltip) {
-    'use strict';
+$(function () {
+  $('.dependency-toggle-js').click(function () {
+    $('.dependency-info-js').hide();
 
-    $(document).ready(function () {
+    if (!$(this).hasClass('active')) {
+      $('#' + $(this).attr('data-toggle')).toggle();
+    }
 
+    $(this).toggleClass('active');
+  });
 
-        $('.dependency-toggle-js').click(function () {
-            $('.dependency-info-js').hide();
+  new DataTable('.client-list',
+    {
+      "order": [[0, "desc"]],
+      paging: false,
+      lengthChange: false,
+      stateSave: true,
+      searching: false,
+      dom: 'tir',
+      ordering: true
+    }
+  );
 
-            if (!$(this).hasClass('active')) {
-                $('#' + $(this).attr('data-toggle')).toggle();
-            }
-
-            $(this).toggleClass('active');
-        });
-
-        var clientList = $('.client-list');
-        if (clientList.length > 0) {
-            clientList.DataTable({
-                "order": [[0, "desc"]],
-                paging: false,
-                lengthChange: false,
-                stateSave: true,
-                searching: false,
-                dom: 'tir',
-                ordering: true
-            });
-        }
-        var extensionList = $('.extension-list');
-        if (extensionList.length > 0) {
-            extensionList.DataTable({
-                "order": [[5, "asc"], [6, "asc"]],
-                paging: false,
-                lengthChange: false,
-                stateSave: false,
-                searching: false,
-                dom: 'tir',
-                ordering: true
-            });
-        }
-    });
-
+  new DataTable('.extension-list',
+    {
+      "order": [[5, "asc"], [6, "asc"]],
+      paging: false,
+      lengthChange: false,
+      stateSave: false,
+      searching: false,
+      dom: 'tir',
+      ordering: true
+    }
+  );
 });

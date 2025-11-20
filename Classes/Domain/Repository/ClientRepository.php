@@ -16,6 +16,9 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
+/**
+ * @extends BaseRepository<Client>
+ */
 class ClientRepository extends BaseRepository
 {
     protected array $searchFields = ['title', 'domain'];
@@ -23,7 +26,10 @@ class ClientRepository extends BaseRepository
     /** @var array */
     protected $defaultOrderings = ['title' => QueryInterface::ORDER_ASCENDING];
 
-    public function findByDemand(ClientFilterDemand $demand): QueryResultInterface|array
+    /**
+     * @return QueryResultInterface<int,Client>
+     */
+    public function findByDemand(ClientFilterDemand $demand): QueryResultInterface
     {
         $query = $this->getQuery();
         $constraints = $this->getConstraints($demand, $query);

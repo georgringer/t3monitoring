@@ -22,13 +22,10 @@ class DateTimeAgeViewHelper extends AbstractViewHelper
         $this->registerArgument('date', \DateTime::class, 'date', true);
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         /** @var \DateTime $date */
-        $date = $arguments['date'];
-        if ($date === null) {
-            return '';
-        }
+        $date = $this->arguments['date'];
         return BackendUtility::dateTimeAge($date->getTimestamp(), 1, 'date');
     }
 }

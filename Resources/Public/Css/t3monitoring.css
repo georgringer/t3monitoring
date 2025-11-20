@@ -1,20 +1,3 @@
-.tooltip-inner .dep {
-    text-align: left;
-}
-
-.tooltip-inner .dep table {
-    color: #000;
-}
-
-.tooltip-inner .dep .title {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.tooltip-inner .dep span {
-    font-weight: bold;
-}
-
 .filter legend {
     margin: 0;
     font-size: 14px;

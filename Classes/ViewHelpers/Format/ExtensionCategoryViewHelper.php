@@ -23,9 +23,9 @@ class ExtensionCategoryViewHelper extends AbstractViewHelper
         $this->registerArgument('category', 'int', 'category', false, 0);
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-        $category = $arguments['category'] ?: $renderChildrenClosure();
+        $category = $this->arguments['category'] ?: $this->renderChildren();
         $categoryString = '';
         if (isset(Extension::$defaultCategories[$category])) {
             $categoryString = Extension::$defaultCategories[$category];

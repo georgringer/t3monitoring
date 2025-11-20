@@ -16,6 +16,9 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
+/**
+ * @extends BaseRepository<Core>
+ */
 class CoreRepository extends BaseRepository
 {
     const USED_ALL = 0;
@@ -26,7 +29,10 @@ class CoreRepository extends BaseRepository
         $this->setDefaultOrderings(['versionInteger' => QueryInterface::ORDER_DESCENDING]);
     }
 
-    public function findByDemand(CoreFilterDemand $demand): QueryResultInterface|array
+    /**
+     * @return QueryResultInterface<int,Core>
+     */
+    public function findByDemand(CoreFilterDemand $demand): QueryResultInterface
     {
         $query = $this->getQuery();
         $query->matching(
@@ -36,7 +42,10 @@ class CoreRepository extends BaseRepository
         return $query->execute();
     }
 
-    public function findAllCoreVersions(int $mode = self::USED_ONLY): QueryResultInterface|array
+    /**
+     * @return QueryResultInterface<int,Core>
+     */
+    public function findAllCoreVersions(int $mode = self::USED_ONLY): QueryResultInterface
     {
         $query = $this->getQuery();
         if ($mode > 0) {
@@ -47,7 +56,7 @@ class CoreRepository extends BaseRepository
         return $query->execute();
     }
 
-    public function findByVersionAsInteger(string $version): Core
+    public function findByVersionAsInteger(string $version): ?Core
     {
         $query = $this->getQuery();
         return $query->matching(
