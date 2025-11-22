@@ -29,7 +29,7 @@ class CoreFilterDemandTest extends UnitTestCase
     }
 
     #[Test]
-    public function usageCanBeSet()
+    public function usageCanBeSet(): void
     {
         $subject = 123;
         $this->instance->setUsage($subject);

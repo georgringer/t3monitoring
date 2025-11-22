@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Property T3Monitor\\T3monitoring\\Domain\\Model\\Client\:\:\$extensions \(TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage\<T3Monitor\\T3monitoring\\Domain\\Model\\Extension\>\) does not accept TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage\<object\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: Classes/Domain/Model/Client.php
+
+		-
+			message: '#^Property T3Monitor\\T3monitoring\\Domain\\Model\\Client\:\:\$tag \(TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage\<T3Monitor\\T3monitoring\\Domain\\Model\\Tag\>\) does not accept TYPO3\\CMS\\Extbase\\Persistence\\ObjectStorage\<object\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: Classes/Domain/Model/Client.php
+
+		-
+			message: '#^Method TYPO3\\CMS\\Core\\Database\\Connection\:\:lastInsertId\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: Classes/Service/Import/ClientImport.php

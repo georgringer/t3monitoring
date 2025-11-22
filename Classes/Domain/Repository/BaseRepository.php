@@ -16,7 +16,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /**
- * @template T
+ * @template T of \TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface
  * @extends Repository<T>
  */
 class BaseRepository extends Repository

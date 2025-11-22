@@ -9,14 +9,14 @@
 		"php": "^8.2",
 		"ext-json": "*",
 		"ext-dom": "*",
-		"typo3/cms-core": "^12 || ^13",
+		"typo3/cms-core": "^12.4.10 || ^13",
 		"typo3/cms-backend": "^12 || ^13",
 		"typo3/cms-extbase": "^12 || ^13",
 		"typo3/cms-extensionmanager": "^12 || ^13"
 	},
 	"require-dev": {
 		"typo3/minimal": "^12 || ^13",
-		"typo3/testing-framework": "*"
+		"typo3/testing-framework": "^8 || ^9"
 	},
 	"autoload": {
 		"psr-4": {

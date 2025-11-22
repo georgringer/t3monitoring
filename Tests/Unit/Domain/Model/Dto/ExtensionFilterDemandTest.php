@@ -26,7 +26,7 @@ class ExtensionFilterDemandTest extends UnitTestCase
     }
 
     #[Test]
-    public function nameCanBeSet()
+    public function nameCanBeSet(): void
     {
         $subject = 'MyExt';
         $this->instance->setName($subject);
@@ -34,7 +34,7 @@ class ExtensionFilterDemandTest extends UnitTestCase
     }
 
     #[Test]
-    public function exactSearchCanBeSet()
+    public function exactSearchCanBeSet(): void
     {
         $this->instance->setExactSearch(true);
         self::assertTrue($this->instance->isExactSearch());

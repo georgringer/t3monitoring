@@ -20,7 +20,7 @@ class ClientImportTest extends UnitTestCase
 {
     #[Test]
     #[DataProvider('domainIsCorrectlyUnifiedProvider')]
-    public function domainIsCorrectlyUnified(string $given, string $expected)
+    public function domainIsCorrectlyUnified(string $given, string $expected): void
     {
         $mockedClientImport = $this->getAccessibleMock(ClientImport::class, ['dummy'], [], '', false);
         self::assertEquals($expected, $mockedClientImport->_call('unifyDomain', $given));

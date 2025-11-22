@@ -30,7 +30,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function emailCanBeSet()
+    public function emailCanBeSet(): void
     {
         $subject = 'entry@fo.tld';
         $this->instance->setEmail($subject);
@@ -38,7 +38,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function titleCanBeSet()
+    public function titleCanBeSet(): void
     {
         $subject = 'Label';
         $this->instance->setTitle($subject);
@@ -46,7 +46,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function domainCanBeSet()
+    public function domainCanBeSet(): void
     {
         $subject = 'www.typo3.org';
         $this->instance->setDomain($subject);
@@ -54,7 +54,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function secretCanBeSet()
+    public function secretCanBeSet(): void
     {
         $subject = '1234';
         $this->instance->setSecret($subject);
@@ -62,7 +62,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function phpVersionCanBeSet()
+    public function phpVersionCanBeSet(): void
     {
         $subject = '5.2';
         $this->instance->setPhpVersion($subject);
@@ -70,7 +70,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function mysqlVersionCanBeSet()
+    public function mysqlVersionCanBeSet(): void
     {
         $subject = '5.5';
         $this->instance->setMysqlVersion($subject);
@@ -78,14 +78,14 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function insecureCoreCanBeSet()
+    public function insecureCoreCanBeSet(): void
     {
         $this->instance->setInsecureCore(true);
         self::assertTrue($this->instance->getInsecureCore());
     }
 
     #[Test]
-    public function insecureExtensionsCanBeSet()
+    public function insecureExtensionsCanBeSet(): void
     {
         $subject = 123;
         $this->instance->setInsecureExtensions($subject);
@@ -93,14 +93,14 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function outdatedCoreCanBeSet()
+    public function outdatedCoreCanBeSet(): void
     {
         $this->instance->setOutdatedCore(true);
         self::assertTrue($this->instance->getOutdatedCore());
     }
 
     #[Test]
-    public function outdatedExtensionsCanBeSet()
+    public function outdatedExtensionsCanBeSet(): void
     {
         $subject = 456;
         $this->instance->setOutdatedExtensions($subject);
@@ -108,7 +108,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function errorMessageCanBeSet()
+    public function errorMessageCanBeSet(): void
     {
         $subject = 'error';
         $this->instance->setErrorMessage($subject);
@@ -116,7 +116,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function extraInfoCanBeSet()
+    public function extraInfoCanBeSet(): void
     {
         $subject = 'info';
         $this->instance->setExtraInfo($subject);
@@ -124,7 +124,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function extraWarningCanBeSet()
+    public function extraWarningCanBeSet(): void
     {
         $subject = 'warn';
         $this->instance->setExtraWarning($subject);
@@ -132,7 +132,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function extraDangerCanBeSet()
+    public function extraDangerCanBeSet(): void
     {
         $subject = 'danger';
         $this->instance->setExtraDanger($subject);
@@ -140,7 +140,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function lastSuccessfulDateCanBeSet()
+    public function lastSuccessfulDateCanBeSet(): void
     {
         $subject = new \DateTime();
         $this->instance->setLastSuccessfulImport($subject);
@@ -148,7 +148,7 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function slaCanBeSet()
+    public function slaCanBeSet(): void
     {
         $subject = new Sla();
         $subject->setTitle('sla');

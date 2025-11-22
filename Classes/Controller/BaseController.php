@@ -20,7 +20,7 @@ use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
@@ -31,8 +31,7 @@ use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 
 class BaseController extends ActionController
 {
-    /** @var ModuleTemplate */
-    protected $view;
+    protected ModuleTemplate $moduleTemplate;
 
     public function __construct(
         private readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -62,11 +61,11 @@ class BaseController extends ActionController
 
     protected function initializeView(): void
     {
-        $this->view = $this->moduleTemplateFactory->create($this->request);
-        $this->view->getDocHeaderComponent()->setMetaInformation([]);
-        $this->view->setFlashMessageQueue($this->getFlashMessageQueue());
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->moduleTemplate->getDocHeaderComponent()->setMetaInformation([]);
+        $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'emConfiguration' => $this->emConfiguration,
             'formats' => [
                 'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
@@ -81,7 +80,7 @@ class BaseController extends ActionController
 
     protected function createMenu(): void
     {
-        $menu = $this->view->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier('t3monitoring');
 
         $actions = [
@@ -107,7 +106,7 @@ class BaseController extends ActionController
             $menu->addMenuItem($item);
         }
 
-        $this->view->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
@@ -115,7 +114,7 @@ class BaseController extends ActionController
      */
     protected function getButtons(): void
     {
-        $buttonBar = $this->view->getDocHeaderComponent()->getButtonBar();
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         // Home
         if (($this->request->getControllerName() !== 'Statistic'
@@ -125,24 +124,22 @@ class BaseController extends ActionController
             $viewButton = $buttonBar->makeLinkButton()
                 ->setTitle($this->getLabel('home'))
                 ->setHref($this->getUriBuilder()->reset()->uriFor('index', [], 'Statistic'))
-                ->setIcon($this->iconFactory->getIcon('actions-view-go-back', IconSize::SMALL));
+                ->setIcon($this->iconFactory->getIcon('actions-view-go-back', Icon::SIZE_SMALL));
             $buttonBar->addButton($viewButton);
         }
 
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
-        $queryParams = $this->request->getQueryParams() ?? [];
-
         // Buttons for new records
-        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', $queryParams));
+        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', $this->request->getQueryParams()));
         $pid = $this->emConfiguration->getPid();
 
         // new client
         $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $pid . ']=new&returnUrl=' . $returnUrl);
         $addUserGroupButton = $buttonBar->makeLinkButton()
-            ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
+            ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
             ->setTitle($this->getLabel('createNew.client'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-new', IconSize::SMALL));
+            ->setIcon($this->iconFactory->getIcon('actions-document-new', Icon::SIZE_SMALL));
         $buttonBar->addButton($addUserGroupButton);
 
         // client single view
@@ -154,16 +151,16 @@ class BaseController extends ActionController
             $clientId = (int)$arguments['client'];
             $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $clientId . ']=edit&returnUrl=' . $returnUrl);
             $editClientButton = $buttonBar->makeLinkButton()
-                ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
+                ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($this->getLabel('edit.client'))
-                ->setIcon($this->iconFactory->getIcon('actions-open', IconSize::SMALL));
+                ->setIcon($this->iconFactory->getIcon('actions-open', Icon::SIZE_SMALL));
             $buttonBar->addButton($editClientButton);
 
             // fetch client data
             $downloadClientDataButton = $buttonBar->makeLinkButton()
                 ->setHref($this->getUriBuilder()->reset()->uriFor('fetch', ['client' => $clientId], 'Client'))
                 ->setTitle($this->getLabel('fetchClient.link'))
-                ->setIcon($this->iconFactory->getIcon('actions-system-extension-download', IconSize::SMALL));
+                ->setIcon($this->iconFactory->getIcon('actions-system-extension-download', Icon::SIZE_SMALL));
             $buttonBar->addButton($downloadClientDataButton);
         }
     }
@@ -198,6 +195,6 @@ class BaseController extends ActionController
         }
         $extbaseRequestParameters = $this->request->getAttribute('extbase');
         $templateFileName = $extbaseRequestParameters->getControllerName() . '/' . ucfirst($extbaseRequestParameters->getControllerActionName());
-        return $this->view->renderResponse($templateFileName);
+        return $this->moduleTemplate->renderResponse($templateFileName);
     }
 }

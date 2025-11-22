@@ -181,7 +181,6 @@ class CoreImport extends BaseImport
     }
 
     /**
-     * @return mixed
      * @throws UnexpectedValueException
      */
     protected function getRawData(): array

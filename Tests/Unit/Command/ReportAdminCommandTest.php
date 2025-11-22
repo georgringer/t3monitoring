@@ -26,7 +26,7 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class ReportAdminCommandTest extends UnitTestCase
 {
     #[Test]
-    public function executeWillTriggerEmailNotification()
+    public function executeWillTriggerEmailNotification(): void
     {
         $dummyClients = ['123', '456'];
         $emailAddress = 'fo@bar.com';

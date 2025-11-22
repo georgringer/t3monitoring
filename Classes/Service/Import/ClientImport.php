@@ -254,7 +254,7 @@ class ClientImport extends BaseImport
                     'name' => $key,
                     'version' => (string)$version,
                     'version_integer' => VersionNumberUtility::convertVersionNumberToInteger($version),
-                    'major_version' => (int)($versionSplit[0] ?? 0),
+                    'major_version' => (int)($versionSplit[0]),
                     'minor_version' => (int)($versionSplit[1] ?? 0),
                     'title' => $title,
                     'description' => $data['description'] ?? '',

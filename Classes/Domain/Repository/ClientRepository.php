@@ -23,7 +23,6 @@ class ClientRepository extends BaseRepository
 {
     protected array $searchFields = ['title', 'domain'];
 
-    /** @var array */
     protected $defaultOrderings = ['title' => QueryInterface::ORDER_ASCENDING];
 
     /**

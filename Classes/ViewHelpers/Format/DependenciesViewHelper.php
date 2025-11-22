@@ -48,6 +48,6 @@ class DependenciesViewHelper extends AbstractViewHelper
             }
         }
 
-        return '<table class="table table-white table-striped table-hover">' . implode(LF, $output) . '</table>';
+        return '<table class="table table-white table-striped table-hover">' . implode("\n", $output) . '</table>';
     }
 }
