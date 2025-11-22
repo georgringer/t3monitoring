@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension',
@@ -12,7 +15,7 @@ return [
             'ignorePageTypeRestriction' => true,
         ],
         'searchFields' => 'name,version,insecure,next_secure_version,title,description,last_updated,author_name,update_comment,state,category,version_integer,is_used,is_official,is_modified,is_latest,last_bugfix_release,last_minor_release,last_major_release,serialized_dependencies,',
-        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_extension.svg'
+        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_extension.svg',
     ],
     'types' => [
         0 => ['showitem' => 'name, version, insecure, next_secure_version, title, description, last_updated, author_name, update_comment, state, category, version_integer, is_used, is_official, is_modified, is_latest,last_bugfix_release, last_minor_release, last_major_release, typo3_min_version,typo3_max_version,serialized_dependencies'],
@@ -32,14 +35,14 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'insecure' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.insecure',
             'config' => [
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'next_secure_version' => [
@@ -47,7 +50,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'title' => [
@@ -55,7 +58,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'description' => [
@@ -64,7 +67,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'last_updated' => [
@@ -79,7 +82,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'update_comment' => [
@@ -88,7 +91,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'state' => [
@@ -122,28 +125,28 @@ return [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.is_used',
             'config' => [
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'is_official' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.is_official',
             'config' => [
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'is_modified' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.is_modified',
             'config' => [
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'is_latest' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.is_latest',
             'config' => [
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'last_bugfix_release' => [
@@ -151,7 +154,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'last_minor_release' => [
@@ -159,7 +162,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'last_major_release' => [
@@ -167,7 +170,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'serialized_dependencies' => [
@@ -176,15 +179,15 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim'
-            ]
+                'eval' => 'trim',
+            ],
         ],
         'typo3_min_version' => [
             'label' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_extension.typo3_min_version',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'typo3_max_version' => [
@@ -192,7 +195,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
     ],

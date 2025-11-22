@@ -13,6 +13,7 @@ namespace T3Monitor\T3monitoring\Domain\Repository;
 
 use T3Monitor\T3monitoring\Domain\Model\Core;
 use T3Monitor\T3monitoring\Domain\Model\Dto\CoreFilterDemand;
+use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -21,8 +22,8 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class CoreRepository extends BaseRepository
 {
-    const USED_ALL = 0;
-    const USED_ONLY = 1;
+    public const USED_ALL = 0;
+    public const USED_ONLY = 1;
 
     public function initializeObject(): void
     {
@@ -58,6 +59,7 @@ class CoreRepository extends BaseRepository
 
     public function findByVersionAsInteger(string $version): ?Core
     {
+        /** @var Query<Core> $query */
         $query = $this->getQuery();
         return $query->matching(
             $query->equals('versionInteger', $version)

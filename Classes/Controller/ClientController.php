@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 #[AsController]
 class ClientController extends BaseController
 {
-
     /**
      * Show client
      *

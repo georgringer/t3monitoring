@@ -1,3 +1,4 @@
 .DS_Store
 /.Build
 /docker-compose.yaml
+/.php-cs-fixer.cache

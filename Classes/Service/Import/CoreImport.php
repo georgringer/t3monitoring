@@ -19,13 +19,13 @@ use UnexpectedValueException;
 
 class CoreImport extends BaseImport
 {
-    const TYPE_REGULAR = 0;
-    const TYPE_RELEASE = 1;
-    const TYPE_SECURITY = 2;
-    const TYPE_DEVELOPMENT = 4;
+    public const TYPE_REGULAR = 0;
+    public const TYPE_RELEASE = 1;
+    public const TYPE_SECURITY = 2;
+    public const TYPE_DEVELOPMENT = 4;
 
-    const URL = 'https://get.typo3.org/json';
-    const MINIMAL_TYPO3_VERSION = '4.5.0';
+    public const URL = 'https://get.typo3.org/json';
+    public const MINIMAL_TYPO3_VERSION = '4.5.0';
 
     public function run(): void
     {
@@ -59,7 +59,7 @@ class CoreImport extends BaseImport
                         $table,
                         $item,
                         [
-                            'uid' => $previousCoreVersions[$version]['uid']
+                            'uid' => $previousCoreVersions[$version]['uid'],
                         ]
                     );
                 } else {
@@ -113,7 +113,7 @@ class CoreImport extends BaseImport
                         'latest' => $latest,
                         'is_latest' => $latest === $version ? 1 : 0,
                         'is_stable' => $stable === $version ? 1 : 0,
-                        'is_active' => $active && $release['type'] !== 'development'  ? 1 : 0,
+                        'is_active' => $active && $release['type'] !== 'development' ? 1 : 0,
                         'is_official' => 1,
                         'insecure' => 0,
                         'stable' => $stable,

@@ -39,7 +39,7 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
         $versions = [
             'bugfix' => $extension->getLastBugfixRelease(),
             'minor' => $extension->getLastMinorRelease(),
-            'major' => $extension->getLastMajorRelease()
+            'major' => $extension->getLastMajorRelease(),
         ];
 
         $result = [];

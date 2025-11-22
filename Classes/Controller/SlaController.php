@@ -43,7 +43,7 @@ class SlaController extends BaseController
         $demand->setSla($sla->getUid());
         $this->view->assignMultiple([
             'sla' => $sla,
-            'clients' => $this->clientRepository->findByDemand($demand)
+            'clients' => $this->clientRepository->findByDemand($demand),
         ]);
 
         return $this->htmlResponse();

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_client',
@@ -13,7 +16,7 @@ return [
             'ignorePageTypeRestriction' => true,
         ],
         'searchFields' => 'title,domain,comment,secret,email,php_version,mysql_version,disk_total_space,disk_free_space,insecure_core,outdated_core,insecure_extensions,outdated_extensions,error_message,extensions,core,sla,tag',
-        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg'
+        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_client.svg',
     ],
     'types' => [
         0 => [
@@ -23,7 +26,7 @@ return [
         --div--;Extra,extra_info,extra_warning,extra_danger,
         --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                 hidden,
-            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,'
+            --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,',
         ],
     ],
     'palettes' => [
@@ -59,7 +62,7 @@ return [
                 'size' => 50,
                 'eval' => 'trim',
                 'required' => true,
-                'placeholder' => 'http://yourdomain.com/'
+                'placeholder' => 'https://yourdomain.com/',
             ],
         ],
         'comment' => [
@@ -68,7 +71,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 10,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'secret' => [
@@ -79,7 +82,7 @@ return [
                 'eval' => 'trim',
                 'required' => true,
                 'min' => 5,
-                'max' => 255
+                'max' => 255,
             ],
         ],
         'basic_auth_username' => [
@@ -87,7 +90,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'basic_auth_password' => [
@@ -95,7 +98,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'host_header' => [
@@ -104,7 +107,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'placeholder' => 'app.myproject.com'
+                'placeholder' => 'app.myproject.com',
             ],
         ],
         'ignore_cert_errors' => [
@@ -138,7 +141,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'placeholder' => 'notification@client.com',
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'sla' => [
@@ -150,8 +153,8 @@ return [
                 'minitems' => 0,
                 'default' => 0,
                 'items' => [
-                    ['label' => '', 'value' => 0]
-                ]
+                    ['label' => '', 'value' => 0],
+                ],
             ],
         ],
         'tag' => [
@@ -171,7 +174,7 @@ return [
                 'readOnly' => true,
                 'type' => 'input',
                 'size' => 5,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'mysql_version' => [
@@ -180,7 +183,7 @@ return [
                 'readOnly' => true,
                 'type' => 'input',
                 'size' => 5,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
         'disk_total_space' => [
@@ -204,7 +207,7 @@ return [
             'config' => [
                 'readOnly' => true,
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'outdated_core' => [
@@ -212,7 +215,7 @@ return [
             'config' => [
                 'readOnly' => true,
                 'type' => 'check',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'insecure_extensions' => [
@@ -238,7 +241,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'default' => ''
+                'default' => '',
             ],
         ],
         'extra_info' => [

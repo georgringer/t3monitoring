@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_sla',
@@ -14,7 +17,7 @@ return [
             'ignorePageTypeRestriction' => true,
         ],
         'searchFields' => 'title,description,',
-        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_sla.svg'
+        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_sla.svg',
     ],
     'types' => [
         0 => ['showitem' => 'title, description,
@@ -45,7 +48,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
     ],

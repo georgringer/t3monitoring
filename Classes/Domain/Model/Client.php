@@ -353,7 +353,6 @@ class Client extends AbstractEntity
      * Sets the extensions
      *
      * @param ObjectStorage<Extension> $extensions
-     * @return void
      */
     public function setExtensions(ObjectStorage $extensions): void
     {
@@ -394,7 +393,6 @@ class Client extends AbstractEntity
      * Sets the tags
      *
      * @param ObjectStorage<Tag> $tag
-     * @return void
      */
     public function setTag(ObjectStorage $tag): void
     {

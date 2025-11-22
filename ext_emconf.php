@@ -18,7 +18,7 @@ $EM_CONF[$_EXTKEY] = [
     ],
     'autoload' => [
         'psr-4' => [
-            'T3Monitor\\T3monitoring\\' => 'Classes'
-        ]
+            'T3Monitor\\T3monitoring\\' => 'Classes',
+        ],
     ],
 ];

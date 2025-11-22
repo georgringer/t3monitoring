@@ -14,7 +14,6 @@ namespace T3Monitor\T3monitoring\Domain\TypeConverter;
 use T3Monitor\T3monitoring\Domain\Model\Dto\ClientFilterDemand;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Property\PropertyMappingConfigurationInterface;
 use TYPO3\CMS\Extbase\Property\TypeConverter\AbstractTypeConverter;
 
@@ -23,11 +22,11 @@ class ClientFilterDemandConverter extends AbstractTypeConverter
     /**
      * @var list<string>
      */
-    protected array $sourceTypes = ['array', 'string'];
+    protected $sourceTypes = ['array', 'string'];
 
-    protected string $targetType = ClientFilterDemand::class;
+    protected $targetType = ClientFilterDemand::class;
 
-    protected int $priority = 10;
+    protected $priority = 10;
 
     /**
      * Actually convert from $source to $targetType, by doing a typecast.

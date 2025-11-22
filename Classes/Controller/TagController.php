@@ -43,7 +43,7 @@ class TagController extends BaseController
         $demand->setTag($tag->getUid());
         $this->view->assignMultiple([
             'tag' => $tag,
-            'clients' => $this->clientRepository->findByDemand($demand)
+            'clients' => $this->clientRepository->findByDemand($demand),
         ]);
         return $this->htmlResponse();
     }

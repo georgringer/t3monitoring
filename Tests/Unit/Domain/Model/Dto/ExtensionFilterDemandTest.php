@@ -30,13 +30,13 @@ class ExtensionFilterDemandTest extends UnitTestCase
     {
         $subject = 'MyExt';
         $this->instance->setName($subject);
-        $this->assertEquals($subject, $this->instance->getName());
+        self::assertEquals($subject, $this->instance->getName());
     }
 
     #[Test]
     public function exactSearchCanBeSet()
     {
         $this->instance->setExactSearch(true);
-        $this->assertTrue($this->instance->isExactSearch());
+        self::assertTrue($this->instance->isExactSearch());
     }
 }

@@ -28,7 +28,7 @@ class CoreController extends BaseController
 
         $this->view->assignMultiple([
             'filter' => $filter,
-            'cores' => $this->coreRepository->findByDemand($filter)
+            'cores' => $this->coreRepository->findByDemand($filter),
         ]);
 
         return $this->htmlResponse();

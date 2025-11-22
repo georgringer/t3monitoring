@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace T3Monitor\T3monitoring\Service;
@@ -16,7 +17,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class DataIntegrity
 {
-
     /**
      * Invoke after core import
      */
@@ -93,7 +93,8 @@ class DataIntegrity
                         'name' => $row['name'],
                         'major_version' => $row['major_version'],
                         'minor_version' => $row['minor_version'],
-                    ]);
+                    ]
+                );
             }
         }
 
@@ -130,8 +131,9 @@ class DataIntegrity
                     ['last_minor_release' => $highestBugFixRelease['version']],
                     [
                         'name' => $row['name'],
-                        'major_version' => $row['major_version']
-                    ]);
+                        'major_version' => $row['major_version'],
+                    ]
+                );
             }
         }
 
@@ -295,10 +297,10 @@ class DataIntegrity
                 'tx_t3monitoring_domain_model_client',
                 [
                     'insecure_extensions' => $countInsecure,
-                    'outdated_extensions' => $countOutdated
+                    'outdated_extensions' => $countOutdated,
                 ],
                 [
-                    'uid' => $client['uid']
+                    'uid' => $client['uid'],
                 ]
             );
         }

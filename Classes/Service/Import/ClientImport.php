@@ -26,7 +26,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 class ClientImport extends BaseImport
 {
-    const TABLE = 'tx_t3monitoring_domain_model_client';
+    private const TABLE = 'tx_t3monitoring_domain_model_client';
 
     protected array $coreVersions = [];
     protected array $responseCount = ['error' => 0, 'success' => 0];
@@ -102,7 +102,7 @@ class ClientImport extends BaseImport
                 'disk_free_space' => $json['core']['diskFreeSpace'] ?? 0,
                 'core' => $this->getUsedCore($json['core']['typo3Version']),
                 'extensions' => $this->handleExtensionRelations($row['uid'], (array)$json['extensions']),
-                'error_count' => 0
+                'error_count' => 0,
             ];
 
             $event = $this->eventDispatcher->dispatch(
@@ -148,13 +148,14 @@ class ClientImport extends BaseImport
 
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable(self::TABLE);
-        $connection->update(self::TABLE,
+        $connection->update(
+            self::TABLE,
             [
                 'error_message' => $error->getMessage(),
-                'error_count' => $client['error_count'] + 1
+                'error_count' => $client['error_count'] + 1,
             ],
             [
-                'uid' => (int)$client['uid']
+                'uid' => (int)$client['uid'],
             ]
         );
     }
@@ -316,7 +317,7 @@ class ClientImport extends BaseImport
             'is_official' => 0,
             'version' => $version,
             'version_integer' => VersionNumberUtility::convertVersionNumberToInteger($version),
-            'insecure' => 1 // @todo to be discussed
+            'insecure' => 1, // @todo to be discussed
         ];
 
         $connection->insert('tx_t3monitoring_domain_model_core', $insert);
@@ -342,19 +343,19 @@ class ClientImport extends BaseImport
         return $finalRows;
     }
 
-    private function getConnectionTableFor(string $table) : Connection
+    private function getConnectionTableFor(string $table): Connection
     {
         return GeneralUtility::makeInstance(ConnectionPool::class)
             ->getConnectionForTable($table);
     }
 
-    protected function getClientsForMailNotification() : array
+    protected function getClientsForMailNotification(): array
     {
         $allowedAmountOfFailures = $this->emConfiguration->getEmailAllowedAmountOfFailures();
         $clientsForMailNotification = [];
 
         foreach ($this->failedClients as $client) {
-            if ($client['error_count'] +1 > $allowedAmountOfFailures) {
+            if ($allowedAmountOfFailures < $client['error_count'] + 1) {
                 $clientsForMailNotification[] = $client;
             }
         }

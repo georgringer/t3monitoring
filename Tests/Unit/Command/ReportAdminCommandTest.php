@@ -36,10 +36,10 @@ class ReportAdminCommandTest extends UnitTestCase
         $mockedClientImport->_set('clients', $dummyClients);
 
         $emailNotification = $this->createMock(EmailNotification::class);
-        $emailNotification->expects($this->any())->method('sendAdminEmail')->with($emailAddress, $dummyClients);
+        $emailNotification->expects(self::any())->method('sendAdminEmail')->with($emailAddress, $dummyClients);
         GeneralUtility::addInstance(EmailNotification::class, $emailNotification);
 
-        $input = $this->createStub(InputInterface::class);
+        $input = self::createStub(InputInterface::class);
         $input->method('getArgument')->willReturn($emailAddress);
 
         $mockedClientImport->_call('execute', $input, GeneralUtility::makeInstance(OutputInterface::class));

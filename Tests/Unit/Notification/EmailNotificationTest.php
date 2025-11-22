@@ -45,10 +45,10 @@ class EmailNotificationTest extends UnitTestCase
         $notification = $this->getAccessibleMock(EmailNotification::class, ['dummy']);
 
         unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName']);
-        $this->assertEquals(EmailNotification::DEFAULT_EMAIL_NAME, $notification->_call('getSenderEmailName'));
+        self::assertEquals(EmailNotification::DEFAULT_EMAIL_NAME, $notification->_call('getSenderEmailName'));
 
         $example = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = 'John';
-        $this->assertEquals($example, $notification->_call('getSenderEmailName'));
+        self::assertEquals($example, $notification->_call('getSenderEmailName'));
     }
 
     #[Test]
@@ -57,9 +57,9 @@ class EmailNotificationTest extends UnitTestCase
         $notification = $this->getAccessibleMock(EmailNotification::class, ['dummy']);
 
         unset($GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress']);
-        $this->assertEquals(EmailNotification::DEFAULT_EMAIL_ADDRESS, $notification->_call('getSenderEmailAddress'));
+        self::assertEquals(EmailNotification::DEFAULT_EMAIL_ADDRESS, $notification->_call('getSenderEmailAddress'));
 
         $example = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = 'someone@domain.tld';
-        $this->assertEquals($example, $notification->_call('getSenderEmailAddress'));
+        self::assertEquals($example, $notification->_call('getSenderEmailAddress'));
     }
 }

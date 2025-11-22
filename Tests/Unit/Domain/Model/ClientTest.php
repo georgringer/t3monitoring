@@ -34,7 +34,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'entry@fo.tld';
         $this->instance->setEmail($subject);
-        $this->assertEquals($subject, $this->instance->getEmail());
+        self::assertEquals($subject, $this->instance->getEmail());
     }
 
     #[Test]
@@ -42,7 +42,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'Label';
         $this->instance->setTitle($subject);
-        $this->assertEquals($subject, $this->instance->getTitle());
+        self::assertEquals($subject, $this->instance->getTitle());
     }
 
     #[Test]
@@ -50,7 +50,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'www.typo3.org';
         $this->instance->setDomain($subject);
-        $this->assertEquals($subject, $this->instance->getDomain());
+        self::assertEquals($subject, $this->instance->getDomain());
     }
 
     #[Test]
@@ -58,7 +58,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = '1234';
         $this->instance->setSecret($subject);
-        $this->assertEquals($subject, $this->instance->getSecret());
+        self::assertEquals($subject, $this->instance->getSecret());
     }
 
     #[Test]
@@ -66,7 +66,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = '5.2';
         $this->instance->setPhpVersion($subject);
-        $this->assertEquals($subject, $this->instance->getPhpVersion());
+        self::assertEquals($subject, $this->instance->getPhpVersion());
     }
 
     #[Test]
@@ -74,14 +74,14 @@ class ClientTest extends UnitTestCase
     {
         $subject = '5.5';
         $this->instance->setMysqlVersion($subject);
-        $this->assertEquals($subject, $this->instance->getMysqlVersion());
+        self::assertEquals($subject, $this->instance->getMysqlVersion());
     }
 
     #[Test]
     public function insecureCoreCanBeSet()
     {
         $this->instance->setInsecureCore(true);
-        $this->assertTrue($this->instance->getInsecureCore());
+        self::assertTrue($this->instance->getInsecureCore());
     }
 
     #[Test]
@@ -89,14 +89,14 @@ class ClientTest extends UnitTestCase
     {
         $subject = 123;
         $this->instance->setInsecureExtensions($subject);
-        $this->assertEquals($subject, $this->instance->getInsecureExtensions());
+        self::assertEquals($subject, $this->instance->getInsecureExtensions());
     }
 
     #[Test]
     public function outdatedCoreCanBeSet()
     {
         $this->instance->setOutdatedCore(true);
-        $this->assertTrue($this->instance->getOutdatedCore());
+        self::assertTrue($this->instance->getOutdatedCore());
     }
 
     #[Test]
@@ -104,7 +104,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 456;
         $this->instance->setOutdatedExtensions($subject);
-        $this->assertEquals($subject, $this->instance->getOutdatedExtensions());
+        self::assertEquals($subject, $this->instance->getOutdatedExtensions());
     }
 
     #[Test]
@@ -112,7 +112,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'error';
         $this->instance->setErrorMessage($subject);
-        $this->assertEquals($subject, $this->instance->getErrorMessage());
+        self::assertEquals($subject, $this->instance->getErrorMessage());
     }
 
     #[Test]
@@ -120,7 +120,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'info';
         $this->instance->setExtraInfo($subject);
-        $this->assertEquals($subject, $this->instance->getExtraInfo());
+        self::assertEquals($subject, $this->instance->getExtraInfo());
     }
 
     #[Test]
@@ -128,7 +128,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'warn';
         $this->instance->setExtraWarning($subject);
-        $this->assertEquals($subject, $this->instance->getExtraWarning());
+        self::assertEquals($subject, $this->instance->getExtraWarning());
     }
 
     #[Test]
@@ -136,7 +136,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = 'danger';
         $this->instance->setExtraDanger($subject);
-        $this->assertEquals($subject, $this->instance->getExtraDanger());
+        self::assertEquals($subject, $this->instance->getExtraDanger());
     }
 
     #[Test]
@@ -144,7 +144,7 @@ class ClientTest extends UnitTestCase
     {
         $subject = new \DateTime();
         $this->instance->setLastSuccessfulImport($subject);
-        $this->assertEquals($subject, $this->instance->getLastSuccessfulImport());
+        self::assertEquals($subject, $this->instance->getLastSuccessfulImport());
     }
 
     #[Test]
@@ -153,6 +153,6 @@ class ClientTest extends UnitTestCase
         $subject = new Sla();
         $subject->setTitle('sla');
         $this->instance->setSla($subject);
-        $this->assertEquals($subject, $this->instance->getSla());
+        self::assertEquals($subject, $this->instance->getSla());
     }
 }

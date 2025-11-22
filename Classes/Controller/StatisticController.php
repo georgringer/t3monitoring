@@ -28,7 +28,7 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 class StatisticController extends BaseController
 {
     /** @var string TYPO3 Security RSS Feed */
-    const RSS_URL = 'https://typo3.org/?type=101';
+    public const RSS_URL = 'https://typo3.org/?type=101';
 
     protected SlaRepository $slaRepository;
     protected TagRepository $tagRepository;
@@ -45,7 +45,7 @@ class StatisticController extends BaseController
 
     public function indexAction(?ClientFilterDemand $filter = null): ResponseInterface
     {
-        if (null === $filter) {
+        if ($filter === null) {
             $filter = $this->getClientFilterDemand();
             $this->view->assign('showIntro', true);
         } else {

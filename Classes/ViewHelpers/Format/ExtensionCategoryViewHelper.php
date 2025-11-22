@@ -12,7 +12,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class ExtensionCategoryViewHelper extends AbstractViewHelper

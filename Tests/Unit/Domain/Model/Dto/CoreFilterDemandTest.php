@@ -33,6 +33,6 @@ class CoreFilterDemandTest extends UnitTestCase
     {
         $subject = 123;
         $this->instance->setUsage($subject);
-        $this->assertEquals($subject, $this->instance->getUsage());
+        self::assertEquals($subject, $this->instance->getUsage());
     }
 }

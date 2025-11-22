@@ -23,7 +23,7 @@ class ClientImportTest extends UnitTestCase
     public function domainIsCorrectlyUnified(string $given, string $expected)
     {
         $mockedClientImport = $this->getAccessibleMock(ClientImport::class, ['dummy'], [], '', false);
-        $this->assertEquals($expected, $mockedClientImport->_call('unifyDomain', $given));
+        self::assertEquals($expected, $mockedClientImport->_call('unifyDomain', $given));
     }
 
     public static function domainIsCorrectlyUnifiedProvider(): array
@@ -31,15 +31,15 @@ class ClientImportTest extends UnitTestCase
         return [
             'domainWithProtocolAndEndSlash' => [
                 'http://www.domain.com/',
-                'http://www.domain.com'
+                'http://www.domain.com',
             ],
             'domainWithHttpsProtocol' => [
                 'https://www.domain2.com',
-                'https://www.domain2.com'
+                'https://www.domain2.com',
             ],
             'domainWithoutProtocol' => [
                 'domain3.at',
-                'http://domain3.at'
+                'http://domain3.at',
             ],
         ];
     }

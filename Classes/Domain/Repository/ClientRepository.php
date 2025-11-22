@@ -71,7 +71,7 @@ class ClientRepository extends BaseRepository
 
         if ($emailAddressRequired) {
             $constraints[] = $query->logicalNot(
-              $query->equals('email', '')
+                $query->equals('email', '')
             );
         }
 
