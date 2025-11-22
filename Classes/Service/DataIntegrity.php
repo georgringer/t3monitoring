@@ -270,7 +270,7 @@ class DataIntegrity
                     $queryBuilder->expr()->eq('is_official', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)),
                     $queryBuilder->expr()->eq('insecure', $queryBuilder->createNamedParameter(1, Connection::PARAM_INT)),
                     $queryBuilder->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder->createNamedParameter($client['uid'], Connection::PARAM_INT))
-                )->executeQuery()->fetchFirstColumn();
+                )->executeQuery()->fetchOne();
 
             // count outdated extensions
             $queryBuilder2 = $connection->createQueryBuilder();
@@ -288,7 +288,7 @@ class DataIntegrity
                     $queryBuilder2->expr()->eq('insecure', $queryBuilder2->createNamedParameter(0, Connection::PARAM_INT)),
                     $queryBuilder2->expr()->eq('is_latest', $queryBuilder2->createNamedParameter(0, Connection::PARAM_INT)),
                     $queryBuilder2->expr()->eq('tx_t3monitoring_client_extension_mm.uid_local', $queryBuilder2->createNamedParameter($client['uid'], Connection::PARAM_INT))
-                )->executeQuery()->fetchFirstColumn();
+                )->executeQuery()->fetchOne();
 
             // update client
             $connection->update(
