@@ -47,9 +47,9 @@ class StatisticController extends BaseController
     {
         if ($filter === null) {
             $filter = $this->getClientFilterDemand();
-            $this->view->assign('showIntro', true);
+            $this->moduleTemplate->assign('showIntro', true);
         } else {
-            $this->view->assign('showSearch', true);
+            $this->moduleTemplate->assign('showSearch', true);
         }
 
         $errorMessageDemand = $this->getClientFilterDemand()->setWithErrorMessage(true);
@@ -68,7 +68,7 @@ class StatisticController extends BaseController
             $feedItems = $bulletinImport->start();
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'filter' => $filter,
             'clients' => $this->clientRepository->findByDemand($filter),
             'coreVersions' => $this->getAllCoreVersions(),
@@ -119,7 +119,7 @@ class StatisticController extends BaseController
             }
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'success' => $success,
             'error' => $error,
         ]);

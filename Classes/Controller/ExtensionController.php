@@ -32,7 +32,7 @@ class ExtensionController extends BaseController
             $filter = new ExtensionFilterDemand();
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'filter' => $filter,
             'extensions' => $this->extensionRepository->findByDemand($filter),
         ]);
@@ -46,7 +46,7 @@ class ExtensionController extends BaseController
             return $this->redirect('list');
         }
         $versions = $this->extensionRepository->findAllVersionsByName($extension);
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'versions' => $versions,
             'latest' => $versions->getFirst(),
         ]);

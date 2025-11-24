@@ -26,7 +26,7 @@ class CoreController extends BaseController
             $filter->setUsage(CoreRepository::USED_ONLY);
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'filter' => $filter,
             'cores' => $this->coreRepository->findByDemand($filter),
         ]);

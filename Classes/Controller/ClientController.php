@@ -34,7 +34,7 @@ class ClientController extends BaseController
             return $this->redirect('index', 'Statistic');
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'client' => $client,
         ]);
 
