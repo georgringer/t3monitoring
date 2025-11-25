@@ -11,9 +11,6 @@ emailForFailedClient =
 # cat=records/enable/104; type=string; label=Delay email notifications:How many times a client import may fail before a notification email is sent (temporary service outages)
 emailAllowedAmountOfFailures = 0
 
-# cat=records/enable/110; type=boolean; label=Use google charts
-useGoogleCharts = 1
-
 # cat=records/enable/120; type=boolean; label=Presentation mode:If set, sensitive client information is obfuscated
 presentationMode = 0
 

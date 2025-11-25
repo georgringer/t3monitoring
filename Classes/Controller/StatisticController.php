@@ -27,7 +27,8 @@ use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 #[AsController]
 class StatisticController extends BaseController
 {
-    const RSS_URL = 'https://typo3.org/?type=101';
+    /** @var string TYPO3 Security RSS Feed */
+    public const RSS_URL = 'https://typo3.org/?type=101';
 
     protected SlaRepository $slaRepository;
     protected TagRepository $tagRepository;
@@ -44,11 +45,11 @@ class StatisticController extends BaseController
 
     public function indexAction(?ClientFilterDemand $filter = null): ResponseInterface
     {
-        if (null === $filter) {
+        if ($filter === null) {
             $filter = $this->getClientFilterDemand();
-            $this->view->assign('showIntro', true);
+            $this->moduleTemplate->assign('showIntro', true);
         } else {
-            $this->view->assign('showSearch', true);
+            $this->moduleTemplate->assign('showSearch', true);
         }
 
         $errorMessageDemand = $this->getClientFilterDemand()->setWithErrorMessage(true);
@@ -67,12 +68,11 @@ class StatisticController extends BaseController
             $feedItems = $bulletinImport->start();
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'filter' => $filter,
             'clients' => $this->clientRepository->findByDemand($filter),
             'coreVersions' => $this->getAllCoreVersions(),
             'coreVersionUsage' => $this->statisticRepository->getUsedCoreVersionCount(),
-            'coreVersionUsageJson' => $this->statisticRepository->getUsedCoreVersionCountJson(),
             'fullClientCount' => $this->clientRepository->countByDemand($emptyClientDemand),
             'clientsWithErrorMessages' => $this->clientRepository->countByDemand($errorMessageDemand),
             'clientsWithInsecureExtensions' => $this->clientRepository->countByDemand($insecureExtensionsDemand),
@@ -119,7 +119,7 @@ class StatisticController extends BaseController
             }
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'success' => $success,
             'error' => $error,
         ]);

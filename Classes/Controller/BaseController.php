@@ -17,11 +17,10 @@ use T3Monitor\T3monitoring\Domain\Model\Dto\EmMonitoringConfiguration;
 use T3Monitor\T3monitoring\Domain\Repository\ClientRepository;
 use T3Monitor\T3monitoring\Domain\Repository\CoreRepository;
 use T3Monitor\T3monitoring\Domain\Repository\StatisticRepository;
-use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Registry;
@@ -29,12 +28,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
-use TYPO3Fluid\Fluid\View\ViewInterface;
 
 class BaseController extends ActionController
 {
-    /** @var ModuleTemplate */
-    protected $view;
+    protected ModuleTemplate $moduleTemplate;
 
     public function __construct(
         private readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -50,28 +47,25 @@ class BaseController extends ActionController
     {
         parent::initializeAction();
 
+        /** @var PageRenderer $pageRenderer */
         $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $fullJsPath = 'EXT:t3monitoring/Resources/Public/JavaScript';
-        $fullJsPath = GeneralUtility::getFileAbsFileName($fullJsPath);
-        $fullJsPath = PathUtility::getAbsoluteWebPath($fullJsPath);
-        $pageRenderer->addRequireJsConfiguration([
-            'paths' => [
-                'datatables' => $fullJsPath . '/jquery.dataTables.min',
-                'datatablesBootstrap' => $fullJsPath . '/dataTables.bootstrap.min',
-            ],
-        ]);
-
-        $pageRenderer->loadRequireJsModule('TYPO3/CMS/T3monitoring/Main');
+        $fullJsPath = PathUtility::getAbsoluteWebPath(
+            GeneralUtility::getFileAbsFileName('EXT:t3monitoring/Resources/Public/JavaScript')
+        );
+        $pageRenderer->addJsFile($fullJsPath . '/jquery-3.7.1.slim.min.js');
+        $pageRenderer->addJsFile($fullJsPath . '/datatables.min.js');
+        $pageRenderer->loadJavaScriptModule('@t3monitor/t3monitoring/Main.js');
         $pageRenderer->addCssFile('EXT:t3monitoring/Resources/Public/Css/t3monitoring.css');
+        $pageRenderer->addCssFile('EXT:t3monitoring/Resources/Public/Css/datatables.min.css');
     }
 
-    protected function initializeView(ViewInterface $view)
+    protected function initializeView(): void
     {
-        $this->view = $this->moduleTemplateFactory->create($this->request);
-        $this->view->getDocHeaderComponent()->setMetaInformation([]);
-        $this->view->setFlashMessageQueue($this->getFlashMessageQueue());
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->moduleTemplate->getDocHeaderComponent()->setMetaInformation([]);
+        $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'emConfiguration' => $this->emConfiguration,
             'formats' => [
                 'date' => $GLOBALS['TYPO3_CONF_VARS']['SYS']['ddmmyy'],
@@ -86,7 +80,7 @@ class BaseController extends ActionController
 
     protected function createMenu(): void
     {
-        $menu = $this->view->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $menu->setIdentifier('t3monitoring');
 
         $actions = [
@@ -112,7 +106,7 @@ class BaseController extends ActionController
             $menu->addMenuItem($item);
         }
 
-        $this->view->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 
     /**
@@ -120,7 +114,7 @@ class BaseController extends ActionController
      */
     protected function getButtons(): void
     {
-        $buttonBar = $this->view->getDocHeaderComponent()->getButtonBar();
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
 
         // Home
         if (($this->request->getControllerName() !== 'Statistic'
@@ -136,20 +130,17 @@ class BaseController extends ActionController
 
         $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
 
-        $queryParams = $this->request->getQueryParams() ?? [];
-
         // Buttons for new records
-        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', $queryParams));
+        $returnUrl = rawurlencode((string)$uriBuilder->buildUriFromRoute('t3monitoring', $this->request->getQueryParams()));
         $pid = $this->emConfiguration->getPid();
 
         // new client
         $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $pid . ']=new&returnUrl=' . $returnUrl);
         $addUserGroupButton = $buttonBar->makeLinkButton()
-            ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
+            ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
             ->setTitle($this->getLabel('createNew.client'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-new',
-                Icon::SIZE_SMALL));
-        $buttonBar->addButton($addUserGroupButton, ButtonBar::BUTTON_POSITION_LEFT);
+            ->setIcon($this->iconFactory->getIcon('actions-document-new', Icon::SIZE_SMALL));
+        $buttonBar->addButton($addUserGroupButton);
 
         // client single view
         if ($this->request->getControllerActionName() === 'show'
@@ -160,19 +151,17 @@ class BaseController extends ActionController
             $clientId = (int)$arguments['client'];
             $parameters = GeneralUtility::explodeUrl2Array('edit[tx_t3monitoring_domain_model_client][' . $clientId . ']=edit&returnUrl=' . $returnUrl);
             $editClientButton = $buttonBar->makeLinkButton()
-                ->setHref($uriBuilder->buildUriFromRoute('record_edit', $parameters))
+                ->setHref((string)$uriBuilder->buildUriFromRoute('record_edit', $parameters))
                 ->setTitle($this->getLabel('edit.client'))
-                ->setIcon($this->iconFactory->getIcon('actions-open',
-                    Icon::SIZE_SMALL));
-            $buttonBar->addButton($editClientButton, ButtonBar::BUTTON_POSITION_LEFT);
+                ->setIcon($this->iconFactory->getIcon('actions-open', Icon::SIZE_SMALL));
+            $buttonBar->addButton($editClientButton);
 
             // fetch client data
             $downloadClientDataButton = $buttonBar->makeLinkButton()
                 ->setHref($this->getUriBuilder()->reset()->uriFor('fetch', ['client' => $clientId], 'Client'))
                 ->setTitle($this->getLabel('fetchClient.link'))
-                ->setIcon($this->iconFactory->getIcon('actions-system-extension-download',
-                    Icon::SIZE_SMALL));
-            $buttonBar->addButton($downloadClientDataButton, ButtonBar::BUTTON_POSITION_LEFT);
+                ->setIcon($this->iconFactory->getIcon('actions-system-extension-download', Icon::SIZE_SMALL));
+            $buttonBar->addButton($downloadClientDataButton);
         }
     }
 
@@ -204,6 +193,8 @@ class BaseController extends ActionController
         if ($html !== null) {
             return parent::htmlResponse($html);
         }
-        return $this->view->renderResponse($this->request->getControllerActionName());
+        $extbaseRequestParameters = $this->request->getAttribute('extbase');
+        $templateFileName = $extbaseRequestParameters->getControllerName() . '/' . ucfirst($extbaseRequestParameters->getControllerActionName());
+        return $this->moduleTemplate->renderResponse($templateFileName);
     }
 }

@@ -29,7 +29,7 @@ class SlaController extends BaseController
     public function listAction(): ResponseInterface
     {
         $slas = $this->slaRepository->findAll();
-        $this->view->assign('slas', $slas);
+        $this->moduleTemplate->assign('slas', $slas);
         return $this->htmlResponse();
     }
 
@@ -41,9 +41,9 @@ class SlaController extends BaseController
 
         $demand = $this->getClientFilterDemand();
         $demand->setSla($sla->getUid());
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'sla' => $sla,
-            'clients' => $this->clientRepository->findByDemand($demand)
+            'clients' => $this->clientRepository->findByDemand($demand),
         ]);
 
         return $this->htmlResponse();

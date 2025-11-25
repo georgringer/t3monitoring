@@ -25,7 +25,7 @@ class Extension extends AbstractEntity
         4 => 'test',
         5 => 'obsolete',
         6 => 'excludeFromUpdates',
-        999 => 'n/a'
+        999 => 'n/a',
     ];
 
     public static array $defaultCategories = [
@@ -38,7 +38,7 @@ class Extension extends AbstractEntity
         6 => 'templates',
         8 => 'doc',
         9 => 'example',
-        10 => 'distribution'
+        10 => 'distribution',
     ];
 
     #[Validate(['validator' => 'NotEmpty'])]

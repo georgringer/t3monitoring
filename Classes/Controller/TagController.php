@@ -29,7 +29,7 @@ class TagController extends BaseController
     public function listAction(): ResponseInterface
     {
         $tags = $this->tagRepository->findAll();
-        $this->view->assign('tags', $tags);
+        $this->moduleTemplate->assign('tags', $tags);
         return $this->htmlResponse();
     }
 
@@ -41,9 +41,9 @@ class TagController extends BaseController
 
         $demand = $this->getClientFilterDemand();
         $demand->setTag($tag->getUid());
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'tag' => $tag,
-            'clients' => $this->clientRepository->findByDemand($demand)
+            'clients' => $this->clientRepository->findByDemand($demand),
         ]);
         return $this->htmlResponse();
     }

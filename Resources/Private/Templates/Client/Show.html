@@ -135,12 +135,10 @@
 					<monitor:additionalExtensionData as="extra" client="{client.uid}" extension="{extension.uid}">
 							<tr class="{f:if(condition:extra.is_loaded,then:'',else:'t3-page-ce-hidden')} {f:if(condition:extension.insecure,then:'danger',else:'')}">
 							<td>
-								<span data-toggle="tooltip" data-title="{extension.title}" data-placement="right">
-									<f:link.action action="show" controller="Extension" arguments="{extension:'{extension.name}'}">{extension.name}</f:link.action>
-								</span>
+                                <f:link.action action="show" controller="Extension" title="{extension.title}" arguments="{extension:'{extension.name}'}">{extension.name}</f:link.action>
 							</td>
 							<td>
-								<span class="badge" data-toggle="tooltip" data-title='<div class="dep"><div class="panel panel-default"><div class="panel-heading">{extension.version} release</div>{extension.serializedDependencies -> monitor:format.dependencies()}</div></div>' data-html="true">{extension.version}</span>
+								<span class="badge" data-title='<div class="dep"><div class="panel panel-default"><div class="panel-heading">{extension.version} release</div>{extension.serializedDependencies -> monitor:format.dependencies()}</div></div>' data-html="true">{extension.version}</span>
 							</td>
 							<td>
 								<span class="label label-{extension.state -> monitor:format.extensionState()}">{extension.state -> monitor:format.extensionState()}</span>

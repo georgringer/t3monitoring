@@ -30,129 +30,129 @@ class ClientTest extends UnitTestCase
     }
 
     #[Test]
-    public function emailCanBeSet()
+    public function emailCanBeSet(): void
     {
         $subject = 'entry@fo.tld';
         $this->instance->setEmail($subject);
-        $this->assertEquals($subject, $this->instance->getEmail());
+        self::assertEquals($subject, $this->instance->getEmail());
     }
 
     #[Test]
-    public function titleCanBeSet()
+    public function titleCanBeSet(): void
     {
         $subject = 'Label';
         $this->instance->setTitle($subject);
-        $this->assertEquals($subject, $this->instance->getTitle());
+        self::assertEquals($subject, $this->instance->getTitle());
     }
 
     #[Test]
-    public function domainCanBeSet()
+    public function domainCanBeSet(): void
     {
         $subject = 'www.typo3.org';
         $this->instance->setDomain($subject);
-        $this->assertEquals($subject, $this->instance->getDomain());
+        self::assertEquals($subject, $this->instance->getDomain());
     }
 
     #[Test]
-    public function secretCanBeSet()
+    public function secretCanBeSet(): void
     {
         $subject = '1234';
         $this->instance->setSecret($subject);
-        $this->assertEquals($subject, $this->instance->getSecret());
+        self::assertEquals($subject, $this->instance->getSecret());
     }
 
     #[Test]
-    public function phpVersionCanBeSet()
+    public function phpVersionCanBeSet(): void
     {
         $subject = '5.2';
         $this->instance->setPhpVersion($subject);
-        $this->assertEquals($subject, $this->instance->getPhpVersion());
+        self::assertEquals($subject, $this->instance->getPhpVersion());
     }
 
     #[Test]
-    public function mysqlVersionCanBeSet()
+    public function mysqlVersionCanBeSet(): void
     {
         $subject = '5.5';
         $this->instance->setMysqlVersion($subject);
-        $this->assertEquals($subject, $this->instance->getMysqlVersion());
+        self::assertEquals($subject, $this->instance->getMysqlVersion());
     }
 
     #[Test]
-    public function insecureCoreCanBeSet()
+    public function insecureCoreCanBeSet(): void
     {
         $this->instance->setInsecureCore(true);
-        $this->assertTrue($this->instance->getInsecureCore());
+        self::assertTrue($this->instance->getInsecureCore());
     }
 
     #[Test]
-    public function insecureExtensionsCanBeSet()
+    public function insecureExtensionsCanBeSet(): void
     {
         $subject = 123;
         $this->instance->setInsecureExtensions($subject);
-        $this->assertEquals($subject, $this->instance->getInsecureExtensions());
+        self::assertEquals($subject, $this->instance->getInsecureExtensions());
     }
 
     #[Test]
-    public function outdatedCoreCanBeSet()
+    public function outdatedCoreCanBeSet(): void
     {
         $this->instance->setOutdatedCore(true);
-        $this->assertTrue($this->instance->getOutdatedCore());
+        self::assertTrue($this->instance->getOutdatedCore());
     }
 
     #[Test]
-    public function outdatedExtensionsCanBeSet()
+    public function outdatedExtensionsCanBeSet(): void
     {
         $subject = 456;
         $this->instance->setOutdatedExtensions($subject);
-        $this->assertEquals($subject, $this->instance->getOutdatedExtensions());
+        self::assertEquals($subject, $this->instance->getOutdatedExtensions());
     }
 
     #[Test]
-    public function errorMessageCanBeSet()
+    public function errorMessageCanBeSet(): void
     {
         $subject = 'error';
         $this->instance->setErrorMessage($subject);
-        $this->assertEquals($subject, $this->instance->getErrorMessage());
+        self::assertEquals($subject, $this->instance->getErrorMessage());
     }
 
     #[Test]
-    public function extraInfoCanBeSet()
+    public function extraInfoCanBeSet(): void
     {
         $subject = 'info';
         $this->instance->setExtraInfo($subject);
-        $this->assertEquals($subject, $this->instance->getExtraInfo());
+        self::assertEquals($subject, $this->instance->getExtraInfo());
     }
 
     #[Test]
-    public function extraWarningCanBeSet()
+    public function extraWarningCanBeSet(): void
     {
         $subject = 'warn';
         $this->instance->setExtraWarning($subject);
-        $this->assertEquals($subject, $this->instance->getExtraWarning());
+        self::assertEquals($subject, $this->instance->getExtraWarning());
     }
 
     #[Test]
-    public function extraDangerCanBeSet()
+    public function extraDangerCanBeSet(): void
     {
         $subject = 'danger';
         $this->instance->setExtraDanger($subject);
-        $this->assertEquals($subject, $this->instance->getExtraDanger());
+        self::assertEquals($subject, $this->instance->getExtraDanger());
     }
 
     #[Test]
-    public function lastSuccessfulDateCanBeSet()
+    public function lastSuccessfulDateCanBeSet(): void
     {
         $subject = new \DateTime();
         $this->instance->setLastSuccessfulImport($subject);
-        $this->assertEquals($subject, $this->instance->getLastSuccessfulImport());
+        self::assertEquals($subject, $this->instance->getLastSuccessfulImport());
     }
 
     #[Test]
-    public function slaCanBeSet()
+    public function slaCanBeSet(): void
     {
         $subject = new Sla();
         $subject->setTitle('sla');
         $this->instance->setSla($subject);
-        $this->assertEquals($subject, $this->instance->getSla());
+        self::assertEquals($subject, $this->instance->getSla());
     }
 }

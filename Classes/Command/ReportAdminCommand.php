@@ -73,7 +73,7 @@ class ReportAdminCommand extends Command
                 $collectedClientData[] = [
                     $client->getTitle(),
                     $client->getCore()->isInsecure() ? $client->getCore()->getVersion() : '✓',
-                    $insecureExtensions ? implode(', ', $insecureExtensions) : ''
+                    $insecureExtensions ? implode(', ', $insecureExtensions) : '',
                 ];
             }
 

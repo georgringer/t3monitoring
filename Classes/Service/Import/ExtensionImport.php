@@ -20,9 +20,8 @@ use TYPO3\CMS\Extensionmanager\Remote\RemoteRegistry;
 
 class ExtensionImport extends BaseImport
 {
-
     // Release date of 4.5.0
-    const MIN_DATE = '26.1.2011';
+    public const MIN_DATE = '26.1.2011';
 
     /**
      * Run extension import
@@ -94,7 +93,7 @@ class ExtensionImport extends BaseImport
                     $table,
                     $fields,
                     [
-                        'uid' => (int)$exists['uid']
+                        'uid' => (int)$exists['uid'],
                     ]
                 );
             } else {
@@ -113,13 +112,13 @@ class ExtensionImport extends BaseImport
             return;
         }
 
-        $dependencies = unserialize($fields['serialized_dependencies']);
+        $dependencies = (array)unserialize($fields['serialized_dependencies']);
         $depends = null;
         if (array_key_exists('depends', $dependencies)) {
             $depends = $dependencies['depends'];
         }
 
-        if (!is_array($dependencies) || !is_array($depends) || !isset($dependencies['depends']['typo3'])) {
+        if (!is_array($depends) || !isset($dependencies['depends']['typo3'])) {
             return;
         }
 

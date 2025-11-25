@@ -24,8 +24,8 @@ class EmailNotification implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    const DEFAULT_EMAIL_NAME = 'EXT:t3monitoring';
-    const DEFAULT_EMAIL_ADDRESS = 'no-reply@example.com';
+    public const DEFAULT_EMAIL_NAME = 'EXT:t3monitoring';
+    public const DEFAULT_EMAIL_ADDRESS = 'no-reply@example.com';
 
     /**
      * @param string $email
@@ -45,7 +45,7 @@ class EmailNotification implements LoggerAwareInterface
 
         $arguments = [
             'email' => $email,
-            'clients' => $clients
+            'clients' => $clients,
         ];
         $template = $this->getFluidTemplate($arguments, 'AdminEmail.txt', 'txt');
         $this->sendMail($email, $subject, $template);
@@ -62,7 +62,7 @@ class EmailNotification implements LoggerAwareInterface
                 continue;
             }
             $arguments = [
-                'client' => $client
+                'client' => $client,
             ];
             $template = $this->getFluidTemplate($arguments, 'ClientEmail.txt', 'txt');
             $this->sendMail($client->getEmail(), $subject, $template);
@@ -79,7 +79,7 @@ class EmailNotification implements LoggerAwareInterface
         }
         $arguments = [
             'clients' => $clients,
-            'email' => $emailAddress
+            'email' => $emailAddress,
         ];
         $template = $this->getFluidTemplate($arguments, 'ClientConnectionError.txt', 'txt');
         $this->sendMail($emailAddress, $subject, $template);

@@ -15,8 +15,15 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 
+/**
+ * @template T of \TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface
+ * @extends Repository<T>
+ */
 class BaseRepository extends Repository
 {
+    /**
+     * @return QueryResultInterface<int,T>
+     */
     public function findAll(): QueryResultInterface
     {
         $query = $this->getQuery();
@@ -29,6 +36,9 @@ class BaseRepository extends Repository
         return $query->execute()->count();
     }
 
+    /**
+     * @return QueryInterface<T>
+     */
     protected function getQuery(): QueryInterface
     {
         $query = $this->createQuery();

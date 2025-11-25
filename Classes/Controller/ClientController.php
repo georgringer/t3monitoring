@@ -20,7 +20,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 #[AsController]
 class ClientController extends BaseController
 {
-
     /**
      * Show client
      *
@@ -35,7 +34,7 @@ class ClientController extends BaseController
             return $this->redirect('index', 'Statistic');
         }
 
-        $this->view->assignMultiple([
+        $this->moduleTemplate->assignMultiple([
             'client' => $client,
         ]);
 

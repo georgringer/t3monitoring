@@ -22,8 +22,14 @@ class StatisticRepository extends BaseRepository
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
             ->getQueryBuilderForTable('tx_t3monitoring_domain_model_core');
         return $queryBuilder
-            ->select('tx_t3monitoring_domain_model_core.version', 'tx_t3monitoring_domain_model_core.version_integer', 'tx_t3monitoring_domain_model_core.insecure',
-                'tx_t3monitoring_domain_model_core.is_stable', 'tx_t3monitoring_domain_model_core.is_active', 'tx_t3monitoring_domain_model_core.is_latest')
+            ->select(
+                'tx_t3monitoring_domain_model_core.version',
+                'tx_t3monitoring_domain_model_core.version_integer',
+                'tx_t3monitoring_domain_model_core.insecure',
+                'tx_t3monitoring_domain_model_core.is_stable',
+                'tx_t3monitoring_domain_model_core.is_active',
+                'tx_t3monitoring_domain_model_core.is_latest'
+            )
             ->selectLiteral('count(tx_t3monitoring_domain_model_core.version) as count, tx_t3monitoring_domain_model_core.version, tx_t3monitoring_domain_model_core.version_integer, tx_t3monitoring_domain_model_core.insecure as insecureCore
             ,tx_t3monitoring_domain_model_core.is_stable,tx_t3monitoring_domain_model_core.is_active,tx_t3monitoring_domain_model_core.is_latest')
             ->from('tx_t3monitoring_domain_model_core')
@@ -39,15 +45,5 @@ class StatisticRepository extends BaseRepository
             ->orderBy('tx_t3monitoring_domain_model_core.version_integer')
             ->groupBy('tx_t3monitoring_domain_model_core.version', 'version_integer', 'insecure', 'is_stable', 'is_latest', 'is_active')
             ->executeQuery()->fetchAllAssociative();
-    }
-
-    public function getUsedCoreVersionCountJson(): string
-    {
-        $data = $this->getUsedCoreVersionCount();
-        $result = [];
-        foreach ($data as $row) {
-            $result[] = [$row['version'], (int)$row['count']];
-        }
-        return json_encode($result);
     }
 }

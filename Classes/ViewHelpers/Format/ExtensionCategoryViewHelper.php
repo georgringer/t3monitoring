@@ -12,7 +12,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class ExtensionCategoryViewHelper extends AbstractViewHelper
@@ -23,9 +22,9 @@ class ExtensionCategoryViewHelper extends AbstractViewHelper
         $this->registerArgument('category', 'int', 'category', false, 0);
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-        $category = $arguments['category'] ?: $renderChildrenClosure();
+        $category = $this->arguments['category'] ?: $this->renderChildren();
         $categoryString = '';
         if (isset(Extension::$defaultCategories[$category])) {
             $categoryString = Extension::$defaultCategories[$category];

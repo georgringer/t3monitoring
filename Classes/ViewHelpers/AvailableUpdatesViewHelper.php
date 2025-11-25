@@ -15,7 +15,6 @@ use T3Monitor\T3monitoring\Domain\Model\Core;
 use T3Monitor\T3monitoring\Domain\Model\Extension;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class AvailableUpdatesViewHelper extends AbstractViewHelper
@@ -30,17 +29,17 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
         $this->registerArgument('as', 'string', 'Output variable', false, 'list');
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
         /** @var Extension $extension */
-        $extension = $arguments['extension'];
+        $extension = $this->arguments['extension'];
         /** @var Core $core */
-        $core = $arguments['core'];
+        $core = $this->arguments['core'];
 
         $versions = [
             'bugfix' => $extension->getLastBugfixRelease(),
             'minor' => $extension->getLastMinorRelease(),
-            'major' => $extension->getLastMajorRelease()
+            'major' => $extension->getLastMajorRelease(),
         ];
 
         $result = [];
@@ -60,9 +59,9 @@ class AvailableUpdatesViewHelper extends AbstractViewHelper
             }
         }
 
-        $renderingContext->getVariableProvider()->add($arguments['as'], $result);
-        $output = $renderChildrenClosure();
-        $renderingContext->getVariableProvider()->remove($arguments['as']);
+        $this->renderingContext->getVariableProvider()->add($this->arguments['as'], $result);
+        $output = $this->renderChildren();
+        $this->renderingContext->getVariableProvider()->remove($this->arguments['as']);
 
         return $output;
     }

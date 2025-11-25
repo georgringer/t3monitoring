@@ -33,22 +33,22 @@ Screenshots
 **Overview**
 
 .. figure:: Documentation/images/t3monitoring_index.png
-		:alt: Overview including most important information
+        :alt: Overview including most important information
 
 **Search result**
 
 .. figure:: Documentation/images/t3monitoring-search.png
-		:alt: Search result
+        :alt: Search result
 
 **Single view of a client**
 
 .. figure:: Documentation/images/t3monitoring-client.png
-		:alt: Client
+        :alt: Client
 
 **List of all used extensions**
 
 .. figure:: Documentation/images/t3monitoring-extensions.png
-		:alt: Extensions
+        :alt: Extensions
 
 How to start
 ------------
@@ -84,7 +84,7 @@ This information is provided by get.typo3.org.
 
 To import the data, use the command line: ::
 
-	vendor/bin/typo3 monitoring:importAll
+    vendor/bin/typo3 monitoring:importAll
 
 
 You can add this call also as task in the scheduler extension.

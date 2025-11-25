@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:t3monitoring/Resources/Private/Language/locallang.xlf:tx_t3monitoring_domain_model_tag',
@@ -14,10 +17,10 @@ return [
             'ignorePageTypeRestriction' => true,
         ],
         'searchFields' => 'title,description,',
-        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_tag.svg'
+        'iconfile' => 'EXT:t3monitoring/Resources/Public/Icons/tx_t3monitoring_domain_model_tag.svg',
     ],
     'types' => [
-        1 => ['showitem' => 'title, description,
+        0 => ['showitem' => 'title, description,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:access,
                 hidden,
             --div--;LLL:EXT:core/Resources/Private/Language/Form/locallang_tabs.xlf:extended,'],
@@ -46,7 +49,7 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim'
+                'eval' => 'trim',
             ],
         ],
     ],

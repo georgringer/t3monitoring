@@ -19,7 +19,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 class ImportExtensionsCommand extends Command
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this->setDescription('Import extensions');
     }

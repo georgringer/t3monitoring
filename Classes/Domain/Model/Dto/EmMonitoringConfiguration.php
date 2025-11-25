@@ -19,7 +19,6 @@ class EmMonitoringConfiguration implements SingletonInterface
 {
     protected int $pid = 0;
     protected bool $loadBulletins = true;
-    protected bool $useGoogleCharts = true;
     protected bool $presentationMode = false;
     protected string $ipHint = '';
     protected string $emailForFailedClient = '';
@@ -32,7 +31,6 @@ class EmMonitoringConfiguration implements SingletonInterface
         $this->loadBulletins = (bool)$settings['loadBulletins'];
         $this->emailForFailedClient = $settings['emailForFailedClient'];
         $this->emailAllowedAmountOfFailures = (int)$settings['emailAllowedAmountOfFailures'];
-        $this->useGoogleCharts = (bool)$settings['useGoogleCharts'];
         $this->presentationMode = (bool)$settings['presentationMode'];
         $this->ipHint = $settings['ipHint'];
     }
@@ -45,11 +43,6 @@ class EmMonitoringConfiguration implements SingletonInterface
     public function getLoadBulletins(): bool
     {
         return $this->loadBulletins;
-    }
-
-    public function getUseGoogleCharts(): bool
-    {
-        return $this->useGoogleCharts;
     }
 
     public function isPresentationMode(): bool

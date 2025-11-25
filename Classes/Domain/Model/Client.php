@@ -62,24 +62,18 @@ class Client extends AbstractEntity
     #[Lazy]
     protected Sla|LazyLoadingProxy|null $sla = null;
 
+    /**
+     * @var LazyLoadingProxy|ObjectStorage<Tag>
+     */
     #[Lazy]
     protected ObjectStorage|LazyLoadingProxy $tag;
 
     public function __construct()
     {
-        // Do not remove the next line: It would break the functionality
-        $this->initStorageObjects();
+        $this->initializeObject();
     }
 
-    /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     *
-     * @return void
-     */
-    protected function initStorageObjects(): void
+    public function initializeObject(): void
     {
         $this->extensions = new ObjectStorage();
         $this->tag = new ObjectStorage();
@@ -359,7 +353,6 @@ class Client extends AbstractEntity
      * Sets the extensions
      *
      * @param ObjectStorage<Extension> $extensions
-     * @return void
      */
     public function setExtensions(ObjectStorage $extensions): void
     {
@@ -400,7 +393,6 @@ class Client extends AbstractEntity
      * Sets the tags
      *
      * @param ObjectStorage<Tag> $tag
-     * @return void
      */
     public function setTag(ObjectStorage $tag): void
     {

@@ -12,7 +12,6 @@ namespace T3Monitor\T3monitoring\ViewHelpers\Format;
  */
 
 use T3Monitor\T3monitoring\Domain\Model\Extension;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class ExtensionStateViewHelper extends AbstractViewHelper
@@ -23,9 +22,9 @@ class ExtensionStateViewHelper extends AbstractViewHelper
         $this->registerArgument('state', 'int', 'state', false, 0);
     }
 
-    public static function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext)
+    public function render(): string
     {
-        $state = $arguments['state'] ?: $renderChildrenClosure();
+        $state = $this->arguments['state'] ?: $this->renderChildren();
         $stateString = '';
         if (isset(Extension::$defaultStates[$state])) {
             $stateString = Extension::$defaultStates[$state];
