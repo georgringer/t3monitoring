@@ -42,7 +42,7 @@
 			"extension-key": "t3monitoring"
 		},
 		"branch-alias": {
-			"dev-core-v12": "3.x-dev"
+			"dev-master": "3.x-dev"
 		}
 	}
 }
