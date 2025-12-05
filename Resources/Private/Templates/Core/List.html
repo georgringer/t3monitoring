@@ -10,10 +10,11 @@
 
     <f:form action="list" name="filter" object="{filter}" class="form-inline mb-3">
         <div class="form-group">
-            <label>{f:translate(key:'coreFilter.usage')}</label>
+            <label for="form-usage" class="form-label">{f:translate(key:'coreFilter.usage')}</label>
             <f:form.select property="usage"
                            options="{1:'{f:translate(key:\'coreFilter.usage.1\')}',0:'{f:translate(key:\'coreFilter.usage.0\')}'}"
-                           class="form-control"/>
+                           id="form-usage"
+                           class="form-select"/>
         </div>
 
         <button class="btn btn-default">
