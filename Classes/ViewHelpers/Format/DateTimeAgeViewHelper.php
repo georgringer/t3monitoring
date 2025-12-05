@@ -26,6 +26,10 @@ class DateTimeAgeViewHelper extends AbstractViewHelper
     {
         /** @var \DateTime $date */
         $date = $this->arguments['date'];
+        if ($date === null) {
+            return 'n/a';
+        }
+
         return BackendUtility::dateTimeAge($date->getTimestamp(), 1, 'date');
     }
 }
