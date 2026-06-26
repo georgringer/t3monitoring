@@ -18,7 +18,8 @@ use T3Monitor\T3monitoring\Domain\Model\Client;
 use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
 use UnexpectedValueException;
 
 class EmailNotification implements LoggerAwareInterface
@@ -114,14 +115,14 @@ class EmailNotification implements LoggerAwareInterface
      */
     protected function getFluidTemplate(array $arguments, string $file, string $format = 'html'): string
     {
-        /** @var StandaloneView $renderer */
-        $renderer = GeneralUtility::makeInstance(StandaloneView::class);
-        $renderer->setFormat($format);
         $path = GeneralUtility::getFileAbsFileName('EXT:t3monitoring/Resources/Private/Templates/Notification/' . $file);
-        $renderer->setTemplatePathAndFilename($path);
-        $renderer->assignMultiple($arguments);
+        $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
+        $view = $viewFactory->create(
+            new ViewFactoryData(templatePathAndFilename: $path, format: $format)
+        );
+        $view->assignMultiple($arguments);
 
-        return trim($renderer->render());
+        return trim($view->render());
     }
 
     /**
