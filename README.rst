@@ -130,9 +130,3 @@ Last but not least, the "Admin report" (Symfony Console Command: **reporting:adm
 The recipients email address needs to be configured as argument of the Symfony Console Command (respective the scheduled task).
 
 The frequency of the sent notification is also defined by the occurrence of the scheduled task.
-
-
-Upgrade v14 todo
-""""""""""""""""
-
-* Check if StandaloneView can be replaced
