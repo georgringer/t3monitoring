@@ -7,6 +7,8 @@ services:
     working_dir: /var/www/
     security_opt:
       - label=disable
+    env_file:
+      - .tools.env
     environment:
       PHP_EXTENSION_INTL: 1
       PHP_EXTENSION_GD: 1

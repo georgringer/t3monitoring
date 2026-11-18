@@ -1,0 +1,12 @@
+
+/Scripts export-ignore
+/Tests export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.gitignore export-ignore
+/.php-cs-fixer* export-ignore
+/.phpstorm* export-ignore
+/docker-compose.yaml export-ignore
+/phpstan* export-ignore
+/rector* export-ignore
+/fractor* export-ignore

@@ -3,3 +3,4 @@
 /.Build/
 /var/
 /.php-cs-fixer.cache
+/.tools.env
