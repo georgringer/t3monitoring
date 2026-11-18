@@ -17,6 +17,26 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use UnexpectedValueException;
 
+/**
+ * @phpstan-type CoreVersion array{
+ *     version: string,
+ *     version_integer: int,
+ *     release_date: string,
+ *     type: CoreImport::TYPE_*,
+ *     latest: string,
+ *     is_latest: int,
+ *     is_stable: int,
+ *     is_active: int,
+ *     is_official: int,
+ *     insecure: int,
+ *     stable: string,
+ *     next_secure_version?: string,
+ *     pid?: int,
+ *     tstamp?: int,
+ *     crdate?: int
+ * }
+ * @phpstan-type CoreVersionList array<string, CoreVersion>
+ */
 class CoreImport extends BaseImport
 {
     public const TYPE_REGULAR = 0;
@@ -92,10 +112,11 @@ class CoreImport extends BaseImport
     }
 
     /**
-     * @return array
+     * @return CoreVersionList
      */
     protected function getSimplifiedData(): array
     {
+        /** @var CoreVersionList $data */
         $data = [];
         $import = $this->getRawData();
         $minimalTypo3Version = VersionNumberUtility::convertVersionNumberToInteger(self::MINIMAL_TYPO3_VERSION);
@@ -139,7 +160,7 @@ class CoreImport extends BaseImport
     /**
      * If version 7.6.1 has been a security release, also mark version 7.6.0 as insecure
      *
-     * @param array $releases
+     * @param CoreVersionList $releases
      */
     protected function addInsecureFlag(array &$releases): void
     {
@@ -181,6 +202,10 @@ class CoreImport extends BaseImport
         return $converted->format('Y-m-d H:i:s');
     }
 
+    /**
+     * @param string $type
+     * @phpstan-return self::TYPE_*
+     */
     protected function getType(string $type): int
     {
         return match ($type) {
@@ -194,6 +219,19 @@ class CoreImport extends BaseImport
 
     /**
      * @throws UnexpectedValueException
+     * @return array{
+     *     ...<string, array{
+     *         latest: string,
+     *         stable: string,
+     *         active: bool,
+     *         elts: bool,
+     *         releases: array<string, array{
+     *             version: string,
+     *             date: string,
+     *             type: string
+     *         }>,
+     *     }>
+     * }
      */
     protected function getRawData(): array
     {
