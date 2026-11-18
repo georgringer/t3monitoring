@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+TOOL_RUN_DIR=${TOOL_RUN_DIR:-.}
+
+export PHP_VERSION TOOL_DIR TOOL_PACKAGE TOOL_RUN_DIR TOOL_COMMAND
+
 containercommand=""
 if [[ -x $(which "docker") ]]; then
     containercommand="docker compose"
@@ -13,35 +17,36 @@ if [[ -x $(which "podman-compose") ]]; then
     containercommand="podman-compose"
 fi
 
-echo "### Using this container command: $containercommand"
+echo "### Using this container command: >$containercommand<"
 
-composercommand="bash -c"
-phpcommand="php -d memory_limit=512M"
-if [[ -n $containercommand ]]; then
-    composercommand="$containercommand run --rm tools bash -c"
-    phpcommand="$containercommand run --rm tools $phpcommand"
-fi
+composerinvoker() {
+    if [[ -n $containercommand ]]; then
+        $containercommand run --rm \
+            -e "TOOL_DIR=$TOOL_DIR" \
+            -e "TOOL_PACKAGE=$TOOL_PACKAGE" \
+            tools $@
+    else
+        $@
+    fi
+}
 
-export PHP_VERSION
-
-mkdir -p $TOOL_DIR
+phpinvoker() {
+    if [[ -n $containercommand ]]; then
+        $containercommand run --rm \
+            -e "TOOL_DIR=$TOOL_DIR" \
+            -e "TOOL_RUN_DIR=$TOOL_RUN_DIR" \
+            -e "TOOL_COMMAND=$TOOL_COMMAND" \
+            tools $@
+    else
+        $@
+    fi
+}
 
 echo "### Installing tool"
-read -r -d '' composer_setup <<- EOM || true
-    if [[ ! -f $TOOL_DIR/composer.json ]]; then
-      composer init --working-dir=$TOOL_DIR --no-interaction --stability=stable --name="rx/tool"
-      composer config --working-dir=$TOOL_DIR --no-interaction allow-plugins true
-      composer config --working-dir=$TOOL_DIR --no-interaction lock false
-    fi
-    composer req --working-dir=$TOOL_DIR --dev -a -W $TOOL_PACKAGE
-EOM
-$composercommand "$composer_setup"
+composerinvoker Scripts/container/runcomposer.sh
 
 echo "### Running tool"
-$phpcommand $TOOL_DIR/vendor/bin/$TOOL_COMMAND "$@"
+phpinvoker Scripts/container/runphp.sh "$@"
 result=$?
-
-echo "### Tearing down containers"
-[[ -z $containercommand ]] || $containercommand down
 
 exit $result
