@@ -1,0 +1,18 @@
+services:
+  tools:
+    image: docker.io/thecodingmachine/php:${PHP_VERSION:-8.5}-v5-cli
+    volumes:
+      - composer-cache:/tmp/composer
+      - ./:/var/www/
+    working_dir: /var/www/
+    security_opt:
+      - label=disable
+    environment:
+      PHP_EXTENSION_INTL: 1
+      PHP_EXTENSION_GD: 1
+      PHP_CS_FIXER_FUTURE_MODE: 1
+      COMPOSER_HOME: /tmp/composer
+      COMPOSER_ALLOW_SUPERUSER: 1
+
+volumes:
+  composer-cache:

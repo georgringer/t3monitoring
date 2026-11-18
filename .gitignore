@@ -2,5 +2,4 @@
 /.idea/
 /.Build/
 /var/
-/docker-compose.yaml
 /.php-cs-fixer.cache
