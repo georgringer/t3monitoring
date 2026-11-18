@@ -166,6 +166,9 @@ class CoreImport extends BaseImport
 
             for ($i = 0; $i < $split[2]; $i++) {
                 $computedVersion = sprintf('%s.%s.%s', $split[0], $split[1], $i);
+                if (!isset($releases[$computedVersion])) {
+                    continue;
+                }
                 $releases[$computedVersion]['insecure'] = 1;
                 $releases[$computedVersion]['next_secure_version'] = $version;
             }
